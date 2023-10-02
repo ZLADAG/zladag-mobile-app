@@ -10,10 +10,8 @@
 		65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCD2ACAA796004D986C /* AppDelegate.swift */; };
 		65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCF2ACAA796004D986C /* SceneDelegate.swift */; };
 		65C40CD22ACAA796004D986C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CD12ACAA796004D986C /* ViewController.swift */; };
-		65C40CD52ACAA796004D986C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD32ACAA796004D986C /* Main.storyboard */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
 		65C40CDA2ACAA797004D986C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */; };
-		C505F4EC274C22FC706096DE /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,11 +19,9 @@
 		65C40CCD2ACAA796004D986C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C40CCF2ACAA796004D986C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		65C40CD12ACAA796004D986C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		65C40CD42ACAA796004D986C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65C40CD62ACAA797004D986C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65C40CD92ACAA797004D986C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65C40CDB2ACAA797004D986C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C505F4EC274C22FC706096DE /* Pods_MacroZladagApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +40,6 @@
 		141ACD2AC07824D1F08B448F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -74,7 +68,6 @@
 				65C40CCD2ACAA796004D986C /* AppDelegate.swift */,
 				65C40CCF2ACAA796004D986C /* SceneDelegate.swift */,
 				65C40CD12ACAA796004D986C /* ViewController.swift */,
-				65C40CD32ACAA796004D986C /* Main.storyboard */,
 				65C40CD62ACAA797004D986C /* Assets.xcassets */,
 				65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */,
 				65C40CDB2ACAA797004D986C /* Info.plist */,
@@ -88,7 +81,6 @@
 				DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */,
 				E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -153,7 +145,6 @@
 			files = (
 				65C40CDA2ACAA797004D986C /* LaunchScreen.storyboard in Resources */,
 				65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */,
-				65C40CD52ACAA796004D986C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,14 +189,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		65C40CD32ACAA796004D986C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65C40CD42ACAA796004D986C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -344,7 +327,6 @@
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -373,7 +355,6 @@
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
