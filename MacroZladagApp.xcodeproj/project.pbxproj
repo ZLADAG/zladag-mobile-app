@@ -13,6 +13,7 @@
 		65C40CD52ACAA796004D986C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD32ACAA796004D986C /* Main.storyboard */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
 		65C40CDA2ACAA797004D986C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */; };
+		C505F4EC274C22FC706096DE /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		65C40CD62ACAA797004D986C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65C40CD92ACAA797004D986C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65C40CDB2ACAA797004D986C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C505F4EC274C22FC706096DE /* Pods_MacroZladagApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		141ACD2AC07824D1F08B448F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D97AC26421E5456AC7FAE826 /* Pods_MacroZladagApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		65C40CC12ACAA796004D986C = {
 			isa = PBXGroup;
 			children = (
 				65C40CCC2ACAA796004D986C /* MacroZladagApp */,
 				65C40CCB2ACAA796004D986C /* Products */,
+				70461A21082B83EFCAA6AADD /* Pods */,
+				141ACD2AC07824D1F08B448F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +82,16 @@
 			path = MacroZladagApp;
 			sourceTree = "<group>";
 		};
+		70461A21082B83EFCAA6AADD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */,
+				E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +99,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65C40CDE2ACAA797004D986C /* Build configuration list for PBXNativeTarget "MacroZladagApp" */;
 			buildPhases = (
+				44A5BBA81CD8B509000A5924 /* [CP] Check Pods Manifest.lock */,
 				65C40CC62ACAA796004D986C /* Sources */,
 				65C40CC72ACAA796004D986C /* Frameworks */,
 				65C40CC82ACAA796004D986C /* Resources */,
@@ -132,6 +158,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		44A5BBA81CD8B509000A5924 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacroZladagApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		65C40CC62ACAA796004D986C /* Sources */ = {
@@ -282,6 +333,7 @@
 		};
 		65C40CDF2ACAA797004D986C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +362,7 @@
 		};
 		65C40CE02ACAA797004D986C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
