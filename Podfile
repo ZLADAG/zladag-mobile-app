@@ -6,5 +6,5 @@ target 'MacroZladagApp' do
   use_frameworks!
 
   # Pods for MacroZladagApp
-
+  pod 'SDWebImage'
 end
