@@ -23,7 +23,6 @@ struct BoardingsCellViewModel {
     let numOfReviews: Int
     let price: Int
     
-    
     init(name: String, address: String, slug: String, subdistrictName: String, districtName: String, cityName: String, boardingCategoryName: String) {
         self.name = name
         self.address = address

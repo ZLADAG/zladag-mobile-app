@@ -66,18 +66,8 @@ final class APICaller {
         }
     }
     
-    public func getRandomImage(completion: @escaping (Result<Data, Error>) -> Void)  {
-        createRequest(with: URL(string: "https://picsum.photos/id/\(Int.random(in: 1...3))/400/300"), type: .GET) { baseRequest in
-            let task = URLSession.shared.dataTask(with: baseRequest) { data, response, error in
-                guard let data = data, error == nil else {
-                    completion(.failure(error!))
-                    return
-                }
-                
-                completion(.success(data))
-            }
-            task.resume()
-        }
+    public func getRandomImageURL(id: Int) -> String  {
+        return Constants.baseAPIURL + "/get_image/\(id)"
     }
     
     

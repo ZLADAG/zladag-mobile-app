@@ -31,7 +31,10 @@ class BoardingDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(nameLabel)
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+//        view.addSubview(nameLabel)
         view.backgroundColor = .customGray
     }
     

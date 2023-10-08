@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */; };
 		65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCD2ACAA796004D986C /* AppDelegate.swift */; };
 		65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCF2ACAA796004D986C /* SceneDelegate.swift */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
@@ -14,7 +15,7 @@
 		65C40CE32ACAC035004D986C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CE22ACAC035004D986C /* Extension.swift */; };
 		65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CE52ACAC0AC004D986C /* APICaller.swift */; };
 		65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CED2ACAC19E004D986C /* TabBarViewController.swift */; };
-		65C40CF02ACAC291004D986C /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CEF2ACAC291004D986C /* BrowseViewController.swift */; };
+		65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CEF2ACAC291004D986C /* HomeViewController.swift */; };
 		65C40CF22ACAC298004D986C /* YourOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */; };
 		65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CF32ACAC2A4004D986C /* AccountViewController.swift */; };
 		65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */; };
@@ -31,9 +32,22 @@
 		65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40D102ACDC182004D986C /* ErrorPageViewController.swift */; };
 		65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40D322ACDD3ED004D986C /* CoretanViewController.swift */; };
 		65C40D352ACDDD6B004D986C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40D342ACDDD6B004D986C /* Color.swift */; };
+		65C40D5B2ACF5572004D986C /* UpperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40D5A2ACF5572004D986C /* UpperView.swift */; };
+		65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D072AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift */; };
+		65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D0A2AD2AE5F005D8288 /* MainHeaderContainerView.swift */; };
+		65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D0C2AD2AE79005D8288 /* SearchContainerView.swift */; };
+		65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D0E2AD2AEA9005D8288 /* TextFieldView.swift */; };
+		65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D102AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift */; };
+		65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D132AD2B398005D8288 /* PromoCollectionView.swift */; };
+		65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D162AD2B678005D8288 /* PromoCollectionViewCell.swift */; };
+		65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D182AD32CCE005D8288 /* SearchButton.swift */; };
+		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
+		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
+		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C40CCA2ACAA796004D986C /* MacroZladagApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroZladagApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C40CCD2ACAA796004D986C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C40CCF2ACAA796004D986C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +57,7 @@
 		65C40CE22ACAC035004D986C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		65C40CE52ACAC0AC004D986C /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		65C40CED2ACAC19E004D986C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		65C40CEF2ACAC291004D986C /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		65C40CEF2ACAC291004D986C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourOrdersViewController.swift; sourceTree = "<group>"; };
 		65C40CF32ACAC2A4004D986C /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +74,18 @@
 		65C40D102ACDC182004D986C /* ErrorPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPageViewController.swift; sourceTree = "<group>"; };
 		65C40D322ACDD3ED004D986C /* CoretanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanViewController.swift; sourceTree = "<group>"; };
 		65C40D342ACDDD6B004D986C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		65C40D5A2ACF5572004D986C /* UpperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperView.swift; sourceTree = "<group>"; };
+		65DC1D072AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		65DC1D0A2AD2AE5F005D8288 /* MainHeaderContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderContainerView.swift; sourceTree = "<group>"; };
+		65DC1D0C2AD2AE79005D8288 /* SearchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContainerView.swift; sourceTree = "<group>"; };
+		65DC1D0E2AD2AEA9005D8288 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		65DC1D102AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfCatsAndDogsButton.swift; sourceTree = "<group>"; };
+		65DC1D132AD2B398005D8288 /* PromoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollectionView.swift; sourceTree = "<group>"; };
+		65DC1D162AD2B678005D8288 /* PromoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollectionViewCell.swift; sourceTree = "<group>"; };
+		65DC1D182AD32CCE005D8288 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOneHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +105,7 @@
 		141ACD2AC07824D1F08B448F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,8 +148,8 @@
 				65C40CCD2ACAA796004D986C /* AppDelegate.swift */,
 				65C40CCF2ACAA796004D986C /* SceneDelegate.swift */,
 				65C40CE22ACAC035004D986C /* Extension.swift */,
-				65C40CD62ACAA797004D986C /* Assets.xcassets */,
 				65C40D342ACDDD6B004D986C /* Color.swift */,
+				65C40CD62ACAA797004D986C /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -153,8 +181,10 @@
 		65C40CE92ACAC0E9004D986C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				65C40D002ACAD1D1004D986C /* BoardingsCollectionViewCell.swift */,
-				65C40D0C2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift */,
+				65DC1D122AD2B365005D8288 /* CollectionViews */,
+				65DC1D152AD2B667005D8288 /* CollectionViewCells */,
+				65DC1D062AD2ADA1005D8288 /* SectionHeaders */,
+				65C40D5A2ACF5572004D986C /* UpperView.swift */,
 				65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -173,8 +203,9 @@
 		65C40CEB2ACAC137004D986C /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
 				65C40D0E2ACD7A22004D986C /* BoardingDetailsViewController.swift */,
+				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
+				65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */,
 				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
 			);
 			path = Other;
@@ -183,7 +214,7 @@
 		65C40CEC2ACAC13E004D986C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				65C40CEF2ACAC291004D986C /* BrowseViewController.swift */,
+				65C40CEF2ACAC291004D986C /* HomeViewController.swift */,
 				65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */,
 				65C40CF32ACAC2A4004D986C /* AccountViewController.swift */,
 				65C40CED2ACAC19E004D986C /* TabBarViewController.swift */,
@@ -202,6 +233,63 @@
 				65C40D082ACCAE53004D986C /* Subdistrict.swift */,
 			);
 			path = BoardingsResponse;
+			sourceTree = "<group>";
+		};
+		65DC1D062AD2ADA1005D8288 /* SectionHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D092AD2AE1E005D8288 /* MainHeader */,
+				65DC1D1A2AD3381E005D8288 /* SectionOne */,
+				65DC1D1B2AD3382F005D8288 /* SectionTwo */,
+			);
+			path = SectionHeaders;
+			sourceTree = "<group>";
+		};
+		65DC1D092AD2AE1E005D8288 /* MainHeader */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D072AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift */,
+				65DC1D0A2AD2AE5F005D8288 /* MainHeaderContainerView.swift */,
+				65DC1D0C2AD2AE79005D8288 /* SearchContainerView.swift */,
+				65DC1D0E2AD2AEA9005D8288 /* TextFieldView.swift */,
+				65DC1D102AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift */,
+				65DC1D182AD32CCE005D8288 /* SearchButton.swift */,
+			);
+			path = MainHeader;
+			sourceTree = "<group>";
+		};
+		65DC1D122AD2B365005D8288 /* CollectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D132AD2B398005D8288 /* PromoCollectionView.swift */,
+			);
+			path = CollectionViews;
+			sourceTree = "<group>";
+		};
+		65DC1D152AD2B667005D8288 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D162AD2B678005D8288 /* PromoCollectionViewCell.swift */,
+				65C40D002ACAD1D1004D986C /* BoardingsCollectionViewCell.swift */,
+				65C40D0C2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		65DC1D1A2AD3381E005D8288 /* SectionOne */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */,
+			);
+			path = SectionOne;
+			sourceTree = "<group>";
+		};
+		65DC1D1B2AD3382F005D8288 /* SectionTwo */ = {
+			isa = PBXGroup;
+			children = (
+				65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */,
+			);
+			path = SectionTwo;
 			sourceTree = "<group>";
 		};
 		70461A21082B83EFCAA6AADD /* Pods */ = {
@@ -224,6 +312,7 @@
 				65C40CC62ACAA796004D986C /* Sources */,
 				65C40CC72ACAA796004D986C /* Frameworks */,
 				65C40CC82ACAA796004D986C /* Resources */,
+				1F22AFDE317685A173D1A55C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -280,6 +369,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F22AFDE317685A173D1A55C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		44A5BBA81CD8B509000A5924 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,24 +416,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
+				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				65C40CFF2ACAD01B004D986C /* BoardingsCellViewModel.swift in Sources */,
 				65C40D012ACAD1D1004D986C /* BoardingsCollectionViewCell.swift in Sources */,
+				65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */,
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
-				65C40CF02ACAC291004D986C /* BrowseViewController.swift in Sources */,
+				65C40D5B2ACF5572004D986C /* UpperView.swift in Sources */,
+				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
+				65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */,
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
 				65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */,
+				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
+				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
+				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
+				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
 				65C40CE32ACAC035004D986C /* Extension.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				65C40D072ACCAB60004D986C /* City.swift in Sources */,
+				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
+				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* Color.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */,
+				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
+				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
 				65C40CF22ACAC298004D986C /* YourOrdersViewController.swift in Sources */,
 				65C40D052ACCAA84004D986C /* District.swift in Sources */,

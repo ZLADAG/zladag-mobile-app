@@ -11,7 +11,7 @@ class ErrorPageViewController: UIViewController {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "somethingsWrong")
+        imageView.image = UIImage(systemName: "x.squared")
         imageView.contentMode = .scaleAspectFill
         imageView.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
         return imageView
