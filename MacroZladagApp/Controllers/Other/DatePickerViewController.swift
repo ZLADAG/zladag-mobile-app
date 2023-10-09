@@ -222,9 +222,17 @@ class DatePickerViewController: UIViewController {
         let extractedStartDate = String(startDateLabel.text!.prefix(7))
         let extractedEndDate = String(endDateLabel.text!.prefix(7))
         
+        var extractedAllDate = ""
+        
+        if startDate == endDate {
+            extractedAllDate = "\(extractedStartDate)"
+        } else {
+            extractedAllDate = "\(extractedStartDate) - \(extractedEndDate)"
+        }
+        
         delegate?.startDate = self.startDate
         delegate?.endDate = self.endDate
-        delegate?.dateTextField.text = "\(extractedStartDate) - \(extractedEndDate)"
+        delegate?.dateTextField.text = "\(extractedAllDate)"
         
         dismiss(animated: true)
     }
