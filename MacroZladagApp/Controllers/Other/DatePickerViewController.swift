@@ -155,6 +155,10 @@ class DatePickerViewController: UIViewController {
         
         setupConstraints()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        extractDate()
+    }
 
     //MARK: Functions
     func setupConstraints() {
@@ -189,6 +193,23 @@ class DatePickerViewController: UIViewController {
         return dateFormatter.string(from: sender)
     }
     
+    func extractDate() {
+        let extractedStartDate = String(startDateLabel.text!.prefix(7))
+        let extractedEndDate = String(endDateLabel.text!.prefix(7))
+        
+        var extractedAllDate = ""
+        
+        if startDate == endDate {
+            extractedAllDate = "\(extractedStartDate)"
+        } else {
+            extractedAllDate = "\(extractedStartDate) - \(extractedEndDate)"
+        }
+        
+        delegate?.startDate = self.startDate
+        delegate?.endDate = self.endDate
+        delegate?.dateTextField.text = "\(extractedAllDate)"
+    }
+    
     //MARK: Selector Function
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -219,23 +240,13 @@ class DatePickerViewController: UIViewController {
     @objc func saveButtonTapped(_ sender: UIButton) {
         print("Tapped")
         
-        let extractedStartDate = String(startDateLabel.text!.prefix(7))
-        let extractedEndDate = String(endDateLabel.text!.prefix(7))
-        
-        var extractedAllDate = ""
-        
-        if startDate == endDate {
-            extractedAllDate = "\(extractedStartDate)"
-        } else {
-            extractedAllDate = "\(extractedStartDate) - \(extractedEndDate)"
-        }
-        
-        delegate?.startDate = self.startDate
-        delegate?.endDate = self.endDate
-        delegate?.dateTextField.text = "\(extractedAllDate)"
-        
+        extractDate()
         dismiss(animated: true)
     }
+    
+    
+    
+    
     
     /*
     // MARK: - Navigation
