@@ -379,9 +379,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let viewModel = viewModels[indexPath.row]
             let vc = BoardingDetailsViewController(viewModel: viewModel)
             vc.title = viewModel.name
+            vc.hidesBottomBarWhenPushed = true
+
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
+            
             navigationController?.pushViewController(vc, animated: true)
+            
             break
         case .sectionB(viewModels: let viewModels):
             break

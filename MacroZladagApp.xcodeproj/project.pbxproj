@@ -48,6 +48,12 @@
 		8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
 		8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */; };
+		8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */; };
+		8F9ADD9A2AD706F50082E19B /* BoardingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD992AD706F50082E19B /* BoardingCollectionView.swift */; };
+		8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */; };
+		8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */; };
+		8F9ADDA02AD994B10082E19B /* SegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */; };
+		8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADDA12AD9A3DE0082E19B /* TestSwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +100,12 @@
 		8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToolTipView.swift; sourceTree = "<group>"; };
 		8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPDatePickerViewController.swift; sourceTree = "<group>"; };
+		8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		8F9ADD992AD706F50082E19B /* BoardingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingCollectionView.swift; sourceTree = "<group>"; };
+		8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedInfoView.swift; sourceTree = "<group>"; };
+		8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewView.swift; sourceTree = "<group>"; };
+		8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedInfoViewController.swift; sourceTree = "<group>"; };
+		8F9ADDA12AD9A3DE0082E19B /* TestSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwiftUIView.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,12 +202,16 @@
 			isa = PBXGroup;
 			children = (
 				8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */,
+				8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */,
+				8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */,
+				8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */,
 				65DC1D122AD2B365005D8288 /* CollectionViews */,
 				65DC1D152AD2B667005D8288 /* CollectionViewCells */,
 				65DC1D062AD2ADA1005D8288 /* SectionHeaders */,
 				65C40D5A2ACF5572004D986C /* UpperView.swift */,
 				65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */,
 				8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */,
+				8F9ADDA12AD9A3DE0082E19B /* TestSwiftUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				65DC1D132AD2B398005D8288 /* PromoCollectionView.swift */,
+				8F9ADD992AD706F50082E19B /* BoardingCollectionView.swift */,
 			);
 			path = CollectionViews;
 			sourceTree = "<group>";
@@ -282,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				65DC1D162AD2B678005D8288 /* PromoCollectionViewCell.swift */,
+				8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */,
 				65C40D002ACAD1D1004D986C /* BoardingsCollectionViewCell.swift */,
 				65C40D0C2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift */,
 			);
@@ -430,7 +448,9 @@
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				65C40CFF2ACAD01B004D986C /* BoardingsCellViewModel.swift in Sources */,
+				8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */,
 				65C40D012ACAD1D1004D986C /* BoardingsCollectionViewCell.swift in Sources */,
+				8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */,
 				65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */,
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
 				65C40D5B2ACF5572004D986C /* UpperView.swift in Sources */,
@@ -439,6 +459,7 @@
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
 				65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */,
 				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
+				8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */,
 				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
@@ -446,12 +467,15 @@
 				8F27AD342AD389D200E40ECE /* DatePickerViewController.swift in Sources */,
 				8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
+				8F9ADD9A2AD706F50082E19B /* BoardingCollectionView.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
+				8F9ADDA02AD994B10082E19B /* SegmentedInfoViewController.swift in Sources */,
 				65C40D072ACCAB60004D986C /* City.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
+				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* Color.swift in Sources */,
 				8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */,
 				8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */,
