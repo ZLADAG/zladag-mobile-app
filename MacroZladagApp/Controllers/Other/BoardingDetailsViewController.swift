@@ -16,6 +16,7 @@ class BoardingDetailsViewController: UIViewController {
     let viewModel: BoardingsCellViewModel
     
     let infoSegment = SegmentedInfoViewController()
+    let reviewSegment = SegmentedReviewViewController()
 
     init(viewModel: BoardingsCellViewModel) {
         self.viewModel = viewModel
@@ -236,32 +237,13 @@ class BoardingDetailsViewController: UIViewController {
     }()
     
     // Segmented View Items
-//    lazy var segmentedContainerView: UIView = {
-//        let segmentedView = UIView()
-//        segmentedView.translatesAutoresizingMaskIntoConstraints = false
-//
-////        let segmentedInfoView = SegmentedInfoView()
-////        segmentedInfoView.frame = segmentedView.bounds
-//
-////        segmentedView.addSubview(segmentedReviewView)
-//        segmentedView.backgroundColor = .customBlue
-////        segmentedView.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
-////        showSegmentedView(index: 0)
-//
-//        return segmentedView
-//    }()
-//
-//    lazy var segmentedInfoView: SegmentedInfoView = {
-//        let segmentedView = SegmentedInfoView()
-//        segmentedView.frame = segmentedContainerView.bounds
-//        return segmentedView
-//    }()
-//
-//    lazy var segmentedReviewView: SegmentedReviewView = {
-//        let segmentedView = SegmentedReviewView()
-//        segmentedView.frame = segmentedContainerView.bounds
-//        return segmentedView
-//    }()
+    lazy var segmentedContainerView: UIView = {
+        let segmentedView = UIView()
+        segmentedView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedView.backgroundColor = .customBlue
+
+        return segmentedView
+    }()
     
     // Select Service
     lazy var seletctServiceView: UIView = {
@@ -377,11 +359,11 @@ class BoardingDetailsViewController: UIViewController {
         
         // View Settings
         view.backgroundColor = .white
-        
+        view.isUserInteractionEnabled = true
         
         view.addSubview(scrollview)
-        view.addSubview(seletctServiceView)
-        
+//        view.bringSubviewToFront(seletctServiceView)
+
         scrollview.addSubview(photoCollection)
         scrollview.addSubview(photosPageControl)
         scrollview.addSubview(tagLabel)
@@ -389,10 +371,12 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(locationLabel)
         scrollview.addSubview(rateReviewStackView)
         scrollview.addSubview(infoSegmentedControlContainerView)
-//        scrollview.addSubview(segmentedContainerView)
-//        segmentedContainerView.backgroundColor = .red
+
+        addReviewSegmentView()
+        reviewSegment.view.isHidden = true
+        addInfoSegmentView()
         
-        addInfoSegment()
+        view.addSubview(seletctServiceView)
         
         setupConstraints()
         configurePhotosCollectionView()
@@ -404,26 +388,32 @@ class BoardingDetailsViewController: UIViewController {
     
     //MARK: Functions
     
-    func addInfoSegment() {
+    func addInfoSegmentView() {
         addChild(infoSegment)
-        view.addSubview(infoSegment.view)
-        infoSegment.view.backgroundColor = .yellow
+        scrollview.addSubview(infoSegment.view)
+//        infoSegment.view.backgroundColor = .yellow
         infoSegment.didMove(toParent: self)
+    }
+    
+    func addReviewSegmentView() {
+        addChild(reviewSegment)
+        scrollview.addSubview(reviewSegment.view)
+//        reviewSegment.view.backgroundColor = .green
+        reviewSegment.didMove(toParent: self)
     }
     
     func setupConstraints() {
         
-        infoSegment.view.translatesAutoresizingMaskIntoConstraints = false
-        
+        //Scroll view
         NSLayoutConstraint.activate([
-            
-            // Scroll View
             scrollview.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollview.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            // Photos Carousel
+            scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        // Photos Carousel
+        NSLayoutConstraint.activate([
             photoCollection.topAnchor.constraint(equalTo: scrollview.topAnchor),
             photoCollection.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor),
             photoCollection.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor),
@@ -433,8 +423,12 @@ class BoardingDetailsViewController: UIViewController {
             photosPageControl.leadingAnchor.constraint(equalTo: photoCollection.leadingAnchor, constant: 0),
             photosPageControl.trailingAnchor.constraint(equalTo: photoCollection.trailingAnchor, constant: 0),
             photosPageControl.centerXAnchor.constraint(equalTo: scrollview.centerXAnchor),
-            
-            // Header Content
+        ])
+        photoCollection.frame = view.bounds
+
+        
+        // Header Content
+        NSLayoutConstraint.activate([
             tagLabel.topAnchor.constraint(equalTo: photoCollection.bottomAnchor, constant: 20),
             tagLabel.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
             tagLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 75),
@@ -450,8 +444,10 @@ class BoardingDetailsViewController: UIViewController {
             
             rateReviewStackView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 16),
             rateReviewStackView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
-            
-            // Segmented Control
+        ])
+        
+        // Segmented Control
+        NSLayoutConstraint.activate([
             infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16),
             infoSegmentedControlContainerView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor),
             infoSegmentedControlContainerView.widthAnchor.constraint(equalTo: scrollview.widthAnchor),
@@ -470,35 +466,30 @@ class BoardingDetailsViewController: UIViewController {
             activeBottomUnderlineView.heightAnchor.constraint(equalToConstant: 2),
             leadingDistanceConstraint,
             activeBottomUnderlineView.widthAnchor.constraint(equalTo: infoSegmentedControl.widthAnchor, multiplier: 1 / CGFloat(infoSegmentedControl.numberOfSegments)),
-            
-//            segmentedContainerView.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 100),
-//            segmentedContainerView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor),
-//            segmentedContainerView.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor),
-//            segmentedContainerView.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-////            segmentedContainerView.widthAnchor.constraint(equalToConstant: 100),
-//            segmentedContainerView.heightAnchor.constraint(equalToConstant: 900),
-
-//            segmentedInfoView.topAnchor.constraint(equalTo: segmentedContainerView.topAnchor),
-//            segmentedInfoView.bottomAnchor.constraint(equalTo: segmentedContainerView.bottomAnchor),
-//            segmentedInfoView.leadingAnchor.constraint(equalTo: segmentedContainerView.leadingAnchor),
-//            segmentedInfoView.trailingAnchor.constraint(equalTo: segmentedContainerView.trailingAnchor),
-//
-//            segmentedReviewView.topAnchor.constraint(equalTo: segmentedContainerView.topAnchor),
-//            segmentedReviewView.bottomAnchor.constraint(equalTo: segmentedContainerView.bottomAnchor),
-//            segmentedReviewView.leadingAnchor.constraint(equalTo: segmentedContainerView.leadingAnchor),
-//            segmentedReviewView.trailingAnchor.constraint(equalTo: segmentedContainerView.trailingAnchor),
+        ])
         
-            
-
-            infoSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 20),
+        //Segmented Content - Info
+        infoSegment.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 0),
             infoSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             infoSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
-            infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
+            infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
+            infoSegment.view.heightAnchor.constraint(equalToConstant: 800)
+        ])
+        
+        //Segmented Content - Review
+        reviewSegment.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reviewSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 0),
+            reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
+            reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
+            reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
+            reviewSegment.view.heightAnchor.constraint(equalToConstant: 800)
+        ])
             
-            
-            
-            
-            // Bottom-fixed menu
+        // Bottom-fixed menu
+        NSLayoutConstraint.activate([
             seletctServiceView.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
             seletctServiceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             seletctServiceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -507,15 +498,11 @@ class BoardingDetailsViewController: UIViewController {
             selectServiceStackView.bottomAnchor.constraint(equalTo: seletctServiceView.bottomAnchor, constant: -48),
             selectServiceStackView.leadingAnchor.constraint(equalTo: seletctServiceView.leadingAnchor, constant: 24),
             selectServiceStackView.trailingAnchor.constraint(equalTo: seletctServiceView.trailingAnchor, constant: -24),
-            
-            
+                        
             selectServiceButton.heightAnchor.constraint(equalToConstant: 40),
             selectServiceButton.widthAnchor.constraint(equalToConstant: 160),
-        
+
         ])
-        
-        photoCollection.frame = view.bounds
-//        segmentedContainerView.backgroundColor = .systemPink
     }
     
     func configurePhotosCollectionView(){
@@ -537,11 +524,18 @@ class BoardingDetailsViewController: UIViewController {
         // Remove any previously displayed view
 //        segmentedContainerView.subviews.forEach { $0.removeFromSuperview() }
 //
-//        if index == 0 {
-//            segmentedContainerView.addSubview(infoSegmentedControl)
-//        } else if index == 1 {
-//            segmentedContainerView.addSubview(segmentedReviewView)
-//        }
+        if index == 0 {
+            addInfoSegmentView()
+            infoSegment.view.isHidden = false
+            reviewSegment.view.isHidden = true
+//            segmentedContainerView.addSubview(infoSegment.view)
+            
+        } else if index == 1 {
+            addReviewSegmentView()
+            reviewSegment.view.isHidden = false
+            infoSegment.view.isHidden = true
+//            segmentedContainerView.addSubview(reviewSegment.view)
+        }
     }
     
     // Change position of the underline
@@ -557,7 +551,7 @@ class BoardingDetailsViewController: UIViewController {
     
     
     
-    // MARK: Action Handler Functions
+    // MARK: Action Handler
     @objc func shareButtonTapped() {
         print("share button tapped")
     }

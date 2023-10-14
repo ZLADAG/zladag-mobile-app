@@ -12,106 +12,174 @@ class SegmentedInfoViewController: UIViewController {
     var screenSize = UIScreen.main.bounds.size
 
     // Titles
-    var facilitiesTitleLabel: UILabel {
-        let label = createTitleLabel("Fasilitas & Layanan")
-        return label
-    }
-    
-    var cageSizeTitleLabel: UILabel {
-        return createTitleLabel("Ukuran Kandang")
-    }
-    var termsTitleLabel: UILabel {
-        return createTitleLabel("Kebijakan Pet Hotel")
-    }
-    var aboutTitleLabel: UILabel {
-        return createTitleLabel("Tentang")
-    }
-    var locationTitleLabel: UILabel {
-        return createTitleLabel("Lokasi")
-    }
+    var facilityTitleLabel: UILabel!
+    var cageSizeTitleLabel: UILabel!
+    var termsTitleLabel: UILabel!
+    var aboutTitleLabel: UILabel!
+    var locationTitleLabel: UILabel!
     
     // Facility content -> sesuai array
-    var groomingLabel: UIStackView {
-        return createFacilityLabelStack("", "Termasuk Grooming")
-    }
-    
+    var facilityContentStack: UIStackView! // hrsnya Collection view
     
     // Cage content
-    var labelContent: UIStackView {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis  = NSLayoutConstraint.Axis.vertical
-        stackView.distribution  = UIStackView.Distribution.equalSpacing
-        stackView.alignment = UIStackView.Alignment.leading
-        stackView.spacing   = 8.0
-
-        stackView.addSubview(cageSmallLabel)
-        stackView.addSubview(cageMediumLabel)
-        stackView.addSubview(cageLargeLabel)
-        
-        return stackView
-    }
-    var cageSmallLabel: UILabel {
-        return createCageLabel("S", 30, 60, "cm")
-    }
-    var cageMediumLabel: UILabel {
-        return createCageLabel("M", 40, 80, "cm")
-    }
-    var cageLargeLabel: UILabel {
-        return createCageLabel("L", 50, 100, "cm")
-    }
+    var cageSizeContentStack: UIStackView!
+    var cageSmallLabel: UILabel!
+    var cageMediumLabel: UILabel!
+    var cageLargeLabel: UILabel!
     
     // Term content
+    var termsContentStack: UIStackView! // hrsnya Collection view
     
     // About content
-    var aboutLabel: UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        label.text = "Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet"
-        label.textColor = .customGrayForIcons
-        label.textAlignment = .left
-        
-        // enable text wrapping
-        label.numberOfLines = 0
-        
-        return label
-    }
+    var aboutContentLabel: UILabel!
     
     // Location content
-    var locationLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+//    var locationMapView:
+    var locationContentLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        label.text = "location address"
-        label.textColor = .customGrayForIcons
-        label.textAlignment = .left
-        
-        return label
-    }()
-    
-    
-    
-    
-    
-    
-    
-    func createTitleLabel(_ text: String) -> UILabel {
-        let label = UILabel(frame: CGRect(x: 0, y: 24, width: screenSize.width, height: 60))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        
-        label.text = "\(text)"
-        label.textColor = .black
-        label.textAlignment = .left
-        label.backgroundColor = .customBlue
-        
-        return label
+        setUpComponents()
+        setUpConstraint()
     }
     
-    func createFacilityLabelStack(_ iconName:String, _ text: String) -> UIStackView {
+    //MARK: Setup components
+    private func setUpComponents() {
+        
+        setUpFacilityContent()
+        setUpCageSizeContent()
+        setUpTermsContent()
+        setUpAboutContent()
+        setUpLocationContent()
+        
+        self.view.addSubview(facilityTitleLabel)
+//        self.view.addSubview(facilityContentStack)
+        
+        self.view.addSubview(cageSizeTitleLabel)
+        self.view.addSubview(cageSizeContentStack)
+        
+        self.view.addSubview(termsTitleLabel)
+//        self.view.addSubview(termsContentStack)
+        
+        self.view.addSubview(aboutTitleLabel)
+        self.view.addSubview(aboutContentLabel)
+        
+        self.view.addSubview(locationTitleLabel)
+        self.view.addSubview(locationContentLabel)
+    }
+    
+    //MARK: Setup constraints
+    private func setUpConstraint() {
+        // Facility
+        NSLayoutConstraint.activate([
+            facilityTitleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
+            facilityTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            facilityTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        NSLayoutConstraint.activate([])
+        
+        // Cage Size
+        NSLayoutConstraint.activate([
+            cageSizeTitleLabel.topAnchor.constraint(equalTo: facilityTitleLabel.bottomAnchor, constant: 32),
+            cageSizeTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            cageSizeTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        NSLayoutConstraint.activate([
+            cageSizeContentStack.topAnchor.constraint(equalTo: cageSizeTitleLabel.bottomAnchor, constant: 16),
+            cageSizeContentStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            cageSizeContentStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        
+        //Terms
+        NSLayoutConstraint.activate([
+            termsTitleLabel.topAnchor.constraint(equalTo: cageSizeContentStack.bottomAnchor, constant: 32),
+            termsTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            termsTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        NSLayoutConstraint.activate([])
+        
+        // About
+        NSLayoutConstraint.activate([
+            aboutTitleLabel.topAnchor.constraint(equalTo: termsTitleLabel.bottomAnchor, constant: 32),
+            aboutTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            aboutTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        NSLayoutConstraint.activate([
+            aboutContentLabel.topAnchor.constraint(equalTo: aboutTitleLabel.bottomAnchor, constant: 16),
+            aboutContentLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            aboutContentLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        
+        // Location
+        NSLayoutConstraint.activate([
+            locationTitleLabel.topAnchor.constraint(equalTo: aboutContentLabel.bottomAnchor, constant: 32),
+            locationTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            locationTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        NSLayoutConstraint.activate([])
+        NSLayoutConstraint.activate([
+            locationContentLabel.topAnchor.constraint(equalTo: locationTitleLabel.bottomAnchor, constant: 16),
+            locationContentLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            locationContentLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+        ])
+        
+    
+    }
+    
+    //MARK: Setup Content
+    private func setUpFacilityContent() {
+        // Set Title
+        facilityTitleLabel = createTitleLabel("Fasilitas & Layanan")
+        
+        // Set Content
+//        facilityContentStack =
+    }
+    
+    private func setUpCageSizeContent() {
+        // Set Title
+        cageSizeTitleLabel = createTitleLabel("Ukuran Kandang")
+
+        // Set Content
+        cageSmallLabel = createCageLabel("S", 35, 60, "cm")
+        cageMediumLabel = createCageLabel("M", 45, 70, "cm")
+        cageLargeLabel = createCageLabel("L", 55, 80, "cm")
+        
+        cageSizeContentStack = UIStackView(arrangedSubviews: [cageSmallLabel, cageMediumLabel, cageLargeLabel])
+        cageSizeContentStack.translatesAutoresizingMaskIntoConstraints = false
+
+        cageSizeContentStack.axis  = NSLayoutConstraint.Axis.vertical
+        cageSizeContentStack.distribution  = UIStackView.Distribution.equalSpacing
+        cageSizeContentStack.alignment = UIStackView.Alignment.leading
+        cageSizeContentStack.spacing   = 8.0
+    }
+    
+    private func setUpTermsContent() {
+        // Set Title
+        termsTitleLabel = createTitleLabel("Kebijakan Pet Hotel")
+    }
+    
+    private func setUpAboutContent() {
+        // Set Title
+        aboutTitleLabel = createTitleLabel("Tentang")
+        
+        // Set Content
+        aboutContentLabel = createDefaultLabel("Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet")
+    }
+    
+    private func setUpLocationContent() {
+        // Set Title
+        locationTitleLabel = createTitleLabel("Lokasi")
+
+        // Set Content - map view
+
+        // Set Content - location address
+        locationContentLabel = createLocationLabel("Jl. Alamat pet hotelnya")
+    }
+    
+    //MARK: Creation Stacks
+    // Stack view
+    private func createIconLabel(_ iconName:String, _ text: String) -> UIStackView {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.image = UIImage(named: iconName)
@@ -138,89 +206,95 @@ class SegmentedInfoViewController: UIViewController {
         return stackView
     }
     
-    func createCageLabel(_ size: String, _ width: Int, _ height: Int, _ metrics: String) -> UILabel {
+    private func createIconLabelWithTitle(_ iconName:String, _ title: String, _ text: String) -> UIStackView {
+    
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        
+        titleLabel.text = "\(text)"
+        titleLabel.textColor = .black
+        titleLabel.textAlignment = .left
+        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
-        label.text = "\(size.uppercased()) = \(width)\(metrics) x \(height)\(metrics)"
+        label.text = "\(text)"
+        label.textColor = .black
+        label.textAlignment = .left
+        
+        let icon = UIImageView()
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.image = UIImage(named: iconName)
+        icon.contentMode = .scaleAspectFill
+        
+        let labelStackView = UIStackView()
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelStackView.axis  = NSLayoutConstraint.Axis.vertical
+        labelStackView.distribution  = UIStackView.Distribution.fill
+        labelStackView.alignment = UIStackView.Alignment.leading
+        labelStackView.spacing   = 8.0
+        
+        labelStackView.addSubview(titleLabel)
+        labelStackView.addSubview(label)
+        
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis  = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.top
+        stackView.spacing   = 8.0
+        
+        stackView.addSubview(icon)
+        stackView.addSubview(labelStackView)
+        
+        return stackView
+    }
+    
+    private func createOpenHoursInfo() {
+        
+    }
+    
+    //MARK: Creation Label
+    private func createTitleLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        
+        label.text = "\(text)"
         label.textColor = .black
         label.textAlignment = .left
         
         return label
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-//        self.view.addSubview(facilitiesTitleLabel)
-        self.view.addSubview(facilitiesTitleLabel)
+    private func createDefaultLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         
-//        self.view.addConstraints([
-//           // Facility
-//            labelContent.topAnchor.constraint(equalTo: self.view.topAnchor),
-//            labelContent.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-//            labelContent.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-//            labelContent.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-//        ])
+        label.text = "\(text)"
+        label.textColor = .black
+        label.textAlignment = .left
         
-//        setUpConstraint()
+        // enable text wrapping
+        label.numberOfLines = 0
+        
+        return label
     }
     
-    
-    private func setUpConstraint() {
-        print("segmented info")
-
-       
-//        NSLayoutConstraint.activate([
-//            // Facility
-//            facilitiesTitleLabel.topAnchor.constraint(equalTo: view.topAnchor),
-//            facilitiesTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            facilitiesTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            facilitiesTitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//
-//            // Facility
-//            labelContent.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
-//            labelContent.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-//            labelContent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//        ])
-        
-//        NSLayoutConstraint.activate([
-//            // Facility
-//            facilitiesTitleLabel.topAnchor.constraint(equalTo: topAnchor),
-//            facilitiesTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            facilitiesTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            facilitiesTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-//
-//            // Cage Size
-//            cageSizeTitleLabel.topAnchor.constraint(equalTo: facilitiesTitleLabel.bottomAnchor),
-//            cageSizeTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            cageSizeTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            cageSizeTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-//
-//            // Terms
-//            termsTitleLabel.topAnchor.constraint(equalTo: cageSizeTitleLabel.bottomAnchor),
-//            termsTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            termsTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            termsTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-//
-//            // About
-//            aboutTitleLabel.topAnchor.constraint(equalTo: termsTitleLabel.bottomAnchor),
-//            aboutTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            aboutTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            aboutTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-//
-//            // Location
-//            locationTitleLabel.topAnchor.constraint(equalTo: aboutTitleLabel.bottomAnchor),
-//            locationTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            locationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            locationTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-//
-//
-//        ])
+    private func createCageLabel(_ size: String, _ width: Int, _ height: Int, _ metrics: String) -> UILabel {
+        let label = createDefaultLabel("\(size.uppercased()) = \(width)\(metrics) x \(height)\(metrics)")
+        return label
     }
-
+    
+    private func createLocationLabel(_ text: String) -> UILabel {
+        let label = createDefaultLabel(text)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .customGrayForIcons
+        return label
+    }
     
 
     /*

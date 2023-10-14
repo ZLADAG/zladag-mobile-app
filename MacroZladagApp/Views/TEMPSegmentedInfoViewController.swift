@@ -1,19 +1,20 @@
 //
-//  SegmentedInfoView.swift
+//  TEMPSegmentedInfoViewController.swift
 //  MacroZladagApp
 //
-//  Created by Celine Margaretha on 12/10/23.
+//  Created by Celine Margaretha on 14/10/23.
 //
 
 import UIKit
 
-class SegmentedInfoView: UIView {
+class TEMPSegmentedInfoViewController: UIViewController {
 
     var screenSize = UIScreen.main.bounds.size
-    
+
     // Titles
     var facilitiesTitleLabel: UILabel {
-        return createTitleLabel("Fasilitas & Layanan")
+        let label = createTitleLabel("Fasilitas & Layanan")
+        return label
     }
     
     var cageSizeTitleLabel: UILabel {
@@ -38,24 +39,14 @@ class SegmentedInfoView: UIView {
     // Cage content
     var labelContent: UIStackView {
         let stackView = UIStackView(arrangedSubviews: [cageSmallLabel, cageMediumLabel, cageLargeLabel])
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis  = NSLayoutConstraint.Axis.horizontal
-        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.axis  = NSLayoutConstraint.Axis.vertical
+        stackView.distribution  = UIStackView.Distribution.equalSpacing
         stackView.alignment = UIStackView.Alignment.leading
         stackView.spacing   = 8.0
 
-//        stackView.addSubview(cageSmallLabel)
-//        stackView.addSubview(cageMediumLabel)
-//        stackView.addSubview(cageLargeLabel)
-        
-        
-//        self.addSubview(stackView)
-//        NSLayoutConstraint.activate([
-//            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-//            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-//            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 24)
-//        ])
-        
+        stackView.backgroundColor = .magenta
         return stackView
     }
     var cageSmallLabel: UILabel {
@@ -71,6 +62,8 @@ class SegmentedInfoView: UIView {
     // Term content
     
     // About content
+    var test: UILabel!
+    
     var aboutLabel: UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -79,18 +72,16 @@ class SegmentedInfoView: UIView {
         label.text = "Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet"
         label.textColor = .customGrayForIcons
         label.textAlignment = .left
-        
         // enable text wrapping
         label.numberOfLines = 0
+        label.backgroundColor = .brown
         
-//        self.addSubview(label)
-//        label.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
+//        self.view.addSubview(label)
+//        label.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true
+//        label.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
+//        label.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16).isActive = true
+//        label.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 20)
 
-//        NSLayoutConstraint.activate([
-//            label.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-//            label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-//            label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 24)
-//        ])
         return label
     }
     
@@ -107,14 +98,21 @@ class SegmentedInfoView: UIView {
         return label
     }()
     
+    
+    
+    
+    
+    
+    
     func createTitleLabel(_ text: String) -> UILabel {
-        let label = UILabel()
+        let label = UILabel(frame: CGRect(x: 0, y: 24, width: screenSize.width, height: 60))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .medium)
         
         label.text = "\(text)"
         label.textColor = .black
         label.textAlignment = .left
+        label.backgroundColor = .customBlue
         
         return label
     }
@@ -158,118 +156,86 @@ class SegmentedInfoView: UIView {
         return label
     }
     
-//    init() {
-//        super.init(frame: .zero)
-//
-//        backgroundColor = .customGray
-////        layer.cornerRadius = 4
-//
-////        addSubview(labelContent)
-//        addSubview(aboutLabel)
-//        print("1")
-////        addSubview(cageSizeTitleLabel)
-////        print("2")
-////        addSubview(termsTitleLabel)
-////        print("3")
-////        addSubview(aboutTitleLabel)
-////        print("4")
-////        addSubview(locationTitleLabel)
-//
-////        setUpConstraint()
-////        addSubview()
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-
-//    required init?(coder: NSCoder) {
-//        fatalError()
-//    }
-    
-//    override func layoutSubviews() {
-////        imageView.frame = CGRect(x: 10, y: 14, width: 16, height: 16)
-//
-////        if hasMapIcon != nil {
-////            mapIcon.frame = CGRect(x: self.frame.width - 8 - 16, y: 14, width: 16, height: 16)
-////        }
+        // Do any additional setup after loading the view.
+//        self.view.addSubview(facilitiesTitleLabel)
+//        self.view.addSubview(facilitiesTitleLabel)
+        
+//        test = createTitleLabel("yow tess")
+        test = UILabel()
+        test.translatesAutoresizingMaskIntoConstraints = false
+        test.font = .systemFont(ofSize: 14, weight: .medium)
+        
+        test.text = "Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet"
+        test.textColor = .customGrayForIcons
+        test.textAlignment = .left
+        // enable text wrapping
+        test.numberOfLines = 0
+        test.backgroundColor = .brown
+        
+        
+        let test2 = UILabel()
+        test2.translatesAutoresizingMaskIntoConstraints = false
+        test2.font = .systemFont(ofSize: 14, weight: .medium)
+        
+        test2.text = "Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet"
+        test2.textColor = .customGrayForIcons
+        test2.textAlignment = .left
+        // enable text wrapping
+        test2.numberOfLines = 0
+        test2.backgroundColor = .blue
+        
+        
+        self.view.addSubview(test)
+        test.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true
+        test.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
+        test.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16).isActive = true
+        
+        self.view.addSubview(test2)
+        test2.topAnchor.constraint(equalTo: test.topAnchor, constant: 60).isActive = true
+        test2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
+        test2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16).isActive = true
+        
+        
+//        self.view.addSubview(aboutLabel)
+//        self.view.addSubview(locationLabel)
+//        self.view.addSubview(labelContent)
+        self.view.backgroundColor = .green
+        
+        
+//        labelContent.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: self.view.width, height: 20))
+        
+        
+        
+//        self.view.addConstraints([
+//           // Facility
+//            labelContent.topAnchor.constraint(equalTo: self.view.topAnchor),
+//            labelContent.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            labelContent.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            labelContent.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+//        ])
+        
 //        setUpConstraint()
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-////        addSubview(facilitiesTitleLabel)
-//        self.frame = bounds
-//        addSubview(labelContent)
-//        addSubview(aboutLabel)
-//
-//        // Set up constraints for the scroll view
-////        NSLayoutConstraint.activate([
-////            facilitiesTitleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-////            facilitiesTitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-////            facilitiesTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-////            facilitiesTitleLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-////        ])
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        print("init-override")
-        setUpConstraint()
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        print("init-required")
-        setUpConstraint()
-
-    }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        // Your layout code goes here
-//        setUpConstraint()
-//
-//    }
+    
     
     private func setUpConstraint() {
         print("segmented info")
-        
-        self.addSubview(aboutLabel)
-        self.addSubview(labelContent)
-        self.backgroundColor = .systemPink
-        
-        aboutLabel.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 60, height: 20))
-        labelContent.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 60, height: 20))
-//        facilitiesTitleLabel.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-//        facilitiesTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-//        facilitiesTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-//        facilitiesTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+
+       
 //        NSLayoutConstraint.activate([
 //            // Facility
-//            facilitiesTitleLabel.topAnchor.constraint(equalTo: topAnchor),
-//            facilitiesTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            facilitiesTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-//            facilitiesTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+//            facilitiesTitleLabel.topAnchor.constraint(equalTo: view.topAnchor),
+//            facilitiesTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            facilitiesTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            facilitiesTitleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 //
 //            // Facility
-//            labelContent.topAnchor.constraint(equalTo: topAnchor, constant: 40),
-//            labelContent.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-//            labelContent.trailingAnchor.constraint(equalTo: trailingAnchor)
+//            labelContent.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+//            labelContent.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+//            labelContent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 //        ])
         
 //        NSLayoutConstraint.activate([
@@ -306,14 +272,17 @@ class SegmentedInfoView: UIView {
 //
 //        ])
     }
+
     
+
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
     */
 
 }
-
