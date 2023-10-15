@@ -99,6 +99,12 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 8
         
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize(width: 1, height: 5)
+        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 0.15
+        layer.masksToBounds = false
+        
     }
     
     required init?(coder: NSCoder) {
@@ -114,7 +120,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 0, y: 0, width: contentView.width, height: 130)
         imageView.backgroundColor = .white
         
-        nameLabel.frame = CGRect(x: leading, y: imageView.bottom + 20, width: contentView.width, height: 19)
+        nameLabel.frame = CGRect(x: leading, y: imageView.bottom + 20, width: contentView.width - 75 - 8, height: 19)
         
         starImageView.frame = CGRect(x: contentView.right - 75, y: imageView.bottom + 20, width: 16, height: 16)
         ratingLabel.frame = CGRect(x: starImageView.right + 5, y: imageView.bottom + 20, width: contentView.width, height: 16)
