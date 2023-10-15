@@ -25,7 +25,6 @@ class PromoCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 8
-        
     }
     
     required init?(coder: NSCoder) {
