@@ -35,7 +35,7 @@ class BoardingDetailsViewController: UIViewController {
         scrollView.contentInsetAdjustmentBehavior = .never
 //        scrollView.showsVerticalScrollIndicator = false
 //        scrollView.backgroundColor = .customLightOrange
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         return scrollView
 
@@ -347,15 +347,21 @@ class BoardingDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         // Navigation Controller Settings
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
+//        navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = ""
-        navigationController?.navigationBar.tintColor = .white
+        navigationItem.titleView?.tintColor = .customOrange
+        navigationController?.navigationBar.tintColor = .customOrange
+        
         
         // Create the button
         let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
         // Add the button to the right side of the navigation bar
         navigationItem.rightBarButtonItem = shareButton
+        
+        
+//        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationItem.scrollEdgeAppearance.tit
         
         // View Settings
         view.backgroundColor = .white
@@ -371,7 +377,10 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(locationLabel)
         scrollview.addSubview(rateReviewStackView)
         scrollview.addSubview(infoSegmentedControlContainerView)
+        
+        scrollview.addSubview(segmentedContainerView)
 
+        
         addReviewSegmentView()
         reviewSegment.view.isHidden = true
         addInfoSegmentView()
@@ -380,6 +389,7 @@ class BoardingDetailsViewController: UIViewController {
         
         setupConstraints()
         configurePhotosCollectionView()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -393,20 +403,6 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(infoSegment.view)
 //        infoSegment.view.backgroundColor = .yellow
         infoSegment.didMove(toParent: self)
-        
-//        var totalHeight: CGFloat = 0
-//           
-//       // Loop through the arranged subviews and add their heights along with spacing
-//        for subview in infoSegment.infoDetailsStack.arrangedSubviews {
-//           totalHeight += subview.frame.size.height
-//       }
-//       
-//       // Add the spacing between subviews
-//        if infoSegment.infoDetailsStack.arrangedSubviews.count > 1 {
-//            totalHeight += CGFloat(infoSegment.infoDetailsStack.arrangedSubviews.count - 1) * infoSegment.infoDetailsStack.spacing
-//       }
-//        
-//        print("info segment height (\(infoSegment.infoDetailsStack.arrangedSubviews.count) items) = \(totalHeight)")
     }
     
     func addReviewSegmentView() {
@@ -419,12 +415,28 @@ class BoardingDetailsViewController: UIViewController {
     
     func setupConstraints() {
         
-        //Scroll view
+        // Bottom-fixed menu
+        NSLayoutConstraint.activate([
+            seletctServiceView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            seletctServiceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            seletctServiceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            selectServiceStackView.topAnchor.constraint(equalTo: seletctServiceView.topAnchor, constant: 24),
+            selectServiceStackView.bottomAnchor.constraint(equalTo: seletctServiceView.bottomAnchor, constant: -48),
+            selectServiceStackView.leadingAnchor.constraint(equalTo: seletctServiceView.leadingAnchor, constant: 24),
+            selectServiceStackView.trailingAnchor.constraint(equalTo: seletctServiceView.trailingAnchor, constant: -24),
+                        
+            selectServiceButton.heightAnchor.constraint(equalToConstant: 40),
+            selectServiceButton.widthAnchor.constraint(equalToConstant: 160),
+
+        ])
+        
+        // Scroll view
         NSLayoutConstraint.activate([
             scrollview.topAnchor.constraint(equalTo: view.topAnchor),
             scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollview.bottomAnchor.constraint(equalTo: seletctServiceView.topAnchor, constant: 0),
         ])
         
         // Photos Carousel
@@ -490,7 +502,7 @@ class BoardingDetailsViewController: UIViewController {
             infoSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             infoSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
-            infoSegment.view.heightAnchor.constraint(equalToConstant: 1100)
+            infoSegment.view.heightAnchor.constraint(equalToConstant: infoSegment.view.height)
         ])
         
         
@@ -501,23 +513,7 @@ class BoardingDetailsViewController: UIViewController {
             reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            reviewSegment.view.heightAnchor.constraint(equalToConstant: 1100)
-        ])
-            
-        // Bottom-fixed menu
-        NSLayoutConstraint.activate([
-            seletctServiceView.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
-            seletctServiceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            seletctServiceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            selectServiceStackView.topAnchor.constraint(equalTo: seletctServiceView.topAnchor, constant: 24),
-            selectServiceStackView.bottomAnchor.constraint(equalTo: seletctServiceView.bottomAnchor, constant: -48),
-            selectServiceStackView.leadingAnchor.constraint(equalTo: seletctServiceView.leadingAnchor, constant: 24),
-            selectServiceStackView.trailingAnchor.constraint(equalTo: seletctServiceView.trailingAnchor, constant: -24),
-                        
-            selectServiceButton.heightAnchor.constraint(equalToConstant: 40),
-            selectServiceButton.widthAnchor.constraint(equalToConstant: 160),
-
+            reviewSegment.view.heightAnchor.constraint(equalToConstant: reviewSegment.screenSize.height)
         ])
     }
     
@@ -538,16 +534,21 @@ class BoardingDetailsViewController: UIViewController {
     
     func showSegmentedView(index: Int) {
         // Remove any previously displayed view
-//        segmentedContainerView.subviews.forEach { $0.removeFromSuperview() }
+        segmentedContainerView.subviews.forEach { $0.removeFromSuperview() }
 //
         if index == 0 {
             addInfoSegmentView()
+            infoSegment.view.heightAnchor.constraint(equalToConstant: infoSegment.view.height).isActive = true
+
             infoSegment.view.isHidden = false
             reviewSegment.view.isHidden = true
 //            segmentedContainerView.addSubview(infoSegment.view)
+
             
         } else if index == 1 {
             addReviewSegmentView()
+            reviewSegment.view.heightAnchor.constraint(equalToConstant: reviewSegment.view.height).isActive = true
+
             reviewSegment.view.isHidden = false
             infoSegment.view.isHidden = true
 //            segmentedContainerView.addSubview(reviewSegment.view)
@@ -598,7 +599,7 @@ extension BoardingDetailsViewController: UICollectionViewDelegate {
         photosPageControl.currentPage = indexPath.row
         print(indexPath.row)
     }
-    // Add this method to update the page control index when scrolling ends
+    /// Add this method to update the page control index when scrolling ends
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == photoCollection {
             let pageWidth = scrollView.frame.size.width

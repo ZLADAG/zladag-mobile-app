@@ -72,21 +72,6 @@ class SegmentedInfoViewController: UIViewController {
         
         self.view.addSubview(infoDetailsStack)
         
-        self.view.backgroundColor = .systemTeal
-        infoDetailsStack.backgroundColor = .white
-        var totalHeight: CGFloat = 0
-           
-       // Loop through the arranged subviews and add their heights along with spacing
-        for subview in infoDetailsStack.arrangedSubviews {
-           totalHeight += subview.frame.size.height
-       }
-       
-       // Add the spacing between subviews
-        if infoDetailsStack.arrangedSubviews.count > 1 {
-            totalHeight += CGFloat(infoDetailsStack.arrangedSubviews.count - 1) * infoDetailsStack.spacing
-       }
-        
-        print("infoDetailsStack (\(infoDetailsStack.arrangedSubviews.count) items) = \(totalHeight)")
     }
     
     //MARK: Setup constraints
@@ -94,7 +79,8 @@ class SegmentedInfoViewController: UIViewController {
         NSLayoutConstraint.activate([
             infoDetailsStack.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
             infoDetailsStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            infoDetailsStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+            infoDetailsStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            infoDetailsStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32)
         ])
     }
     
