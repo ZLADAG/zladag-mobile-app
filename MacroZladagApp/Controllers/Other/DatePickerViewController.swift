@@ -8,9 +8,9 @@
 import UIKit
 
 class DatePickerViewController: UIViewController {
-
+    
     var delegate: MainHeaderCollectionReusableView?
-
+    
     var startDate: Date?
     var endDate: Date?
     
@@ -38,7 +38,7 @@ class DatePickerViewController: UIViewController {
         label.text = "Sampai"
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return label
     }()
     
@@ -56,14 +56,14 @@ class DatePickerViewController: UIViewController {
         label.text = "-"
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return label
     }()
     
     lazy var datePickerStackView : UIStackView = {
         let stackView   = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false;
-
+        
         stackView.axis  = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.fillEqually
         stackView.alignment = UIStackView.Alignment.fill
@@ -78,7 +78,7 @@ class DatePickerViewController: UIViewController {
     lazy var startDateStackView : UIStackView = {
         let stackView   = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false;
-
+        
         stackView.axis  = NSLayoutConstraint.Axis.vertical
         stackView.distribution  = UIStackView.Distribution.fill
         stackView.alignment = UIStackView.Alignment.fill
@@ -93,7 +93,7 @@ class DatePickerViewController: UIViewController {
     lazy var endDateStackView : UIStackView = {
         let stackView   = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false;
-
+        
         stackView.axis  = NSLayoutConstraint.Axis.vertical
         stackView.distribution  = UIStackView.Distribution.fill
         stackView.alignment = UIStackView.Alignment.fill
@@ -101,10 +101,10 @@ class DatePickerViewController: UIViewController {
         
         stackView.addArrangedSubview(titleEndDateLabel)
         stackView.addArrangedSubview(endDateLabel)
-//        stackView.addArrangedSubview(endDateTextField)
-//        stackView.backgroundColor = .customOrange
-
-//        self.view.addSubview(stackView)
+        //        stackView.addArrangedSubview(endDateTextField)
+        //        stackView.backgroundColor = .customOrange
+        
+        //        self.view.addSubview(stackView)
         return stackView
         
     }()
@@ -140,7 +140,7 @@ class DatePickerViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         
@@ -159,7 +159,7 @@ class DatePickerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         extractDate()
     }
-
+    
     //MARK: Functions
     func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -226,17 +226,17 @@ class DatePickerViewController: UIViewController {
         let endDateText = getDate(endDate!)
         endDateLabel.text = endDateText
         
-//        let extractedStartDate = String(startDateLabel.text!.prefix(7))
-//        let extractedEndDate = String(endDateLabel.text!.prefix(7))
-//
-//        delegate?.startDate = self.startDate
-//        delegate?.endDate = self.endDate
-//        delegate?.dateTextField.text = "\(extractedStartDate) - \(extractedEndDate)"
+        //        let extractedStartDate = String(startDateLabel.text!.prefix(7))
+        //        let extractedEndDate = String(endDateLabel.text!.prefix(7))
+        //
+        //        delegate?.startDate = self.startDate
+        //        delegate?.endDate = self.endDate
+        //        delegate?.dateTextField.text = "\(extractedStartDate) - \(extractedEndDate)"
         
         // DEBUG
         print("Date Selected: \(startDateText) - \(endDateText)")
     }
-   
+    
     @objc func saveButtonTapped(_ sender: UIButton) {
         print("Tapped")
         
@@ -244,18 +244,4 @@ class DatePickerViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

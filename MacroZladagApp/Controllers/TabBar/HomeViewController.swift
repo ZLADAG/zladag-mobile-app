@@ -9,10 +9,9 @@ import Foundation
 import UIKit
 
 enum SectionType {
-    case sectionPromo(stringOfURLs: [String]) // 0
-    case sectionA(viewModels: [BoardingsCellViewModel]) // 1
-    case sectionB(viewModels: [BoardingsCellViewModel]) // 2
-    case sectionC(viewModels: [BoardingsCellViewModel]) // 3
+    case sectionPromo(stringOfAssets: [String]) // 0
+    case sectionMakan(viewModels: [BoardingsCellViewModel]) // 1
+    case sectionTempatBermain(viewModels: [BoardingsCellViewModel]) // 1
 }
 
 class HomeViewController: UIViewController {
@@ -177,6 +176,8 @@ class HomeViewController: UIViewController {
         configureCollectionView()
         
         collectionView.backgroundColor = .customGray
+        setupNavigationBar2()
+//        navigationController?.navigationBar.backgroundColor = .red
     }
     
     
@@ -188,38 +189,38 @@ class HomeViewController: UIViewController {
     
     func setupNavigationBar() {
         let appearance = UINavigationBarAppearance()
-        let appearance2 = UINavigationBarAppearance()
         appearance.backgroundColor = .customLightOrange
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
-        appearance2.backgroundColor = .clear
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.tintColor = .yellow
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    func setupNavigationBar2() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .customLightOrange
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .white
         
 //        navigationController?.navigationBar.standardAppearance = appearance2
 //        navigationController?.navigationBar.compactAppearance = appearance2
 //        navigationController?.navigationBar.scrollEdgeAppearance = appearance2
-
-
     }
     
     func fetchData() {
         let group = DispatchGroup()
-        for _ in 0..<2 {
-            group.enter()
-        }
+        group.enter()
         
-        var boardingsResponseA: BoardingsResponse?
-        var boardingsResponseB: BoardingsResponse?
+        var makanBoardings: [Boarding]?
+        var tempatBermainBoardings: [Boarding]?
         
-        // A
         APICaller.shared.getBoardings { result in
             defer {
                 group.leave()
@@ -227,54 +228,38 @@ class HomeViewController: UIViewController {
             
             switch result {
             case .success(let model):
-                boardingsResponseA = model
+                makanBoardings = model.data.makanBoardings
+                tempatBermainBoardings = model.data.tempatBermainBoardings
                 break
             case .failure(let error):
-                print("ERROR IN SECTION A", error.localizedDescription)
-                break
-            }
-        }
-        
-        // B
-        APICaller.shared.getBoardings { result in
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let model):
-                boardingsResponseB = model
-                break
-            case .failure(let error):
-                print("ERROR IN SECTION B", error.localizedDescription)
+                print("ERROR IN THI SECTION", error.localizedDescription)
                 break
             }
         }
         
         
         group.notify(queue: .main) {
-            guard let boardingsDataA = boardingsResponseA?.data,
-                  let boardingsDataB = boardingsResponseB?.data
+            guard let makanBoardings = makanBoardings,
+                  let tempatBermainBoardings = tempatBermainBoardings
             else { return }
             
-            
             // configure models
-            self.configureModels(forSection1: boardingsDataA, forSection2: boardingsDataB)
+            self.configureModels(forSection1: makanBoardings, forSection2: tempatBermainBoardings)
         }
     }
     
     func configureModels(forSection1 resultA: [Boarding], forSection2 resultB: [Boarding]) {
         
         // SECTION 1
-        var stringOfURLs = [String]()
+        var stringOfAssets = [String]()
         for _ in 0..<7 {
-            stringOfURLs.append("banner\(Int.random(in: 0...4).description)")
+            stringOfAssets.append("banner\(Int.random(in: 0...4).description)")
         }
                     
-        sections.append(.sectionPromo(stringOfURLs: stringOfURLs))
+        sections.append(.sectionPromo(stringOfAssets: stringOfAssets))
         
         // SECTION 2
-        sections.append(.sectionA(viewModels: resultA.compactMap({ boarding in
+        sections.append(.sectionMakan(viewModels: resultA.compactMap({ boarding in
             
             return BoardingsCellViewModel(
                 name: boarding.name,
@@ -288,7 +273,7 @@ class HomeViewController: UIViewController {
         })))
         
         // SECTION 3
-        sections.append(.sectionB(viewModels: resultB.compactMap({ boarding in
+        sections.append(.sectionTempatBermain(viewModels: resultB.compactMap({ boarding in
             return BoardingsCellViewModel(
                 name: boarding.name,
                 address: boarding.address,
@@ -312,12 +297,34 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .green
         
-        collectionView.register(MainHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderCollectionReusableView.identifier)
-        collectionView.register(PromoCollectionViewCell.self.self, forCellWithReuseIdentifier: PromoCollectionViewCell.identifier)
-        collectionView.register(SectionOneHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionOneHeaderCollectionReusableView.identifier)
-        collectionView.register(BoardingsCollectionViewCell.self, forCellWithReuseIdentifier: BoardingsCollectionViewCell.identifier)
-        collectionView.register(SectionTwoHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionTwoHeaderCollectionReusableView.identifier)
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView.register(
+            MainHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: MainHeaderCollectionReusableView.identifier
+        )
+        collectionView.register(
+            PromoCollectionViewCell.self,
+            forCellWithReuseIdentifier: PromoCollectionViewCell.identifier
+        )
+        collectionView.register(
+            SectionOneHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionOneHeaderCollectionReusableView.identifier
+        )
+        collectionView.register(
+            BoardingsCollectionViewCell.self,
+            forCellWithReuseIdentifier: BoardingsCollectionViewCell.identifier
+        )
+        collectionView.register(
+            SectionTwoHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionTwoHeaderCollectionReusableView.identifier
+        )
+        collectionView.register(
+            UICollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "header"
+        )
     }
 }
 
@@ -327,13 +334,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let sectionType: SectionType = sections[section]
         
         switch sectionType {
-        case .sectionPromo(stringOfURLs: let strings):
+        case .sectionPromo(stringOfAssets: let strings):
             return strings.count
-        case .sectionA(viewModels: let viewModels):
+        case .sectionMakan(viewModels: let viewModels):
             return viewModels.count
-        case .sectionB(viewModels: let viewModels):
-            return viewModels.count
-        case .sectionC(viewModels: let viewModels):
+        case .sectionTempatBermain(viewModels: let viewModels):
             return viewModels.count
         }
     }
@@ -345,27 +350,24 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let sectionType = sections[indexPath.section]
         switch sectionType {
-        case .sectionPromo(stringOfURLs: let strings):
+        case .sectionPromo(stringOfAssets: let strings):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PromoCollectionViewCell.identifier, for: indexPath) as? PromoCollectionViewCell else { return UICollectionViewCell() }
             let string = strings[indexPath.row]
             cell.configure(with: string)
             return cell
-        case .sectionA(viewModels: let viewModels):
+        case .sectionMakan(viewModels: let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardingsCollectionViewCell.identifier, for: indexPath) as? BoardingsCollectionViewCell else { return UICollectionViewCell() }
             let viewModel = viewModels[indexPath.row]
             
             cell.configure(with: viewModel)
             
             return cell
-        case .sectionB(viewModels: let viewModels):
+        case .sectionTempatBermain(viewModels: let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardingsCollectionViewCell.identifier, for: indexPath) as? BoardingsCollectionViewCell else { return UICollectionViewCell() }
             let viewModel = viewModels[indexPath.row]
             cell.configure(with: viewModel)
             return cell
-        case .sectionC(viewModels: _):
-            return UICollectionViewCell()
         }
-
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -373,9 +375,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let section = sections[indexPath.section]
         switch section {
-        case .sectionPromo(stringOfURLs: let strings):
+        case .sectionPromo(stringOfAssets: let strings):
             break
-        case .sectionA(viewModels: let viewModels):
+        case .sectionMakan(viewModels: let viewModels):
             let viewModel = viewModels[indexPath.row]
             let vc = BoardingDetailsViewController(viewModel: viewModel)
             vc.title = viewModel.name
@@ -387,9 +389,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             navigationController?.pushViewController(vc, animated: true)
             
             break
-        case .sectionB(viewModels: let viewModels):
-            break
-        case .sectionC(viewModels: let viewModels):
+        case .sectionTempatBermain(viewModels: let viewModels):
             break
         }
     }
