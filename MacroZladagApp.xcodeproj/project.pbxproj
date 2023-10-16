@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
+		65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B742ADD469500C6290C /* DatePickerViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
 		6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */; };
 		6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
+		65257B742ADD469500C6290C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
 		6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -296,9 +298,7 @@
 
 				6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */,
 
-				8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */,
-				8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */,
-
+				65257B742ADD469500C6290C /* DatePickerViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -539,6 +539,7 @@
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */,
+				65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */,
 				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				65C40D072ACCAB60004D986C /* City.swift in Sources */,
 				6563A47E2AD71D650058A130 /* SimpanButtonView.swift in Sources */,
