@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */; };
+		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
 		6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */; };
 		6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */; };
@@ -58,14 +59,12 @@
 		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
-		8F27AD342AD389D200E40ECE /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */; };
-		8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
-		8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
 		6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -146,6 +145,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		65257B712ADD3D1600C6290C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */,
+				8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */,
+				8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6563A4662AD493D40058A130 /* SearchResultHeader */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +194,7 @@
 				65C40CCB2ACAA796004D986C /* Products */,
 				70461A21082B83EFCAA6AADD /* Pods */,
 				141ACD2AC07824D1F08B448F /* Frameworks */,
+				65257B712ADD3D1600C6290C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -307,6 +317,7 @@
 		65C40CF92ACACC2C004D986C /* BoardingsResponse */ = {
 			isa = PBXGroup;
 			children = (
+				65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */,
 				65C40CF72ACAC735004D986C /* BoardingsResponse.swift */,
 				65C40CFA2ACACC44004D986C /* Boarding.swift */,
 				65C40D022ACCA9E5004D986C /* BoardingCategory.swift */,
@@ -520,7 +531,6 @@
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
 				6563A4782AD5D64E0058A130 /* KategoriButton.swift in Sources */,
 				65C40CE32ACAC035004D986C /* Extension.swift in Sources */,
-				8F27AD342AD389D200E40ECE /* DatePickerViewController.swift in Sources */,
 				8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
@@ -529,13 +539,12 @@
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */,
+				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				65C40D072ACCAB60004D986C /* City.swift in Sources */,
 				6563A47E2AD71D650058A130 /* SimpanButtonView.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* Color.swift in Sources */,
-				8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */,
-				8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */,
 				6563A4722AD5D29B0058A130 /* FasilitasContainerButton.swift in Sources */,

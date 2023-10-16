@@ -10,6 +10,7 @@ import Foundation
 struct BoardingsResponse: Codable {
     let data: [Boarding]
 }
+
 //
 //{
 //    "data": [

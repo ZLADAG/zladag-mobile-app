@@ -18,7 +18,7 @@ class SectionOneHeaderCollectionReusableView: UICollectionReusableView { // heig
     
     let label1: UILabel = {
         let label = UILabel()
-        label.text = "Sedia Antar Jemput"
+        label.text = "Sedia Makan"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
         return label
