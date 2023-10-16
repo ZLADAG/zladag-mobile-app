@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
+class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate {
     static let identifier = "SearchBoardingsResultCollectionViewCell"
     
     let imageView: UIImageView = {
@@ -169,4 +169,9 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         
         return firstString
     }
+    
+    
+    
 }
+
+

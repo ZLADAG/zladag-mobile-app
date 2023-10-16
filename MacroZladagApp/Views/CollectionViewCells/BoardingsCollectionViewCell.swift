@@ -139,7 +139,8 @@ class BoardingsCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with viewModel: BoardingsCellViewModel) {
-        imageView.sd_setImage(with: URL(string: APICaller.shared.getRandomImageURL(id: Int.random(in: 0...3))))
+//        imageView.sd_setImage(with: URL(string: APICaller.shared.getRandomImageURL(id: Int.random(in: 0...3))))
+        imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: viewModel.imageURLString)))
         nameLabel.text = viewModel.name
         
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)

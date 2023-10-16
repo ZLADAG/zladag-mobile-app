@@ -23,7 +23,9 @@ struct BoardingsCellViewModel {
     let numOfReviews: Int
     let price: Int
     
-    init(name: String, address: String, slug: String, subdistrictName: String, districtName: String, cityName: String, boardingCategoryName: String) {
+    let imageURLString: String
+    
+    init(name: String, address: String, slug: String, subdistrictName: String, districtName: String, cityName: String, boardingCategoryName: String, imageURLString: String) {
         self.name = name
         self.address = address
         self.slug = slug
@@ -31,6 +33,7 @@ struct BoardingsCellViewModel {
         self.districtName = districtName
         self.cityName = cityName
         self.boardingCategoryName = boardingCategoryName
+        self.imageURLString = imageURLString
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)

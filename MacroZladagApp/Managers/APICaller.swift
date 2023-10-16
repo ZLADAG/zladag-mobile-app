@@ -112,6 +112,10 @@ final class APICaller {
         }
     }
     
+    public func getImage(path: String) -> String  {
+        return Constants.baseAPIURL + "/images?path=\(path)"
+    }
+    
     public func getRandomImageURL(id: Int) -> String  {
         return Constants.baseAPIURLLocal + "/get_image/\(id)"
     }

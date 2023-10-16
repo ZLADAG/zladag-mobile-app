@@ -13,6 +13,11 @@ struct Boarding: Codable {
     let slug: String
     let subdistrict: Subdistrict
     let boarding_category: BoardingCategory
+    let boarding_images: [BoardingImage]
+}
+
+struct BoardingImage: Codable {
+    let path: String
 }
 
 // SLUG

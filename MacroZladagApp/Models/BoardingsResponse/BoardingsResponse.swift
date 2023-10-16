@@ -10,17 +10,3 @@ import Foundation
 struct BoardingsResponse: Codable {
     let data: [Boarding]
 }
-
-//
-//{
-//    "data": [
-//        {
-//            "name": "Pet Hotel 2",
-//            "address": "Jl. Cikokol Brokoli Kol No. 123",
-//            "subdistrict": {
-//                "name": "Cikokol",
-//                "slug": "cikokol",
-//            }
-//        },
-//    ]
-//}

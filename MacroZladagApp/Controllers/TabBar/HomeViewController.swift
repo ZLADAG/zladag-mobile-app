@@ -268,7 +268,8 @@ class HomeViewController: UIViewController {
                 subdistrictName: boarding.subdistrict.name,
                 districtName: boarding.subdistrict.district.name,
                 cityName: boarding.subdistrict.district.city.name,
-                boardingCategoryName: boarding.boarding_category.name
+                boardingCategoryName: boarding.boarding_category.name,
+                imageURLString: boarding.boarding_images[0].path
             )
         })))
         
@@ -281,7 +282,8 @@ class HomeViewController: UIViewController {
                 subdistrictName: boarding.subdistrict.name,
                 districtName: boarding.subdistrict.district.name,
                 cityName: boarding.subdistrict.district.city.name,
-                boardingCategoryName: boarding.boarding_category.name
+                boardingCategoryName: boarding.boarding_category.name,
+                imageURLString: boarding.boarding_images[0].path
             )
         })))
 
