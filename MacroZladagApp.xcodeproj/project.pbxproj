@@ -57,6 +57,8 @@
 		8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */; };
 		8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */; };
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
+		8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E32ADD33FA004BB490 /* Facility.swift */; };
+		8FCD93E62ADD343C004BB490 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E52ADD343C004BB490 /* Policy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +114,8 @@
 		8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPSegmentedInfoViewController.swift; sourceTree = "<group>"; };
 		8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewViewController.swift; sourceTree = "<group>"; };
 		8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		8FCD93E32ADD33FA004BB490 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
+		8FCD93E52ADD343C004BB490 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,6 +268,8 @@
 				65C40CF72ACAC735004D986C /* BoardingsResponse.swift */,
 				65C40CFA2ACACC44004D986C /* Boarding.swift */,
 				65C40D022ACCA9E5004D986C /* BoardingCategory.swift */,
+				8FCD93E32ADD33FA004BB490 /* Facility.swift */,
+				8FCD93E52ADD343C004BB490 /* Policy.swift */,
 				65C40D042ACCAA84004D986C /* District.swift */,
 				65C40D062ACCAB60004D986C /* City.swift */,
 				65C40D082ACCAE53004D986C /* Subdistrict.swift */,
@@ -458,6 +464,7 @@
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				65C40CFF2ACAD01B004D986C /* BoardingsCellViewModel.swift in Sources */,
 				8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */,
+				8FCD93E62ADD343C004BB490 /* Policy.swift in Sources */,
 				65C40D012ACAD1D1004D986C /* BoardingsCollectionViewCell.swift in Sources */,
 				8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */,
 				65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */,
@@ -466,6 +473,7 @@
 				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
 				65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */,
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
+				8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */,
 				65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */,
 				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
 				8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */,

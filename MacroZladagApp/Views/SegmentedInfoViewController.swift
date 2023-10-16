@@ -11,10 +11,12 @@ class SegmentedInfoViewController: UIViewController {
 
     var screenSize = UIScreen.main.bounds.size
 
+    var height = 0.0
+    
     // Titles
     var facilityTitleLabel: UILabel!
     var cageSizeTitleLabel: UILabel!
-    var termsTitleLabel: UILabel!
+    var policyTitleLabel: UILabel!
     var aboutTitleLabel: UILabel!
     var locationTitleLabel: UILabel!
     
@@ -27,15 +29,23 @@ class SegmentedInfoViewController: UIViewController {
     var cageMediumLabel: UILabel!
     var cageLargeLabel: UILabel!
     
-    // Term content
-    var termsContentStack: UIStackView! // hrsnya Collection view
+    // Policy content
+    var policyContentStack: UIStackView!
     
     // About content
-    var aboutContentLabel: UILabel!
+    var aboutContentStack: UIStackView!
     
     // Location content
 //    var locationMapView:
-    var locationContentLabel: UILabel!
+    var locationContentStack: UIStackView!
+    
+    var facilityInfoStack: UIStackView!
+    var cageSizeInfoStack: UIStackView!
+    var policyInfoStack: UIStackView!
+    var aboutInfoStack: UIStackView!
+    var locationInfoStack: UIStackView!
+
+    var infoDetailsStack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,96 +57,147 @@ class SegmentedInfoViewController: UIViewController {
     //MARK: Setup components
     private func setUpComponents() {
         
-        setUpFacilityContent()
-        setUpCageSizeContent()
-        setUpTermsContent()
-        setUpAboutContent()
-        setUpLocationContent()
+        setUpFacilityInfo()
+        setUpCageSizeInfo()
+        setUpPolicyInfo()
+        setUpAboutInfo()
+        setUpLocationInfo()
         
-        self.view.addSubview(facilityTitleLabel)
-//        self.view.addSubview(facilityContentStack)
+        infoDetailsStack = UIStackView(arrangedSubviews: [facilityInfoStack, cageSizeInfoStack, policyInfoStack, aboutInfoStack, locationInfoStack])
+        infoDetailsStack.translatesAutoresizingMaskIntoConstraints = false
+        infoDetailsStack.axis  = NSLayoutConstraint.Axis.vertical
+        infoDetailsStack.distribution  = UIStackView.Distribution.fill
+        infoDetailsStack.alignment = UIStackView.Alignment.fill
+        infoDetailsStack.spacing   = 32.0
         
-        self.view.addSubview(cageSizeTitleLabel)
-        self.view.addSubview(cageSizeContentStack)
+        self.view.addSubview(infoDetailsStack)
         
-        self.view.addSubview(termsTitleLabel)
-//        self.view.addSubview(termsContentStack)
+        self.view.backgroundColor = .systemTeal
+        infoDetailsStack.backgroundColor = .white
+        var totalHeight: CGFloat = 0
+           
+       // Loop through the arranged subviews and add their heights along with spacing
+        for subview in infoDetailsStack.arrangedSubviews {
+           totalHeight += subview.frame.size.height
+       }
+       
+       // Add the spacing between subviews
+        if infoDetailsStack.arrangedSubviews.count > 1 {
+            totalHeight += CGFloat(infoDetailsStack.arrangedSubviews.count - 1) * infoDetailsStack.spacing
+       }
         
-        self.view.addSubview(aboutTitleLabel)
-        self.view.addSubview(aboutContentLabel)
-        
-        self.view.addSubview(locationTitleLabel)
-        self.view.addSubview(locationContentLabel)
+        print("infoDetailsStack (\(infoDetailsStack.arrangedSubviews.count) items) = \(totalHeight)")
     }
     
     //MARK: Setup constraints
     private func setUpConstraint() {
-        // Facility
         NSLayoutConstraint.activate([
-            facilityTitleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
-            facilityTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            facilityTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
+            infoDetailsStack.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
+            infoDetailsStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            infoDetailsStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
         ])
-        NSLayoutConstraint.activate([])
-        
-        // Cage Size
-        NSLayoutConstraint.activate([
-            cageSizeTitleLabel.topAnchor.constraint(equalTo: facilityTitleLabel.bottomAnchor, constant: 32),
-            cageSizeTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            cageSizeTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        NSLayoutConstraint.activate([
-            cageSizeContentStack.topAnchor.constraint(equalTo: cageSizeTitleLabel.bottomAnchor, constant: 16),
-            cageSizeContentStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            cageSizeContentStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        
-        //Terms
-        NSLayoutConstraint.activate([
-            termsTitleLabel.topAnchor.constraint(equalTo: cageSizeContentStack.bottomAnchor, constant: 32),
-            termsTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            termsTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        NSLayoutConstraint.activate([])
-        
-        // About
-        NSLayoutConstraint.activate([
-            aboutTitleLabel.topAnchor.constraint(equalTo: termsTitleLabel.bottomAnchor, constant: 32),
-            aboutTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            aboutTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        NSLayoutConstraint.activate([
-            aboutContentLabel.topAnchor.constraint(equalTo: aboutTitleLabel.bottomAnchor, constant: 16),
-            aboutContentLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            aboutContentLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        
-        // Location
-        NSLayoutConstraint.activate([
-            locationTitleLabel.topAnchor.constraint(equalTo: aboutContentLabel.bottomAnchor, constant: 32),
-            locationTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            locationTitleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        NSLayoutConstraint.activate([])
-        NSLayoutConstraint.activate([
-            locationContentLabel.topAnchor.constraint(equalTo: locationTitleLabel.bottomAnchor, constant: 16),
-            locationContentLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            locationContentLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24)
-        ])
-        
-    
     }
     
     //MARK: Setup Content
-    private func setUpFacilityContent() {
+    private func setUpFacilityInfo() {
         // Set Title
         facilityTitleLabel = createTitleLabel("Fasilitas & Layanan")
         
-        // Set Content
-//        facilityContentStack =
+        let playgroundStatus = true
+        let acStatus = true
+        let cctvStatus = true
+        let petFoodStatus = true
+        let pickUpStatus = false
+        let groomingStatus = true
+        let vetStatus = false
+        
+        var allViewItems:[UIView] = []
+        var leftViewItems:[UIView] = []
+        var rightViewItems:[UIView] = []
+        
+        // Validate provided facilities
+        if (playgroundStatus) {
+            let playground = createIconLabel("facility-playground-icon", "Tempat Bermain")
+            allViewItems.append(playground)
+        }
+        if (acStatus) {
+            let ac = createIconLabel("facility-ac-icon", "Ruangan ber-AC")
+            allViewItems.append(ac)
+        }
+        if (cctvStatus) {
+            let cctv = createIconLabel("facility-cctv-icon", "CCTV")
+            allViewItems.append(cctv)
+        }
+        if (petFoodStatus) {
+            let petFood = createIconLabel("facility-petFood-icon", "Termasuk Makanan")
+            allViewItems.append(petFood)
+        }
+        if (pickUpStatus) {
+            let pickUp = createIconLabel("facility-pickUp-icon", "Jasa Antar Jemput")
+            allViewItems.append(pickUp)
+        }
+        if (groomingStatus) {
+            let grooming = createIconLabel("facility-grooming-icon", "Termasuk Grooming")
+            allViewItems.append(grooming)
+        }
+        if (vetStatus) {
+            let vet = createIconLabel("facility-vet-icon", "Tersedia Dokter Hewan")
+            allViewItems.append(vet)
+        }
+    
+        
+        // DIVIDE ITEMS TO LEFT & RIGHT VIEW
+        let totFacility = allViewItems.count
+        var centerIdx = 0
+        
+        // Add left item
+        if totFacility % 2 == 0 {
+            centerIdx = totFacility/2 - 1
+            for i in 0...centerIdx {
+                leftViewItems.append(allViewItems[i])
+            }
+        } else {
+            centerIdx = totFacility/2
+            for i in 0...centerIdx {
+                leftViewItems.append(allViewItems[i])
+            }
+        }
+        
+        // Add right items
+        for i in (centerIdx + 1)...(totFacility - 1) {
+            rightViewItems.append(allViewItems[i])
+        }
+        
+        // pop all items in allViewItems[]
+        allViewItems.removeAll()
+        
+         
+        // CREATE STACKS
+        let leftStackView = UIStackView(arrangedSubviews: leftViewItems)
+        leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        leftStackView.axis  = NSLayoutConstraint.Axis.vertical
+        leftStackView.distribution  = UIStackView.Distribution.fill
+        leftStackView.alignment = UIStackView.Alignment.fill
+        leftStackView.spacing   = 16.0
+        
+        let rightStackView = UIStackView(arrangedSubviews: rightViewItems)
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        rightStackView.axis  = NSLayoutConstraint.Axis.vertical
+        rightStackView.distribution  = UIStackView.Distribution.fill
+        rightStackView.alignment = UIStackView.Alignment.fill
+        rightStackView.spacing   = 16.0
+        
+        facilityContentStack = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
+        facilityContentStack.translatesAutoresizingMaskIntoConstraints = false
+        facilityContentStack.axis  = NSLayoutConstraint.Axis.horizontal
+        facilityContentStack.distribution  = UIStackView.Distribution.fillEqually
+        facilityContentStack.alignment = UIStackView.Alignment.firstBaseline
+        
+        // Wrap all
+        facilityInfoStack = createInfoStack(facilityTitleLabel, content: facilityContentStack)
     }
     
-    private func setUpCageSizeContent() {
+    private func setUpCageSizeInfo() {
         // Set Title
         cageSizeTitleLabel = createTitleLabel("Ukuran Kandang")
 
@@ -152,108 +213,186 @@ class SegmentedInfoViewController: UIViewController {
         cageSizeContentStack.distribution  = UIStackView.Distribution.equalSpacing
         cageSizeContentStack.alignment = UIStackView.Alignment.leading
         cageSizeContentStack.spacing   = 8.0
+        
+        // Wrap all
+        cageSizeInfoStack = createInfoStack(cageSizeTitleLabel, content: cageSizeContentStack)
     }
     
-    private func setUpTermsContent() {
+    private func setUpPolicyInfo() {
         // Set Title
-        termsTitleLabel = createTitleLabel("Kebijakan Pet Hotel")
+        policyTitleLabel = createTitleLabel("Kebijakan Pet Hotel")
+        
+        // Open hours
+        let startCheckIn = "12.00"
+        let endCheckIn = "23.00"
+        let startCheckOut = "14.00"
+        let endCheckOut = "17.00"
+        
+        let openHoursStack = createPolicyOpenHourContent(
+            "policy-clock-icon",
+            "Waktu Check In",
+            "\(startCheckIn) - \(endCheckIn)",
+            "\(startCheckOut) - \(endCheckOut)"
+        )
+        // Vaccinated
+        let vaccinatedStack = createIconLabelWithTitle("policy-vaccine-icon", "Sudah Vaksin", "Anabul melakukan vaksin tahunan")
+        
+        // Age Range
+        let minAge = 3
+        let maxAge = 5
+        let ageRangeStack = createIconLabelWithTitle("policy-age-icon", "Usia Anabul", "Menerima anabul usia \(minAge) bulan - \(maxAge) tahun")
+        
+        // FelaFree
+        let felaFreeStack = createIconLabelWithTitle("policy-clean-icon", "Bebas Kutu", "Anabul bebas dari kutu yang dapat menular")
+        
+        policyContentStack = UIStackView(arrangedSubviews: [openHoursStack, vaccinatedStack, ageRangeStack, felaFreeStack])
+        policyContentStack.translatesAutoresizingMaskIntoConstraints = false
+
+        policyContentStack.axis  = NSLayoutConstraint.Axis.vertical
+        policyContentStack.distribution  = UIStackView.Distribution.equalSpacing
+        policyContentStack.alignment = UIStackView.Alignment.fill
+        policyContentStack.spacing   = 16.0
+        
+        // Wrap all
+        policyInfoStack = createInfoStack(policyTitleLabel, content: policyContentStack)
     }
     
-    private func setUpAboutContent() {
+    private func setUpAboutInfo() {
         // Set Title
         aboutTitleLabel = createTitleLabel("Tentang")
         
         // Set Content
-        aboutContentLabel = createDefaultLabel("Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet")
+        let label = createDefaultLabel("Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet")
+        
+        aboutContentStack = UIStackView(arrangedSubviews: [label])
+        aboutContentStack.translatesAutoresizingMaskIntoConstraints = false
+        aboutContentStack.axis  = NSLayoutConstraint.Axis.vertical
+        aboutContentStack.distribution  = UIStackView.Distribution.fill
+        aboutContentStack.alignment = UIStackView.Alignment.fill
+        aboutContentStack.spacing   = 0.0
+        
+        // Wrap all
+        aboutInfoStack = createInfoStack(aboutTitleLabel, content: aboutContentStack)
     }
     
-    private func setUpLocationContent() {
+    private func setUpLocationInfo() {
         // Set Title
         locationTitleLabel = createTitleLabel("Lokasi")
 
-        // Set Content - map view
 
         // Set Content - location address
-        locationContentLabel = createLocationLabel("Jl. Alamat pet hotelnya")
+        let label = createLocationLabel("Jl. Alamat pet hotelnya")
+        locationInfoStack = UIStackView(arrangedSubviews: [label])
+        locationInfoStack.translatesAutoresizingMaskIntoConstraints = false
+        locationInfoStack.axis  = NSLayoutConstraint.Axis.vertical
+        locationInfoStack.distribution  = UIStackView.Distribution.fill
+        locationInfoStack.alignment = UIStackView.Alignment.fill
+        locationInfoStack.spacing   = 0.0
+        
+        // Set Content - map view
+        //...
+        
+        // Wrap all
+        locationInfoStack = createInfoStack(locationTitleLabel, content: locationInfoStack)
     }
     
     //MARK: Creation Stacks
     // Stack view
     private func createIconLabel(_ iconName:String, _ text: String) -> UIStackView {
-        let icon = UIImageView()
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.image = UIImage(named: iconName)
-        icon.contentMode = .scaleAspectFill
+        let icon = createIconImage(iconName)
+        let label = createDefaultLabel(text)
         
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        label.text = "\(text)"
-        label.textColor = .black
-        label.textAlignment = .left
-        
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [icon, label])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis  = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.fill
         stackView.alignment = UIStackView.Alignment.firstBaseline
         stackView.spacing   = 8.0
         
-        stackView.addSubview(icon)
-        stackView.addSubview(label)
-        
         return stackView
     }
     
     private func createIconLabelWithTitle(_ iconName:String, _ title: String, _ text: String) -> UIStackView {
     
-        let titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        let titleLabel = createDefaultLabel(title)
+        let captlabel = createDefaultLabel(text)
+        let icon = createIconImage(iconName)
         
-        titleLabel.text = "\(text)"
-        titleLabel.textColor = .black
-        titleLabel.textAlignment = .left
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        label.text = "\(text)"
-        label.textColor = .black
-        label.textAlignment = .left
-        
-        let icon = UIImageView()
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.image = UIImage(named: iconName)
-        icon.contentMode = .scaleAspectFill
-        
-        let labelStackView = UIStackView()
+        let labelStackView = UIStackView(arrangedSubviews:[titleLabel, captlabel])
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         labelStackView.axis  = NSLayoutConstraint.Axis.vertical
         labelStackView.distribution  = UIStackView.Distribution.fill
-        labelStackView.alignment = UIStackView.Alignment.leading
+        labelStackView.alignment = UIStackView.Alignment.fill
         labelStackView.spacing   = 8.0
         
-        labelStackView.addSubview(titleLabel)
-        labelStackView.addSubview(label)
-        
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [icon, labelStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis  = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.fill
-        stackView.alignment = UIStackView.Alignment.top
+        stackView.alignment = UIStackView.Alignment.firstBaseline
         stackView.spacing   = 8.0
-        
-        stackView.addSubview(icon)
-        stackView.addSubview(labelStackView)
         
         return stackView
     }
     
-    private func createOpenHoursInfo() {
+    private func createPolicyOpenHourContent(_ iconName:String, _ title: String, _ checkInText: String, _ checkOutText: String) -> UIStackView {
         
+        let titleLabel = createDefaultLabel(title)
+        let checkInTitle = createDefaultLabel("Check in :")
+        let checkOutTitle = createDefaultLabel("Check out :")
+        
+        let checkInTimeLabel = createDefaultLabel(checkInText)
+        let checkOutTimeLabel = createDefaultLabel(checkOutText)
+        
+        let icon = createIconImage(iconName)
+        
+        let checkInStack = UIStackView(arrangedSubviews:[checkInTitle, checkInTimeLabel])
+        checkInStack.translatesAutoresizingMaskIntoConstraints = false
+        checkInStack.axis  = NSLayoutConstraint.Axis.vertical
+        checkInStack.distribution  = UIStackView.Distribution.fill
+        checkInStack.alignment = UIStackView.Alignment.leading
+        checkInStack.spacing   = 0.0
+        
+        let checkOutStack = UIStackView(arrangedSubviews:[checkOutTitle, checkOutTimeLabel])
+        checkOutStack.translatesAutoresizingMaskIntoConstraints = false
+        checkOutStack.axis  = NSLayoutConstraint.Axis.vertical
+        checkOutStack.distribution  = UIStackView.Distribution.fill
+        checkOutStack.alignment = UIStackView.Alignment.leading
+        checkOutStack.spacing   = 0.0
+        
+        let timeStack = UIStackView(arrangedSubviews: [checkInStack, checkOutStack])
+        timeStack.translatesAutoresizingMaskIntoConstraints = false
+        timeStack.axis  = NSLayoutConstraint.Axis.horizontal
+        timeStack.distribution  = UIStackView.Distribution.fillEqually
+        timeStack.alignment = UIStackView.Alignment.fill
+        timeStack.spacing   = 8.0
+        
+        let labelStackView = UIStackView(arrangedSubviews:[titleLabel, timeStack])
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelStackView.axis  = NSLayoutConstraint.Axis.vertical
+        labelStackView.distribution  = UIStackView.Distribution.fill
+        labelStackView.alignment = UIStackView.Alignment.fill
+        labelStackView.spacing   = 8.0
+
+        let stackView = UIStackView(arrangedSubviews: [icon, labelStackView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis  = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.firstBaseline
+        stackView.spacing   = 8.0
+        
+        return stackView
+    }
+    
+    private func createInfoStack(_ title: UILabel, content: UIStackView) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [title, content])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis  = NSLayoutConstraint.Axis.vertical
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.fill
+        stackView.spacing   = 16.0
+        
+        return stackView
     }
     
     //MARK: Creation Label
@@ -296,7 +435,17 @@ class SegmentedInfoViewController: UIViewController {
         return label
     }
     
-
+    //MARK: Creation Icon
+    private func createIconImage(_ img: String) -> UIImageView {
+        let icon =  UIImageView()
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.image = UIImage(named: img)
+        icon.contentMode = .scaleAspectFit
+        icon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        return icon
+    }
+    
     /*
     // MARK: - Navigation
 

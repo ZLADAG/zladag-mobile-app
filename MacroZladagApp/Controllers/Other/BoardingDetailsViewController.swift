@@ -89,7 +89,7 @@ class BoardingDetailsViewController: UIViewController {
         label.textAlignment = .center
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
-        
+        print("VIEWMODEL: \(viewModel)")
         return label
     }()
     
@@ -393,6 +393,20 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(infoSegment.view)
 //        infoSegment.view.backgroundColor = .yellow
         infoSegment.didMove(toParent: self)
+        
+//        var totalHeight: CGFloat = 0
+//           
+//       // Loop through the arranged subviews and add their heights along with spacing
+//        for subview in infoSegment.infoDetailsStack.arrangedSubviews {
+//           totalHeight += subview.frame.size.height
+//       }
+//       
+//       // Add the spacing between subviews
+//        if infoSegment.infoDetailsStack.arrangedSubviews.count > 1 {
+//            totalHeight += CGFloat(infoSegment.infoDetailsStack.arrangedSubviews.count - 1) * infoSegment.infoDetailsStack.spacing
+//       }
+//        
+//        print("info segment height (\(infoSegment.infoDetailsStack.arrangedSubviews.count) items) = \(totalHeight)")
     }
     
     func addReviewSegmentView() {
@@ -400,6 +414,7 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(reviewSegment.view)
 //        reviewSegment.view.backgroundColor = .green
         reviewSegment.didMove(toParent: self)
+        
     }
     
     func setupConstraints() {
@@ -474,9 +489,10 @@ class BoardingDetailsViewController: UIViewController {
             infoSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 0),
             infoSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             infoSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
-            infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            infoSegment.view.heightAnchor.constraint(equalToConstant: 800)
+            infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
+            infoSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
+        
         
         //Segmented Content - Review
         reviewSegment.view.translatesAutoresizingMaskIntoConstraints = false
@@ -485,7 +501,7 @@ class BoardingDetailsViewController: UIViewController {
             reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            reviewSegment.view.heightAnchor.constraint(equalToConstant: 800)
+            reviewSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
             
         // Bottom-fixed menu
