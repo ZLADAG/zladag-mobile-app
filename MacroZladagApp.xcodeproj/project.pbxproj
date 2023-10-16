@@ -58,6 +58,10 @@
 		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
+		8F27AD342AD389D200E40ECE /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */; };
+		8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */; };
+		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
+		8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +118,10 @@
 		65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOneHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
+		8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
+		8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToolTipView.swift; sourceTree = "<group>"; };
+		8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPDatePickerViewController.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,12 +250,15 @@
 		65C40CE92ACAC0E9004D986C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+
 				6563A4702AD5D2750058A130 /* FilterViews */,
+
 				65DC1D122AD2B365005D8288 /* CollectionViews */,
 				65DC1D152AD2B667005D8288 /* CollectionViewCells */,
 				65DC1D062AD2ADA1005D8288 /* SectionHeaders */,
 				65C40D5A2ACF5572004D986C /* UpperView.swift */,
 				65C40CD82ACAA797004D986C /* LaunchScreen.storyboard */,
+				8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,7 +281,9 @@
 				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
 				65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */,
 				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
+
 				6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */,
+
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -502,6 +515,8 @@
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
 				6563A4782AD5D64E0058A130 /* KategoriButton.swift in Sources */,
 				65C40CE32ACAC035004D986C /* Extension.swift in Sources */,
+				8F27AD342AD389D200E40ECE /* DatePickerViewController.swift in Sources */,
+				8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
 				6563A4762AD5D48F0058A130 /* SectionViews.swift in Sources */,
@@ -514,6 +529,8 @@
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* Color.swift in Sources */,
+				8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */,
+				8F27AD362AD3C2D500E40ECE /* CustomDatePickerView.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */,
 				6563A4722AD5D29B0058A130 /* FasilitasContainerButton.swift in Sources */,
