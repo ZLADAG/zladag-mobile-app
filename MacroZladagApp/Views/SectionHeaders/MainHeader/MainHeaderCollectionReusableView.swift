@@ -10,7 +10,7 @@ import UIKit
 class MainHeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "MainHeaderCollectionReusableView"
     
-    var delegate: UIViewController? = nil
+    var delegate: HomeViewController?
     
     let mainHeaderContainerView = MainHeaderContainerView()
     let upperView: UIView = {
@@ -44,6 +44,8 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     let searchContainerView = SearchContainerView()
     let locationFieldView = TextFieldView(image: UIImage(named: "location-icon"), hasMapIcon: true)
     let dateFieldView = TextFieldView(image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
+    public var kucingCount = 0
+    public var anjingCount = 0
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
     
     lazy var locationTextField: UITextField = {
@@ -106,8 +108,8 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(searchContainerView)
         addSubview(locationFieldView)
         addSubview(dateFieldView)
-        addSubview(searchButton)
         addSubview(numberOfCatsAndDogsButton)
+        addSubview(searchButton)
 
         //textfields
         addSubview(locationTextField)
@@ -192,8 +194,38 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
 extension MainHeaderCollectionReusableView: UITextFieldDelegate {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
+//        let vc = MencobaSheetViewController()
+
+        var petCategories = [String]()
+        if self.anjingCount > 0 {
+            petCategories.append("Anjing")
+        }
         
-        APICaller.shared.getBoardings { result in
+        if self.kucingCount > 0 {
+            petCategories.append("Kucing")
+        }
+        
+        var params: String = ""
+        if petCategories.count == 1 {
+            if let queryParam = "petCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+        } else if petCategories.count == 2 {
+            if let queryParam = "petCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+            
+            if let queryParam = "&petCategories[]=\(petCategories[1])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+        }
+        
+        let group = DispatchGroup()
+        group.enter()
+        APICaller.shared.getBoardingsSearch(params: params) { result in
+            defer {
+                group.leave()
+            }
             switch result {
             case .success(let response):
                 vc.viewModels = response.data.compactMap({ boarding in
@@ -207,7 +239,7 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
                         boardingCategoryName: boarding.boarding_category.name
                     )
                 })
-                
+
                 break
             case .failure(let error):
                 print(error.localizedDescription)
@@ -215,23 +247,31 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
             }
         }
         
-        delegate?.navigationController?.pushViewController(vc, animated: true)
+        
+        self.delegate?.navigationController?.pushViewController(vc, animated: true)
+        group.notify(queue: .main) {
+            vc.collectionView.reloadData()
+
+        }
     }
     
     @objc func presentCatsAndDogSheet() {
         let vc  = CatsAndDogsCounterViewController()
-        vc.delegate = self
+        vc.mainHeaderDelegate = self
+        vc.kucingCount = self.kucingCount
+        vc.anjingCount = self.anjingCount
+        
         let navVc = UINavigationController(rootViewController: vc)
         
         vc.modalPresentationStyle = .pageSheet
-//        navVc.isModalInPresentation = true
         
         if let sheet = navVc.sheetPresentationController {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
-                .custom(resolver: { context in
-                    0.35 * context.maximumDetentValue
-                })
+//                .custom(resolver: { context in
+//                    0.35 * context.maximumDetentValue
+//                })
+                .medium()
             ]
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
