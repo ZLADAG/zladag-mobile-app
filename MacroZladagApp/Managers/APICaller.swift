@@ -23,8 +23,8 @@ final class APICaller {
         case failedToGetData
     }
     
-    public func getBoardings(completion: @escaping (Result<BoardingsResponse, Error>) -> Void) {
-        createRequest(with: URL(string: Constants.baseAPIURLLocal + "/boardings"), type: .GET) { baseRequest in
+    public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/boarding-categories/pet-hotel/home"), type: .GET) { baseRequest in
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(error!))
@@ -33,8 +33,7 @@ final class APICaller {
                 
                 do {
 //                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-
-                    let result = try JSONDecoder().decode(BoardingsResponse.self, from: data)
+                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
                     
                     completion(Result.success(result))
                 } catch {
