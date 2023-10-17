@@ -259,8 +259,7 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
         }
         
         if (startDate != nil) {
-//            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
-            vc.startDateLabel.text = "anjayy"
+            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
 //            print(startDate)
         } else {
             vc.startDate = nil
