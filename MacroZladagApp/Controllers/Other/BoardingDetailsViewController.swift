@@ -9,7 +9,6 @@ import UIKit
 
 class BoardingDetailsViewController: UIViewController {
     
-    
     var photoPaths:[String] = []
     var photoIdx = 0
     
@@ -21,7 +20,6 @@ class BoardingDetailsViewController: UIViewController {
     init(viewModel: BoardingsCellViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil) // INI APA SIH
-        
     }
     
     required init?(coder: NSCoder) {

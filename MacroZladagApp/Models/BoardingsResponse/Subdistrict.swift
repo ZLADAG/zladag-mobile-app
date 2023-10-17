@@ -12,3 +12,17 @@ class Subdistrict: Codable {
     let district: District
 }
 
+struct District: Codable {
+    let name: String
+    let city: City
+}
+
+struct City: Codable {
+    let name: String
+    let province: Province
+}
+
+struct Province: Codable {
+    let name: String
+}
+

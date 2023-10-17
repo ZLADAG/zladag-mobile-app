@@ -71,7 +71,6 @@ class SegmentedInfoViewController: UIViewController {
         infoDetailsStack.spacing   = 32.0
         
         self.view.addSubview(infoDetailsStack)
-
     }
     
     //MARK: Setup constraints
@@ -93,9 +92,9 @@ class SegmentedInfoViewController: UIViewController {
         let acStatus = true
         let cctvStatus = true
         let petFoodStatus = true
-        let pickUpStatus = true
-        let groomingStatus = true
-        let vetStatus = true
+        let pickUpStatus = false
+        let groomingStatus = false
+        let vetStatus = false
         
         var allViewItems:[UIView] = []
         var leftViewItems:[UIView] = []

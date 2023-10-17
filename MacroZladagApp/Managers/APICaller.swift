@@ -34,9 +34,11 @@ final class APICaller {
                 }
                 
                 do {
-//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    let resultTemp = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
-                    
+//                    print("=============")
+//                    print(resultTemp)
+//                    print("=============")
                     completion(Result.success(result))
                 } catch {
                     print(error.localizedDescription)

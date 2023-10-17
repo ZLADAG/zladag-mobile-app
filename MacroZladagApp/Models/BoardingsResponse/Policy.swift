@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct Policy: Codable {
     let iconName : String
     let policy : String

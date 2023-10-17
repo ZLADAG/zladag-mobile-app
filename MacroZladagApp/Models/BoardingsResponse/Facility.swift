@@ -8,7 +8,7 @@
 import Foundation
 
 struct Facility: Codable {
-    let name : String
-    let iconName : String
-    let isOwned : Bool
+    let name: String
+//    let iconName: String
+//    let isOwned: Bool
 }

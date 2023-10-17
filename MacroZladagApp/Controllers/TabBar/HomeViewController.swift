@@ -229,6 +229,9 @@ class HomeViewController: UIViewController {
             switch result {
             case .success(let model):
                 makanBoardings = model.data.makanBoardings
+                print("=====================")
+                print(makanBoardings![0])
+                print("=====================\n")
                 tempatBermainBoardings = model.data.tempatBermainBoardings
                 break
             case .failure(let error):
