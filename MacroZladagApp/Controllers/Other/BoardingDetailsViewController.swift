@@ -246,7 +246,7 @@ class BoardingDetailsViewController: UIViewController {
     }()
     
     // Select Service
-    lazy var seletctServiceView: UIView = {
+    lazy var selectServiceView: UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
         uiView.backgroundColor = .white
@@ -347,21 +347,16 @@ class BoardingDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         // Navigation Controller Settings
-//        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = ""
-        navigationItem.titleView?.tintColor = .customOrange
         navigationController?.navigationBar.tintColor = .customOrange
-        
         
         // Create the button
         let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
         // Add the button to the right side of the navigation bar
         navigationItem.rightBarButtonItem = shareButton
-        
-        
-//        self.navigationController?.hidesBarsOnSwipe = true
-//        self.navigationItem.scrollEdgeAppearance.tit
+    
         
         // View Settings
         view.backgroundColor = .white
@@ -385,7 +380,7 @@ class BoardingDetailsViewController: UIViewController {
         reviewSegment.view.isHidden = true
         addInfoSegmentView()
         
-        view.addSubview(seletctServiceView)
+        view.addSubview(selectServiceView)
         
         setupConstraints()
         configurePhotosCollectionView()
@@ -417,14 +412,14 @@ class BoardingDetailsViewController: UIViewController {
         
         // Bottom-fixed menu
         NSLayoutConstraint.activate([
-            seletctServiceView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            seletctServiceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            seletctServiceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            selectServiceView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            selectServiceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            selectServiceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            selectServiceStackView.topAnchor.constraint(equalTo: seletctServiceView.topAnchor, constant: 24),
-            selectServiceStackView.bottomAnchor.constraint(equalTo: seletctServiceView.bottomAnchor, constant: -48),
-            selectServiceStackView.leadingAnchor.constraint(equalTo: seletctServiceView.leadingAnchor, constant: 24),
-            selectServiceStackView.trailingAnchor.constraint(equalTo: seletctServiceView.trailingAnchor, constant: -24),
+            selectServiceStackView.topAnchor.constraint(equalTo: selectServiceView.topAnchor, constant: 24),
+            selectServiceStackView.bottomAnchor.constraint(equalTo: selectServiceView.bottomAnchor, constant: -48),
+            selectServiceStackView.leadingAnchor.constraint(equalTo: selectServiceView.leadingAnchor, constant: 24),
+            selectServiceStackView.trailingAnchor.constraint(equalTo: selectServiceView.trailingAnchor, constant: -24),
                         
             selectServiceButton.heightAnchor.constraint(equalToConstant: 40),
             selectServiceButton.widthAnchor.constraint(equalToConstant: 160),
@@ -436,7 +431,7 @@ class BoardingDetailsViewController: UIViewController {
             scrollview.topAnchor.constraint(equalTo: view.topAnchor),
             scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollview.bottomAnchor.constraint(equalTo: seletctServiceView.topAnchor, constant: 0),
+            scrollview.bottomAnchor.constraint(equalTo: selectServiceView.topAnchor, constant: 0),
         ])
         
         // Photos Carousel
@@ -496,13 +491,16 @@ class BoardingDetailsViewController: UIViewController {
         ])
         
         //Segmented Content - Info
+        let segmentedContentHeight = max(infoSegment.infoDetailsStack.height, reviewSegment.screenSize.height)
+        print("infoSegment.infoDetailsStack.height: \(infoSegment.view.height)")
+        
         infoSegment.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 0),
             infoSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             infoSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
-            infoSegment.view.heightAnchor.constraint(equalToConstant: infoSegment.view.height)
+            infoSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
         
         
@@ -513,7 +511,7 @@ class BoardingDetailsViewController: UIViewController {
             reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            reviewSegment.view.heightAnchor.constraint(equalToConstant: reviewSegment.screenSize.height)
+            reviewSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
     }
     

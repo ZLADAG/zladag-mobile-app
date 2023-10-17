@@ -60,8 +60,8 @@
 		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
+		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
-		8F27AD3A2AD3E11400E40ECE /* TEMPDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD392AD3E11400E40ECE /* TEMPDatePickerViewController.swift */; };
 		8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */; };
 		8F9ADD9A2AD706F50082E19B /* BoardingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD992AD706F50082E19B /* BoardingCollectionView.swift */; };
 		8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */; };
@@ -73,7 +73,6 @@
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
 		8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E32ADD33FA004BB490 /* Facility.swift */; };
 		8FCD93E62ADD343C004BB490 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E52ADD343C004BB490 /* Policy.swift */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +131,7 @@
 		65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOneHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
+		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
 		8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToolTipView.swift; sourceTree = "<group>"; };
@@ -286,10 +286,7 @@
 		65C40CE92ACAC0E9004D986C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-
 				6563A4702AD5D2750058A130 /* FilterViews */,
-
-				8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */,
 				8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */,
 				8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */,
 				8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */,
@@ -324,10 +321,9 @@
 				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
 				65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */,
 				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
-
 				6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */,
-
 				65257B742ADD469500C6290C /* DatePickerViewController.swift */,
+				8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -596,6 +592,7 @@
 				6563A47C2AD718220058A130 /* KekhususanSwitch.swift in Sources */,
 				65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */,
 				8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */,
+				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,

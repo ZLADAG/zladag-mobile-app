@@ -36,7 +36,7 @@ class SegmentedInfoViewController: UIViewController {
     var aboutContentStack: UIStackView!
     
     // Location content
-//    var locationMapView:
+    var locationMapView = BoardingMapViewController()
     var locationContentStack: UIStackView!
     
     var facilityInfoStack: UIStackView!
@@ -71,7 +71,7 @@ class SegmentedInfoViewController: UIViewController {
         infoDetailsStack.spacing   = 32.0
         
         self.view.addSubview(infoDetailsStack)
-        
+
     }
     
     //MARK: Setup constraints
@@ -80,7 +80,7 @@ class SegmentedInfoViewController: UIViewController {
             infoDetailsStack.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
             infoDetailsStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
             infoDetailsStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
-            infoDetailsStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32)
+//            infoDetailsStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32)
         ])
     }
     
@@ -93,9 +93,9 @@ class SegmentedInfoViewController: UIViewController {
         let acStatus = true
         let cctvStatus = true
         let petFoodStatus = true
-        let pickUpStatus = false
+        let pickUpStatus = true
         let groomingStatus = true
-        let vetStatus = false
+        let vetStatus = true
         
         var allViewItems:[UIView] = []
         var leftViewItems:[UIView] = []
@@ -176,7 +176,7 @@ class SegmentedInfoViewController: UIViewController {
         facilityContentStack = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
         facilityContentStack.translatesAutoresizingMaskIntoConstraints = false
         facilityContentStack.axis  = NSLayoutConstraint.Axis.horizontal
-        facilityContentStack.distribution  = UIStackView.Distribution.fillEqually
+        facilityContentStack.distribution  = UIStackView.Distribution.fill
         facilityContentStack.alignment = UIStackView.Alignment.firstBaseline
         
         // Wrap all
@@ -196,7 +196,7 @@ class SegmentedInfoViewController: UIViewController {
         cageSizeContentStack.translatesAutoresizingMaskIntoConstraints = false
 
         cageSizeContentStack.axis  = NSLayoutConstraint.Axis.vertical
-        cageSizeContentStack.distribution  = UIStackView.Distribution.equalSpacing
+        cageSizeContentStack.distribution  = UIStackView.Distribution.fill
         cageSizeContentStack.alignment = UIStackView.Alignment.leading
         cageSizeContentStack.spacing   = 8.0
         
@@ -235,10 +235,10 @@ class SegmentedInfoViewController: UIViewController {
         policyContentStack.translatesAutoresizingMaskIntoConstraints = false
 
         policyContentStack.axis  = NSLayoutConstraint.Axis.vertical
-        policyContentStack.distribution  = UIStackView.Distribution.equalSpacing
+        policyContentStack.distribution  = UIStackView.Distribution.fill
         policyContentStack.alignment = UIStackView.Alignment.fill
         policyContentStack.spacing   = 16.0
-        
+                
         // Wrap all
         policyInfoStack = createInfoStack(policyTitleLabel, content: policyContentStack)
     }
@@ -268,15 +268,13 @@ class SegmentedInfoViewController: UIViewController {
 
         // Set Content - location address
         let label = createLocationLabel("Jl. Alamat pet hotelnya")
-        locationInfoStack = UIStackView(arrangedSubviews: [label])
+        
+        locationInfoStack = UIStackView(arrangedSubviews: [ locationMapView.view, label])
         locationInfoStack.translatesAutoresizingMaskIntoConstraints = false
         locationInfoStack.axis  = NSLayoutConstraint.Axis.vertical
         locationInfoStack.distribution  = UIStackView.Distribution.fill
         locationInfoStack.alignment = UIStackView.Alignment.fill
-        locationInfoStack.spacing   = 0.0
-        
-        // Set Content - map view
-        //...
+        locationInfoStack.spacing   = 16.0
         
         // Wrap all
         locationInfoStack = createInfoStack(locationTitleLabel, content: locationInfoStack)
