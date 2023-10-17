@@ -45,10 +45,6 @@ class UrutkanFilterButton: UIButton {
         
     }
     
-    @objc func printValue() {
-        print("urutkan:", label.text)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError()
     }

@@ -157,13 +157,6 @@ class BoardingReviewCollectionViewCell: UICollectionViewCell {
     }
     
     func configure() {
-//    func configure(with imageURL: String) {
-//        promoImageView.sd_setImage(with: URL(string: APICaller.shared.getRandomImageURL(id: Int.random(in: 0...3))))
-//        boardingImageView.image = UIImage(named: imageURL)
-//        contentView.addSubview(boardingImageView)
-        
-//        reviewerPhoto.image = UIImage(systemName: "person")
-        
         setUpConstraints()
         
 

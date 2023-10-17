@@ -10,7 +10,8 @@ import UIKit
 class SegmentedInfoViewController: UIViewController {
 
     var screenSize = UIScreen.main.bounds.size
-
+    var mainVc: BoardingDetailsViewController?
+    
     var height = 0.0
     
     // Titles
@@ -21,7 +22,7 @@ class SegmentedInfoViewController: UIViewController {
     var locationTitleLabel: UILabel!
     
     // Facility content -> sesuai array
-    var facilityContentStack: UIStackView! // hrsnya Collection view
+    var facilityContentStack: UIStackView! // hrsnya Collection view   // baikla 👍
     
     // Cage content
     var cageSizeContentStack: UIStackView!
@@ -85,13 +86,14 @@ class SegmentedInfoViewController: UIViewController {
     
     //MARK: Setup Content
     private func setUpFacilityInfo() {
+        guard let mainVc else { return }
         // Set Title
         facilityTitleLabel = createTitleLabel("Fasilitas & Layanan")
         
-        let playgroundStatus = true
-        let acStatus = true
-        let cctvStatus = true
-        let petFoodStatus = true
+        let playgroundStatus = false
+        let acStatus = false
+        let cctvStatus = false
+        let petFoodStatus = false
         let pickUpStatus = false
         let groomingStatus = false
         let vetStatus = false
@@ -100,61 +102,64 @@ class SegmentedInfoViewController: UIViewController {
         var leftViewItems:[UIView] = []
         var rightViewItems:[UIView] = []
         
+        
         // Validate provided facilities
-        if (playgroundStatus) {
+        if (mainVc.viewModel.facilities.contains("Tempat Bermain")) {
             let playground = createIconLabel("facility-playground-icon", "Tempat Bermain")
             allViewItems.append(playground)
         }
-        if (acStatus) {
+        if (mainVc.viewModel.facilities.contains("AC")) {
             let ac = createIconLabel("facility-ac-icon", "Ruangan ber-AC")
             allViewItems.append(ac)
         }
-        if (cctvStatus) {
+        if (mainVc.viewModel.facilities.contains("CCTV")) {
             let cctv = createIconLabel("facility-cctv-icon", "CCTV")
             allViewItems.append(cctv)
         }
-        if (petFoodStatus) {
+        if (mainVc.viewModel.services.contains("Makan")) {
             let petFood = createIconLabel("facility-petFood-icon", "Termasuk Makanan")
             allViewItems.append(petFood)
         }
-        if (pickUpStatus) {
+        if (mainVc.viewModel.services.contains("Antar Jemput")) {
             let pickUp = createIconLabel("facility-pickUp-icon", "Jasa Antar Jemput")
             allViewItems.append(pickUp)
         }
-        if (groomingStatus) {
+        if (mainVc.viewModel.services.contains("Grooming")) {
             let grooming = createIconLabel("facility-grooming-icon", "Termasuk Grooming")
             allViewItems.append(grooming)
         }
-        if (vetStatus) {
+        if (mainVc.viewModel.services.contains("Dokter Hewan")) {
             let vet = createIconLabel("facility-vet-icon", "Tersedia Dokter Hewan")
             allViewItems.append(vet)
         }
     
         
         // DIVIDE ITEMS TO LEFT & RIGHT VIEW
-        let totFacility = allViewItems.count
-        var centerIdx = 0
-        
-        // Add left item
-        if totFacility % 2 == 0 {
-            centerIdx = totFacility/2 - 1
-            for i in 0...centerIdx {
-                leftViewItems.append(allViewItems[i])
+        if allViewItems.count > 0 {
+            let totFacility = allViewItems.count
+            var centerIdx = 0
+            
+            // Add left item
+            if totFacility % 2 == 0 {
+                centerIdx = totFacility/2 - 1
+                for i in 0...centerIdx {
+                    leftViewItems.append(allViewItems[i])
+                }
+            } else {
+                centerIdx = totFacility/2
+                for i in 0...centerIdx {
+                    leftViewItems.append(allViewItems[i])
+                }
             }
-        } else {
-            centerIdx = totFacility/2
-            for i in 0...centerIdx {
-                leftViewItems.append(allViewItems[i])
+            
+            // Add right items
+            for i in (centerIdx + 1)...(totFacility - 1) {
+                rightViewItems.append(allViewItems[i])
             }
+            
+            // pop all items in allViewItems[]
+            allViewItems.removeAll()
         }
-        
-        // Add right items
-        for i in (centerIdx + 1)...(totFacility - 1) {
-            rightViewItems.append(allViewItems[i])
-        }
-        
-        // pop all items in allViewItems[]
-        allViewItems.removeAll()
         
          
         // CREATE STACKS
@@ -204,14 +209,17 @@ class SegmentedInfoViewController: UIViewController {
     }
     
     private func setUpPolicyInfo() {
+        guard let mainVc else { return }
+        var subViews = [UIStackView]()
+        
         // Set Title
         policyTitleLabel = createTitleLabel("Kebijakan Pet Hotel")
         
         // Open hours
-        let startCheckIn = "12.00"
-        let endCheckIn = "23.00"
-        let startCheckOut = "14.00"
-        let endCheckOut = "17.00"
+        let startCheckIn = mainVc.viewModel.startCheckInTime
+        let endCheckIn = mainVc.viewModel.endCheckInTime
+        let startCheckOut = mainVc.viewModel.startCheckOutTime
+        let endCheckOut = mainVc.viewModel.endCheckOutTime
         
         let openHoursStack = createPolicyOpenHourContent(
             "policy-clock-icon",
@@ -219,18 +227,28 @@ class SegmentedInfoViewController: UIViewController {
             "\(startCheckIn) - \(endCheckIn)",
             "\(startCheckOut) - \(endCheckOut)"
         )
+        subViews.append(openHoursStack)
+        
         // Vaccinated
-        let vaccinatedStack = createIconLabelWithTitle("policy-vaccine-icon", "Sudah Vaksin", "Anabul melakukan vaksin tahunan")
+        if mainVc.viewModel.boarding_policy.shouldHaveBeenVaccinated == 1 {
+            let vaccinatedStack = createIconLabelWithTitle("policy-vaccine-icon", "Sudah Vaksin", "Anabul melakukan vaksin tahunan")
+            subViews.append(vaccinatedStack)
+        }
         
         // Age Range
-        let minAge = 3
-        let maxAge = 5
+        let minAge = mainVc.viewModel.boarding_policy.minimumAge
+        let maxAge = mainVc.viewModel.boarding_policy.maximumAge
         let ageRangeStack = createIconLabelWithTitle("policy-age-icon", "Usia Anabul", "Menerima anabul usia \(minAge) bulan - \(maxAge) tahun")
+        subViews.append(ageRangeStack)
         
-        // FelaFree
-        let felaFreeStack = createIconLabelWithTitle("policy-clean-icon", "Bebas Kutu", "Anabul bebas dari kutu yang dapat menular")
+        // FleaFree
+        if mainVc.viewModel.boarding_policy.shouldHaveToBeFleaFree == 1 {
+            let fleaFreeStack = createIconLabelWithTitle("policy-clean-icon", "Bebas Kutu", "Anabul bebas dari kutu yang dapat menular")
+            subViews.append(fleaFreeStack)
+        }
         
-        policyContentStack = UIStackView(arrangedSubviews: [openHoursStack, vaccinatedStack, ageRangeStack, felaFreeStack])
+//        policyContentStack = UIStackView(arrangedSubviews: [openHoursStack, vaccinatedStack, ageRangeStack, fleaFreeStack])
+        policyContentStack = UIStackView(arrangedSubviews: subViews)
         policyContentStack.translatesAutoresizingMaskIntoConstraints = false
 
         policyContentStack.axis  = NSLayoutConstraint.Axis.vertical
@@ -243,11 +261,12 @@ class SegmentedInfoViewController: UIViewController {
     }
     
     private func setUpAboutInfo() {
+        guard let mainVc else { return }
         // Set Title
         aboutTitleLabel = createTitleLabel("Tentang")
         
         // Set Content
-        let label = createDefaultLabel("Lorem ipsum dolor sit amet olor sit amet olor sit amet olor sit amet")
+        let label = createDefaultLabel(mainVc.viewModel.description)
         
         aboutContentStack = UIStackView(arrangedSubviews: [label])
         aboutContentStack.translatesAutoresizingMaskIntoConstraints = false
@@ -261,14 +280,15 @@ class SegmentedInfoViewController: UIViewController {
     }
     
     private func setUpLocationInfo() {
+        guard let mainVc else { return }
         // Set Title
         locationTitleLabel = createTitleLabel("Lokasi")
 
 
         // Set Content - location address
-        let label = createLocationLabel("Jl. Alamat pet hotelnya")
+        let label = createLocationLabel("\(mainVc.viewModel.address), \(mainVc.viewModel.provinceName)")
         
-        locationInfoStack = UIStackView(arrangedSubviews: [ locationMapView.view, label])
+        locationInfoStack = UIStackView(arrangedSubviews: [locationMapView.view, label])
         locationInfoStack.translatesAutoresizingMaskIntoConstraints = false
         locationInfoStack.axis  = NSLayoutConstraint.Axis.vertical
         locationInfoStack.distribution  = UIStackView.Distribution.fill

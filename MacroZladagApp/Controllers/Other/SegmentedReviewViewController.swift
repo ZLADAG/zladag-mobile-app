@@ -25,9 +25,9 @@ class SegmentedReviewViewController: UIViewController {
 //        self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: totalContentHeight)
 
         // Calculate content size
-        let fittingSize = self.view.systemLayoutSizeFitting(
-            UIView.layoutFittingCompressedSize
-        )
+//        let fittingSize = self.view.systemLayoutSizeFitting(
+//            UIView.layoutFittingCompressedSize
+//        )
 //        print("fittingSize: \(fittingSize)")
 //
 //        // Set the frame of the view
@@ -177,8 +177,8 @@ extension SegmentedReviewViewController: UICollectionViewDataSource {
 //            cell.configure(with: string)
 //            cell.setUpConstraints()
             
-            print("nanonano")
-            print("\(String(describing: cell.reviewerName.text))")
+//            print("nanonano") // NANO NANO MANIS ASAM ASIN RAMAI RASANYA!
+//            print("\(String(describing: cell.reviewerName.text))")
             return cell
         }
         fatalError("Unable to dequeue subclassed cell")

@@ -35,10 +35,14 @@ final class APICaller {
                 
                 do {
 //                    let resultTemp = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
-//                    print("=============")
-//                    print(resultTemp)
-//                    print("=============")
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
+
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .formatted(formatter)
+                    let result = try decoder.decode(HomeBoardingResponse.self, from: data)
+//                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
+                    
                     completion(Result.success(result))
                 } catch {
                     print(error.localizedDescription)
@@ -58,7 +62,15 @@ final class APICaller {
                 }
 
                 do {
-                    let result = try JSONDecoder().decode(BoardingsResponse.self, from: data)
+//                    let result = try JSONDecoder().decode(BoardingsResponse.self, from: data)
+                    
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
+
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .formatted(formatter)
+                    let result = try decoder.decode(BoardingsResponse.self, from: data)
+                    
                     print("GET /search?\(params)")
                     completion(Result.success(result))
                 } catch {

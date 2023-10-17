@@ -181,27 +181,6 @@ class SearchResultsViewController: UIViewController {
         
         view.addSubview(collectionView)
     }
-
-    func update(with results: [Boarding]) {
-        self.viewModels = results.compactMap({ boarding in
-            return BoardingsCellViewModel(
-                name: boarding.name,
-                address: boarding.address,
-                slug: boarding.slug,
-                subdistrictName: boarding.subdistrict.name,
-                districtName: boarding.subdistrict.district.name,
-                cityName: boarding.subdistrict.district.city.name,
-                boardingCategoryName: boarding.boarding_category.name,
-                imageURLString: boarding.boarding_images[0].path
-            )
-        })
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
-    
 }
 
 extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -238,6 +217,18 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchResultHeaderCollectionReusableView.identifier, for: indexPath) as? SearchResultHeaderCollectionReusableView else { return UICollectionReusableView() }
         return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewModel = viewModels[indexPath.row]
+        let vc = BoardingDetailsViewController(viewModel: viewModel)
+        vc.title = viewModel.name
+        vc.hidesBottomBarWhenPushed = true
+
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

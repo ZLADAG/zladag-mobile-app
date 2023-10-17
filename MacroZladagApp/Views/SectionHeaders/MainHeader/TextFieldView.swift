@@ -7,13 +7,22 @@
 
 import UIKit
 
-class TextFieldView: UIView {
+class TextFieldView: UIButton {
     
     let thisWidth: CGFloat = 294
     let thisHeight: CGFloat = 44
     var iconImage: UIImage?
     
-    lazy var imageView: UIImageView = {
+    public var fieldTitle: String
+    lazy var thisLabel: UILabel = {
+        let label = UILabel()
+        label.text = self.fieldTitle
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var thisImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = iconImage
         imageView.tintColor = .customGrayForIcons
@@ -30,15 +39,16 @@ class TextFieldView: UIView {
     
     var hasMapIcon: Bool?
     
-    init(image: UIImage?, hasMapIcon: Bool?) {
-        super.init(frame: .zero)
+    init(fieldTitle: String, image: UIImage?, hasMapIcon: Bool?) {
         self.iconImage = image
         self.hasMapIcon = hasMapIcon
-        
+        self.fieldTitle = fieldTitle
+        super.init(frame: .zero)
         backgroundColor = .customGray
         layer.cornerRadius = 4
         
-        addSubview(imageView)
+        addSubview(thisImageView)
+        addSubview(thisLabel)
         
         if hasMapIcon != nil {
             addSubview(mapIcon)
@@ -50,10 +60,12 @@ class TextFieldView: UIView {
     }
     
     override func layoutSubviews() {
-        imageView.frame = CGRect(x: 10, y: 14, width: 16, height: 16)
+        thisImageView.frame = CGRect(x: 10, y: 14, width: 16, height: 16)
         
         if hasMapIcon != nil {
             mapIcon.frame = CGRect(x: self.frame.width - 8 - 16, y: 14, width: 16, height: 16)
         }
+        
+        thisLabel.frame = CGRect(x: thisImageView.frame.maxX + 4, y: thisImageView.frame.minY, width: 100, height: 18)
     }
 }

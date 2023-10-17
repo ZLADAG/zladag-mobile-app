@@ -166,11 +166,18 @@ class SimpanButtonView: UIView {
                         name: boarding.name,
                         address: boarding.address,
                         slug: boarding.slug,
+                        description: boarding.description,
                         subdistrictName: boarding.subdistrict.name,
                         districtName: boarding.subdistrict.district.name,
                         cityName: boarding.subdistrict.district.city.name,
+                        provinceName: boarding.subdistrict.district.city.province.name,
                         boardingCategoryName: boarding.boarding_category.name,
-                        imageURLString: boarding.boarding_images[0].path
+                        imageURLString: boarding.boarding_images[0].path,
+                        facilities: boarding.facilities,
+                        services: boarding.services,
+                        boarding_policy: boarding.boarding_policy,
+                        created_at: boarding.boarding_policy.created_at,
+                        updated_at: boarding.boarding_policy.updated_at
                     )
                 })
 

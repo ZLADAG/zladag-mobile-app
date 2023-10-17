@@ -20,6 +20,7 @@ class BoardingDetailsViewController: UIViewController {
     init(viewModel: BoardingsCellViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil) // INI APA SIH
+        self.infoSegment.mainVc = self
     }
     
     required init?(coder: NSCoder) {
@@ -87,7 +88,6 @@ class BoardingDetailsViewController: UIViewController {
         label.textAlignment = .center
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
-        print("VIEWMODEL: \(viewModel)")
         return label
     }()
     
@@ -104,12 +104,12 @@ class BoardingDetailsViewController: UIViewController {
         return label
     }()
     
-    // Location info (distance, distict)
+    // Location info (distance, (district, province))
     lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.text = "\(1.5) km dari lokasi・\(viewModel.subdistrictName), \(viewModel.districtName)"
+        label.text = "\(1.5) km dari lokasi・\(viewModel.districtName), \(viewModel.provinceName)"
         label.font = .systemFont(ofSize: 15, weight: .medium)
         label.textColor = .customGray3
         label.layer.cornerRadius = 5
@@ -489,7 +489,7 @@ class BoardingDetailsViewController: UIViewController {
         ])
         
         //Segmented Content - Info
-        let segmentedContentHeight = max(infoSegment.infoDetailsStack.height, reviewSegment.screenSize.height)
+//        let segmentedContentHeight = max(infoSegment.infoDetailsStack.height, reviewSegment.screenSize.height)
         print("infoSegment.infoDetailsStack.height: \(infoSegment.view.height)")
         
         infoSegment.view.translatesAutoresizingMaskIntoConstraints = false

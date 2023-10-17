@@ -295,8 +295,6 @@
 			children = (
 				6563A4702AD5D2750058A130 /* FilterViews */,
 				8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */,
-				8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */,
-				8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */,
 				8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */,
 				8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */,
 				65DC1D122AD2B365005D8288 /* CollectionViews */,
@@ -324,13 +322,15 @@
 		65C40CEB2ACAC137004D986C /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				65C40D0E2ACD7A22004D986C /* BoardingDetailsViewController.swift */,
 				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
 				65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */,
 				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
 				6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */,
 				65257B742ADD469500C6290C /* DatePickerViewController.swift */,
 				8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */,
+				65C40D0E2ACD7A22004D986C /* BoardingDetailsViewController.swift */,
+				8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */,
+				8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";

@@ -42,42 +42,11 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     }()
     
     let searchContainerView = SearchContainerView()
-    let locationFieldView = TextFieldView(image: UIImage(named: "location-icon"), hasMapIcon: true)
-    let dateFieldView = TextFieldView(image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
+    let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
+    let dateFieldView = TextFieldView(fieldTitle: "X", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
     public var kucingCount = 0
     public var anjingCount = 0
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
-    
-    lazy var locationTextField: UITextField = {
-        let textField = UITextField(frame: .zero)
-        textField.backgroundColor = .clear
-        textField.text = "Dekat saya"
-        textField.textColor = .gray
-        textField.delegate = self
-        
-        // Display frame.
-//        textField.borderStyle = .roundedRect
-        // Add clear button.
-        textField.clearButtonMode = .whileEditing
-        
-        return textField
-    }()
-
-    lazy var dateTextField: UITextField = {
-        let textField = UITextField(frame: .zero)
-        textField.backgroundColor = .clear
-        textField.placeholder = "Tanggal"
-        textField.textColor = .gray
-        textField.delegate = self
-        
-        // Display frame.
-//        textField.borderStyle = .roundedRect
-        
-        // Add clear button.
-        textField.clearButtonMode = .whileEditing
-        
-        return textField
-    }()
     
     let searchButton = SearchButton()
     
@@ -110,10 +79,6 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(dateFieldView)
         addSubview(numberOfCatsAndDogsButton)
         addSubview(searchButton)
-
-        //textfields
-        addSubview(locationTextField)
-        addSubview(dateTextField)
         
         addSubview(promoView)
         
@@ -121,7 +86,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         
         searchButton.addTarget(self, action: #selector(goToSearchResultsViewController), for: .touchUpInside)
         
-        dateTextField.addTarget(self, action: #selector(presentDatePickerSheet), for: .editingDidBegin)
+        dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
         
         numberOfCatsAndDogsButton.addTarget(self, action: #selector(presentCatsAndDogSheet), for: .touchUpInside)
     }
@@ -161,20 +126,6 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
             x: frame.midX - dateFieldView.thisWidth / 2,
             y: dateFieldView.frame.maxY + 16,
             width: 294,
-            height: 44
-        )
-        
-        locationTextField.frame = CGRect(
-            x: locationFieldView.frame.minX + 32,
-            y: locationFieldView.frame.minY,
-            width: 230,
-            height: 44
-        )
-        
-        dateTextField.frame = CGRect(
-            x: dateFieldView.frame.minX + 32,
-            y: dateFieldView.frame.minY,
-            width: 250 - 90,
             height: 44
         )
         
@@ -233,11 +184,18 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
                         name: boarding.name,
                         address: boarding.address,
                         slug: boarding.slug,
+                        description: boarding.description,
                         subdistrictName: boarding.subdistrict.name,
                         districtName: boarding.subdistrict.district.name,
                         cityName: boarding.subdistrict.district.city.name,
+                        provinceName: boarding.subdistrict.district.city.province.name,
                         boardingCategoryName: boarding.boarding_category.name,
-                        imageURLString: boarding.boarding_images[0].path
+                        imageURLString: boarding.boarding_images[0].path,
+                        facilities: boarding.facilities,
+                        services: boarding.services,
+                        boarding_policy: boarding.boarding_policy,
+                        created_at: boarding.boarding_policy.created_at,
+                        updated_at: boarding.boarding_policy.updated_at
                     )
                 })
 
@@ -269,10 +227,10 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
         if let sheet = navVc.sheetPresentationController {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
-//                .custom(resolver: { context in
-//                    0.35 * context.maximumDetentValue
-//                })
-                .medium()
+                .custom(resolver: { context in
+                    0.4 * context.maximumDetentValue
+                })
+//                .medium()
             ]
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
