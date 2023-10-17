@@ -240,14 +240,12 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
     }
     
     @objc func presentDatePickerSheet() {
-        print("presentDatePickerSheet clicked")
         let vc  = DatePickerViewController()
         vc.delegate = self
         
         let navVc = UINavigationController(rootViewController: vc)
         
         vc.modalPresentationStyle = .pageSheet
-//        navVc.isModalInPresentation = true
         
         if let sheet = navVc.sheetPresentationController {
             sheet.preferredCornerRadius = 10
@@ -261,7 +259,8 @@ extension MainHeaderCollectionReusableView: UITextFieldDelegate {
         }
         
         if (startDate != nil) {
-            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
+//            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
+            vc.startDateLabel.text = "anjayy"
 //            print(startDate)
         } else {
             vc.startDate = nil

@@ -118,7 +118,7 @@ class DatePickerViewController: UIViewController {
         picker.minimumDate = Date()
         picker.tintColor = .customOrange
         picker.backgroundColor = .white
-        picker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
+        picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         
         return picker
     }()
@@ -156,9 +156,9 @@ class DatePickerViewController: UIViewController {
         setupConstraints()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        extractDate()
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        extractDate()
+//    }
     
     //MARK: Functions
     func setupConstraints() {
@@ -207,7 +207,7 @@ class DatePickerViewController: UIViewController {
         
         delegate?.startDate = self.startDate
         delegate?.endDate = self.endDate
-        delegate?.dateTextField.text = "\(extractedAllDate)"
+        delegate?.dateFieldView.thisLabel.text = "\(extractedAllDate)"
     }
     
     //MARK: Selector Function
