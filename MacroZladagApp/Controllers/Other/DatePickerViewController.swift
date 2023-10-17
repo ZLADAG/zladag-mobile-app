@@ -118,7 +118,7 @@ class DatePickerViewController: UIViewController {
         picker.minimumDate = Date()
         picker.tintColor = .customOrange
         picker.backgroundColor = .white
-        picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        picker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         
         return picker
     }()
@@ -138,6 +138,7 @@ class DatePickerViewController: UIViewController {
     override func loadView() {
         super.loadView()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

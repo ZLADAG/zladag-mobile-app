@@ -43,7 +43,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     
     let searchContainerView = SearchContainerView()
     let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
-    let dateFieldView = TextFieldView(fieldTitle: "X", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
+    let dateFieldView = TextFieldView(fieldTitle: "", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
     public var kucingCount = 0
     public var anjingCount = 0
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
@@ -142,7 +142,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     
 }
 
-extension MainHeaderCollectionReusableView: UITextFieldDelegate {
+extension MainHeaderCollectionReusableView {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
 //        let vc = MencobaSheetViewController()

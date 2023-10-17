@@ -53,6 +53,14 @@ class TextFieldView: UIButton {
         if hasMapIcon != nil {
             addSubview(mapIcon)
         }
+        
+        if hasMapIcon == nil {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "in")
+            dateFormatter.dateStyle = .medium
+            
+            self.thisLabel.text = dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+        }
     }
     
     required init?(coder: NSCoder) {
