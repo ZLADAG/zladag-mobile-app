@@ -19,7 +19,6 @@ class BoardingPhotoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .orange
         
         contentView.addSubview(boardingImageView)
         contentView.clipsToBounds = true
@@ -35,6 +34,7 @@ class BoardingPhotoCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() { // dipanggil setiap component  view muncul
         super.layoutSubviews()
         
+//        boardingImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 198)
         boardingImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 198)
     }
     

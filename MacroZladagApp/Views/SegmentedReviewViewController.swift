@@ -28,7 +28,7 @@ class SegmentedReviewViewController: UIViewController {
         let fittingSize = self.view.systemLayoutSizeFitting(
             UIView.layoutFittingCompressedSize
         )
-        print("fittingSize: \(fittingSize)")
+//        print("fittingSize: \(fittingSize)")
 //
 //        // Set the frame of the view
 //        self.view.frame = CGRect(
@@ -70,7 +70,7 @@ class SegmentedReviewViewController: UIViewController {
             reviewCollection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             reviewCollection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -0),
             reviewCollection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -24),
-            reviewCollection.heightAnchor.constraint(equalToConstant: 150)
+//            reviewCollection.heightAnchor.constraint(equalToConstant: 150)
         ])
 
     }
