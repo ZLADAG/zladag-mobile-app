@@ -10,8 +10,8 @@ import UIKit
 
 enum SectionType {
     case sectionPromo(stringOfAssets: [String]) // 0
-    case sectionMakan(viewModels: [BoardingsCellViewModel]) // 1
-    case sectionTempatBermain(viewModels: [BoardingsCellViewModel]) // 1
+    case sectionMakan(viewModels: [HomeCellViewModel]) // 1
+    case sectionTempatBermain(viewModels: [HomeCellViewModel]) // 1
 }
 
 class HomeViewController: UIViewController {
@@ -218,8 +218,8 @@ class HomeViewController: UIViewController {
         let group = DispatchGroup()
         group.enter()
         
-        var makanBoardings: [Boarding]?
-        var tempatBermainBoardings: [Boarding]?
+        var makanBoardings: [SmallBoardingCell]?
+        var tempatBermainBoardings: [SmallBoardingCell]?
         
         APICaller.shared.getBoardings { result in
             defer {
@@ -228,14 +228,11 @@ class HomeViewController: UIViewController {
             
             switch result {
             case .success(let model):
-                makanBoardings = model.data.makanBoardings
-//                print("=====================")
-//                print(makanBoardings![0])
-//                print("=====================\n")
-                tempatBermainBoardings = model.data.tempatBermainBoardings
+                makanBoardings = model.data.petHotelsWithFoodFacility
+                tempatBermainBoardings = model.data.petHotelsWithPlaygroundFacility
                 break
             case .failure(let error):
-                print("ERROR IN THI SECTION", error.localizedDescription)
+                print("ERROR IN HOME PAGE", error.localizedDescription)
                 break
             }
         }
@@ -251,7 +248,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func configureModels(forSection1 resultA: [Boarding], forSection2 resultB: [Boarding]) {
+    func configureModels(forSection1 resultA: [SmallBoardingCell], forSection2 resultB: [SmallBoardingCell]) {
         
         // SECTION 1
         var stringOfAssets = [String]()
@@ -262,45 +259,26 @@ class HomeViewController: UIViewController {
         sections.append(.sectionPromo(stringOfAssets: stringOfAssets))
         
         // SECTION 2
-        sections.append(.sectionMakan(viewModels: resultA.compactMap({ boarding in
-            
-            return BoardingsCellViewModel(
+        sections.append(.sectionMakan(viewModels: resultA.compactMap({boarding in
+            return HomeCellViewModel(
                 name: boarding.name,
-                address: boarding.address,
                 slug: boarding.slug,
-                description: boarding.description,
-                subdistrictName: boarding.subdistrict.name,
-                districtName: boarding.subdistrict.district.name,
-                cityName: boarding.subdistrict.district.city.name,
-                provinceName: boarding.subdistrict.district.city.province.name,
-                boardingCategoryName: boarding.boarding_category.name,
-                imageURLString: boarding.boarding_images[0].path,
-                facilities: boarding.facilities,
-                services: boarding.services,
-                boarding_policy: boarding.boarding_policy,
-                created_at: boarding.boarding_policy.created_at,
-                updated_at: boarding.boarding_policy.updated_at
+                subdistrictName: boarding.subdistrict,
+                provinceName: boarding.province,
+                price: boarding.cheapestLodgingPrice,
+                imageURLString: boarding.images[0]
             )
         })))
         
         // SECTION 3
         sections.append(.sectionTempatBermain(viewModels: resultB.compactMap({ boarding in
-            return BoardingsCellViewModel(
+            return HomeCellViewModel(
                 name: boarding.name,
-                address: boarding.address,
                 slug: boarding.slug,
-                description: boarding.description,
-                subdistrictName: boarding.subdistrict.name,
-                districtName: boarding.subdistrict.district.name,
-                cityName: boarding.subdistrict.district.city.name,
-                provinceName: boarding.subdistrict.district.city.province.name,
-                boardingCategoryName: boarding.boarding_category.name,
-                imageURLString: boarding.boarding_images[0].path,
-                facilities: boarding.facilities,
-                services: boarding.services,
-                boarding_policy: boarding.boarding_policy,
-                created_at: boarding.boarding_policy.created_at,
-                updated_at: boarding.boarding_policy.updated_at
+                subdistrictName: boarding.subdistrict,
+                provinceName: boarding.province,
+                price: boarding.cheapestLodgingPrice,
+                imageURLString: boarding.images[0]
             )
         })))
         
@@ -396,27 +374,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
-            let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(viewModel: viewModel)
-            vc.title = viewModel.name
-            vc.hidesBottomBarWhenPushed = true
-
-            vc.navigationItem.largeTitleDisplayMode = .always
-            vc.navigationController?.navigationBar.prefersLargeTitles = true
-            
-            navigationController?.pushViewController(vc, animated: true)
+//            let viewModel = viewModels[indexPath.row]
+//            let vc = BoardingDetailsViewController(viewModel: viewModel)
+//            vc.title = viewModel.name
+//            vc.hidesBottomBarWhenPushed = true
+//
+//            vc.navigationItem.largeTitleDisplayMode = .always
+//            vc.navigationController?.navigationBar.prefersLargeTitles = true
+//
+//            navigationController?.pushViewController(vc, animated: true)
             
             break
         case .sectionTempatBermain(viewModels: let viewModels):
-            let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(viewModel: viewModel)
-            vc.title = viewModel.name
-            vc.hidesBottomBarWhenPushed = true
-
-            vc.navigationItem.largeTitleDisplayMode = .always
-            vc.navigationController?.navigationBar.prefersLargeTitles = true
-            
-            navigationController?.pushViewController(vc, animated: true)
+//            let viewModel = viewModels[indexPath.row]
+//            let vc = BoardingDetailsViewController(viewModel: viewModel)
+//            vc.title = viewModel.name
+//            vc.hidesBottomBarWhenPushed = true
+//
+//            vc.navigationItem.largeTitleDisplayMode = .always
+//            vc.navigationController?.navigationBar.prefersLargeTitles = true
+//            
+//            navigationController?.pushViewController(vc, animated: true)
             break
         }
     }

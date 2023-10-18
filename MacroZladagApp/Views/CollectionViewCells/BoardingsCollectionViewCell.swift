@@ -85,7 +85,6 @@ class BoardingsCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .white
         
-        
         contentView.addSubview(imageView)
         contentView.addSubview(starImageView)
         contentView.addSubview(locationImageView)
@@ -138,15 +137,13 @@ class BoardingsCollectionViewCell: UICollectionViewCell {
         addressLabel.text = nil
     }
     
-    func configure(with viewModel: BoardingsCellViewModel) {
+    func configure(with viewModel: HomeCellViewModel) {
         imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: viewModel.imageURLString)))
         nameLabel.text = viewModel.name
-        
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)
-        addressLabel.text = "\(viewModel.districtName), \(viewModel.provinceName)"
+        addressLabel.text = "\(viewModel.subdistrictName), \(viewModel.provinceName)"
         
-        priceLabel.text = "IDR \(viewModel.price).000"
-        
+        priceLabel.text = "RM \(viewModel.price)"
     }
     
     func getRatingLabelAttributedString(rating: Double, numOfReviews: Int) -> NSMutableAttributedString {

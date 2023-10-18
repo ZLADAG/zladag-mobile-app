@@ -17,6 +17,7 @@ final class APICaller {
     struct Constants {
 //        static let baseAPIURL = "https://22c6-158-140-189-122.ngrok-free.app/api"
 //        static let baseAPIURL = "http://localhost:8100/api"
+        
         static let baseAPIURL = "https://zladag-sasato.uc.r.appspot.com/api"
         static let baseAPIURLLocal = "http://localhost:8080/api"
     }
@@ -26,7 +27,7 @@ final class APICaller {
     }
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/boarding-categories/pet-hotel/home"), type: .GET) { baseRequest in
+        createRequest(with: URL(string: Constants.baseAPIURL + "/home"), type: .GET) { baseRequest in
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(error!))

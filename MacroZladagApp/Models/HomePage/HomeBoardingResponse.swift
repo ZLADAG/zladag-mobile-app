@@ -12,6 +12,6 @@ struct HomeBoardingResponse: Codable {
 }
 
 struct HomeBoarding: Codable {
-    let makanBoardings: [Boarding]
-    let tempatBermainBoardings: [Boarding]
+    let petHotelsWithFoodFacility: [SmallBoardingCell]
+    let petHotelsWithPlaygroundFacility: [SmallBoardingCell]
 }
