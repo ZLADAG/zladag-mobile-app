@@ -17,9 +17,9 @@ class KategoriButton: UIButton {
     let checkBox = UIButton()
     var isClicked: Bool = false
 
-    init(kategoriText: String) {
+    init(textParam: String, kategoriText: String) {
         self.kategoriText = kategoriText
-        self.textParam = kategoriText
+        self.textParam = textParam
         super.init(frame: .zero)
         
 //        backgroundColor = .red

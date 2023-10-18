@@ -16,10 +16,12 @@ class UrutkanFilterButton: UIButton {
     let label = UILabel()
     
     let textParam: String
+    let text: String
     
-    init(text: String, isClicked: Bool) {
+    init(textParam: String, text: String, isClicked: Bool) {
         self.isClicked = isClicked
-        self.textParam = text
+        self.textParam = textParam
+        self.text = text
         super.init(frame: .zero)
         
         label.text = text

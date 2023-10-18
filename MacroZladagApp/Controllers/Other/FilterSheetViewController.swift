@@ -47,11 +47,11 @@ class FilterSheetViewController: UIViewController {
     
     // MARK: Urutkan
     
-    var palingSesuaiButton = UrutkanFilterButton(text: "Paling Sesuai", isClicked: true)
-    var hargaTertinggiButton = UrutkanFilterButton(text: "Harga Tertinggi", isClicked: false)
-    var hargaTerendahButton = UrutkanFilterButton(text: "Harga Terendah", isClicked: false)
-    var ratingTertinggiButton = UrutkanFilterButton(text: "Rating Tertinggi", isClicked: false)
-    var lokasiTerdekatButton = UrutkanFilterButton(text: "Lokasi Terdekat", isClicked: false)
+    var palingSesuaiButton = UrutkanFilterButton(textParam: "", text: "Paling Sesuai", isClicked: true)
+    var hargaTertinggiButton = UrutkanFilterButton(textParam: "highestPrice", text: "Harga Tertinggi", isClicked: false)
+    var hargaTerendahButton = UrutkanFilterButton(textParam: "lowestPrice", text: "Harga Terendah", isClicked: false)
+    var ratingTertinggiButton = UrutkanFilterButton(textParam: "", text: "Rating Tertinggi", isClicked: false)
+    var lokasiTerdekatButton = UrutkanFilterButton(textParam: "", text: "Lokasi Terdekat", isClicked: false)
     
     // MARK: Price (!!!)
     public var minimumPriceTextField = MinimumPriceTextField()
@@ -113,27 +113,27 @@ class FilterSheetViewController: UIViewController {
     
     // MARK: Kategori
     
-    let kategoriPetHotelButton = KategoriButton(kategoriText: "Pet Hotel")
-    let kategoriPetShopButton = KategoriButton(kategoriText: "Pet Shop")
-    let kategoriRumahSakitHewanButton = KategoriButton(kategoriText: "Rumah Sakit Hewan")
+    let kategoriPetHotelButton = KategoriButton(textParam: "petHotel", kategoriText: "Pet Hotel")
+    let kategoriPetShopButton = KategoriButton(textParam: "petShop", kategoriText: "Pet Shop")
+    let kategoriRumahSakitHewanButton = KategoriButton(textParam: "petHospital", kategoriText: "Rumah Sakit Hewan")
     
     // MARK: Fasilitas
     
     // facilities
-    let tempatBermainContainer = FasilitasContainerButton(textParam: "Tempat Bermain", facilityName: "Tempat Bermain", iconName: "tempat-bermain-icon")
-    let ruanganBerACContainer = FasilitasContainerButton(textParam: "AC", facilityName: "Ruangan Ber-AC", iconName: "ruangan-ber-ac-icon")
-    let cctvContainer = FasilitasContainerButton(textParam: "CCTV", facilityName: "CCTV", iconName: "cctv-icon")
+    let tempatBermainContainer = FasilitasContainerButton(textParam: "playground", facilityName: "Tempat Bermain", iconName: "tempat-bermain-icon")
+    let ruanganBerACContainer = FasilitasContainerButton(textParam: "ac", facilityName: "Ruangan Ber-AC", iconName: "ruangan-ber-ac-icon")
+    let cctvContainer = FasilitasContainerButton(textParam: "cctv", facilityName: "CCTV", iconName: "cctv-icon")
     
     // services
-    let termasukMakananContainer = FasilitasContainerButton(textParam: "Makan", facilityName: "Termasuk Makanan", iconName: "termasuk-makanan-icon")
-    let tersediaAntarJemputContainer = FasilitasContainerButton(textParam: "Antar Jemput", facilityName: "Tersedia Antar Jemput", iconName: "tersedia-antar-jemput-icon")
-    let tersediaGroomingContainer = FasilitasContainerButton(textParam: "Grooming", facilityName: "Tersedia Grooming", iconName: "tersedia-grooming-icon")
-    let tersediaDokterHewanContainer = FasilitasContainerButton(textParam: "Dokter Hewan", facilityName: "Tersedia Dokter Hewan", iconName: "tersedia-dokter-hewan-icon")
+    let termasukMakananContainer = FasilitasContainerButton(textParam: "food", facilityName: "Termasuk Makanan", iconName: "termasuk-makanan-icon")
+    let tersediaAntarJemputContainer = FasilitasContainerButton(textParam: "delivery", facilityName: "Tersedia Antar Jemput", iconName: "tersedia-antar-jemput-icon")
+    let tersediaGroomingContainer = FasilitasContainerButton(textParam: "grooming", facilityName: "Tersedia Grooming", iconName: "tersedia-grooming-icon")
+    let tersediaDokterHewanContainer = FasilitasContainerButton(textParam: "veterinary", facilityName: "Tersedia Dokter Hewan", iconName: "tersedia-dokter-hewan-icon")
     
     // MARK: Kekhususan
     
-    let khususKucingSwitch = KekhususanSwitch(khususText: "Khusus Kucing")
-    let khususAnjingSwitch = KekhususanSwitch(khususText: "Khusus Anjing")
+    let khususKucingSwitch = KekhususanSwitch(textParam: "cat", khususText: "Khusus Kucing")
+    let khususAnjingSwitch = KekhususanSwitch(textParam: "dog", khususText: "Khusus Anjing")
     
     let simpanButtonView = SimpanButtonView()
     
@@ -217,10 +217,9 @@ class FilterSheetViewController: UIViewController {
         // URUTKAN
         let buttons = [palingSesuaiButton, hargaTertinggiButton, hargaTerendahButton, ratingTertinggiButton, lokasiTerdekatButton]
         
-        var urutkanValue = cellDelegate.urutkanValue
+        let urutkanValue = cellDelegate.urutkanValue
         for button in buttons {
-            if button.textParam == urutkanValue {
-                print(button.textParam)
+            if button.text == urutkanValue {
                 button.isClicked = true
                 button.backgroundColor = .orangeWithOpacity
                 button.layer.borderColor = UIColor.customOrange.cgColor
@@ -238,7 +237,7 @@ class FilterSheetViewController: UIViewController {
         
         for kategori in cellDelegate.kategoriValues {
             for button in kategoriButtons {
-                if button.textParam == kategori {
+                if button.kategoriText == kategori {
                     button.isClicked = true
                     button.checkBox.subviews[0].layer.opacity = 1.0
                     button.checkBox.layer.borderColor = UIColor.customOrange.cgColor
@@ -251,7 +250,7 @@ class FilterSheetViewController: UIViewController {
         
         for fasilitas in cellDelegate.fasilitasValues {
             for button in fasilitasButtons {
-                if button.textParam == fasilitas {
+                if button.facilityName == fasilitas {
                     button.isClicked = true
                     button.layer.cornerRadius = 8
                     button.layer.borderColor = UIColor.orange.cgColor
@@ -264,10 +263,10 @@ class FilterSheetViewController: UIViewController {
         
         // KEKHUSUSAN
         for kekhususan in cellDelegate.kekhususanValues {
-            if khususAnjingSwitch.paramText == kekhususan {
+            if khususAnjingSwitch.khususText == kekhususan {
                 khususAnjingSwitch.isClicked = true
                 khususAnjingSwitch.uiSwitch.isOn = true
-            } else if khususKucingSwitch.paramText == kekhususan {
+            } else if khususKucingSwitch.khususText == kekhususan {
                 khususKucingSwitch.isClicked = true
                 khususKucingSwitch.uiSwitch.isOn = true
             }

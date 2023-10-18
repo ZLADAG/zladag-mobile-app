@@ -27,6 +27,6 @@ struct BoardingDetails: Codable {
     let description: String
     let address: String
     let mobileMapLink: String
-    let cheapestLodgingPrice: String
+    let cheapestLodgingPrice: Int
     let images: [String]
 }

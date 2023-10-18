@@ -15,10 +15,10 @@ class KekhususanSwitch: UIButton {
     var isClicked: Bool = false
     let uiSwitch = UISwitch()
     
-    let paramText: String
+    let textParam: String
     
-    init(khususText: String) {
-        self.paramText = String(khususText.split(separator: " ")[1])
+    init(textParam: String, khususText: String) {
+        self.textParam = textParam
         self.khususText = khususText
         super.init(frame: .zero)
         

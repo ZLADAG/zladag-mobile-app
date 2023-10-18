@@ -149,24 +149,24 @@ extension MainHeaderCollectionReusableView {
 
         var petCategories = [String]()
         if self.anjingCount > 0 {
-            petCategories.append("Anjing")
+            petCategories.append("cat")
         }
         
         if self.kucingCount > 0 {
-            petCategories.append("Kucing")
+            petCategories.append("dog")
         }
         
         var params: String = ""
         if petCategories.count == 1 {
-            if let queryParam = "petCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 params += queryParam
             }
         } else if petCategories.count == 2 {
-            if let queryParam = "petCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 params += queryParam
             }
             
-            if let queryParam = "&petCategories[]=\(petCategories[1])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if let queryParam = "&boardingPetCategories[]=\(petCategories[1])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 params += queryParam
             }
         }

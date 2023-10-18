@@ -45,8 +45,8 @@ class BoardingPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with imageURL: String) {
-//        promoImageView.sd_setImage(with: URL(string: APICaller.shared.getRandomImageURL(id: Int.random(in: 0...3))))
-        boardingImageView.image = UIImage(named: imageURL)
+        boardingImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageURL)))
+//        boardingImageView.image = UIImage(named: imageURL)
         
         contentView.addSubview(boardingImageView)
         

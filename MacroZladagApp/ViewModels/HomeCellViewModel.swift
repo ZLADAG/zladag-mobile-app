@@ -12,7 +12,7 @@ struct HomeCellViewModel {
     let slug: String
     let subdistrictName: String
     let provinceName: String
-    let price: Int
+    let price: String
     let imageURLString: String
     
     let rating: Double
@@ -23,11 +23,22 @@ struct HomeCellViewModel {
         self.slug = slug
         self.subdistrictName = subdistrictName
         self.provinceName = provinceName
-        self.price = price
         self.imageURLString = imageURLString
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)
+        
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.locale = Locale.current
+//        numberFormatter.numberStyle = .decimal
+//        numberFormatter.groupingSeparator = "."
+//        
+//        if let formattedTipAmount = numberFormatter.string(from: price as NSNumber) {
+//            self.price = "IDR \(formattedTipAmount)"
+//        } else {
+//            self.price = "IDR \(price)"
+//        }
+        self.price = Utils.getStringCurrencyFormatted(price)
     }
 }
 

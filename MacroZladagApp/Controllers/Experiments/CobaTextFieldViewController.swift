@@ -181,7 +181,6 @@ extension MinimumPriceTextField2: UITextFieldDelegate {
             self.minimumPriceValue = intValue
             print(self.minimumPriceValue)
         }
-        print("HAHAHAHA MINIMUM! \(self.minimumPriceValue)")
     }
 }
 
@@ -228,7 +227,6 @@ extension MaximumPriceTextField2: UITextFieldDelegate {
             self.maximumPriceValue = intValue
             print(self.maximumPriceValue)
         }
-        print("HAHAHAHA MAXIMUM! \(self.maximumPriceValue)")
     }
 }
 

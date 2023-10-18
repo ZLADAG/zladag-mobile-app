@@ -148,7 +148,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)
         addressLabel.text = "\(viewModel.subdistrictName), \(viewModel.provinceName)"
         
-        priceLabel.text = "IDR \(viewModel.price)"
+        priceLabel.text = "\(viewModel.price)"
         
     }
     

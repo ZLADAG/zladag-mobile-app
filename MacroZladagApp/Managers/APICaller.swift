@@ -85,7 +85,8 @@ final class APICaller {
     }
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/boarding/\(slug)"), type: .GET) { baseRequest in
+        createRequest(with: URL(string: Constants.baseAPIURL + "/boardings/\(slug)"), type: .GET) { baseRequest in
+            print("slug:", slug)
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(error!))
@@ -105,6 +106,7 @@ final class APICaller {
         }
     }
     
+    
     public func getBoardingsByName(name: String, completion: @escaping (Result<BoardingsResponse, Error>) -> Void) {
 //        createRequest(with: URL(string: Constants.baseAPIURL + "/boardings/\(name)"), type: .GET) { baseRequest in
         createRequest(with: URL(string: Constants.baseAPIURLLocal + "/boardings"), type: .GET) { baseRequest in
@@ -117,7 +119,7 @@ final class APICaller {
                 do {
 //                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     let result = try JSONDecoder().decode(BoardingsResponse.self, from: data)
-//                    print(result)
+
                     completion(Result.success(result))
                 } catch {
                     print(error.localizedDescription)

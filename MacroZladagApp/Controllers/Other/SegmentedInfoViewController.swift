@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class SegmentedInfoViewController: UIViewController {
 
@@ -50,7 +51,6 @@ class SegmentedInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpComponents()
         setUpConstraint()
     }
@@ -89,22 +89,14 @@ class SegmentedInfoViewController: UIViewController {
         guard let mainVcViewModel = mainVc?.viewModel else { return }
         // Set Title
         facilityTitleLabel = createTitleLabel("Fasilitas & Layanan")
-        
-        let playgroundStatus = false
-        let acStatus = false
-        let cctvStatus = false
-        let petFoodStatus = false
-        let pickUpStatus = false
-        let groomingStatus = false
-        let vetStatus = false
-        
+          
         var allViewItems:[UIView] = []
         var leftViewItems:[UIView] = []
         var rightViewItems:[UIView] = []
         
         
         // Validate provided facilities
-        if (mainVcViewModel.facilities.contains("Tempat Bermain")) {
+        if (mainVcViewModel.facilities.contains("Playground")) {
             let playground = createIconLabel("facility-playground-icon", "Tempat Bermain")
             allViewItems.append(playground)
         }
@@ -118,11 +110,11 @@ class SegmentedInfoViewController: UIViewController {
         }
         
         // GANTI FACILITIES KE SERVICES
-        if (mainVcViewModel.facilities.contains("Makan")) {
+        if (mainVcViewModel.facilities.contains("Food")) {
             let petFood = createIconLabel("facility-petFood-icon", "Termasuk Makanan")
             allViewItems.append(petFood)
         }
-        if (mainVcViewModel.facilities.contains("Antar Jemput")) {
+        if (mainVcViewModel.facilities.contains("Delivery")) {
             let pickUp = createIconLabel("facility-pickUp-icon", "Jasa Antar Jemput")
             allViewItems.append(pickUp)
         }
@@ -130,7 +122,7 @@ class SegmentedInfoViewController: UIViewController {
             let grooming = createIconLabel("facility-grooming-icon", "Termasuk Grooming")
             allViewItems.append(grooming)
         }
-        if (mainVcViewModel.facilities.contains("Dokter Hewan")) {
+        if (mainVcViewModel.facilities.contains("Veterinary")) {
             let vet = createIconLabel("facility-vet-icon", "Tersedia Dokter Hewan")
             allViewItems.append(vet)
         }
@@ -190,15 +182,20 @@ class SegmentedInfoViewController: UIViewController {
     }
     
     private func setUpCageSizeInfo() {
+        guard let mainVcViewModel = mainVc?.viewModel else { return }
+        
         // Set Title
         cageSizeTitleLabel = createTitleLabel("Ukuran Kandang")
 
         // Set Content
-        cageSmallLabel = createCageLabel("S", 35, 60, "cm")
-        cageMediumLabel = createCageLabel("M", 45, 70, "cm")
-        cageLargeLabel = createCageLabel("L", 55, 80, "cm")
+//        cageSmallLabel = createCageLabel("S", 35, 60, "cm")
         
-        cageSizeContentStack = UIStackView(arrangedSubviews: [cageSmallLabel, cageMediumLabel, cageLargeLabel])
+        var labels = [UILabel]()
+        for cage in mainVcViewModel.boardingCages {
+            labels.append(createCageLabel(cage.name, cage.width, cage.length, "cm"))
+        }
+        
+        cageSizeContentStack = UIStackView(arrangedSubviews: labels)
         cageSizeContentStack.translatesAutoresizingMaskIntoConstraints = false
 
         cageSizeContentStack.axis  = NSLayoutConstraint.Axis.vertical
@@ -211,22 +208,22 @@ class SegmentedInfoViewController: UIViewController {
     }
     
     private func setUpPolicyInfo() {
-//        guard let mainVc else { return }
         guard let mainVcViewModel = mainVc?.viewModel else { return }
+        
         var subViews = [UIStackView]()
         
         // Set Title
         policyTitleLabel = createTitleLabel("Kebijakan Pet Hotel")
         
         // Open hours
-        let startCheckIn = 22
-        let endCheckIn = 22
-        let startCheckOut = 22
-        let endCheckOut = 22
-//        let startCheckIn = mainVc.viewModel.startCheckInTime
-//        let endCheckIn = mainVc.viewModel.endCheckInTime
-//        let startCheckOut = mainVc.viewModel.startCheckOutTime
-//        let endCheckOut = mainVc.viewModel.endCheckOutTime
+//        let startCheckIn = 22
+//        let endCheckIn = 22
+//        let startCheckOut = 22
+//        let endCheckOut = 22
+        let startCheckIn = mainVcViewModel.startCheckInTime
+        let endCheckIn = mainVcViewModel.endCheckInTime
+        let startCheckOut = mainVcViewModel.startCheckOutTime
+        let endCheckOut = mainVcViewModel.endCheckOutTime
         
         let openHoursStack = createPolicyOpenHourContent(
             "policy-clock-icon",
@@ -244,7 +241,7 @@ class SegmentedInfoViewController: UIViewController {
         
         // Age Range
         let minAge = mainVcViewModel.minimumAge
-        let maxAge = mainVcViewModel.maximumAge
+        let maxAge = Int(ceil(Double(mainVcViewModel.maximumAge / 12)))
         let ageRangeStack = createIconLabelWithTitle("policy-age-icon", "Usia Anabul", "Menerima anabul usia \(minAge) bulan - \(maxAge) tahun")
         subViews.append(ageRangeStack)
         
@@ -457,14 +454,4 @@ class SegmentedInfoViewController: UIViewController {
         return icon
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

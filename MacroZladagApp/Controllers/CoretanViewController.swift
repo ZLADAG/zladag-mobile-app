@@ -49,7 +49,6 @@ class CoretanViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemMint
-        super.title = "anjay"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         collectionView.register(BoardingsCollectionViewCell.self, forCellWithReuseIdentifier: BoardingsCollectionViewCell.identifier)

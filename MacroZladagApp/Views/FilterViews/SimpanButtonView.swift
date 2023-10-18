@@ -46,8 +46,8 @@ class SimpanButtonView: UIView {
         
         // strings to concatenate altogether, as the query params
         var sortBy: String = ""
+        var boardingCategories: String = ""
         var facilities: String = ""
-        var serviceCategories: String = ""
         var petCategories: String = ""
         
         // URUTKAN buttons
@@ -68,10 +68,7 @@ class SimpanButtonView: UIView {
         let facilityButtons = [
             sheetDelegate.tempatBermainContainer,
             sheetDelegate.ruanganBerACContainer,
-            sheetDelegate.cctvContainer
-        ]
-        
-        let serviceButtons = [
+            sheetDelegate.cctvContainer,
             sheetDelegate.termasukMakananContainer,
             sheetDelegate.tersediaAntarJemputContainer,
             sheetDelegate.tersediaGroomingContainer,
@@ -89,7 +86,7 @@ class SimpanButtonView: UIView {
                 if let queryParam = "sortBy=\(urutkanButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                     sortBy = queryParam
                 }
-                sheetDelegate.cellDelegate?.urutkanValue = urutkanButton.textParam
+                sheetDelegate.cellDelegate?.urutkanValue = urutkanButton.text
             }
         }
         
@@ -97,7 +94,12 @@ class SimpanButtonView: UIView {
         var tempKategori = [String]()
         for kategoriButton in kategoriButtons {
             if kategoriButton.isClicked {
-                tempKategori.append(kategoriButton.textParam)
+                let queryParam: String? = "&boardingCategories[]=\(kategoriButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                if let queryParam {
+                    boardingCategories += queryParam
+                }
+                tempKategori.append(kategoriButton.kategoriText)
+                
             }
         }
         sheetDelegate.cellDelegate?.kategoriValues = tempKategori
@@ -107,23 +109,14 @@ class SimpanButtonView: UIView {
         var tempFacilities = [String]()
         for facilityButton in facilityButtons {
             if facilityButton.isClicked {
-                let queryParam: String? = "&facilities[]=\(facilityButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let queryParam: String? = "&boardingFacilities[]=\(facilityButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                 if let queryParam {
                     facilities += queryParam
                 }
-                tempFacilities.append(facilityButton.textParam)
+                tempFacilities.append(facilityButton.facilityName)
             }
         }
         
-        for serviceButton in serviceButtons {
-            if serviceButton.isClicked {
-                let queryParam: String? = "&serviceCategories[]=\(serviceButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                if let queryParam {
-                    serviceCategories += queryParam
-                }
-                tempFacilities.append(serviceButton.textParam)
-            }
-        }
         
         sheetDelegate.cellDelegate?.fasilitasValues = tempFacilities
 
@@ -132,11 +125,11 @@ class SimpanButtonView: UIView {
         var tempKekhususan = [String]()
         for kekhususanButton in kekhususanButtons {
             if kekhususanButton.isClicked {
-                let queryParam: String? = "&petCategories[]=\(kekhususanButton.paramText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let queryParam: String? = "&boardingPetCategories[]=\(kekhususanButton.textParam)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                 if let queryParam {
                     petCategories += queryParam
                 }
-                tempKekhususan.append(kekhususanButton.paramText)
+                tempKekhususan.append(kekhususanButton.khususText)
             }
         }
         sheetDelegate.cellDelegate?.kekhususanValues = tempKekhususan
@@ -154,7 +147,7 @@ class SimpanButtonView: UIView {
         let group = DispatchGroup()
         group.enter()
         
-        APICaller.shared.getBoardingsSearch(params: "\(sortBy)\(facilities)\(serviceCategories)\(petCategories)\(priceRange)") { result in
+        APICaller.shared.getBoardingsSearch(params: "\(sortBy)\(facilities)\(petCategories)\(priceRange)\(boardingCategories)") { result in
             defer {
                 group.leave()
             }

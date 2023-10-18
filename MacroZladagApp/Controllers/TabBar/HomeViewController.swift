@@ -377,23 +377,96 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let viewModel = viewModels[indexPath.row]
             let vc = BoardingDetailsViewController(slug: viewModel.slug)
             vc.hidesBottomBarWhenPushed = true
-
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
 
-            navigationController?.pushViewController(vc, animated: true)
+            let group = DispatchGroup()
+            group.enter()
             
+            APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
+                defer {
+                    group.leave()
+                }
+
+                switch result {
+                case .success(let response):
+                    vc.viewModel = BoardingDetailsViewModel(
+                        name: response.data.name,
+                        distance: response.data.distance,
+                        address: response.data.address,
+                        slug: response.data.slug,
+                        description: response.data.description,
+                        boardingCategory: response.data.boardingCategory,
+                        subdistrictName: response.data.subdistrict,
+                        provinceName: response.data.province,
+                        boardingCages: response.data.boardingCages,
+                        price: response.data.cheapestLodgingPrice,
+                        images: response.data.images,
+                        facilities: response.data.boardingFacilities,
+                        shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
+                        shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
+                        minimumAge: response.data.minimumAge,
+                        maximumAge: response.data.maximumAge,
+                        rating: viewModel.rating,
+                        numOfReviews: viewModel.numOfReviews
+                    )
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    break
+                }
+            }
+            group.notify(queue: .main) {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             break
         case .sectionTempatBermain(viewModels: let viewModels):
-//            let viewModel = viewModels[indexPath.row]
-//            let vc = BoardingDetailsViewController(viewModel: viewModel)
-//            vc.title = viewModel.name
-//            vc.hidesBottomBarWhenPushed = true
-//
-//            vc.navigationItem.largeTitleDisplayMode = .always
-//            vc.navigationController?.navigationBar.prefersLargeTitles = true
-//            
-//            navigationController?.pushViewController(vc, animated: true)
+            let viewModel = viewModels[indexPath.row]
+            let vc = BoardingDetailsViewController(slug: viewModel.slug)
+            vc.hidesBottomBarWhenPushed = true
+            vc.navigationItem.largeTitleDisplayMode = .always
+            vc.navigationController?.navigationBar.prefersLargeTitles = true
+
+            let group = DispatchGroup()
+            group.enter()
+            
+            APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
+                defer {
+                    group.leave()
+                }
+
+                switch result {
+                case .success(let response):
+                    vc.viewModel = BoardingDetailsViewModel(
+                        name: response.data.name,
+                        distance: response.data.distance,
+                        address: response.data.address,
+                        slug: response.data.slug,
+                        description: response.data.description,
+                        boardingCategory: response.data.boardingCategory,
+                        subdistrictName: response.data.subdistrict,
+                        provinceName: response.data.province,
+                        boardingCages: response.data.boardingCages,
+                        price: response.data.cheapestLodgingPrice,
+                        images: response.data.images,
+                        facilities: response.data.boardingFacilities,
+                        shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
+                        shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
+                        minimumAge: response.data.minimumAge,
+                        maximumAge: response.data.maximumAge,
+                        rating: viewModel.rating,
+                        numOfReviews: viewModel.numOfReviews
+                    )
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    break
+                }
+            }
+            
+            group.notify(queue: .main) {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             break
         }
     }

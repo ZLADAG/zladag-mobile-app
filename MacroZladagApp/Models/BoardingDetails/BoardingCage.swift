@@ -11,5 +11,5 @@ struct BoardingCage: Codable {
     let name: String
     let length: Int
     let width: Int
-    let height: Int
+//    let height: Int
 }
