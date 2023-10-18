@@ -158,6 +158,7 @@ class SimpanButtonView: UIView {
                     return SearchBoardingViewModel(
                         slug: boarding.slug,
                         name: boarding.name,
+                        distance: boarding.distance,
                         subdistrictName: boarding.subdistrict,
                         provinceName: boarding.province,
                         price: boarding.cheapestLodgingPrice,

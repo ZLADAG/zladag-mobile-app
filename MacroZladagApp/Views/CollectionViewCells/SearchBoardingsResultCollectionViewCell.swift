@@ -11,6 +11,8 @@ import SDWebImage
 class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate {
     static let identifier = "SearchBoardingsResultCollectionViewCell"
     
+    var facilities = [String]()
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
@@ -23,13 +25,13 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray
+        imageView.tintColor = .customOrange
         return imageView
     }()
     
     let locationImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "location.fill")
+        imageView.image = UIImage(named: "location-icon")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .gray
         return imageView
@@ -38,7 +40,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.font = .systemFont(ofSize: 14, weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .left
         return label
@@ -56,9 +58,27 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
     let addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .light)
-        label.numberOfLines = 0 // bantu buat nge wrap text
+        label.numberOfLines = 0
         label.textAlignment = .left
         label.textColor = .gray
+        return label
+    }()
+    
+    let distanceLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .light)
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        label.textColor = .gray
+        return label
+    }()
+    
+    let titikLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .gray
+        label.text = "・"
         return label
     }()
     
@@ -81,18 +101,21 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         return label
     }()
     
+    let hScrollView = UIScrollView()
+    let containerView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
         
-        
         contentView.addSubview(imageView)
-        contentView.addSubview(starImageView)
-        contentView.addSubview(locationImageView)
         contentView.addSubview(nameLabel)
+        contentView.addSubview(starImageView)
         contentView.addSubview(ratingLabel)
+        contentView.addSubview(locationImageView)
         contentView.addSubview(priceLabel)
+        contentView.addSubview(distanceLabel)
+        contentView.addSubview(titikLabel)
         contentView.addSubview(perEkorPerMalamLabel)
         contentView.addSubview(addressLabel)
         
@@ -104,7 +127,56 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         layer.shadowRadius = 2.0
         layer.shadowOpacity = 0.15
         layer.masksToBounds = false
+    }
+    
+    func configureScrollView() {
+        contentView.addSubview(hScrollView)
+        hScrollView.addSubview(containerView)
         
+//        containerView.backgroundColor = .red
+//        hScrollView.backgroundColor = .green
+        
+        hScrollView.frame = CGRect(x: 16, y: imageView.bottom + 10, width: contentView.width, height: 23)
+        containerView.frame = CGRect(x: 0, y: 0, width: 2000, height: 23)
+        
+        var z = 0
+        for facility in facilities[0..<Int(floor(CGFloat(Double(facilities.count) / 1.5)))] {
+            let aView: UIView = {
+                let aView = UIView()
+                
+                let label = UILabel()
+                label.text = facility
+                label.textColor = .white
+                label.font = .systemFont(ofSize: 12, weight: .regular)
+                label.backgroundColor = .facilityBlue
+                label.textAlignment = .center
+                
+                aView.addSubview(label)
+
+                label.translatesAutoresizingMaskIntoConstraints = false
+                
+                label.centerXAnchor.constraint(equalTo: aView.centerXAnchor).isActive = true
+                label.centerYAnchor.constraint(equalTo: aView.centerYAnchor).isActive = true
+                label.widthAnchor.constraint(equalToConstant: 74).isActive = true
+                label.heightAnchor.constraint(equalToConstant: 23).isActive = true
+                
+                aView.layer.masksToBounds = true
+                aView.layer.cornerRadius = 4
+                return aView
+            }()
+            
+            hScrollView.addSubview(aView)
+
+            aView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                aView.topAnchor.constraint(equalTo: hScrollView.topAnchor),
+                aView.leadingAnchor.constraint(equalTo: hScrollView.leadingAnchor, constant: CGFloat((74 + 8) * z)),
+                aView.widthAnchor.constraint(equalToConstant: 74),
+                aView.heightAnchor.constraint(equalToConstant: 23),
+            ])
+            z += 1
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -120,16 +192,21 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         imageView.frame = CGRect(x: 0, y: 0, width: contentView.width, height: 130)
         imageView.backgroundColor = .white
         
-        nameLabel.frame = CGRect(x: leading, y: imageView.bottom + 20, width: contentView.width - 75 - 8, height: 19)
+        configureScrollView()
         
-        starImageView.frame = CGRect(x: contentView.right - 75, y: imageView.bottom + 20, width: 16, height: 16)
-        ratingLabel.frame = CGRect(x: starImageView.right + 5, y: imageView.bottom + 20, width: contentView.width, height: 16)
+        nameLabel.frame = CGRect(x: leading, y: hScrollView.bottom + 10, width: contentView.width - 95, height: 19)
+        
+        starImageView.frame = CGRect(x: nameLabel.right, y: hScrollView.bottom + 11, width: 16, height: 16)
+        ratingLabel.frame = CGRect(x: starImageView.right + 5, y: hScrollView.bottom + 11, width: contentView.width, height: 16)
         
         locationImageView.frame = CGRect(x: leading, y: nameLabel.bottom + 5, width: 16, height: 16)
-        addressLabel.frame = CGRect(x: locationImageView.right + 5, y: nameLabel.bottom + 5, width: contentView.width, height: 16)
+        distanceLabel.frame = CGRect(x: locationImageView.right + 0.5, y: nameLabel.bottom + 5, width: 105, height: 15)
+        titikLabel.frame = CGRect(x: distanceLabel.right - 3, y: nameLabel.bottom + 5, width: 15, height: 15)
+        addressLabel.frame = CGRect(x: titikLabel.right + 2, y: nameLabel.bottom + 5, width: 200, height: 15)
         
-        priceLabel.frame = CGRect(x: 0 - leading, y: addressLabel.bottom + 17, width: contentView.width, height: 21)
+        priceLabel.frame = CGRect(x: 0 - leading, y: addressLabel.bottom + 16, width: contentView.width, height: 21)
         perEkorPerMalamLabel.frame = CGRect(x: 0 - leading, y: priceLabel.bottom, width: contentView.width, height: 12)
+        
         
     }
     
@@ -142,23 +219,27 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
     }
     
     func configure(with viewModel: SearchBoardingViewModel) {
+        facilities = viewModel.facilities
         imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: viewModel.imageURLString)))
         nameLabel.text = viewModel.name
-        
+        distanceLabel.text = "\(viewModel.distance) dari lokasi"
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)
         addressLabel.text = "\(viewModel.subdistrictName), \(viewModel.provinceName)"
         
-        priceLabel.text = "\(viewModel.price)"
+        priceLabel.text = Utils.getStringCurrencyFormatted(viewModel.price)
         
     }
     
     func getRatingLabelAttributedString(rating: Double, numOfReviews: Int) -> NSMutableAttributedString {
         let firstAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold),
+            .foregroundColor: UIColor.customOrange
         ]
         
         let secondAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular),
+            .foregroundColor: UIColor.customGrayForIcons
+            
         ]
         
         let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)

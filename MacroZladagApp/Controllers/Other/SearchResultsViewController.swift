@@ -60,7 +60,7 @@ class SearchResultsViewController: UIViewController {
             case 1:
                 let bottom: CGFloat = 24
                 let cardWidth: CGFloat = 342
-                let cardHeight: CGFloat = 268
+                let cardHeight: CGFloat = 274
                 let leading: CGFloat = (390 - cardWidth) / 2
                 
                 let item = NSCollectionLayoutItem(

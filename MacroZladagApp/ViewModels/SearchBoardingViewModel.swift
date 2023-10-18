@@ -10,6 +10,7 @@ import Foundation
 struct SearchBoardingViewModel {
     let slug: String
     var name: String
+    var distance: String
     
     let subdistrictName: String
     let provinceName: String
@@ -20,7 +21,7 @@ struct SearchBoardingViewModel {
     let imageURLString: String
     let facilities: [String]
     
-    init(slug: String, name: String, subdistrictName: String, provinceName: String, price: Int, imageURLString: String, facilities: [String]) {
+    init(slug: String, name: String, distance: Double, subdistrictName: String, provinceName: String, price: Int, imageURLString: String, facilities: [String]) {
         self.slug = slug
         self.name = name
         self.subdistrictName = subdistrictName
@@ -33,6 +34,7 @@ struct SearchBoardingViewModel {
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)
+        self.distance = Utils.getStringDistanceFormatted(distance)
     }
     
     mutating func setupDates() {
