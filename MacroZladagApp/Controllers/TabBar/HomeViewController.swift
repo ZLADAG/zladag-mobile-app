@@ -374,15 +374,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
-//            let viewModel = viewModels[indexPath.row]
-//            let vc = BoardingDetailsViewController(viewModel: viewModel)
-//            vc.title = viewModel.name
-//            vc.hidesBottomBarWhenPushed = true
-//
-//            vc.navigationItem.largeTitleDisplayMode = .always
-//            vc.navigationController?.navigationBar.prefersLargeTitles = true
-//
-//            navigationController?.pushViewController(vc, animated: true)
+            let viewModel = viewModels[indexPath.row]
+            let vc = BoardingDetailsViewController(slug: viewModel.slug)
+            vc.hidesBottomBarWhenPushed = true
+
+            vc.navigationItem.largeTitleDisplayMode = .always
+            vc.navigationController?.navigationBar.prefersLargeTitles = true
+
+            navigationController?.pushViewController(vc, animated: true)
             
             break
         case .sectionTempatBermain(viewModels: let viewModels):

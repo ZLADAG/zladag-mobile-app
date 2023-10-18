@@ -177,27 +177,20 @@ extension MainHeaderCollectionReusableView {
             defer {
                 group.leave()
             }
+            
             switch result {
             case .success(let response):
-                vc.viewModels = response.data.compactMap({ boarding in
-                    return BoardingsCellViewModel(
-                        name: boarding.name,
-                        address: boarding.address,
+                vc.viewModels = response.data.compactMap { boarding in
+                    return SearchBoardingViewModel(
                         slug: boarding.slug,
-                        description: boarding.description,
-                        subdistrictName: boarding.subdistrict.name,
-                        districtName: boarding.subdistrict.district.name,
-                        cityName: boarding.subdistrict.district.city.name,
-                        provinceName: boarding.subdistrict.district.city.province.name,
-                        boardingCategoryName: boarding.boarding_category.name,
-                        imageURLString: boarding.boarding_images[0].path,
-                        facilities: boarding.facilities,
-                        services: boarding.services,
-                        boarding_policy: boarding.boarding_policy,
-                        created_at: boarding.boarding_policy.created_at,
-                        updated_at: boarding.boarding_policy.updated_at
+                        name: boarding.name,
+                        subdistrictName: boarding.subdistrict,
+                        provinceName: boarding.province,
+                        price: boarding.cheapestLodgingPrice,
+                        imageURLString: boarding.images[0],
+                        facilities: boarding.boardingFacilities
                     )
-                })
+                }
 
                 break
             case .failure(let error):
@@ -210,7 +203,6 @@ extension MainHeaderCollectionReusableView {
         self.delegate?.navigationController?.pushViewController(vc, animated: true)
         group.notify(queue: .main) {
             vc.collectionView.reloadData()
-
         }
     }
     

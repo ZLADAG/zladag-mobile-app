@@ -12,15 +12,55 @@ class BoardingDetailsViewController: UIViewController {
     var photoPaths:[String] = []
     var photoIdx = 0
     
-    let viewModel: BoardingsCellViewModel
+    let slug: String
+    var viewModel: BoardingDetailsViewModel?
     
     let infoSegment = SegmentedInfoViewController()
     let reviewSegment = SegmentedReviewViewController()
 
-    init(viewModel: BoardingsCellViewModel) {
-        self.viewModel = viewModel
+    init(slug: String) {
+        self.slug = slug
         super.init(nibName: nil, bundle: nil) // INI APA SIH
+        title = "Mantap"
+
         self.infoSegment.mainVc = self
+        
+//        let group = DispatchGroup()
+//        group.enter()
+        APICaller.shared.getBoardingBySlug(slug: slug) { result in
+//            defer {
+//                group.leave()
+//            }
+//            
+            switch result {
+            case .success(let response):
+                self.viewModel = BoardingDetailsViewModel(
+                    name: response.data.name,
+                    address: response.data.address,
+                    slug: response.data.slug,
+                    description: response.data.description,
+                    subdistrictName: response.data.subdistrict,
+                    provinceName: response.data.province,
+                    imageURLString: response.data.images[0],
+                    facilities: response.data.boardingFacilities,
+                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
+                    minimumAge: response.data.minimumAge,
+                    maximumAge: response.data.maximumAge
+                )
+                break
+            case .failure(let error):
+                print(error.localizedDescription)
+                break
+            }
+        }
+        
+
+//
+//        self.delegate?.navigationController?.pushViewController(vc, animated: true)
+//        group.notify(queue: .main) {
+//            vc.collectionView.reloadData()
+//        }
     }
     
     required init?(coder: NSCoder) {
@@ -82,7 +122,7 @@ class BoardingDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12, weight: .medium)
         
-        label.text = "\(viewModel.boardingCategoryName)"
+        label.text = "\(viewModel?.name ?? "NO NAME")"
         label.backgroundColor = .customGray
         //        label.textColor = .customGray3
         label.textAlignment = .center
@@ -96,7 +136,7 @@ class BoardingDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.text = "\(viewModel.name)"
+        label.text = "\(viewModel?.name ?? "NO NAME")"
         label.font = .systemFont(ofSize: 20, weight: .medium)
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
@@ -109,7 +149,7 @@ class BoardingDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.text = "\(1.5) km dari lokasi・\(viewModel.districtName), \(viewModel.provinceName)"
+        label.text = "\(1.5) km dari lokasi・\(viewModel?.subdistrictName ?? "NONO"), \(viewModel?.provinceName ?? "NONO")"
         label.font = .systemFont(ofSize: 15, weight: .medium)
         label.textColor = .customGray3
         label.layer.cornerRadius = 5
@@ -131,7 +171,7 @@ class BoardingDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.text = "\(viewModel.rating)"
+        label.text = "\(viewModel?.rating ?? 99)"
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .customOrange
         
@@ -156,7 +196,7 @@ class BoardingDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.text = "(\(viewModel.numOfReviews) review)"
+        label.text = "(\(viewModel?.numOfReviews ?? 99) review)"
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.textColor = .customGray3
         
@@ -314,7 +354,7 @@ class BoardingDetailsViewController: UIViewController {
     lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "IDR \(viewModel.price)"
+        label.text = "IDR \(viewModel?.price ?? 99)"
         label.font = .systemFont(ofSize: 20, weight: .regular)
 
         return label

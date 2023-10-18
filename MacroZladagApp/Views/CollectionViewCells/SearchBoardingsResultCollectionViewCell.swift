@@ -141,14 +141,14 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         addressLabel.text = nil
     }
     
-    func configure(with viewModel: BoardingsCellViewModel) {
+    func configure(with viewModel: SearchBoardingViewModel) {
         imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: viewModel.imageURLString)))
         nameLabel.text = viewModel.name
         
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)
-        addressLabel.text = "\(viewModel.districtName), \(viewModel.provinceName)"
+        addressLabel.text = "\(viewModel.subdistrictName), \(viewModel.provinceName)"
         
-        priceLabel.text = "IDR \(viewModel.price).000"
+        priceLabel.text = "IDR \(viewModel.price)"
         
     }
     
