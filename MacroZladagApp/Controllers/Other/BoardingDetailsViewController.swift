@@ -336,6 +336,7 @@ class BoardingDetailsViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.tintColor = .customOrange
         
+        button.addTarget(self, action: #selector(selectServiceButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -348,6 +349,9 @@ class BoardingDetailsViewController: UIViewController {
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = ""
         navigationController?.navigationBar.tintColor = .customOrange
+        navigationController?.navigationBar.barStyle = .default
+
+        navigationController?.navigationBar.isTranslucent = true
         
         // Create the button
         let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(shareButtonTapped))
@@ -383,6 +387,7 @@ class BoardingDetailsViewController: UIViewController {
         setupConstraints()
         configurePhotosCollectionView()
         
+        scrollview.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -550,8 +555,26 @@ class BoardingDetailsViewController: UIViewController {
 //            segmentedContainerView.addSubview(reviewSegment.view)
         }
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // This method will be called as the user scrolls the scrollview
+        // You can add your custom behavior here based on the scrolling offset
+        
+        let yOffset = scrollView.contentOffset.y
+        
+        // You can adjust this value as needed to control when the segmented view sticks
+        let threshold: CGFloat = 100
+        
+        if yOffset > threshold {
+            // Stick the segmented view under the navigation bar
+            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
+        } else {
+            // Keep the segmented view at its original position
+//            segmentedViewTopConstraint.constant = 0
+            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
+        }
+    }
     
-    // Change position of the underline
+    /// Change position of the underline
     private func changeSegmentedControlLinePosition() {
         let segmentIndex = CGFloat(infoSegmentedControl.selectedSegmentIndex)
         let segmentWidth = infoSegmentedControl.frame.width / CGFloat(infoSegmentedControl.numberOfSegments)
@@ -561,12 +584,55 @@ class BoardingDetailsViewController: UIViewController {
         })
     }
     
+    private func presentOpenUrlAlert(_ title: String, _ message: String, _ urlAddress: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        // Cancel action
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .destructive,
+            handler: nil
+        )
+        alertController.addAction(cancelAction)
+        
+        
+        // OK Acrion
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { (action) in
+                // Handle the "Open Website" button tap
+                self.openUrl("https://www.google.com")
+            }
+        )
+        alertController.addAction(okAction)
+        
+        // Present the alert
+        present(alertController, animated: true, completion: nil)
+    }
     
+    private func openUrl(_ urlAddress: String) {
+        if let url = URL(string: urlAddress) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
     
     
     // MARK: Action Handler
     @objc func shareButtonTapped() {
         print("share button tapped")
+    }
+    
+    @objc func selectServiceButtonTapped() {
+
+        let urlAdress = "https://www.google.com"
+        presentOpenUrlAlert("Open Webpage", "You will be directed to a webpage", urlAdress)
     }
     
     @objc func photosPageControlValueChanged(_ sender: UIPageControl) {
