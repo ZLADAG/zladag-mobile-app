@@ -64,6 +64,7 @@
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
 		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
+		8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
 		8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */; };
 		8F9ADD9A2AD706F50082E19B /* BoardingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD992AD706F50082E19B /* BoardingCollectionView.swift */; };
@@ -138,6 +139,7 @@
 		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
 		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
+		8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COBAstickysegmentedbar.swift; sourceTree = "<group>"; };
 		8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToolTipView.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		6563A46B2AD53CE00058A130 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */,
 				6563A46C2AD53CF90058A130 /* CobaViewController.swift */,
 				6563A46E2AD554C80058A130 /* SheetDuaViewController.swift */,
 				6563A4792AD700500058A130 /* MencobaSheetViewController.swift */,
@@ -607,6 +610,7 @@
 				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
+				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
 				6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
@@ -754,7 +758,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4JFN55H5ZN;
+				DEVELOPMENT_TEAM = Y9B3P2YJJC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -782,7 +786,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4JFN55H5ZN;
+				DEVELOPMENT_TEAM = Y9B3P2YJJC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
