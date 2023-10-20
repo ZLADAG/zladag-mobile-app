@@ -73,6 +73,9 @@
 		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
+		65EC8BE22AE27D9500CDD359 /* GetHome.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BDF2AE27D9500CDD359 /* GetHome.json */; };
+		65EC8BE32AE27D9500CDD359 /* GetOneBoardingDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */; };
+		65EC8BE42AE27D9500CDD359 /* GetSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE12AE27D9500CDD359 /* GetSearch.json */; };
 		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
 		8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
@@ -158,6 +161,9 @@
 		65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOneHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
+		65EC8BDF2AE27D9500CDD359 /* GetHome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetHome.json; sourceTree = "<group>"; };
+		65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetOneBoardingDetails.json; sourceTree = "<group>"; };
+		65EC8BE12AE27D9500CDD359 /* GetSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetSearch.json; sourceTree = "<group>"; };
 		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
 		8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COBAstickysegmentedbar.swift; sourceTree = "<group>"; };
 		8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -305,6 +311,7 @@
 		65C40CE12ACAC000004D986C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				65EC8BDC2AE27B8B00CDD359 /* JSONResponseFiles */,
 				65C40CCD2ACAA796004D986C /* AppDelegate.swift */,
 				65C40CCF2ACAA796004D986C /* SceneDelegate.swift */,
 				65C40CE22ACAC035004D986C /* Extension.swift */,
@@ -483,6 +490,16 @@
 			path = SectionTwo;
 			sourceTree = "<group>";
 		};
+		65EC8BDC2AE27B8B00CDD359 /* JSONResponseFiles */ = {
+			isa = PBXGroup;
+			children = (
+				65EC8BDF2AE27D9500CDD359 /* GetHome.json */,
+				65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */,
+				65EC8BE12AE27D9500CDD359 /* GetSearch.json */,
+			);
+			path = JSONResponseFiles;
+			sourceTree = "<group>";
+		};
 		70461A21082B83EFCAA6AADD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,8 +569,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EC8BE32AE27D9500CDD359 /* GetOneBoardingDetails.json in Resources */,
+				65EC8BE42AE27D9500CDD359 /* GetSearch.json in Resources */,
 				65C40CDA2ACAA797004D986C /* LaunchScreen.storyboard in Resources */,
 				65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */,
+				65EC8BE22AE27D9500CDD359 /* GetHome.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

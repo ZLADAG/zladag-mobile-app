@@ -14,7 +14,7 @@ enum SectionType {
     case sectionTempatBermain(viewModels: [HomeCellViewModel]) // 1
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIScrollViewDelegate {
     
     var viewModels = [BoardingsCellViewModel]()
     
@@ -27,6 +27,10 @@ class HomeViewController: UIViewController {
             return HomeViewController.createSectionLayout(section: sectionIdx)
         }
     )
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("anjay")
+    }
     
     private static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
         switch section {
@@ -232,6 +236,9 @@ class HomeViewController: UIViewController {
                 tempatBermainBoardings = model.data.petHotelsWithPlaygroundFacility
                 break
             case .failure(let error):
+                guard let homeResponse = Utils.getHome() else { print("ERROR WHEN READING JSON FILE"); return }
+                makanBoardings = homeResponse.data.petHotelsWithFoodFacility
+                tempatBermainBoardings = homeResponse.data.petHotelsWithFoodFacility
                 print("ERROR IN HOME PAGE", error.localizedDescription)
                 break
             }
@@ -375,7 +382,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             break
         case .sectionMakan(viewModels: let viewModels):
             let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(slug: viewModel.slug)
+            let vc = BoardingDetailsViewController()
             vc.hidesBottomBarWhenPushed = true
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
@@ -412,6 +419,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     )
                     break
                 case .failure(let error):
+                    let localResult = Utils.getOneBoardingDetails()!.data
+                    vc.viewModel = BoardingDetailsViewModel(
+                        name: localResult.name,
+                        distance: localResult.distance,
+                        address: localResult.address,
+                        slug: localResult.slug,
+                        description: localResult.description,
+                        boardingCategory: localResult.boardingCategory,
+                        subdistrictName: localResult.subdistrict,
+                        provinceName: localResult.province,
+                        boardingCages: localResult.boardingCages,
+                        price: localResult.cheapestLodgingPrice,
+                        images: localResult.images,
+                        facilities: localResult.boardingFacilities,
+                        shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
+                        shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
+                        minimumAge: localResult.minimumAge,
+                        maximumAge: localResult.maximumAge,
+                        rating: viewModel.rating,
+                        numOfReviews: viewModel.numOfReviews
+                    )
                     print(error.localizedDescription)
                     break
                 }
@@ -422,7 +450,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             break
         case .sectionTempatBermain(viewModels: let viewModels):
             let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(slug: viewModel.slug)
+            let vc = BoardingDetailsViewController()
             vc.hidesBottomBarWhenPushed = true
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
@@ -459,6 +487,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     )
                     break
                 case .failure(let error):
+                    let localResult = Utils.getOneBoardingDetails()!.data
+                    vc.viewModel = BoardingDetailsViewModel(
+                        name: localResult.name,
+                        distance: localResult.distance,
+                        address: localResult.address,
+                        slug: localResult.slug,
+                        description: localResult.description,
+                        boardingCategory: localResult.boardingCategory,
+                        subdistrictName: localResult.subdistrict,
+                        provinceName: localResult.province,
+                        boardingCages: localResult.boardingCages,
+                        price: localResult.cheapestLodgingPrice,
+                        images: localResult.images,
+                        facilities: localResult.boardingFacilities,
+                        shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
+                        shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
+                        minimumAge: localResult.minimumAge,
+                        maximumAge: localResult.maximumAge,
+                        rating: viewModel.rating,
+                        numOfReviews: viewModel.numOfReviews
+                    )
                     print(error.localizedDescription)
                     break
                 }

@@ -55,6 +55,36 @@ final class APICaller {
         }
     }
     
+    public func getBoardings2(completion: @escaping (Result<String, Error>) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/home"), type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(error!))
+                    return
+                }
+                
+                do {
+                    let resultTemp = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    let formatter = DateFormatter()
+//                    formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
+//
+//                    let decoder = JSONDecoder()
+//                    decoder.dateDecodingStrategy = .formatted(formatter)
+//                    let result = try decoder.decode(HomeBoardingResponse.self, from: data)
+//                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
+                    
+                    print("GET /home")
+                    print(resultTemp)
+//                    completion(Result.success(result))
+                } catch {
+                    print("error in getBoardings:", error.localizedDescription)
+                    completion(Result.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
     public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/search?\(params)"), type: .GET) { baseRequest in
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
@@ -131,6 +161,7 @@ final class APICaller {
     }
     
     public func getImage(path: String) -> String  {
+//        print(Constants.baseAPIURL + "/images?path=\(path)")
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
     

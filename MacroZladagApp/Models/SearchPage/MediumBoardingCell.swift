@@ -16,6 +16,6 @@ struct MediumBoardingCell: Codable {
     let boardingCategory: String
     let boardingFacilities: [String]
     let cheapestLodgingPrice: Int
-    let images: [String]
+    var images: [String]
 }
 

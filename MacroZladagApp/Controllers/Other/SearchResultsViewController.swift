@@ -223,7 +223,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         collectionView.deselectItem(at: indexPath, animated: true)
     
         let viewModel = viewModels[indexPath.row]
-        let vc = BoardingDetailsViewController(slug: viewModel.slug)
+        let vc = BoardingDetailsViewController()
         vc.hidesBottomBarWhenPushed = true
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.navigationController?.navigationBar.prefersLargeTitles = true
@@ -260,6 +260,27 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
                 )
                 break
             case .failure(let error):
+                let localResult = Utils.getOneBoardingDetails()!.data
+                vc.viewModel = BoardingDetailsViewModel(
+                    name: localResult.name,
+                    distance: localResult.distance,
+                    address: localResult.address,
+                    slug: localResult.slug,
+                    description: localResult.description,
+                    boardingCategory: localResult.boardingCategory,
+                    subdistrictName: localResult.subdistrict,
+                    provinceName: localResult.province,
+                    boardingCages: localResult.boardingCages,
+                    price: localResult.cheapestLodgingPrice,
+                    images: localResult.images,
+                    facilities: localResult.boardingFacilities,
+                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
+                    minimumAge: localResult.minimumAge,
+                    maximumAge: localResult.maximumAge,
+                    rating: viewModel.rating,
+                    numOfReviews: viewModel.numOfReviews
+                )
                 print(error.localizedDescription)
                 break
             }

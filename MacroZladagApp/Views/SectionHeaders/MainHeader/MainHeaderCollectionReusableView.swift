@@ -195,6 +195,18 @@ extension MainHeaderCollectionReusableView {
 
                 break
             case .failure(let error):
+                vc.viewModels = Utils.getSearch()!.data.compactMap({ boarding in
+                    return SearchBoardingViewModel(
+                        slug: boarding.slug,
+                        name: boarding.name,
+                        distance: boarding.distance,
+                        subdistrictName: boarding.subdistrict,
+                        provinceName: boarding.province,
+                        price: boarding.cheapestLodgingPrice,
+                        imageURLString: boarding.images[0],
+                        facilities: boarding.boardingFacilities
+                    )
+                })
                 print(error.localizedDescription)
                 break
             }

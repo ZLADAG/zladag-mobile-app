@@ -12,14 +12,12 @@ class BoardingDetailsViewController: UIViewController {
     var photoPaths:[String] = []
     var photoIdx = 0
     
-    let slug: String
     var viewModel: BoardingDetailsViewModel?
     
     let infoSegment = SegmentedInfoViewController()
     let reviewSegment = SegmentedReviewViewController()
 
-    init(slug: String) {
-        self.slug = slug
+    init() {
         super.init(nibName: nil, bundle: nil) // INI APA SIH
 
         self.infoSegment.mainVc = self
