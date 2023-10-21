@@ -32,8 +32,6 @@ class BoardingDetailsViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false // Enable auto layout
         scrollView.contentInsetAdjustmentBehavior = .never
-//        scrollView.showsVerticalScrollIndicator = false
-//        scrollView.backgroundColor = .customLightOrange
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         return scrollView
@@ -41,142 +39,19 @@ class BoardingDetailsViewController: UIViewController {
     }()
     
     // Photo Collection & Control
-    var photoCollection: UICollectionView = {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width, height: 198)
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.isDirectionalLockEnabled = true
-        
-        // Pagination
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
-        
-//        collectionView.backgroundColor = .customGray2
-        return collectionView
-    }()
-    
-    var photosPageControl: UIPageControl = {
-        let control = UIPageControl()
-        control.translatesAutoresizingMaskIntoConstraints = false
-        control.pageIndicatorTintColor = .customGray2
-        control.currentPageIndicatorTintColor = .white
-        control.backgroundColor = .clear
-        control.contentVerticalAlignment = .bottom
-        
-        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
-        
-        return control
-    }()
-    
-    // Tag name
-    lazy var tagLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12, weight: .medium)
-        
-        label.text = "\(viewModel?.boardingCategory ?? "NO NAME")"
-        label.backgroundColor = .customGray
-        //        label.textColor = .customGray3
-        label.textAlignment = .center
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        return label
-    }()
-    
-    // Place name as title
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.text = "\(viewModel?.name ?? "NO NAME")"
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        
-        return label
-    }()
-    
-    // Location info (distance, (district, province))
-    lazy var locationLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.text = "\(1.5) km dari lokasi・\(viewModel?.subdistrictName ?? "NONO"), \(viewModel?.provinceName ?? "NONO")"
-        label.font = .systemFont(ofSize: 15, weight: .medium)
-        label.textColor = .customGray3
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        
-        return label
-    }()
-    
-    // Rating Horizontal Stack
-    lazy var ratingImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "star.fill"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    var photoCollection: UICollectionView!
+    var photosPageControl: UIPageControl!
 
-        imageView.tintColor = .customOrange
-        imageView.sizeToFit()
-        return imageView
-    }()
-    lazy var ratingNumLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.text = "\(viewModel?.rating ?? 99)"
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .customOrange
-        
-        return label
-    }()
-    lazy var rateStackView: UIStackView = {
-        let stackView   = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false;
-        
-        stackView.axis  = NSLayoutConstraint.Axis.horizontal
-        stackView.distribution  = UIStackView.Distribution.fill
-        stackView.alignment = UIStackView.Alignment.firstBaseline
-        stackView.spacing   = 2.0
-        
-        stackView.addArrangedSubview(ratingImageView)
-        stackView.addArrangedSubview(ratingNumLabel)
-        
-        return stackView
-    }()
+    var headerStack: UIStackView!
     
-    lazy var reviewerNumLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.text = "(\(viewModel?.numOfReviews ?? 99) review)"
-        label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .customGray3
-        
-        return label
-    }()
+    var tagLabel: UILabel!
+    var titleLabel: UILabel!
+    var locationLabel: UILabel!
     
-    lazy var rateReviewStackView: UIStackView = {
-        let stackView   = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackView.axis  = NSLayoutConstraint.Axis.horizontal
-        stackView.distribution  = UIStackView.Distribution.fill
-        stackView.alignment = UIStackView.Alignment.firstBaseline
-        stackView.spacing   = 4.0
-        
-        stackView.addArrangedSubview(rateStackView)
-        stackView.addArrangedSubview(reviewerNumLabel)
-        
-        return stackView
-    }()
+    var ratingIcon: UIImageView!
+    var ratingNumLabel: UILabel!
+    var reviewerNumLabel: UILabel!
+    var rateReviewStackView: UIStackView!
     
     // Segmented Control
     lazy var infoSegmentedControlContainerView: UIView = {
@@ -255,7 +130,7 @@ class BoardingDetailsViewController: UIViewController {
         uiView.layer.shadowOpacity = 0.05 // Adjust the shadow opacity as needed
         
         uiView.addSubview(selectServiceStackView)
-        uiView.bringSubviewToFront(scrollview)
+//        uiView.bringSubviewToFront(scrollview)
 
         return uiView
     }()
@@ -365,17 +240,12 @@ class BoardingDetailsViewController: UIViewController {
         view.isUserInteractionEnabled = true
         
         view.addSubview(scrollview)
-//        view.bringSubviewToFront(seletctServiceView)
-
-        scrollview.addSubview(photoCollection)
-        scrollview.addSubview(photosPageControl)
-        scrollview.addSubview(tagLabel)
-        scrollview.addSubview(titleLabel)
-        scrollview.addSubview(locationLabel)
-        scrollview.addSubview(rateReviewStackView)
+        setUpPhotos()
+        setUpHeader()
+        
         scrollview.addSubview(infoSegmentedControlContainerView)
         
-        scrollview.addSubview(segmentedContainerView)
+//        scrollview.addSubview(segmentedContainerView)
 
         
         addReviewSegmentView()
@@ -385,7 +255,6 @@ class BoardingDetailsViewController: UIViewController {
         view.addSubview(selectServiceView)
         
         setupConstraints()
-        configurePhotosCollectionView()
         
         scrollview.delegate = self
     }
@@ -401,6 +270,17 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(infoSegment.view)
 //        infoSegment.view.backgroundColor = .yellow
         infoSegment.didMove(toParent: self)
+//        var contentAboveHeight: CGFloat = 0
+
+//        for subview in infoSegment.view.subviews. {
+//            contentAboveHeight += subview.frame.height
+//        }
+//        let contentAboveHeight = scrollView.subviews
+//                    .filter { $0.frame.maxY < infoSegmentedControlContainerView.frame.minY }
+//                       .map { $0.frame.height }
+//                       .reduce(0, +)
+//        print("contentAboveHeight - INFO: \(contentAboveHeight)")
+
     }
     
     func addReviewSegmentView() {
@@ -408,6 +288,13 @@ class BoardingDetailsViewController: UIViewController {
         scrollview.addSubview(reviewSegment.view)
 //        reviewSegment.view.backgroundColor = .green
         reviewSegment.didMove(toParent: self)
+//        var contentAboveHeight: CGFloat = 0
+//
+//        for subview in infoSegment.view.subviews {
+//            contentAboveHeight += subview.frame.height
+//        }
+//
+//        print("contentAboveHeight - REVIEW: \(contentAboveHeight)")
         
     }
     
@@ -450,39 +337,31 @@ class BoardingDetailsViewController: UIViewController {
             photosPageControl.centerXAnchor.constraint(equalTo: scrollview.centerXAnchor),
         ])
         photoCollection.frame = view.bounds
-
+        photoCollection.backgroundColor = .yellow
         
         // Header Content
         NSLayoutConstraint.activate([
-            tagLabel.topAnchor.constraint(equalTo: photoCollection.bottomAnchor, constant: 20),
-            tagLabel.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
+
             tagLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 75),
             tagLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            titleLabel.topAnchor.constraint(equalTo: tagLabel.bottomAnchor, constant: 12),
-            titleLabel.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
-            titleLabel.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: -24),
-            
-            locationLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            locationLabel.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
-            locationLabel.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: -24),
-            
-            rateReviewStackView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 16),
-            rateReviewStackView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
+            headerStack.topAnchor.constraint(equalTo: photoCollection.bottomAnchor, constant: 20),
+            headerStack.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 24),
+            headerStack.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: -24),
         ])
-        
+
         // Segmented Control
         NSLayoutConstraint.activate([
-            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16),
+            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 16),
             infoSegmentedControlContainerView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor),
             infoSegmentedControlContainerView.widthAnchor.constraint(equalTo: scrollview.widthAnchor),
             infoSegmentedControlContainerView.heightAnchor.constraint(equalToConstant: 45),
-            
+
             infoSegmentedControl.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.topAnchor),
             infoSegmentedControl.leadingAnchor.constraint(equalTo: infoSegmentedControlContainerView.leadingAnchor),
             infoSegmentedControl.centerXAnchor.constraint(equalTo: infoSegmentedControlContainerView.centerXAnchor),
             infoSegmentedControl.centerYAnchor.constraint(equalTo: infoSegmentedControlContainerView.centerYAnchor),
-            
+
             bottomUnderlineView.bottomAnchor.constraint(equalTo: infoSegmentedControl.bottomAnchor),
             bottomUnderlineView.heightAnchor.constraint(equalToConstant: 2),
             bottomUnderlineView.leadingAnchor.constraint(equalTo: infoSegmentedControlContainerView.leadingAnchor),
@@ -492,11 +371,11 @@ class BoardingDetailsViewController: UIViewController {
             leadingDistanceConstraint,
             activeBottomUnderlineView.widthAnchor.constraint(equalTo: infoSegmentedControl.widthAnchor, multiplier: 1 / CGFloat(infoSegmentedControl.numberOfSegments)),
         ])
-        
+
         //Segmented Content - Info
 //        let segmentedContentHeight = max(infoSegment.infoDetailsStack.height, reviewSegment.screenSize.height)
         print("infoSegment.infoDetailsStack.height: \(infoSegment.view.height)")
-        
+
         infoSegment.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoSegment.view.topAnchor.constraint(equalTo: infoSegmentedControlContainerView.bottomAnchor, constant: 0),
@@ -505,8 +384,8 @@ class BoardingDetailsViewController: UIViewController {
             infoSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor, constant: 0),
             infoSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
-        
-        
+
+
         //Segmented Content - Review
         reviewSegment.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -526,14 +405,11 @@ class BoardingDetailsViewController: UIViewController {
         photoCollection.alwaysBounceVertical = true
         photoCollection.backgroundColor = .customGray
         
-//        for _ in 0..<7 {
-//            photoPaths.append("banner\(Int.random(in: 0...4).description)")
-//        }
-        
         photoPaths = images
         photosPageControl.numberOfPages = photoPaths.count
 
-        print(photoPaths)
+        // DEBUG
+//        print("photoPaths: \(photoPaths)")
     }
     
     func showSegmentedView(index: Int) {
@@ -558,24 +434,60 @@ class BoardingDetailsViewController: UIViewController {
 //            segmentedContainerView.addSubview(reviewSegment.view)
         }
     }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        // This method will be called as the user scrolls the scrollview
+//        // You can add your custom behavior here based on the scrolling offset
+//
+//        let yOffset = scrollView.contentOffset.y
+//
+//        // You can adjust this value as needed to control when the segmented view sticks
+//        let threshold: CGFloat = 100
+//
+//        if yOffset > threshold {
+//            // Stick the segmented view under the navigation bar
+//            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
+//        } else {
+//            // Keep the segmented view at its original position
+////            segmentedViewTopConstraint.constant = 0
+//            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
+//        }
+//    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // This method will be called as the user scrolls the scrollview
-        // You can add your custom behavior here based on the scrolling offset
-        
-        let yOffset = scrollView.contentOffset.y
-        
-        // You can adjust this value as needed to control when the segmented view sticks
-        let threshold: CGFloat = 100
-        
-        if yOffset > threshold {
-            // Stick the segmented view under the navigation bar
-            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
-        } else {
-            // Keep the segmented view at its original position
-//            segmentedViewTopConstraint.constant = 0
-            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
-        }
-    }
+           // This method will be called as the user scrolls the scrollview
+           // You can add your custom behavior here based on the scrolling offset
+   
+           let yOffset = scrollView.contentOffset.y
+//           let contentAboveHeight = scrollView.subviews
+//            .filter { $0.frame.maxY < infoSegmentedControlContainerView.frame.minY }
+//               .map { $0.frame.height }
+//               .reduce(0, +)
+   
+            var contentAboveHeight: CGFloat = 0
+
+            for subview in scrollView.subviews {
+                if subview.frame.maxY < infoSegmentedControlContainerView.frame.minY {
+                    contentAboveHeight += subview.frame.height
+                }
+            }
+
+           // You can adjust this value as needed to control when the segmented view sticks
+           let threshold: CGFloat = contentAboveHeight - 40
+    
+           print("height:\(contentAboveHeight)")
+   
+           if yOffset > threshold {
+               // Stick the segmented view under the navigation bar
+               //            segmentedBarTopConstraint.constant = yOffset - threshold
+               scrollview.topAnchor.constraint(equalTo: view.bottomAnchor, constant: yOffset - threshold).isActive = true
+               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
+           } else {
+               // Keep the segmented view at its original position
+               //            segmentedBarTopConstraint.constant = 0
+               scrollview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
+           }
+       }
+    
     
     /// Change position of the underline
     private func changeSegmentedControlLinePosition() {
@@ -626,6 +538,148 @@ class BoardingDetailsViewController: UIViewController {
         }
     }
     
+    private func setUpPhotos() {
+        photoCollection = createPhotoCollection()
+        photosPageControl = createPageControl()
+        
+        scrollview.addSubview(photoCollection)
+        scrollview.addSubview(photosPageControl)
+        
+        configurePhotosCollectionView()
+    }
+
+    private func setUpHeader() {
+        let tag = viewModel?.boardingCategory ?? "NO TAG"
+        let title = viewModel?.name ?? "NO TITLE"
+        
+        let locDistance = 1.5
+        let locSubdistict = viewModel?.subdistrictName ?? "NO SUB-DISTR"
+        let locProvince = viewModel?.provinceName ?? "NO SUB-PROV"
+        
+        let iconName = "star.fill"
+        let ratingNum = viewModel?.rating ?? 99
+        let reviewerNum = viewModel?.numOfReviews ?? 99
+        
+        tagLabel = createTagLabel(tag)
+        titleLabel = createTitleLabel(title)
+        locationLabel = createGrayLabel("\(locDistance) km dari lokasi・\(locSubdistict), \(locProvince)")
+        
+        rateReviewStackView = createRateReviewStack(iconName, ratingNum, reviewerNum)
+        
+        let stackView = UIStackView(arrangedSubviews: [tagLabel, titleLabel, locationLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis  = NSLayoutConstraint.Axis.vertical
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.leading
+        stackView.spacing   = 8.0
+        
+        
+        headerStack = UIStackView(arrangedSubviews: [stackView, rateReviewStackView])
+        headerStack.translatesAutoresizingMaskIntoConstraints = false
+        headerStack.axis  = NSLayoutConstraint.Axis.vertical
+        headerStack.distribution  = UIStackView.Distribution.fill
+        headerStack.alignment = UIStackView.Alignment.fill
+        headerStack.spacing   = 16.0
+
+        scrollview.addSubview(headerStack)
+    }
+    private func createPhotoCollection() -> UICollectionView{
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width, height: 198)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.isDirectionalLockEnabled = true
+        
+        // Pagination
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        
+        return collectionView
+    }
+    private func createPageControl() -> UIPageControl {
+        let control = UIPageControl()
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.pageIndicatorTintColor = .customGray2
+        control.currentPageIndicatorTintColor = .white
+        control.backgroundColor = .clear
+        control.contentVerticalAlignment = .bottom
+        
+        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
+        
+        return control
+    }
+    private func createRateReviewStack(_ iconName: String, _ ratingNum: Double, _ reviewerNum: Int) -> UIStackView {
+        
+        ratingIcon = createRatingIcon(iconName)
+        ratingNumLabel = createRateNumLabel("\(ratingNum)")
+        reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
+        
+        let stackView   = UIStackView(arrangedSubviews: [ratingIcon, ratingNumLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false;
+        stackView.axis  = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.center
+        stackView.spacing   = 5.0
+        
+        let allStackView = UIStackView(arrangedSubviews: [stackView, reviewerNumLabel])
+        allStackView.translatesAutoresizingMaskIntoConstraints = false
+        allStackView.axis = NSLayoutConstraint.Axis.horizontal
+        allStackView.distribution = UIStackView.Distribution.fillProportionally
+        allStackView.alignment = UIStackView.Alignment.firstBaseline
+        allStackView.spacing   = 4.0
+        return allStackView
+    }
+    
+    private func createRatingIcon(_ iconName: String) -> UIImageView {
+        let imageView = UIImageView(image: UIImage(systemName: iconName))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        imageView.tintColor = .customOrange
+        imageView.contentMode = .scaleAspectFill
+        imageView.sizeToFit()
+        
+        return imageView
+    }
+    
+    private func createRateNumLabel(_ text: String) -> UILabel {
+        let label = createTitleLabel(text)
+        label.textColor = .customOrange
+        return label
+    }
+    private func createGrayLabel(_ text: String) -> UILabel {
+        let label = createDefaultLabel(text)
+        label.textColor = .customGray3
+        return label
+    }
+    private func createTitleLabel(_ text: String) -> UILabel {
+        let label = createDefaultLabel(text)
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        return label
+    }
+    private func createTagLabel(_ text: String) -> UILabel {
+        let label = createDefaultLabel(text)
+        label.backgroundColor = .customGray
+        label.textColor = .customGray3
+        label.textAlignment = .center
+        label.layer.cornerRadius = 5
+        label.layer.masksToBounds = true
+        return label
+    }
+    private func createDefaultLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.text = text
+        label.numberOfLines = 0
+        return label
+    }
     
     // MARK: Action Handler
     @objc func shareButtonTapped() {
@@ -657,6 +711,8 @@ class BoardingDetailsViewController: UIViewController {
     }
 }
 
+
+
 // Collection view extension
 extension BoardingDetailsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -675,7 +731,8 @@ extension BoardingDetailsViewController: UICollectionViewDelegate {
 }
 extension BoardingDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(photoPaths.count)
+        // DEBUG
+//        print(photoPaths.count)
         return photoPaths.count
     }
     
