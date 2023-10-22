@@ -28,10 +28,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         }
     )
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("anjay")
-    }
-    
     private static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
         switch section {
         case 0:
