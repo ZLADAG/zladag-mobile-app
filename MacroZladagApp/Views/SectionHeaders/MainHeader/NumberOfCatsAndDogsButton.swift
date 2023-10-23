@@ -27,7 +27,6 @@ class NumberOfCatsAndDogsButton: UIButton {
         
         override func layoutSubviews() {
             super.layoutSubviews()
-            
         }
     }
     

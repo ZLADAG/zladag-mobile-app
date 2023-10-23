@@ -7,13 +7,12 @@
 
 import UIKit
 
-protocol SearchResultsViewControllerDelegate { // harga tertinggi, cctv, makan, kucing
-    func showResult(_ controller: UIViewController)
-}
-
 class SearchResultsViewController: UIViewController {
 
-    var viewModels = [SearchBoardingViewModel]()
+    public var viewModels = [SearchBoardingViewModel]()
+    
+    public var anjingCount = 0
+    public var kucingCount = 0
     
     let navbarLocationLabel: UILabel = {
         let label = UILabel()
@@ -214,11 +213,28 @@ class SearchResultsViewController: UIViewController {
         
         navigationController?.navigationItem.titleView = navbarTitleView
         rightBarButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButton)
     }
     
     @objc func rightButtonClicked() {
-        print("oke")
+        let vc  = UbahPencarianViewController()
+        let navVc = UINavigationController(rootViewController: vc)
+        vc.modalPresentationStyle = .pageSheet
+        vc.searchControllerDelegate = self
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 10
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.35 * context.maximumDetentValue
+                })
+            ]
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        
+        self.navigationController?.present(navVc, animated: true, completion: nil)
     }
     
     // MARK: LIFECYCLE
@@ -335,7 +351,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchBoardingsResultCollectionViewCell.identifier, for: indexPath) as? SearchBoardingsResultCollectionViewCell else { return UICollectionViewCell() }
-            
+            cell.controllerDelegate = self
             cell.configure(with: viewModels[indexPath.row])
             
             return cell

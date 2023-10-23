@@ -18,10 +18,10 @@ struct SearchBoardingViewModel {
     let rating: Double
     let numOfReviews: Int
     let price: Int
-    let imageURLString: String
+    let imageURLStrings: [String]
     let facilities: [String]
     
-    init(slug: String, name: String, distance: Double, subdistrictName: String, provinceName: String, price: Int, imageURLString: String, facilities: [String]) {
+    init(slug: String, name: String, distance: Double, subdistrictName: String, provinceName: String, price: Int, imageURLStrings: [String], facilities: [String]) {
         self.slug = slug
         self.name = name
         self.subdistrictName = subdistrictName
@@ -29,7 +29,7 @@ struct SearchBoardingViewModel {
         self.price = price
 
 
-        self.imageURLString = imageURLString
+        self.imageURLStrings = imageURLStrings
         self.facilities = facilities
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10

@@ -149,10 +149,12 @@ extension MainHeaderCollectionReusableView {
         var navbarDetails = String()
         var petCategories = [String]()
         if self.anjingCount > 0 {
+            vc.anjingCount = self.anjingCount
             petCategories.append("dog")
         }
 
         if self.kucingCount > 0 {
+            vc.kucingCount = self.kucingCount
             petCategories.append("cat")
         }
         
@@ -199,7 +201,7 @@ extension MainHeaderCollectionReusableView {
                         subdistrictName: boarding.subdistrict,
                         provinceName: boarding.province,
                         price: boarding.cheapestLodgingPrice,
-                        imageURLString: boarding.images[0],
+                        imageURLStrings: boarding.images,
                         facilities: boarding.boardingFacilities
                     )
                 }
@@ -214,7 +216,7 @@ extension MainHeaderCollectionReusableView {
                         subdistrictName: boarding.subdistrict,
                         provinceName: boarding.province,
                         price: boarding.cheapestLodgingPrice,
-                        imageURLString: boarding.images[0],
+                        imageURLStrings: boarding.images,
                         facilities: boarding.boardingFacilities
                     )
                 })
