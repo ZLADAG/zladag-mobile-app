@@ -145,13 +145,15 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
 extension MainHeaderCollectionReusableView {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
+        
+//        let navVc = UINavigationController(rootViewController: vc)
 //        let vc = MencobaSheetViewController()
 
         var petCategories = [String]()
         if self.anjingCount > 0 {
             petCategories.append("cat")
         }
-        
+
         if self.kucingCount > 0 {
             petCategories.append("dog")
         }
@@ -170,6 +172,20 @@ extension MainHeaderCollectionReusableView {
                 params += queryParam
             }
         }
+        
+        var navbarDetails = String()
+        for category in petCategories {
+            if category == "cat" {
+                navbarDetails += "\(kucingCount) Kucing"
+            }
+            
+            if category == "dog" {
+                navbarDetails += ", \(anjingCount) Anjing"
+            }
+        }
+        
+        vc.detailsLabel.text = navbarDetails
+        vc.detailsValue = navbarDetails
         
         let group = DispatchGroup()
         group.enter()
@@ -211,7 +227,6 @@ extension MainHeaderCollectionReusableView {
                 break
             }
         }
-        
         
         self.delegate?.navigationController?.pushViewController(vc, animated: true)
         group.notify(queue: .main) {
