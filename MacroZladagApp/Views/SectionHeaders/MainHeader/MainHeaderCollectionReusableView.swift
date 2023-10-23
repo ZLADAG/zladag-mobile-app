@@ -145,23 +145,27 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
 extension MainHeaderCollectionReusableView {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
-        
-//        let navVc = UINavigationController(rootViewController: vc)
-//        let vc = MencobaSheetViewController()
 
+        var navbarDetails = String()
         var petCategories = [String]()
         if self.anjingCount > 0 {
-            petCategories.append("cat")
+            petCategories.append("dog")
         }
 
         if self.kucingCount > 0 {
-            petCategories.append("dog")
+            petCategories.append("cat")
         }
         
         var params: String = ""
         if petCategories.count == 1 {
             if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 params += queryParam
+            }
+            
+            if petCategories[0] == "dog" {
+                navbarDetails += "\(anjingCount) Anjing"
+            } else if petCategories[0] == "cat" {
+                navbarDetails += "\(kucingCount) Kucing"
             }
         } else if petCategories.count == 2 {
             if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -171,17 +175,8 @@ extension MainHeaderCollectionReusableView {
             if let queryParam = "&boardingPetCategories[]=\(petCategories[1])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 params += queryParam
             }
-        }
-        
-        var navbarDetails = String()
-        for category in petCategories {
-            if category == "cat" {
-                navbarDetails += "\(kucingCount) Kucing"
-            }
             
-            if category == "dog" {
-                navbarDetails += ", \(anjingCount) Anjing"
-            }
+            navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
         vc.detailsLabel.text = navbarDetails
