@@ -10,6 +10,8 @@ import UIKit
 class CatsAndDogsCounterViewController: UIViewController {
 
     var mainHeaderDelegate: MainHeaderCollectionReusableView?
+    var controllerDelegate: SearchResultsViewController?
+    var ubahControllerDelegate: UbahPencarianViewController?
     
     let kucingLabel: UILabel = {
         let label = UILabel()
@@ -213,8 +215,15 @@ class CatsAndDogsCounterViewController: UIViewController {
 
         view.addSubview(simpanButton)
         
-        kucingCountLabel.text = mainHeaderDelegate?.numberOfCatsAndDogsButton.catLabel.text
-        anjingCountLabel.text = mainHeaderDelegate?.numberOfCatsAndDogsButton.dogLabel.text
+        if let controllerDelegate {
+            kucingCountLabel.text = controllerDelegate.kucingCount.description
+            anjingCountLabel.text = controllerDelegate.anjingCount.description
+        }
+        
+        if let mainHeaderDelegate {
+            kucingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.catLabel.text
+            anjingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.dogLabel.text
+        }
         
         setupNavBar()
         setupButtons()
@@ -353,6 +362,10 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     @objc func closeSheet() {
         mainHeaderDelegate?.delegate?.dismiss(animated: true)
+        
+        if let controllerDelegate {
+            dismiss(animated: true)
+        }
     }
     
     @objc func catDecrementButton() {
@@ -387,5 +400,18 @@ class CatsAndDogsCounterViewController: UIViewController {
         mainHeaderDelegate?.anjingCount = self.anjingCount
         
         mainHeaderDelegate?.delegate?.dismiss(animated: true)
+        
+        if let controllerDelegate {
+            controllerDelegate.anjingCount = self.anjingCount
+            controllerDelegate.kucingCount = self.kucingCount
+            
+            ubahControllerDelegate?.anjingCount = self.anjingCount
+            ubahControllerDelegate?.kucingCount = self.kucingCount
+            
+            ubahControllerDelegate?.numberOfCatsAndDogsButton.catLabel.text = self.kucingCount.description
+            ubahControllerDelegate?.numberOfCatsAndDogsButton.dogLabel.text = self.anjingCount.description
+            
+            dismiss(animated: true)
+        }
     }
 }

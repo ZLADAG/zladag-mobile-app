@@ -22,6 +22,6 @@ extension UIColor {
     static let customGrayForBorder = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 255/255)
     
     static let customBlue = UIColor(red: 49/255, green: 168/255, blue: 205/255, alpha: 255/255)
-    static let facilityBlue = UIColor(red: 109/255, green: 157/255, blue: 231/255, alpha: 255/255)
+    static let facilityBlue = UIColor(red: 88/255, green: 164/255, blue: 219/255, alpha: 255/255)
 }
 

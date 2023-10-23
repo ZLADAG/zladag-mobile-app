@@ -162,7 +162,7 @@ class SimpanButtonView: UIView {
                         subdistrictName: boarding.subdistrict,
                         provinceName: boarding.province,
                         price: boarding.cheapestLodgingPrice,
-                        imageURLString: boarding.images[0],
+                        imageURLStrings: boarding.images,
                         facilities: boarding.boardingFacilities
                     )
                 })

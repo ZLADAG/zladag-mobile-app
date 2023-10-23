@@ -8,10 +8,13 @@
 import UIKit
 import SDWebImage
 
-class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate {
+class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
     static let identifier = "SearchBoardingsResultCollectionViewCell"
     
     var facilities = [String]()
+    var imageURLStrings = [String]()
+    var viewModel: SearchBoardingViewModel? = nil
+    weak var controllerDelegate: SearchResultsViewController?
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -20,6 +23,34 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         imageView.clipsToBounds = true
         return imageView
     }()
+    
+    let imageCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { sectionIdx, _ in
+            let item = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .absolute(240),
+                    heightDimension: .absolute(120)
+                )
+            )
+            
+            
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .absolute(242),
+                    heightDimension: .absolute(120)
+                ),
+                subitem: item,
+                count: 1
+            )
+            
+            group.contentInsets.trailing = 2
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior.groupPaging
+            return section
+        })
+    )
     
     let starImageView: UIImageView = {
         let imageView = UIImageView()
@@ -108,6 +139,8 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         super.init(frame: frame)
         contentView.backgroundColor = .white
         
+        configureImageCell()
+        
         contentView.addSubview(imageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(starImageView)
@@ -121,12 +154,29 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 8
-        
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOffset = CGSize(width: 1, height: 5)
-        layer.shadowRadius = 2.0
-        layer.shadowOpacity = 0.15
-        layer.masksToBounds = false
+
+        contentView.layer.shadowColor = UIColor.gray.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 1, height: 5)
+        contentView.layer.shadowRadius = 2.0
+        contentView.layer.shadowOpacity = 0.15
+        contentView.layer.masksToBounds = false
+    }
+    
+    func configureImageCell() {
+        addSubview(imageCollectionView)
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        imageCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "imagecell")
+        imageCollectionView.frame = bounds
+        imageCollectionView.frame = CGRect(
+            x: imageCollectionView.frame.minX,
+            y: imageCollectionView.frame.minY,
+            width: imageCollectionView.frame.width,
+            height: 120
+        )
+        imageCollectionView.backgroundColor = .clear
+        imageCollectionView.layer.cornerRadius = 8
+        imageCollectionView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
     func configureScrollView() {
@@ -136,7 +186,8 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
 //        containerView.backgroundColor = .red
 //        hScrollView.backgroundColor = .green
         
-        hScrollView.frame = CGRect(x: 16, y: imageView.bottom + 10, width: contentView.width, height: 23)
+//        hScrollView.frame = CGRect(x: 16, y: imageView.bottom + 10, width: contentView.width, height: 23)
+        hScrollView.frame = CGRect(x: 12, y: 120 + 10, width: contentView.width, height: 23)
         containerView.frame = CGRect(x: 0, y: 0, width: 2000, height: 23)
         
         var z = 0
@@ -186,11 +237,8 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
     override func layoutSubviews() { // dipanggil setiap component  view muncul
         super.layoutSubviews()
         
-        let leading: CGFloat = 16
-        
-//        imageView.frame = CGRect(x: 0, y: 0, width: contentView.width, height: 120)
-        imageView.frame = CGRect(x: 0, y: 0, width: contentView.width, height: 130)
-        imageView.backgroundColor = .white
+//        let leading: CGFloat = 16
+        let leading: CGFloat = 12
         
         configureScrollView()
         
@@ -200,14 +248,14 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         ratingLabel.frame = CGRect(x: starImageView.right + 5, y: hScrollView.bottom + 11, width: contentView.width, height: 16)
         
         locationImageView.frame = CGRect(x: leading, y: nameLabel.bottom + 5, width: 16, height: 16)
-        distanceLabel.frame = CGRect(x: locationImageView.right + 0.5, y: nameLabel.bottom + 5, width: 105, height: 15)
+        
+        distanceLabel.sizeToFit()
+        distanceLabel.frame = CGRect(x: locationImageView.right + 0.5, y: nameLabel.bottom + 5, width: distanceLabel.width, height: 15)
         titikLabel.frame = CGRect(x: distanceLabel.right - 3, y: nameLabel.bottom + 5, width: 15, height: 15)
         addressLabel.frame = CGRect(x: titikLabel.right + 2, y: nameLabel.bottom + 5, width: 200, height: 15)
         
         priceLabel.frame = CGRect(x: 0 - leading, y: addressLabel.bottom + 16, width: contentView.width, height: 21)
         perEkorPerMalamLabel.frame = CGRect(x: 0 - leading, y: priceLabel.bottom, width: contentView.width, height: 12)
-        
-        
     }
     
     override func prepareForReuse() {
@@ -219,8 +267,9 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
     }
     
     func configure(with viewModel: SearchBoardingViewModel) {
+        self.viewModel = viewModel
+        imageURLStrings = viewModel.imageURLStrings
         facilities = viewModel.facilities
-        imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: viewModel.imageURLString)))
         nameLabel.text = viewModel.name
         distanceLabel.text = "\(viewModel.distance) dari lokasi"
         ratingLabel.attributedText = getRatingLabelAttributedString(rating: viewModel.rating, numOfReviews: viewModel.numOfReviews)
@@ -250,6 +299,95 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell, UICollectio
         return firstString
     }
     
+}
+
+extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageURLStrings.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imagecell", for: indexPath)
+        cell.backgroundColor = .green
+        let imageView = UIImageView()
+        imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageURLStrings[indexPath.row])))
+        imageView.contentMode = .scaleAspectFill
+        cell.addSubview(imageView)
+        imageView.frame = cell.contentView.bounds
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel else { return }
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let vc = BoardingDetailsViewController()
+        vc.hidesBottomBarWhenPushed = true
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
+
+        let group = DispatchGroup()
+        group.enter()
+        
+        APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
+            defer {
+                group.leave()
+            }
+
+            switch result {
+            case .success(let response):
+                vc.viewModel = BoardingDetailsViewModel(
+                    name: response.data.name,
+                    distance: response.data.distance,
+                    address: response.data.address,
+                    slug: response.data.slug,
+                    description: response.data.description,
+                    boardingCategory: response.data.boardingCategory,
+                    subdistrictName: response.data.subdistrict,
+                    provinceName: response.data.province,
+                    boardingCages: response.data.boardingCages,
+                    price: response.data.cheapestLodgingPrice,
+                    images: response.data.images,
+                    facilities: response.data.boardingFacilities,
+                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
+                    minimumAge: response.data.minimumAge,
+                    maximumAge: response.data.maximumAge,
+                    rating: viewModel.rating,
+                    numOfReviews: viewModel.numOfReviews
+                )
+                break
+            case .failure(let error):
+                let localResult = Utils.getOneBoardingDetails()!.data
+                vc.viewModel = BoardingDetailsViewModel(
+                    name: localResult.name,
+                    distance: localResult.distance,
+                    address: localResult.address,
+                    slug: localResult.slug,
+                    description: localResult.description,
+                    boardingCategory: localResult.boardingCategory,
+                    subdistrictName: localResult.subdistrict,
+                    provinceName: localResult.province,
+                    boardingCages: localResult.boardingCages,
+                    price: localResult.cheapestLodgingPrice,
+                    images: localResult.images,
+                    facilities: localResult.boardingFacilities,
+                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
+                    minimumAge: localResult.minimumAge,
+                    maximumAge: localResult.maximumAge,
+                    rating: viewModel.rating,
+                    numOfReviews: viewModel.numOfReviews
+                )
+                print(error.localizedDescription)
+                break
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     
 }
