@@ -15,6 +15,39 @@ class SearchResultsViewController: UIViewController {
 
     var viewModels = [SearchBoardingViewModel]()
     
+    let navbarLocationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dekat Saya"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        return label
+    }()
+    
+    let navbarDetailsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1 Okt 2023, 1 Malam, 1 Kucing"
+        label.textColor = .customGrayForIcons
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    
+    let navbarUbahButton: UIButton = {
+        let button = UIButton()
+        
+        let label = UILabel()
+        label.text = "Ubah"
+        label.textColor = .customOrange
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        
+        button.setTitle("Ubah", for: .normal)
+        button.setTitleColor(.customOrange, for: .normal)
+        button.backgroundColor = .orangeWithOpacity
+        button.layer.cornerRadius = 4
+        button.clipsToBounds = true
+        
+        return button
+    }()
+    
     public var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIdx, _ in
@@ -117,22 +150,117 @@ class SearchResultsViewController: UIViewController {
         }
     )
     
+    // MARK: CUSTOM NAVBAR
+    public var locationValue = "Dekat Saya"
+    public var detailsValue = "123 Jan"
+    
+    lazy var locationLabel: UILabel = {
+        let label = UILabel()
+        label.text = locationValue
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var detailsLabel: UILabel = {
+        let label = UILabel()
+        label.text = detailsValue
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .customGray3
+        return label
+    }()
+    
+    lazy var navbarTitleView: UIView = {
+        let titleView = UIView()
+        titleView.backgroundColor = .white
+        view.addSubview(titleView)
+        titleView.addSubview(locationLabel)
+        titleView.addSubview(detailsLabel)
+        
+        titleView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 54 + 82 - 38)
+        locationLabel.frame = CGRect(x: 80 - 44 + 10, y: 22 + 54 - 22 - 5, width: 250, height: 16)
+        detailsLabel.frame = CGRect(x: locationLabel.frame.minX, y: locationLabel.frame.maxY + 6, width: 250, height: 16)
+        return titleView
+    }()
+    
+    let rightBarButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customOrangeOpacityUbah
+        button.layer.cornerRadius = 4
+        button.clipsToBounds = true
+        
+        let label = UILabel()
+        label.text = "Ubah"
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .customOrangeFont
+        button.addSubview(label)
+        button.frame = CGRect(x: 0, y: 0, width: 63, height: 32)
+        label.frame = CGRect(x: 0, y: 0, width: 50, height: 16)
+        label.frame = CGRect(
+            x: (button.frame.width - label.frame.width) / 2,
+            y: (button.frame.height - label.frame.height) / 2,
+            width: label.frame.width,
+            height: label.frame.height
+        )
+        
+        return button
+    }()
+    
+    func setupCustomNavbar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        
+        navigationController?.navigationItem.titleView = navbarTitleView
+        rightBarButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButton)
+    }
+    
+    @objc func rightButtonClicked() {
+        print("oke")
+    }
+    
+    // MARK: LIFECYCLE
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        view.backgroundColor = .magenta
         configureCollectionView()
-        setupNavigationBar3()
+        setupCustomNavbar()
     }
     
-    
     func setupNavigationBar() {
-        let imageView = UIImageView(image: UIImage(systemName: "star"))
-        imageView.contentMode = .scaleAspectFill
-        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 113).isActive = true
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationItem.titleView = imageView
+        //        let imageView = UIImageView(image: UIImage(systemName: "star"))
+        //        imageView.contentMode = .scaleAspectFill
+        //        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        //        imageView.widthAnchor.constraint(equalToConstant: 113).isActive = true
+        //        navigationController?.navigationBar.backgroundColor = .clear
+        //        navigationItem.titleView = imageView
+        let titleView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .red
+            return view
+        }()
+        
+        titleView.addSubview(navbarLocationLabel)
+        titleView.addSubview(navbarDetailsLabel)
+        
+//        titleView.translatesAutoresizingMaskIntoConstraints = false
+//        navbarLocationLabel.translatesAutoresizingMaskIntoConstraints = false
+//        navbarDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            titleView.topAnchor
+//        ])
+        
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        navbarLocationLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
+        navbarDetailsLabel.frame = CGRect(x: 0, y: navbarLocationLabel.bottom, width: 100, height: 20)
+        
+        navigationController?.navigationItem.titleView = titleView
+        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .done, target: nil, action: nil)
     }
     
     func setupNavigationBar2() {
