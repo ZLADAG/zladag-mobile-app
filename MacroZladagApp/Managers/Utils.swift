@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Utility functions (currency formatting, ...)
 class Utils {
     static func getStringCurrencyFormatted(_ value: Int) -> String {
         let numberFormatter = NumberFormatter()

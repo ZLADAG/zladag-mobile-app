@@ -51,7 +51,7 @@ class CoretanViewController: UIViewController {
         view.backgroundColor = .systemMint
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        collectionView.register(BoardingsCollectionViewCell.self, forCellWithReuseIdentifier: BoardingsCollectionViewCell.identifier)
+        collectionView.register(SmallBoardingsCollectionViewCell.self, forCellWithReuseIdentifier: SmallBoardingsCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
 //        collectionView.backgroundColor = .green
@@ -71,7 +71,7 @@ extension CoretanViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardingsCollectionViewCell.identifier, for: indexPath) as? BoardingsCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
         
         cell.backgroundColor = .red
         return cell

@@ -11,47 +11,12 @@ import UIKit
 enum SectionType {
     case sectionPromo(stringOfAssets: [String]) // 0
     case sectionMakan(viewModels: [HomeCellViewModel]) // 1
-    case sectionTempatBermain(viewModels: [HomeCellViewModel]) // 1
+    case sectionTempatBermain(viewModels: [HomeCellViewModel]) // 2
 }
 
 class HomeViewController: UIViewController, UIScrollViewDelegate {
     
-    var viewModels = [BoardingsCellViewModel]()
-    
     var sections = [SectionType]()
-    
-    let navbarLocationLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Dekat Saya"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 14, weight: .bold)
-        return label
-    }()
-    
-    let navbarDetailsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1 Okt 2023, 1 Malam, 1 Kucing"
-        label.textColor = .customGrayForIcons
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        return label
-    }()
-    
-    let navbarUbahButton: UIButton = {
-        let button = UIButton()
-        
-        let label = UILabel()
-        label.text = "Ubah"
-        label.textColor = .customOrange
-        label.font = .systemFont(ofSize: 12, weight: .bold)
-        
-        button.setTitle("Ubah", for: .normal)
-        button.setTitleColor(.customOrange, for: .normal)
-        button.backgroundColor = .orangeWithOpacity
-        button.layer.cornerRadius = 4
-        button.clipsToBounds = true
-        
-        return button
-    }()
     
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -209,7 +174,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         configureCollectionView()
         
         collectionView.backgroundColor = .customGray
-        setupCustomNavigationBar()
+        setupNavigationBar()
     }
     
     
@@ -219,53 +184,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         collectionView.frame = view.bounds
     }
     
-    func setupCustomNavigationBar() {
-        //        let imageView = UIImageView(image: UIImage(systemName: "star"))
-        //        imageView.contentMode = .scaleAspectFill
-        //        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        //        imageView.widthAnchor.constraint(equalToConstant: 113).isActive = true
-        //        navigationController?.navigationBar.backgroundColor = .clear
-        //        navigationItem.titleView = imageView
-        let titleView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .red
-            return view
-        }()
-        
-        titleView.addSubview(navbarLocationLabel)
-        titleView.addSubview(navbarDetailsLabel)
-        
-//        titleView.translatesAutoresizingMaskIntoConstraints = false
-//        navbarLocationLabel.translatesAutoresizingMaskIntoConstraints = false
-//        navbarDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            titleView.topAnchor
-//        ])
-        
-        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        navbarLocationLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        navbarDetailsLabel.frame = CGRect(x: 0, y: navbarLocationLabel.bottom, width: 100, height: 20)
-        
-        navigationController?.navigationItem.titleView = titleView
-        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .done, target: nil, action: nil)
-    }
-    
     func setupNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-//        appearance.backgroundColor =
-        appearance.backgroundImage = UIImage()
-        appearance.shadowImage = UIImage()
-        
-//        navigationController?.navigationBar.standardAppearance = appearance
-//        navigationController?.navigationBar.compactAppearance = appearance
-//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-//        navigationController?.isNavigationBarHidden = true
-        
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "banner0"), for: .default) //UIImage.init(named: "transparent.png")
-//        self.navigationController?.navigationBar.shadowImage = UIImage(named: "banner1")
-//        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
     
     func fetchData() {
@@ -365,8 +287,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
             withReuseIdentifier: SectionOneHeaderCollectionReusableView.identifier
         )
         collectionView.register(
-            BoardingsCollectionViewCell.self,
-            forCellWithReuseIdentifier: BoardingsCollectionViewCell.identifier
+            SmallBoardingsCollectionViewCell.self,
+            forCellWithReuseIdentifier: SmallBoardingsCollectionViewCell.identifier
         )
         collectionView.register(
             SectionTwoHeaderCollectionReusableView.self,
@@ -409,14 +331,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(with: string)
             return cell
         case .sectionMakan(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardingsCollectionViewCell.identifier, for: indexPath) as? BoardingsCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
             let viewModel = viewModels[indexPath.row]
             
             cell.configure(with: viewModel)
             
             return cell
         case .sectionTempatBermain(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardingsCollectionViewCell.identifier, for: indexPath) as? BoardingsCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
             let viewModel = viewModels[indexPath.row]
             cell.configure(with: viewModel)
             return cell

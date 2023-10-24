@@ -1,5 +1,5 @@
 //
-//  BoardingsCollectionViewCell.swift
+//  SmallBoardingsCollectionViewCell.swift
 //  MacroZladagApp
 //
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
@@ -8,8 +8,8 @@
 import UIKit
 import SDWebImage
 
-class BoardingsCollectionViewCell: UICollectionViewCell {
-    static let identifier = "BoardingsCollectionViewCell"
+class SmallBoardingsCollectionViewCell: UICollectionViewCell {
+    static let identifier = "SmallBoardingsCollectionViewCell"
     
     let imageView: UIImageView = {
         let imageView = UIImageView()

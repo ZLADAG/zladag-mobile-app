@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  ExtensionUIColor.swift
 //  MacroZladagApp
 //
 //  Created by Daniel Bernard Sahala Simamora on 05/10/23.
@@ -10,7 +10,7 @@ import UIKit
 
 extension UIColor {
     static let customLightOrange = UIColor(red: 241/255, green: 155/255, blue: 104/255, alpha: 255/255)
-    static let customOrange = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: 255/255)
+    static let customOrange = UIColor(red: 243/255, green: 128/255, blue: 61/255, alpha: 255/255)
     static let customOrangeFont = UIColor(red: 227/255, green: 135/255, blue: 81/255, alpha: 255/255)
     static let customOrangeOpacityUbah = UIColor(red: 255/255, green: 238/255, blue: 227/255, alpha: 255/255)
     static let orangeWithOpacity = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: CGFloat(0.1 * (255/255)))

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class BoardingPhotoCollectionViewCell: UICollectionViewCell {
     static let identifier = "boardingPhotoCollectionViewCell"
