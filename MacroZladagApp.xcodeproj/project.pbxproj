@@ -336,21 +336,6 @@
 			path = Features;
 			sourceTree = "<group>";
 		};
-		65303FCA2AE91FF800EF5E17 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				65303FCB2AE9200000EF5E17 /* ReusableViews */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		65303FCB2AE9200000EF5E17 /* ReusableViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ReusableViews;
-			sourceTree = "<group>";
-		};
 		6563A46B2AD53CE00058A130 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,7 +415,6 @@
 				65C40CE12ACAC000004D986C /* Resources */,
 				65C40CE42ACAC095004D986C /* Managers */,
 				65C40CE82ACAC0D6004D986C /* Models */,
-				65303FCA2AE91FF800EF5E17 /* Views */,
 				65303FC42AE8FC0F00EF5E17 /* Features */,
 				65303FC02AE86A6A00EF5E17 /* OtherControllers */,
 				6563A46B2AD53CE00058A130 /* Experiments */,
