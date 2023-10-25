@@ -12,13 +12,13 @@
 		65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B742ADD469500C6290C /* DatePickerViewController.swift */; };
 		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
+		65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */; };
 		6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
 		6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */; };
 		6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */; };
 		6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */; };
 		6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A46C2AD53CF90058A130 /* CobaViewController.swift */; };
-		6563A46F2AD554C80058A130 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A46E2AD554C80058A130 /* SheetDuaViewController.swift */; };
 		6563A4722AD5D29B0058A130 /* FasilitasContainerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4712AD5D29B0058A130 /* FasilitasContainerButton.swift */; };
 		6563A4742AD5D2DD0058A130 /* UrutkanFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4732AD5D2DD0058A130 /* UrutkanFilterButton.swift */; };
 		6563A4762AD5D48F0058A130 /* SectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4752AD5D48F0058A130 /* SectionViews.swift */; };
@@ -99,13 +99,13 @@
 		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroZladagApp.entitlements; sourceTree = "<group>"; };
+		65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahPencarianViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
 		6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetViewController.swift; sourceTree = "<group>"; };
 		6563A46C2AD53CF90058A130 /* CobaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaViewController.swift; sourceTree = "<group>"; };
-		6563A46E2AD554C80058A130 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		6563A4712AD5D29B0058A130 /* FasilitasContainerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FasilitasContainerButton.swift; sourceTree = "<group>"; };
 		6563A4732AD5D2DD0058A130 /* UrutkanFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrutkanFilterButton.swift; sourceTree = "<group>"; };
 		6563A4752AD5D48F0058A130 /* SectionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViews.swift; sourceTree = "<group>"; };
@@ -354,9 +354,9 @@
 		6563A46B2AD53CE00058A130 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */,
 				8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */,
 				6563A46C2AD53CF90058A130 /* CobaViewController.swift */,
-				6563A46E2AD554C80058A130 /* SheetDuaViewController.swift */,
 				6563A4792AD700500058A130 /* MencobaSheetViewController.swift */,
 				6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */,
 				65C40D322ACDD3ED004D986C /* CoretanViewController.swift */,
@@ -700,7 +700,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6563A46F2AD554C80058A130 /* SheetDuaViewController.swift in Sources */,
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				6570AA202ADE9FDB003DC5EB /* BoardingPolicy.swift in Sources */,
@@ -769,6 +768,7 @@
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
+				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
