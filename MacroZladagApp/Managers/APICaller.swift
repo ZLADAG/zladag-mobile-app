@@ -55,6 +55,42 @@ final class APICaller {
         }
     }
     
+    public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/signiasdasdas"), type: .POST) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(error!))
+                    return
+                }
+                
+                do {
+//                    let resultTemp = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    let formatter = DateFormatter()
+//                    formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'"
+//
+//                    let decoder = JSONDecoder()
+//                    decoder.dateDecodingStrategy = .formatted(formatter)
+//                    let result = try decoder.decode(HomeBoardingResponse.self, from: data)
+                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
+                    /*
+                     CARA NGIRIM JSON BODY KE API
+                     {
+                    body = {
+                        "otp": 123
+                     } // gimana car aswift
+                     
+                     */
+                    print("GET /home")
+                    completion(Result.success(result))
+                } catch {
+                    print("error in getBoardings:", error.localizedDescription)
+                    completion(Result.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
     public func getBoardings2(completion: @escaping (Result<String, Error>) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/home"), type: .GET) { baseRequest in
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in

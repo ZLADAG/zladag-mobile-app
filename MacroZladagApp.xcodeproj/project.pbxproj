@@ -85,6 +85,9 @@
 		65EC8BE42AE27D9500CDD359 /* GetSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE12AE27D9500CDD359 /* GetSearch.json */; };
 		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
 		8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */; };
+		8F23EDBF2AE410A400B25026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23EDBE2AE410A400B25026 /* User.swift */; };
+		8F23EDC12AE410B000B25026 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23EDC02AE410B000B25026 /* Pet.swift */; };
+		8F23EDC42AE41CCF00B25026 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23EDC32AE41CCF00B25026 /* Order.swift */; };
 		8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */; };
 		8F9ADD982AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD972AD704EF0082E19B /* BoardingPhotoCollectionViewCell.swift */; };
 		8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */; };
@@ -96,6 +99,15 @@
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
 		8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E32ADD33FA004BB490 /* Facility.swift */; };
 		8FCD93E62ADD343C004BB490 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E52ADD343C004BB490 /* Policy.swift */; };
+		8FFEBFB22AE66DD9005D790F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB12AE66DD9005D790F /* CreateAccountViewController.swift */; };
+		8FFEBFB42AE66E08005D790F /* OtpVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB32AE66E08005D790F /* OtpVerificationViewController.swift */; };
+		8FFEBFB62AE66E5A005D790F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */; };
+		8FFEBFB82AE66E71005D790F /* SignInByWhatsappViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */; };
+		8FFEBFBA2AE670F8005D790F /* OnboardingFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB92AE670F8005D790F /* OnboardingFormViewController.swift */; };
+		8FFEBFBC2AE73A0D005D790F /* PhoneNumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */; };
+		8FFEBFC32AE8B956005D790F /* OnboardPromptLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */; };
+		8FFEBFC52AE8B97E005D790F /* PrimaryButtonFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */; };
+		8FFEBFCE2AE91592005D790F /* OnboardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +192,9 @@
 		65EC8BE12AE27D9500CDD359 /* GetSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetSearch.json; sourceTree = "<group>"; };
 		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
 		8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COBAstickysegmentedbar.swift; sourceTree = "<group>"; };
+		8F23EDBE2AE410A400B25026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8F23EDC02AE410B000B25026 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		8F23EDC32AE41CCF00B25026 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		8F27AD332AD389D200E40ECE /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		8F27AD352AD3C2D500E40ECE /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		8F27AD372AD3DAD200E40ECE /* DateToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToolTipView.swift; sourceTree = "<group>"; };
@@ -194,6 +209,15 @@
 		8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		8FCD93E32ADD33FA004BB490 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		8FCD93E52ADD343C004BB490 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
+		8FFEBFB12AE66DD9005D790F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		8FFEBFB32AE66E08005D790F /* OtpVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpVerificationViewController.swift; sourceTree = "<group>"; };
+		8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInByWhatsappViewController.swift; sourceTree = "<group>"; };
+		8FFEBFB92AE670F8005D790F /* OnboardingFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFormViewController.swift; sourceTree = "<group>"; };
+		8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumForm.swift; sourceTree = "<group>"; };
+		8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardPromptLabelButton.swift; sourceTree = "<group>"; };
+		8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonFilled.swift; sourceTree = "<group>"; };
+		8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardHeader.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -493,6 +517,7 @@
 		65C40CE82ACAC0D6004D986C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8F23EDC22AE4141B00B25026 /* NonApiModel */,
 				6570AA412ADFD60F003DC5EB /* HomePage */,
 				6570AA4A2ADFE1D4003DC5EB /* SearchPage */,
 				6570AA512ADFEDEE003DC5EB /* BoardingDetails */,
@@ -507,6 +532,9 @@
 		65C40CE92ACAC0E9004D986C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+            
+				8FFEBFBD2AE8B63B005D790F /* ReusableViews */,
+				6563A4702AD5D2750058A130 /* FilterViews */,
 				8F9ADD9B2AD7CF9A0082E19B /* SegmentedInfoView.swift */,
 				8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */,
 				8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */,
@@ -517,6 +545,36 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+        
+		65C40CEA2ACAC11F004D986C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFB02AE66D23005D790F /* OnboardingPage */,
+				6563A46B2AD53CE00058A130 /* Experiments */,
+				65C40CEB2ACAC137004D986C /* Other */,
+				65C40CEC2ACAC13E004D986C /* TabBar */,
+				65C40D322ACDD3ED004D986C /* CoretanViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		65C40CEB2ACAC137004D986C /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				65C40CF52ACAC2D6004D986C /* SearchResultsViewController.swift */,
+				65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */,
+				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
+				6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */,
+				65257B742ADD469500C6290C /* DatePickerViewController.swift */,
+				8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */,
+				65C40D0E2ACD7A22004D986C /* BoardingDetailsViewController.swift */,
+				8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */,
+				8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+
 		65C40CEC2ACAC13E004D986C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +657,94 @@
 				E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8F23EDC22AE4141B00B25026 /* NonApiModel */ = {
+			isa = PBXGroup;
+			children = (
+				8F23EDBE2AE410A400B25026 /* User.swift */,
+				8F23EDC02AE410B000B25026 /* Pet.swift */,
+				8F23EDC32AE41CCF00B25026 /* Order.swift */,
+			);
+			path = NonApiModel;
+			sourceTree = "<group>";
+		};
+		8FFEBFB02AE66D23005D790F /* OnboardingPage */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFB92AE670F8005D790F /* OnboardingFormViewController.swift */,
+				8FFEBFB12AE66DD9005D790F /* CreateAccountViewController.swift */,
+				8FFEBFB32AE66E08005D790F /* OtpVerificationViewController.swift */,
+				8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */,
+				8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */,
+				8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */,
+			);
+			path = OnboardingPage;
+			sourceTree = "<group>";
+		};
+		8FFEBFBD2AE8B63B005D790F /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */,
+				8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */,
+				8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
+		8FFEBFC62AE8F88D005D790F /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFC82AE8F94F005D790F /* ViewControllers */,
+				8FFEBFC72AE8F934005D790F /* Views */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		8FFEBFC72AE8F934005D790F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8FFEBFC82AE8F94F005D790F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8FFEBFC92AE8F9A1005D790F /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFCB2AE8F9D2005D790F /* ViewControllers */,
+				8FFEBFCA2AE8F9B9005D790F /* Views */,
+			);
+			path = SearchPage;
+			sourceTree = "<group>";
+		};
+		8FFEBFCA2AE8F9B9005D790F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8FFEBFCB2AE8F9D2005D790F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8FFEBFCC2AE8F9D9005D790F /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				8FFEBFC92AE8F9A1005D790F /* SearchPage */,
+				8FFEBFC62AE8F88D005D790F /* HomePage */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -719,6 +865,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
+				8F23EDC42AE41CCF00B25026 /* Order.swift in Sources */,
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				6570AA202ADE9FDB003DC5EB /* BoardingPolicy.swift in Sources */,
 				8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */,
@@ -743,6 +890,8 @@
 				6570AA1E2ADE9C4E003DC5EB /* PetCategory.swift in Sources */,
 				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
 				6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */,
+				8FFEBFC32AE8B956005D790F /* OnboardPromptLabelButton.swift in Sources */,
+				8F23EDBF2AE410A400B25026 /* User.swift in Sources */,
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */,
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
@@ -753,9 +902,15 @@
 				6570AA502ADFE7D1003DC5EB /* SearchBoardingViewModel.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
 				65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */,
+
+				8F23EDC12AE410B000B25026 /* Pet.swift in Sources */,
+				8F9ADD9A2AD706F50082E19B /* BoardingCollectionView.swift in Sources */,
 				8F9ADDA02AD994B10082E19B /* SegmentedInfoViewController.swift in Sources */,
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
+				8FFEBFB62AE66E5A005D790F /* SignInViewController.swift in Sources */,
 				6563A4762AD5D48F0058A130 /* SectionViews.swift in Sources */,
+				8FFEBFBA2AE670F8005D790F /* OnboardingFormViewController.swift in Sources */,
+				8FFEBFB22AE66DD9005D790F /* CreateAccountViewController.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
@@ -777,17 +932,22 @@
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */,
 				6563A4722AD5D29B0058A130 /* FasilitasContainerButton.swift in Sources */,
+				8FFEBFC52AE8B97E005D790F /* PrimaryButtonFilled.swift in Sources */,
 				6563A47C2AD718220058A130 /* KekhususanSwitch.swift in Sources */,
 				6570AA432ADFD662003DC5EB /* SmallBoardingCell.swift in Sources */,
 				65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */,
+				8FFEBFB42AE66E08005D790F /* OtpVerificationViewController.swift in Sources */,
 				8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */,
 				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
+				8FFEBFB82AE66E71005D790F /* SignInByWhatsappViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
 				6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */,
+				8FFEBFCE2AE91592005D790F /* OnboardHeader.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
+				8FFEBFBC2AE73A0D005D790F /* PhoneNumForm.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				653040122AE9A02100EF5E17 /* NecessarryFieldLabel.swift in Sources */,

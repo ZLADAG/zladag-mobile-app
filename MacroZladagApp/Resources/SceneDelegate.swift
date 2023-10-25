@@ -28,7 +28,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navVC = UINavigationController(rootViewController: CoretanTambahAnabulViewController())
         window.rootViewController = navVC
-        window.makeKeyAndVisible()
+
+//        window.rootViewController = TabBarViewController()
+        
+//        let vc = OnboardingFormViewController()
+//        let navVC = UINavigationController(rootViewController: vc)
+//        window.rootViewController = UINavigationController(rootViewController: vc)
+        
+
+        self.window?.makeKeyAndVisible()
         self.window = window
     }
 
