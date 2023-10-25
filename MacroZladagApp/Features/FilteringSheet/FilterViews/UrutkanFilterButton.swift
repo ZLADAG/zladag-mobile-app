@@ -25,6 +25,7 @@ class UrutkanFilterButton: UIButton {
         super.init(frame: .zero)
         
         label.text = text
+        label.textColor = .black
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textAlignment = .center
         addSubview(label)

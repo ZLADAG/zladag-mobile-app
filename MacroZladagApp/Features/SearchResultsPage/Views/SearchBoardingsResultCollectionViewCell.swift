@@ -308,7 +308,8 @@ extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imagecell", for: indexPath)
-        cell.backgroundColor = .green
+//        cell.backgroundColor = .green
+        cell.backgroundColor = .white
         let imageView = UIImageView()
         imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageURLStrings[indexPath.row])))
         imageView.contentMode = .scaleAspectFill

@@ -30,6 +30,7 @@ class KategoriButton: UIButton {
         let label = UILabel()
         label.text = kategoriText
         label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
         
         checkBox.backgroundColor = .clear
         checkBox.layer.cornerRadius = 1.33

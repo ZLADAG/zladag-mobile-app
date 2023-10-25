@@ -10,6 +10,8 @@
 		2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B742ADD469500C6290C /* DatePickerViewController.swift */; };
+		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
+		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
 		6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
 		6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */; };
@@ -94,6 +96,9 @@
 		347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		65257B742ADD469500C6290C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroZladagApp.entitlements; sourceTree = "<group>"; };
 		6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahPencarianViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
 		6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -274,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				65C40CEF2ACAC291004D986C /* HomeViewController.swift */,
-				65C40CED2ACAC19E004D986C /* TabBarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -287,6 +291,7 @@
 				65C40D102ACDC182004D986C /* ErrorPageViewController.swift */,
 				65257B742ADD469500C6290C /* DatePickerViewController.swift */,
 				8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */,
+				65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */,
 			);
 			path = OtherControllers;
 			sourceTree = "<group>";
@@ -318,6 +323,32 @@
 				8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		65303FC42AE8FC0F00EF5E17 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				65303FB62AE84F3D00EF5E17 /* HomePage */,
+				65303FBB2AE853EB00EF5E17 /* SearchResultsPage */,
+				65303FC12AE86E4800EF5E17 /* FilteringSheet */,
+				65303FC22AE86E6A00EF5E17 /* BoardingDetails */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		65303FCA2AE91FF800EF5E17 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				65303FCB2AE9200000EF5E17 /* ReusableViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		65303FCB2AE9200000EF5E17 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ReusableViews;
 			sourceTree = "<group>";
 		};
 		6563A46B2AD53CE00058A130 /* Experiments */ = {
@@ -395,13 +426,12 @@
 		65C40CCC2ACAA796004D986C /* MacroZladagApp */ = {
 			isa = PBXGroup;
 			children = (
+				65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */,
 				65C40CE12ACAC000004D986C /* Resources */,
 				65C40CE42ACAC095004D986C /* Managers */,
 				65C40CE82ACAC0D6004D986C /* Models */,
-				65303FB62AE84F3D00EF5E17 /* HomePage */,
-				65303FBB2AE853EB00EF5E17 /* SearchResultsPage */,
-				65303FC12AE86E4800EF5E17 /* FilteringSheet */,
-				65303FC22AE86E6A00EF5E17 /* BoardingDetails */,
+				65303FCA2AE91FF800EF5E17 /* Views */,
+				65303FC42AE8FC0F00EF5E17 /* Features */,
 				65303FC02AE86A6A00EF5E17 /* OtherControllers */,
 				6563A46B2AD53CE00058A130 /* Experiments */,
 				65C40CEC2ACAC13E004D986C /* TabBar */,
@@ -427,6 +457,7 @@
 		65C40CE42ACAC095004D986C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				65303FC52AE905A400EF5E17 /* AuthManager.swift */,
 				65C40CE52ACAC0AC004D986C /* APICaller.swift */,
 				6570AA582AE04EB4003DC5EB /* Utils.swift */,
 			);
@@ -471,6 +502,7 @@
 		65C40CEC2ACAC13E004D986C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				65C40CED2ACAC19E004D986C /* TabBarViewController.swift */,
 				65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */,
 				65C40CF32ACAC2A4004D986C /* AccountViewController.swift */,
 			);
@@ -681,6 +713,7 @@
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
 				6570AA472ADFD8AD003DC5EB /* HomeCellViewModel.swift in Sources */,
 				6570AA572ADFF435003DC5EB /* BoardingDetailsViewModel.swift in Sources */,
+				65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */,
 				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
 				65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */,
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
@@ -701,6 +734,7 @@
 				8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */,
 				6570AA502ADFE7D1003DC5EB /* SearchBoardingViewModel.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
+				65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */,
 				8F9ADDA02AD994B10082E19B /* SegmentedInfoViewController.swift in Sources */,
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
 				6563A4762AD5D48F0058A130 /* SectionViews.swift in Sources */,
@@ -880,9 +914,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacroZladagApp/MacroZladagApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y9B3P2YJJC;
+				DEVELOPMENT_TEAM = 4JFN55H5ZN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -908,9 +943,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacroZladagApp/MacroZladagApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y9B3P2YJJC;
+				DEVELOPMENT_TEAM = 4JFN55H5ZN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MacroZladagApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

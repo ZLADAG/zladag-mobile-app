@@ -182,6 +182,7 @@ final class APICaller {
         
         var request = URLRequest(url: apiURL)
         request.httpMethod = type.rawValue
+        // nanti tanya cindy apakah sudah wajib set header auth sebelum requests
         
         completion(request) // continue the request
     }
