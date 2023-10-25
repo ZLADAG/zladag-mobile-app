@@ -468,7 +468,9 @@
 		65C40CCC2ACAA796004D986C /* MacroZladagApp */ = {
 			isa = PBXGroup;
 			children = (
+
 				65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */,
+                
 				65C40CE12ACAC000004D986C /* Resources */,
 				65C40CE42ACAC095004D986C /* Managers */,
 				65C40CE82ACAC0D6004D986C /* Models */,
@@ -690,61 +692,6 @@
 				8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */,
 			);
 			path = ReusableViews;
-			sourceTree = "<group>";
-		};
-		8FFEBFC62AE8F88D005D790F /* HomePage */ = {
-			isa = PBXGroup;
-			children = (
-				8FFEBFC82AE8F94F005D790F /* ViewControllers */,
-				8FFEBFC72AE8F934005D790F /* Views */,
-			);
-			path = HomePage;
-			sourceTree = "<group>";
-		};
-		8FFEBFC72AE8F934005D790F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8FFEBFC82AE8F94F005D790F /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		8FFEBFC92AE8F9A1005D790F /* SearchPage */ = {
-			isa = PBXGroup;
-			children = (
-				8FFEBFCB2AE8F9D2005D790F /* ViewControllers */,
-				8FFEBFCA2AE8F9B9005D790F /* Views */,
-			);
-			path = SearchPage;
-			sourceTree = "<group>";
-		};
-		8FFEBFCA2AE8F9B9005D790F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8FFEBFCB2AE8F9D2005D790F /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		8FFEBFCC2AE8F9D9005D790F /* Features */ = {
-			isa = PBXGroup;
-			children = (
-				8FFEBFC92AE8F9A1005D790F /* SearchPage */,
-				8FFEBFC62AE8F88D005D790F /* HomePage */,
-			);
-			path = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
