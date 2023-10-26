@@ -9,10 +9,13 @@ import UIKit
 
 class OnboardingFormViewController: UIViewController {
     
+    private var image: UIImageView!
     private var titleStack: UIStackView!
     private var allComponentView: UIView!
     
-    var signInButton: UIButton!
+    var signInButton = PrimaryButtonFilled(
+        btnTitle: "Buat Akun"
+    )
     
     var signUpPromptLB = OnboardPromptLabelButton(
         labelText: "Sudah punya akun?",
@@ -22,64 +25,36 @@ class OnboardingFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .customGray2
         
         setUpComponents()
-        signUpPromptLB.delegate = self
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        setUpNavbar()
         
-     
+        signInButton.delegate = self
+        signUpPromptLB.delegate = self
+        
     }
-
     private func setUpComponents() {
+        image = createImage("photo.on.rectangle.angled")
         allComponentView = setUpAllComponent()
         
+        view.addSubview(image)
         view.addSubview(allComponentView)
         
         NSLayoutConstraint.activate([
-            signInButton.heightAnchor.constraint(equalToConstant: 50),
-            
+            image.topAnchor.constraint(equalTo: view.topAnchor),
+            image.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            image.bottomAnchor.constraint(equalTo: allComponentView.topAnchor),
+        ])
+        NSLayoutConstraint.activate([
             allComponentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             allComponentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             allComponentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    private func setUpNavbar() {
-        
-        let defaultAppearance = UINavigationBarAppearance()
-        defaultAppearance.configureWithOpaqueBackground()
-        
-        defaultAppearance.backgroundColor = .customOrange
-        defaultAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        defaultAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        navigationController?.navigationBar.standardAppearance = defaultAppearance
-        navigationController?.navigationBar.compactAppearance = defaultAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = defaultAppearance
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.tintColor = .white
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
-
-    }
+    
     private func setUpAllComponent() -> UIView {
         titleStack = createTitleStack()
         let buttonStack = createButtonStack()
@@ -107,6 +82,17 @@ class OnboardingFormViewController: UIViewController {
         return subView
     }
     
+    private func createImage(_ iconName: String) -> UIImageView {
+        let imageView = UIImageView(image: UIImage(systemName: iconName))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.tintColor = .customGray
+        imageView.contentMode = .scaleAspectFit
+        imageView.sizeToFit()
+        
+        return imageView
+    }
+    
     private func createTitleStack() -> UIStackView {
         let title = "Temukan penginapan terbaik untuk anabul kamu!"
         let attrSubText = "terbaik"
@@ -126,15 +112,7 @@ class OnboardingFormViewController: UIViewController {
     }
     
     private func createButtonStack() -> UIStackView {
-        signInButton = UIButton(configuration: .filled())
-        signInButton.translatesAutoresizingMaskIntoConstraints = false
-        signInButton.setTitle("Sign In", for: .normal)
-        signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        signInButton.setTitleColor(.white, for: .normal)
-        signInButton.tintColor = .customOrange
-        signInButton.addTarget(self, action: #selector(signInBtnTapped), for: .touchUpInside)
         
-        signUpPromptLB.translatesAutoresizingMaskIntoConstraints = false
         signUpPromptLB.defaultLabel.textColor = .customGray3
         
         let stack = UIStackView(arrangedSubviews: [signInButton, signUpPromptLB])
@@ -154,18 +132,17 @@ class OnboardingFormViewController: UIViewController {
             let nsRange = NSRange(range, in: text)
             
             let attributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.customBlue, // Change this to the color you want
-//                .font: UIFont.boldSystemFont(ofSize: 16) // Customize the font if needed
+                .foregroundColor: UIColor.customBlue,
             ]
             attributedString.addAttributes(attributes, range: nsRange)
         }
-
+        
         let attributedLabel = createLabel()
         attributedLabel.font = .systemFont(ofSize: 32, weight: .medium)
         attributedLabel.textAlignment = .center
         attributedLabel.textColor = .black
         attributedLabel.attributedText = attributedString
-
+        
         return attributedLabel
     }
     
@@ -183,22 +160,23 @@ class OnboardingFormViewController: UIViewController {
         return label
     }
     
-    @objc func signInBtnTapped() {
-        let signInVC = SignInByWhatsappViewController()
-        signInVC.title = "Masuk dengan Nomor Whatsapp"
-        
-        navigationController?.pushViewController(signInVC, animated: true)
-    }
-
 }
 
+/// Primary Filled Button Protocols
+extension OnboardingFormViewController: PrimaryButtonFilledDelegate {
+    func btnTapped() {
+        let signUpVC = CreateAccountViewController()
+        navigationController?.pushViewController(signUpVC, animated: true)
+    }
+    
+    
+}
 
+/// Prompt Label Button Protocols
 extension OnboardingFormViewController: OnboardPromptLabelButtonDelegate {
     func defaultBtnTapped() {
-        let signUpVC = CreateAccountViewController()
-        signUpVC.title = "Buat Akun"
-        
-        navigationController?.pushViewController(signUpVC, animated: true)
+        let signInVC = SignInViewController()
+        navigationController?.pushViewController(signInVC, animated: true)
     }
     
 }

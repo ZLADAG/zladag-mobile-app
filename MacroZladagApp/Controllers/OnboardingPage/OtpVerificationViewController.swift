@@ -9,21 +9,28 @@ import UIKit
 
 class OtpVerificationViewController: UIViewController {
 
+    private var otpTimeLimit: TimeInterval = 0.0 // in seconds
+    private var isOtpEnded = false
+    
+    var phoneNum = "+6212345678900"
+    
+    // MARK: UI Components
+    private var header = OnboardHeader(title: "Verifikasi OTP", caption: "")
+    
     private var otpTF1: UITextField!
     private var otpTF2: UITextField!
     private var otpTF3: UITextField!
     private var otpTF4: UITextField!
-    
-    private var resendOtpButton: UIButton!
-    private var resendOtpTimeLbl: UILabel!
-    
     private var otpInputStack: UIStackView!
-    private var resendOtpStack: UIStackView!
+    
+    private var resendOtpPromptLB = OnboardPromptLabelButton(
+        labelText: "Belum terima OTP?",
+        buttonText: "Kirim ulang"
+    )
+    
     private var allComponentStack: UIStackView!
 
-    private var otpTimeLimit: TimeInterval = 0.0 // in seconds
-    private var isOtpEnded = false
-    
+    // MARK: Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,27 +43,56 @@ class OtpVerificationViewController: UIViewController {
         otpTF2.delegate = self
         otpTF3.delegate = self
         otpTF4.delegate = self
+        
+        resendOtpPromptLB.delegate = self
     }
   
     override func viewWillAppear(_ animated: Bool) {
         otpTF1.becomeFirstResponder()
     }
+    
+    
+    // MARK: Private Functions
     private func setUpComponents(){
-        resendOtpStack = createResendOtpStack()
+        
+        header.captionLabel.text = "Masukan OTP yang telah kami kirimkan ke \n\(phoneNum) via Whatsapp"
+        
         otpInputStack = createOtpInputField()
         
-        allComponentStack = UIStackView(arrangedSubviews: [ otpInputStack, resendOtpStack])
+        let stack = UIStackView(arrangedSubviews: [otpInputStack])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis  = NSLayoutConstraint.Axis.vertical
+        stack.distribution  = UIStackView.Distribution.fill
+        stack.alignment = UIStackView.Alignment.center
+        stack.spacing   = 0.0
+        
+        allComponentStack = UIStackView(arrangedSubviews: [stack, resendOtpPromptLB])
         allComponentStack.translatesAutoresizingMaskIntoConstraints = false
         allComponentStack.axis  = NSLayoutConstraint.Axis.vertical
         allComponentStack.distribution  = UIStackView.Distribution.fill
-        allComponentStack.alignment = UIStackView.Alignment.center
+        allComponentStack.alignment = UIStackView.Alignment.fill
         allComponentStack.spacing   = 32.0
         
-        view.addSubview(allComponentStack)
         setUpConstraints()
         
     }
     private func setUpConstraints(){
+        
+        view.addSubview(header)
+        NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: view.topAnchor),
+            header.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        view.addSubview(allComponentStack)
+        NSLayoutConstraint.activate([
+            
+            // Set wraping constraint
+            allComponentStack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 40),
+            allComponentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            allComponentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+        ])
         
         NSLayoutConstraint.activate([
             otpTF1.heightAnchor.constraint(equalToConstant: 64),
@@ -70,16 +106,6 @@ class OtpVerificationViewController: UIViewController {
             
             otpTF4.heightAnchor.constraint(equalToConstant: 64),
             otpTF4.widthAnchor.constraint(equalToConstant: 56),
-        ])
-        
-        NSLayoutConstraint.activate([
-            // Set heigts
-//            phoneInputStack.heightAnchor.constraint(equalToConstant: 49),
-            
-            // Set wraping constraint
-            allComponentStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            allComponentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            allComponentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
         ])
     }
 
@@ -114,81 +140,25 @@ class OtpVerificationViewController: UIViewController {
         return stack
     }
     
-    private func createResendOtpStack() -> UIStackView {
-        let label = createDefaultLabel("Belum terima OTP?")
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        
-        /// Button to resend OTP
-        resendOtpButton = createDefaultButton("")
-        let attributedText = NSMutableAttributedString(string: "Kirim ulang")
-        let range = NSRange(location: 0, length: attributedText.length)
-        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: (resendOtpButton.titleLabel?.font.pointSize)!), range: range)
-        resendOtpButton.setAttributedTitle(attributedText, for: .normal)
-
-        resendOtpButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        resendOtpButton.setContentHuggingPriority(.required, for: .horizontal)
-        //        resendOtpButton.addTarget(self, action: #selector(resendOtpButtonTapped), for: .touchUpInside)
-
+    private func validateTimeLimit() {
         
         otpTimeLimit = 30
         isOtpEnded = validateIsOtpEnded(otpTimeLimit)
         
-        resendOtpTimeLbl = createDefaultLabel(" di \(otpTimeLimit)")
-        resendOtpTimeLbl.textColor = .systemGray2
-        resendOtpTimeLbl.setContentCompressionResistancePriority(.required, for: .horizontal)
-        resendOtpTimeLbl.setContentHuggingPriority(.required, for: .horizontal)
+//        resendOtpTimeLbl = createDefaultLabel(" di \(otpTimeLimit)")
+//        resendOtpTimeLbl.textColor = .systemGray2
+//        resendOtpTimeLbl.setContentCompressionResistancePriority(.required, for: .horizontal)
+//        resendOtpTimeLbl.setContentHuggingPriority(.required, for: .horizontal)
         
         if isOtpEnded {
             /// Activate button to resend OTP
-            resendOtpButton.isEnabled = true
-            resendOtpTimeLbl.isHidden = true
+            resendOtpPromptLB.defaultBtn.isEnabled = true
+//            resendOtpPromptLB.timeLabel.isHidden = true // blm di set di classnya
         } else {
-            resendOtpButton.isEnabled = false
-            resendOtpTimeLbl.isHidden = false
+            resendOtpPromptLB.defaultBtn.isEnabled = false
+//            resendOtpPromptLB.timeLabel.isHidden = false
         }
-        
-
-        let stack = UIStackView(arrangedSubviews: [resendOtpButton, resendOtpTimeLbl])
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis  = NSLayoutConstraint.Axis.horizontal
-        stack.distribution  = UIStackView.Distribution.fill
-        stack.alignment = UIStackView.Alignment.fill
-        stack.spacing   = 0.0
-        
-        let otpStack = UIStackView(arrangedSubviews: [label, stack])
-        otpStack.translatesAutoresizingMaskIntoConstraints = false
-        otpStack.axis  = NSLayoutConstraint.Axis.horizontal
-        otpStack.distribution  = UIStackView.Distribution.fill
-        otpStack.alignment = UIStackView.Alignment.fill
-        otpStack.spacing   = 4.0
-        
-        return otpStack
-    }
     
-    private func createDefaultButton(_ text: String) -> UIButton{
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        var configuration = UIButton.Configuration.plain() // there are several options to choose from instead of .plain()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = configuration
-            
-        button.setTitle(text, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.tintColor = .customOrange
-        
-        return button
-    }
-    
-    private func createDefaultLabel(_ text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.text = text
-        label.textColor = .black
-        label.numberOfLines = 0
-        return label
     }
                            
     private func createTextField() -> UITextField {
@@ -207,7 +177,7 @@ class OtpVerificationViewController: UIViewController {
     
 }
 
-
+/// Text field Protocols
 extension OtpVerificationViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -275,4 +245,11 @@ extension OtpVerificationViewController: UITextFieldDelegate {
     }
     
     
+}
+
+/// Prompt Label Button Protocol
+extension OtpVerificationViewController: OnboardPromptLabelButtonDelegate {
+    func defaultBtnTapped() {
+        
+    }
 }

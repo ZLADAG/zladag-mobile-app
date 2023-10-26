@@ -34,6 +34,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let vc = OnboardingFormViewController()
 //        let navVC = UINavigationController(rootViewController: vc)
 //        window.rootViewController = UINavigationController(rootViewController: vc)
+//        let vc = OnboardingFormViewController()
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.navigationBar.tintColor = .white
+//
+//        window.rootViewController = navVC
         
 
         self.window?.makeKeyAndVisible()

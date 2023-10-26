@@ -104,10 +104,12 @@
 		8FFEBFB62AE66E5A005D790F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */; };
 		8FFEBFB82AE66E71005D790F /* SignInByWhatsappViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */; };
 		8FFEBFBA2AE670F8005D790F /* OnboardingFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFB92AE670F8005D790F /* OnboardingFormViewController.swift */; };
-		8FFEBFBC2AE73A0D005D790F /* PhoneNumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */; };
 		8FFEBFC32AE8B956005D790F /* OnboardPromptLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */; };
 		8FFEBFC52AE8B97E005D790F /* PrimaryButtonFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */; };
 		8FFEBFCE2AE91592005D790F /* OnboardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */; };
+		8FFEC0102AEA05A2005D790F /* OnboardButtonOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC00F2AEA05A2005D790F /* OnboardButtonOutline.swift */; };
+		8FFEC0122AEA2D12005D790F /* PhoneNumTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0112AEA2D12005D790F /* PhoneNumTextField.swift */; };
+		8FFEC0142AEA2D33005D790F /* OtpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0132AEA2D33005D790F /* OtpTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -214,10 +216,12 @@
 		8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInByWhatsappViewController.swift; sourceTree = "<group>"; };
 		8FFEBFB92AE670F8005D790F /* OnboardingFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFormViewController.swift; sourceTree = "<group>"; };
-		8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumForm.swift; sourceTree = "<group>"; };
 		8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardPromptLabelButton.swift; sourceTree = "<group>"; };
 		8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonFilled.swift; sourceTree = "<group>"; };
 		8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardHeader.swift; sourceTree = "<group>"; };
+		8FFEC00F2AEA05A2005D790F /* OnboardButtonOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardButtonOutline.swift; sourceTree = "<group>"; };
+		8FFEC0112AEA2D12005D790F /* PhoneNumTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumTextField.swift; sourceTree = "<group>"; };
+		8FFEC0132AEA2D33005D790F /* OtpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpTextField.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -679,7 +683,6 @@
 				8FFEBFB32AE66E08005D790F /* OtpVerificationViewController.swift */,
 				8FFEBFB52AE66E5A005D790F /* SignInViewController.swift */,
 				8FFEBFB72AE66E71005D790F /* SignInByWhatsappViewController.swift */,
-				8FFEBFBB2AE73A0D005D790F /* PhoneNumForm.swift */,
 			);
 			path = OnboardingPage;
 			sourceTree = "<group>";
@@ -690,6 +693,9 @@
 				8FFEBFC42AE8B97E005D790F /* PrimaryButtonFilled.swift */,
 				8FFEBFC22AE8B956005D790F /* OnboardPromptLabelButton.swift */,
 				8FFEBFCD2AE91592005D790F /* OnboardHeader.swift */,
+				8FFEC00F2AEA05A2005D790F /* OnboardButtonOutline.swift */,
+				8FFEC0112AEA2D12005D790F /* PhoneNumTextField.swift */,
+				8FFEC0132AEA2D33005D790F /* OtpTextField.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -835,6 +841,7 @@
 				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
 				8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */,
 				6570AA1E2ADE9C4E003DC5EB /* PetCategory.swift in Sources */,
+				8FFEC0122AEA2D12005D790F /* PhoneNumTextField.swift in Sources */,
 				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
 				6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */,
 				8FFEBFC32AE8B956005D790F /* OnboardPromptLabelButton.swift in Sources */,
@@ -890,11 +897,12 @@
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
+				8FFEC0142AEA2D33005D790F /* OtpTextField.swift in Sources */,
+				8FFEC0102AEA05A2005D790F /* OnboardButtonOutline.swift in Sources */,
 				6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */,
 				8FFEBFCE2AE91592005D790F /* OnboardHeader.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
-				8FFEBFBC2AE73A0D005D790F /* PhoneNumForm.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				653040122AE9A02100EF5E17 /* NecessarryFieldLabel.swift in Sources */,

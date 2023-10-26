@@ -9,10 +9,10 @@ import UIKit
 
 class OnboardHeader: UIView {
 
-    private var titleLabel: UILabel!
-    private var captionLabel: UILabel!
+    var titleLabel: UILabel!
+    var captionLabel: UILabel!
+    
     private var headerStack: UIStackView!
-//    private var wrapperView: UIView!
     
     // MARK: Initialize Methods
     init(title: String, caption: String) {
@@ -32,30 +32,33 @@ class OnboardHeader: UIView {
     
     // MARK: Private Functions
     private func setUpComponents(_ title: String, _ caption: String){
+        
+        self.backgroundColor = .customOrange
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
         titleLabel = createTitleLabel(title)
-        captionLabel = createTitleLabel(caption)
+        captionLabel = createDefaultLabel(caption)
         
         headerStack = UIStackView(arrangedSubviews: [titleLabel, captionLabel])
         headerStack.translatesAutoresizingMaskIntoConstraints = false
         headerStack.axis  = NSLayoutConstraint.Axis.vertical
         headerStack.distribution  = UIStackView.Distribution.fill
-        headerStack.alignment = UIStackView.Alignment.leading
+        headerStack.alignment = UIStackView.Alignment.fill
         headerStack.spacing   = 4.0
-        
-        self.backgroundColor = .customOrange
-        
+
         setUpConstraints()
     }
     
     private func setUpConstraints() {
         self.addSubview(headerStack)
-        
+
         NSLayoutConstraint.activate([
-            headerStack.topAnchor.constraint(equalTo: self.topAnchor),
-            headerStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            headerStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            headerStack.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            headerStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
+            headerStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
+            headerStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            headerStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
         ])
+        self.backgroundColor = .customOrange
     }
     
     private func createTitleLabel(_ text: String) -> UILabel {

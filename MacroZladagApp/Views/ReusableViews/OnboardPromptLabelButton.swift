@@ -18,6 +18,7 @@ class OnboardPromptLabelButton: UIView {
     
     var defaultBtn: UIButton!
     var defaultLabel: UILabel!
+    var timeLabel: UILabel!
     
     private var labelBtnStack: UIStackView!
     
@@ -52,6 +53,7 @@ class OnboardPromptLabelButton: UIView {
     private func setUpConstraints(){
         
         self.addSubview(labelBtnStack)
+        self.translatesAutoresizingMaskIntoConstraints = false
         
         // Set wraping constraint
         NSLayoutConstraint.activate([
@@ -116,9 +118,6 @@ class OnboardPromptLabelButton: UIView {
     // MARK: Selectors
     @objc func defaultBtnTapped() {
         delegate?.defaultBtnTapped()
-        // DEBUG
-//        print("Tapped - onboard prompt lbl btn (defaultBtn)")
-
     }
     
 }
