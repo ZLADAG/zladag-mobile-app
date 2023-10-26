@@ -20,7 +20,7 @@ class SectionTwoHeaderCollectionReusableView: UICollectionReusableView {
         let label = UILabel()
         label.text = "Sedia Tempat Bermain"
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     

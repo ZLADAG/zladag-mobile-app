@@ -34,6 +34,7 @@ class FasilitasContainerButton: UIButton {
         imageView.contentMode = .scaleAspectFit
         
         label.text = facilityName
+        label.textColor = .textBlack
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 2
         label.textAlignment = .center

@@ -66,7 +66,7 @@ class SmallBoardingsCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 19  , weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     
@@ -159,6 +159,7 @@ class SmallBoardingsCollectionViewCell: UICollectionViewCell {
         let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
         
         firstString.append(secondString)
+        
         
         return firstString
     }

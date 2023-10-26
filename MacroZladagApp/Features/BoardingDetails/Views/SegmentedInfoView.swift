@@ -113,7 +113,7 @@ class SegmentedInfoView: UIView {
         label.font = .systemFont(ofSize: 18, weight: .medium)
         
         label.text = "\(text)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         return label
@@ -130,7 +130,7 @@ class SegmentedInfoView: UIView {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
         label.text = "\(text)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         let stackView = UIStackView()
@@ -152,7 +152,7 @@ class SegmentedInfoView: UIView {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
         label.text = "\(size.uppercased()) = \(width)\(metrics) x \(height)\(metrics)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         return label

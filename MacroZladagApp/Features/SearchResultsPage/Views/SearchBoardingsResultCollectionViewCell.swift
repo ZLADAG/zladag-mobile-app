@@ -118,7 +118,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 19  , weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .right
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     

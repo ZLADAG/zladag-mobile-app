@@ -27,7 +27,7 @@ class KekhususanSwitch: UIButton {
         let label = UILabel()
         label.text = khususText
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textBlack
         
         uiSwitch.onTintColor = .customOrange
         uiSwitch.isOn  = false

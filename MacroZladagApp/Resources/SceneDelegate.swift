@@ -19,12 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        if !AuthManager.shared.isSignedIn {
-            let navVC = UINavigationController(rootViewController: WelcomeViewController())
-            window.rootViewController = navVC
-        } else {
-            window.rootViewController = TabBarViewController()
-        }
+//        if !AuthManager.shared.isSignedIn {
+//            let navVC = UINavigationController(rootViewController: WelcomeViewController())
+//            window.rootViewController = navVC
+//        } else {
+//            window.rootViewController = TabBarViewController()
+//        }
+        
+        let navVC = UINavigationController(rootViewController: CoretanTambahAnabulViewController())
+        window.rootViewController = navVC
         window.makeKeyAndVisible()
         self.window = window
     }

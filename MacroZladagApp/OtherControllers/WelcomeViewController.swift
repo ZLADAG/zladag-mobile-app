@@ -14,7 +14,7 @@ class WelcomeViewController: UIViewController {
         let button = UIButton()
         let label = UILabel()
         label.text = "Masukkan 🍎"
-        label.textColor = .black
+        label.textColor = .textBlack
 
         label.sizeToFit()
         button.addSubview(label)

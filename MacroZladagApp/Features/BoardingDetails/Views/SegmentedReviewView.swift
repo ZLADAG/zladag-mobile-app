@@ -15,7 +15,7 @@ class SegmentedReviewView: UIView {
         label.font = .systemFont(ofSize: 12, weight: .medium)
         
         label.text = "YEAY ini hal review"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         return label

@@ -410,7 +410,7 @@ class SegmentedInfoViewController: UIViewController {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         
         label.text = "\(text)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         return label
@@ -422,7 +422,7 @@ class SegmentedInfoViewController: UIViewController {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
         label.text = "\(text)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         // enable text wrapping

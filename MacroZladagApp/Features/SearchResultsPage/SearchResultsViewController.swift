@@ -17,7 +17,7 @@ class SearchResultsViewController: UIViewController {
     let navbarLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "Dekat Saya"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.font = .systemFont(ofSize: 14, weight: .bold)
         return label
     }()
@@ -157,7 +157,7 @@ class SearchResultsViewController: UIViewController {
         let label = UILabel()
         label.text = locationValue
         label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     

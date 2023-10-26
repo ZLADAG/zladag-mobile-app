@@ -18,7 +18,7 @@ class TextFieldView: UIButton {
         let label = UILabel()
         label.text = self.fieldTitle
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     

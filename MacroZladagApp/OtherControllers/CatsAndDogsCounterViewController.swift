@@ -70,7 +70,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         let label = UILabel()
         label.text = self.kucingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .center
         return label
     }()
@@ -80,7 +80,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         label.text = self.anjingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .textBlack
         return label
     }()
     

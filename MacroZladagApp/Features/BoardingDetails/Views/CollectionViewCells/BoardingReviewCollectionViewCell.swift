@@ -124,7 +124,7 @@ class BoardingReviewCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
         label.text = "\(text)"
-        label.textColor = .black
+        label.textColor = .textBlack
         label.textAlignment = .left
         
         // enable text wrapping
@@ -143,7 +143,7 @@ class BoardingReviewCollectionViewCell: UICollectionViewCell {
     private func createReviewLabel(_ text: String) -> UILabel {
         let label = createDefaultLabel(text)
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
+        label.textColor = .textBlack
         
         return label
     }
