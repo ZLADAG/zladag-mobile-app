@@ -29,11 +29,12 @@ class WelcomeViewController: UIViewController {
         return button
     }()
     
-    override func viewDidLoad() {
-        
-        view.backgroundColor = .cyan
-        super.viewDidLoad()
+    
 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .cyan
         appleButton.addTarget(self, action: #selector(appleSignInClicked), for: .touchUpInside)
     }
     

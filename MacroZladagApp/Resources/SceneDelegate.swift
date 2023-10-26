@@ -20,29 +20,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
 //        if !AuthManager.shared.isSignedIn {
+//            let testVc = UIViewController()
+//            testVc.view.backgroundColor = .red
 //            let navVC = UINavigationController(rootViewController: WelcomeViewController())
 //            window.rootViewController = navVC
 //        } else {
 //            window.rootViewController = TabBarViewController()
 //        }
         
-        let navVC = UINavigationController(rootViewController: CoretanTambahAnabulViewController())
-        window.rootViewController = navVC
+//        let navVC = UINavigationController(rootViewController: CoretanTambahAnabulViewController())
+//        window.rootViewController = navVC
 
 //        window.rootViewController = TabBarViewController()
         
+        let vc = OnboardingFormViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        window.rootViewController = navVC
+        navVC.navigationBar.tintColor = .red
+        
 //        let vc = OnboardingFormViewController()
 //        let navVC = UINavigationController(rootViewController: vc)
-//        window.rootViewController = UINavigationController(rootViewController: vc)
-//        let vc = OnboardingFormViewController()
-//        let navVC = UINavigationController(rootViewController: vc)
-//        navVC.navigationBar.tintColor = .white
 //
 //        window.rootViewController = navVC
         
-
-        self.window?.makeKeyAndVisible()
         self.window = window
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -75,4 +77,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
