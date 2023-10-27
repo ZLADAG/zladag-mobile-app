@@ -15,15 +15,20 @@ final class APICaller {
     private init() {}
     
     struct Constants {
-//        static let baseAPIURL = "https://22c6-158-140-189-122.ngrok-free.app/api"
+        static let baseAPIURL = "https://e998-158-140-189-122.ngrok-free.app/"
 //        static let baseAPIURL = "http://localhost:8100/api"
-        
-        static let baseAPIURL = "https://zladag-sasato.uc.r.appspot.com/api"
+
+//        static let baseAPIURL = "https://zladag-sasato.uc.r.appspot.com/api"
         static let baseAPIURLLocal = "http://localhost:8080/api"
     }
     
     enum APIError: Error {
         case failedToGetData
+        
+        case invalidURL
+        case requestFailed
+        case invalidResponse
+        case jsonSerializationFailed
     }
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
@@ -206,6 +211,141 @@ final class APICaller {
     }
     
     
+    
+    
+    public func searchPhoneNumIsExist(num: String, completion: @escaping (Bool) -> Void){
+        let params = "?phoneNumber=\(num)"
+        let url = URL(string: "\(MyConstants.Urls.searchPhoneNumURLPath)\(params)")!
+        let responseType = SearchAccByPhoneResponse.self
+        let reqMethod = HTTPMethod.GET
+                
+        fetchDataGETRequest(from: url, responseType: responseType, httpReqMethod: reqMethod) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                completion(response.hasAnAccount)
+
+            case .failure(let error):
+                print("Error: \(error)")
+                completion(false)
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    func fetchDataGETRequest <T: Codable>(from url: URL, responseType: T.Type, httpReqMethod method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        createRequest(with: url, type: method) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(error!))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: data)
+                    completion(Result.success(result))
+                } catch {
+                    print("error in \(T.self):", error.localizedDescription)
+                    completion(Result.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+//    func fetchDataGETRequest <T: Codable>(from url: URL, responseType: T.Type, httpReqMethod method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
+//
+//        createRequest(with: url, type: method) { baseRequest in
+//            let task = URLSession.shared.dataTask(with: baseRequest) { data, response, error in
+//                guard let data = data, error == nil else {
+//                    completion(.failure(error!))
+////                    completion(.failure(APIError.invalidResponse))
+//                    return
+//                }
+//
+//                guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+//                    completion(.failure(APIError.requestFailed))
+//                    return
+//                }
+//
+//                do {
+//                    let result = try JSONDecoder().decode(T.self, from: data)
+//                    completion(Result.success(result))
+//                } catch {
+//                    print("error in \(T.self):", error.localizedDescription)
+//                    completion(Result.failure(error))
+//                }
+//            }
+//            task.resume()
+//        }
+//    }
+//
+//    func fetchDataPOSTRequest <B: Encodable, T: Decodable>(
+//        url: URL,
+//        requestBody: B,
+//        responseType: T.Type,
+//        completion: @escaping (Result<T, Error>) -> Void
+//    ) {
+//
+//        // Create a URLSession
+//        let session = URLSession.shared
+//
+//        // Define the request method as POST
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//
+//        // Set the request headers and body
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        do {
+//            let jsonData = try JSONEncoder().encode(requestBody)
+//            request.httpBody = jsonData
+//        } catch {
+//            completion(.failure(APIError.jsonSerializationFailed))
+//            return
+//        }
+//
+//        // Create a data task to send the request
+//        let task = session.dataTask(with: request) { data, response, error in
+//            if let error = error {
+//                completion(.failure(error))
+//                return
+//            }
+//
+//            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+//                completion(.failure(APIError.requestFailed))
+//                return
+//            }
+//
+//            guard let data = data else {
+//                completion(.failure(APIError.invalidResponse))
+//                return
+//            }
+//
+//            do {
+//                let responseObject = try JSONDecoder().decode(T.self, from: data)
+//                completion(.success(responseObject))
+//            } catch {
+//                completion(.failure(APIError.jsonSerializationFailed))
+//            }
+//        }
+//
+//        task.resume()
+//    }
+//
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // MARK: HTTP REQUESTS
     
     enum HTTPMethod: String {
@@ -222,5 +362,9 @@ final class APICaller {
         
         completion(request) // continue the request
     }
+    
+
+    
+
     
 }
