@@ -11,6 +11,7 @@ struct MyConstants {
     
     struct Urls {
         static let baseURLPath = "https://zladag-sasato.uc.r.appspot.com/api"
+//        static let baseURLPath = "https://c6ef-2001-448a-20e0-24bd-69b2-a07c-9234-7a78.ngrok-free.app/api"
         
         // MARK: Get Method
         /// Onboarding
@@ -21,7 +22,7 @@ struct MyConstants {
         // MARK: Post Method
         /// Onboarding
         static let sendOtpCodeURLPath = "\(baseURLPath)/send-whatsapp-verification-code"
-        static let validateOtpURLPath = "\(baseURLPath)/validate-whatsapp-verification-code"
+        static let verificationCodeURLPath = "\(baseURLPath)/validate-whatsapp-verification-code"
         static let signUpURLPath = "\(baseURLPath)/sign-up"
         static let signInURLPath = "\(baseURLPath)/sign-in"
         static let signOutURLPath = "\(baseURLPath)/sign-out"

@@ -8,7 +8,7 @@
 import UIKit
 
 class CreateAccountViewController: UIViewController {
-
+    
     private let countryCode = "+62"
     
     private var header = OnboardHeader(
@@ -24,30 +24,33 @@ class CreateAccountViewController: UIViewController {
         labelText: "Sudah punya akun?",
         buttonText: "Masuk"
     )
-
+    
     private var allComponentStack: UIStackView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         view.backgroundColor = .white
         
         setUpComponents()
         
         nextButton.delegate = self
+        phoneInputField.delegate = self
         switchOnboardPromptLB.delegate = self
     }
     
     private func setUpComponents(){
-
+        
+        //set nextButton to disabled
+        nextButton.btn.isEnabled = false
+        
         let stack = UIStackView(arrangedSubviews: [phoneInputField, nextButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis  = NSLayoutConstraint.Axis.vertical
         stack.distribution  = UIStackView.Distribution.fill
         stack.alignment = UIStackView.Alignment.fill
-        stack.spacing   = 30.0
-
+        stack.spacing   = 48.0
+        
         allComponentStack = UIStackView(arrangedSubviews: [stack, switchOnboardPromptLB])
         allComponentStack.translatesAutoresizingMaskIntoConstraints = false
         allComponentStack.axis  = NSLayoutConstraint.Axis.vertical
@@ -69,62 +72,70 @@ class CreateAccountViewController: UIViewController {
         
         view.addSubview(allComponentStack)
         NSLayoutConstraint.activate([
-            // Set heigts
-            phoneInputField.heightAnchor.constraint(equalToConstant: 49),
-
-            // Set wraping constraint
             allComponentStack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 40),
             allComponentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             allComponentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
         ])
     }
-
     
-    // MARK: UI Creation
-    //...
+}
+
+extension CreateAccountViewController: PhoneNumTextFieldDelegate {
+    func validatePhoneNum() {
+        let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
+        
+        /// Validate char between 10 - 13 without "62"
+        if phoneNum!.count > 10 {
+            nextButton.btn.isEnabled = true
+        } else {
+            nextButton.btn.isEnabled = false
+        }
+    }
+    
 }
 
 extension CreateAccountViewController: PrimaryButtonFilledDelegate {
     func btnTapped() {
         
-        // Validate empty field
-        // Validate char between 10 - 13 without "62"
+        /// Validate: empty field, char between 10 - 13 without "62"
         let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
-        var alert : UIAlertController!
-        var isVerified = false
         
-        if phoneInputField.txtField.text == "" {
-            alert = nextButton.addOkAlert(title: "Empty Field", message: "The phone number field is required.")
-        } else if phoneNum!.count < 10 {
-            alert = nextButton.addOkAlert(title: "Invalid Phone Number", message: "The phone number field must be at least 12 characters!")
-        } else if phoneNum!.count > 13 {
-            alert = nextButton.addOkAlert(title: "Invalid Phone Number", message: "The phone number field must not be greater than 15 characters!")
-        } else {
-            isVerified = true
-            alert = nextButton.addDefaultAlert(title: "Sign in Success", message: "+62\(phoneNum!) successfully signed in")
+        
+        /// Perform background tasks: This code is not running on the main thread
+        DispatchQueue.global().async {
+            AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+                
+                /// Update the UI or perform UI-related tasks: This code runs on the main thread
+                DispatchQueue.main.async { [self] in
+                    if exists {
+                        phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
+                        phoneInputField.errorLabel.isHidden = false
+                        
+                    } else {
+                        phoneInputField.errorLabel.isHidden = true
+                        let otpVerificationVC = OtpVerificationViewController()
+                        otpVerificationVC.phoneNum = "+62\(String(describing: phoneNum!))"
+                        self.navigationController?.pushViewController(otpVerificationVC, animated: true)
+                    }
+                    
+                }
+                
+            }
         }
         
-        self.present(alert, animated: true, completion: nil)
-        
-        if isVerified {
-            // delays execution of code to dismiss
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
-                alert.dismiss(animated: true, completion: nil)
-                let otpVerificationVC = OtpVerificationViewController()
-                self.navigationController?.pushViewController(otpVerificationVC, animated: true)
-            })
-            
-        }
         
     }
+    
 }
+
+
 
 extension CreateAccountViewController: OnboardPromptLabelButtonDelegate {
     func defaultBtnTapped() {
-    
+        
         let signInVC = SignInViewController()
         
-//        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         navigationController?.pushViewController(signInVC, animated: true)
     }
 }

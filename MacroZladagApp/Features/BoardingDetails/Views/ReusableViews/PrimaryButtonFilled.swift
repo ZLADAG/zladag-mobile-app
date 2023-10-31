@@ -38,13 +38,30 @@ class PrimaryButtonFilled: UIView {
         return alert
     }
     
-    func addOkAlert(title: String, message:String) -> UIAlertController {
-        let alert = addDefaultAlert(title: title, message: message)
-        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
-        
-        alert.addAction(okAction)
-        return alert
+//    func addOkAlert(title: String, message:String) -> UIAlertController {
+//        let alert = addDefaultAlert(title: title, message: message)
+//        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+//        
+//        alert.addAction(okAction)
+//        return alert
+//    }
+//    
+    func addOkAction() -> UIAlertAction {
+        let action = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        return action
     }
+    func addCancelAction() -> UIAlertAction {
+        let action = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        return action
+    }
+//    
+//    func addCancelAlert(title: String, message:String) -> UIAlertController {
+//        let alert = addDefaultAlert(title: title, message: message)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+//
+//        alert.addAction(cancelAction)
+//        return alert
+//    }
     
     private func setUpComponents(_ text: String) {
         
@@ -65,7 +82,8 @@ class PrimaryButtonFilled: UIView {
     private func setUpConstraints() {
         self.addSubview(btn)
         
-        NSLayoutConstraint.activate([            btn.heightAnchor.constraint(equalToConstant: 50),
+        NSLayoutConstraint.activate([
+            btn.heightAnchor.constraint(equalToConstant: 50),
 
             btn.topAnchor.constraint(equalTo: self.topAnchor),
             btn.bottomAnchor.constraint(equalTo: self.bottomAnchor),

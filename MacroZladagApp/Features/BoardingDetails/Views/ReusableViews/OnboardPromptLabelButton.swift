@@ -21,8 +21,9 @@ class OnboardPromptLabelButton: UIView {
     var timeLabel: UILabel!
     
     private var labelBtnStack: UIStackView!
+    private var btnStack: UIStackView!
     
-    private var timelimit = 30
+    private var timelimit = 0.0
     
     // MARK: Initialize Methods
     init(labelText: String, buttonText: String) {
@@ -40,7 +41,7 @@ class OnboardPromptLabelButton: UIView {
     
     
     // MARK: Public Functions
-    func setTimelimit(num: Int) {
+    func setTimelimit(num: TimeInterval) {
         self.timelimit = num
     }
     
@@ -65,12 +66,25 @@ class OnboardPromptLabelButton: UIView {
     
     
     // MARK: UI Creation
+    func addTimeLabel(_ time: TimeInterval) {
+        timelimit = time
+        /// Promp button time label
+        timeLabel = createDefaultLabel(" di \(timelimit)")
+        timeLabel.textColor = .systemGray2
+        timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        timeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        
+        btnStack.addArrangedSubview(timeLabel)
+    }
+    
     private func createLabelBtnStack(_ lblText: String, _ btnText: String) -> UIStackView {
         
+        /// Prompt label
         defaultLabel = createDefaultLabel(lblText)
         defaultLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         defaultLabel.setContentHuggingPriority(.required, for: .horizontal)
         
+        /// Prompt button
         defaultBtn = createDefaultButton("")
         let attributedText = NSMutableAttributedString(string: btnText)
         let range = NSRange(location: 0, length: attributedText.length)
@@ -81,7 +95,20 @@ class OnboardPromptLabelButton: UIView {
         defaultBtn.setContentHuggingPriority(.required, for: .horizontal)
         defaultBtn.addTarget(self, action: #selector(defaultBtnTapped), for: .touchUpInside)
         
-        let stack = UIStackView(arrangedSubviews: [defaultLabel, defaultBtn])
+        /// Promp button time label
+//        timeLabel = createDefaultLabel(" di \(timelimit)")
+//        timeLabel.textColor = .systemGray2
+//        timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+//        timeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        
+        btnStack = UIStackView(arrangedSubviews: [defaultBtn])
+        btnStack.translatesAutoresizingMaskIntoConstraints = false
+        btnStack.axis  = NSLayoutConstraint.Axis.horizontal
+        btnStack.distribution  = UIStackView.Distribution.fill
+        btnStack.alignment = UIStackView.Alignment.fill
+        btnStack.spacing   = 0.0
+        
+        let stack = UIStackView(arrangedSubviews: [defaultLabel, btnStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis  = NSLayoutConstraint.Axis.horizontal
         stack.distribution  = UIStackView.Distribution.fill

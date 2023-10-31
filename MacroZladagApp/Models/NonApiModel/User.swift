@@ -7,12 +7,12 @@
 
 import Foundation
 struct User {
-    let name: String
+//    let name: String
     let token: String
     let signMethod : SignInMethod
     
-    let phoneNumber: String
-    let email: String
+//    let phoneNumber: String
+//    let email: String
     
 //    let address: String
 //    let postalCode: String

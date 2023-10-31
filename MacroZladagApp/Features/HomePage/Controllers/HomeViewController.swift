@@ -353,6 +353,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
+//            if ga fetching {
+//                return
+//            }
             let viewModel = viewModels[indexPath.row]
             let vc = BoardingDetailsViewController()
             vc.hidesBottomBarWhenPushed = true
@@ -366,7 +369,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 defer {
                     group.leave()
                 }
-
+                // slf.isfetching = true
                 switch result {
                 case .success(let response):
                     vc.viewModel = BoardingDetailsViewModel(

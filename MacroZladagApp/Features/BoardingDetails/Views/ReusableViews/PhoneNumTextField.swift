@@ -6,13 +6,22 @@
 //
 
 import UIKit
+// MARK: Protocols
+protocol PhoneNumTextFieldDelegate: AnyObject {
+    func validatePhoneNum()
+}
 
 class PhoneNumTextField: UIView {
     
+    weak var delegate: PhoneNumTextFieldDelegate?
+
     private let countryCode = "+62"
     
     var txtField: UITextField!
+    var errorLabel: UILabel!
+    
     var phoneNum = ""
+    private var phoneFieldStack: UIStackView!
     private var phoneInputStack: UIStackView!
     
     // MARK: Lifecycles
@@ -29,13 +38,29 @@ class PhoneNumTextField: UIView {
     private func setUpComponents() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        phoneInputStack = createCustomPhoneTF()
+        phoneFieldStack = createCustomPhoneTF()
+        errorLabel = createErrorLabel("Error label")
+        errorLabel.isHidden = true
+        
+        phoneInputStack = UIStackView(arrangedSubviews: [phoneFieldStack, errorLabel])
+        phoneInputStack.translatesAutoresizingMaskIntoConstraints = false
+        phoneInputStack.axis  = NSLayoutConstraint.Axis.vertical
+        phoneInputStack.distribution  = UIStackView.Distribution.fill
+        phoneInputStack.alignment = UIStackView.Alignment.fill
+        phoneInputStack.spacing   = 8.0
+        
         txtField.delegate = self
         
         setUpConstraints()
     }
     
     private func setUpConstraints() {
+        
+        NSLayoutConstraint.activate([
+            phoneFieldStack.heightAnchor.constraint(equalToConstant: 49),
+        ])
+        
+        
         self.addSubview(phoneInputStack)
         NSLayoutConstraint.activate([
             phoneInputStack.topAnchor.constraint(equalTo: self.topAnchor),
@@ -61,16 +86,29 @@ class PhoneNumTextField: UIView {
         stack.backgroundColor = .customGray
         stack.layer.cornerRadius = 8
         
+        
         return stack
     }
     
     private func createCountryCodeLabel(_ text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        let label = createDefaultLabel(text)
         //        label.font = .systemFont(ofSize: 12, weight: .regular) //font ikut UI, kekecilan karna fontname blm sesuai
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = text
         label.textColor = .customBlue
+        return label
+    }
+    
+    private func createErrorLabel(_ text: String) -> UILabel {
+        let label = createDefaultLabel(text)
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .systemRed
+        label.numberOfLines = 0
+        return label
+    }
+    private func createDefaultLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
         label.numberOfLines = 0
         return label
     }
@@ -99,10 +137,15 @@ extension PhoneNumTextField: UITextFieldDelegate {
         
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
         textField.text = formatPhoneNum(maskFormat: "XXX XXXX XXXXXX", phoneNumber: newString)
+        
+        delegate?.validatePhoneNum()
+        
         return false
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        errorLabel.isHidden = true
+
     }
     
     // MARK: Custom Func
@@ -130,4 +173,5 @@ extension PhoneNumTextField: UITextFieldDelegate {
     func getNumericValue(num: String) -> String {
         return num.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
     }
+    
 }

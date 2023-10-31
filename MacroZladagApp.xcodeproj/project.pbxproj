@@ -88,6 +88,11 @@
 		8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */; };
 		8F9ADDA02AD994B10082E19B /* SegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */; };
 		8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9ADDA12AD9A3DE0082E19B /* TestSwiftUIView.swift */; };
+		8F9C2D3D2AEEEEFA00D767CD /* OptionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D3C2AEEEEFA00D767CD /* OptionDivider.swift */; };
+		8F9C2D412AEFFD8900D767CD /* SignUpBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D402AEFFD8900D767CD /* SignUpBody.swift */; };
+		8F9C2D432AF0019E00D767CD /* SignInPhoneBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D422AF0019E00D767CD /* SignInPhoneBody.swift */; };
+		8F9C2D452AF0020A00D767CD /* ValidatePhoneCodeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */; };
+		8F9C2D472AF0024B00D767CD /* SendPhoneCodeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */; };
 		8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */; };
 		8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */; };
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
@@ -113,6 +118,12 @@
 		8FFEC0712AEB0A76005D790F /* MyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0702AEB0A76005D790F /* MyConstants.swift */; };
 		8FFEC0742AEB4002005D790F /* SearchAccByPhoneResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0732AEB4002005D790F /* SearchAccByPhoneResponse.swift */; };
 		8FFEC0762AEB6A81005D790F /* AppAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0752AEB6A81005D790F /* AppAccountManager.swift */; };
+		8FFEC0922AEDBB35005D790F /* VerificationCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0912AEDBB35005D790F /* VerificationCodeResponse.swift */; };
+		8FFEC0942AEDBCD7005D790F /* OnboardPhoneNumInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0932AEDBCD7005D790F /* OnboardPhoneNumInput.swift */; };
+		8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0952AEE7133005D790F /* ErrorResponse.swift */; };
+		8FFEC0982AEE7149005D790F /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0972AEE7149005D790F /* SuccessResponse.swift */; };
+		8FFEC09A2AEE75BD005D790F /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC0992AEE75BD005D790F /* SignInResponse.swift */; };
+		8FFEC09E2AEEBC2E005D790F /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFEC09D2AEEBC2E005D790F /* SignUpResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,6 +214,11 @@
 		8F9ADD9D2AD7CFB30082E19B /* SegmentedReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewView.swift; sourceTree = "<group>"; };
 		8F9ADD9F2AD994B10082E19B /* SegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedInfoViewController.swift; sourceTree = "<group>"; };
 		8F9ADDA12AD9A3DE0082E19B /* TestSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwiftUIView.swift; sourceTree = "<group>"; };
+		8F9C2D3C2AEEEEFA00D767CD /* OptionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionDivider.swift; sourceTree = "<group>"; };
+		8F9C2D402AEFFD8900D767CD /* SignUpBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBody.swift; sourceTree = "<group>"; };
+		8F9C2D422AF0019E00D767CD /* SignInPhoneBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPhoneBody.swift; sourceTree = "<group>"; };
+		8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePhoneCodeBody.swift; sourceTree = "<group>"; };
+		8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPhoneCodeBody.swift; sourceTree = "<group>"; };
 		8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPSegmentedInfoViewController.swift; sourceTree = "<group>"; };
 		8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewViewController.swift; sourceTree = "<group>"; };
 		8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -233,6 +249,12 @@
 		8FFEC0702AEB0A76005D790F /* MyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyConstants.swift; sourceTree = "<group>"; };
 		8FFEC0732AEB4002005D790F /* SearchAccByPhoneResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccByPhoneResponse.swift; sourceTree = "<group>"; };
 		8FFEC0752AEB6A81005D790F /* AppAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAccountManager.swift; sourceTree = "<group>"; };
+		8FFEC0912AEDBB35005D790F /* VerificationCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeResponse.swift; sourceTree = "<group>"; };
+		8FFEC0932AEDBCD7005D790F /* OnboardPhoneNumInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardPhoneNumInput.swift; sourceTree = "<group>"; };
+		8FFEC0952AEE7133005D790F /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		8FFEC0972AEE7149005D790F /* SuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		8FFEC0992AEE75BD005D790F /* SignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
+		8FFEC09D2AEEBC2E005D790F /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		DD7F02616DBF5790C89BA81C /* Pods-MacroZladagApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.debug.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E6EC42BD3B1212AFBDB47D42 /* Pods-MacroZladagApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacroZladagApp.release.xcconfig"; path = "Target Support Files/Pods-MacroZladagApp/Pods-MacroZladagApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -654,9 +676,11 @@
 				8FFEC0172AEA5C3D005D790F /* PrimaryButtonFilled.swift */,
 				8FFEC0192AEA5C8E005D790F /* PhoneNumTextField.swift */,
 				8FFEC01B2AEA5CC7005D790F /* OnboardPromptLabelButton.swift */,
+				8FFEC0932AEDBCD7005D790F /* OnboardPhoneNumInput.swift */,
 				8FFEC01F2AEA5D16005D790F /* OnboardHeader.swift */,
 				8FFEC0212AEA5D43005D790F /* OnboardButtonOutline.swift */,
 				8FFEC01D2AEA5CF2005D790F /* OtpTextField.swift */,
+				8F9C2D3C2AEEEEFA00D767CD /* OptionDivider.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -690,6 +714,15 @@
 			isa = PBXGroup;
 			children = (
 				8FFEC0732AEB4002005D790F /* SearchAccByPhoneResponse.swift */,
+				8FFEC0912AEDBB35005D790F /* VerificationCodeResponse.swift */,
+				8FFEC0952AEE7133005D790F /* ErrorResponse.swift */,
+				8FFEC0972AEE7149005D790F /* SuccessResponse.swift */,
+				8FFEC0992AEE75BD005D790F /* SignInResponse.swift */,
+				8FFEC09D2AEEBC2E005D790F /* SignUpResponse.swift */,
+				8F9C2D402AEFFD8900D767CD /* SignUpBody.swift */,
+				8F9C2D422AF0019E00D767CD /* SignInPhoneBody.swift */,
+				8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */,
+				8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */,
 			);
 			path = AccountVerification;
 			sourceTree = "<group>";
@@ -814,6 +847,7 @@
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
 				8F23EDC42AE41CCF00B25026 /* Order.swift in Sources */,
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
+				8FFEC09A2AEE75BD005D790F /* SignInResponse.swift in Sources */,
 				6570AA202ADE9FDB003DC5EB /* BoardingPolicy.swift in Sources */,
 				8FFEC0452AEA6220005D790F /* SignInByWhatsappViewController.swift in Sources */,
 				8F9ADD9E2AD7CFB30082E19B /* SegmentedReviewView.swift in Sources */,
@@ -833,7 +867,9 @@
 				653040162AEA521B00EF5E17 /* ProfileImageViewButton.swift in Sources */,
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
 				8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */,
+				8FFEC0922AEDBB35005D790F /* VerificationCodeResponse.swift in Sources */,
 				6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */,
+				8FFEC0942AEDBCD7005D790F /* OnboardPhoneNumInput.swift in Sources */,
 				65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */,
 				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
 				8FFEC0222AEA5D43005D790F /* OnboardButtonOutline.swift in Sources */,
@@ -867,6 +903,7 @@
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				8FFEC01C2AEA5CC8005D790F /* OnboardPromptLabelButton.swift in Sources */,
 				6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */,
+				8F9C2D3D2AEEEEFA00D767CD /* OptionDivider.swift in Sources */,
 				65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */,
 				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				6570AA222ADEA19E003DC5EB /* Service.swift in Sources */,
@@ -878,6 +915,7 @@
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* ExtensionUIColor.swift in Sources */,
 				8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */,
+				8F9C2D452AF0020A00D767CD /* ValidatePhoneCodeBody.swift in Sources */,
 				6570AA532ADFEE53003DC5EB /* BoardingDetailsResponse.swift in Sources */,
 				6570AA552ADFF06C003DC5EB /* BoardingCage.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
@@ -886,6 +924,7 @@
 				8FFEC0412AEA61DF005D790F /* OnboardingFormViewController.swift in Sources */,
 				6570AA432ADFD662003DC5EB /* SmallBoardingCell.swift in Sources */,
 				65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */,
+				8F9C2D432AF0019E00D767CD /* SignInPhoneBody.swift in Sources */,
 				8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */,
 				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
@@ -898,19 +937,24 @@
 				8FFEC01E2AEA5CF2005D790F /* OtpTextField.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
+				8F9C2D412AEFFD8900D767CD /* SignUpBody.swift in Sources */,
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				653040122AE9A02100EF5E17 /* NecessarryFieldLabel.swift in Sources */,
 				8FFEC0472AEA6257005D790F /* SignInViewController.swift in Sources */,
+				8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
 				653040142AE9A2FE00EF5E17 /* TambahAnabulTextField.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
 				6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */,
 				6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */,
+				8FFEC09E2AEEBC2E005D790F /* SignUpResponse.swift in Sources */,
 				65C40CF22ACAC298004D986C /* YourOrdersViewController.swift in Sources */,
 				8FFEC0712AEB0A76005D790F /* MyConstants.swift in Sources */,
 				6530400D2AE9871900EF5E17 /* TambahProfilAnabulViewController.swift in Sources */,
+				8FFEC0982AEE7149005D790F /* SuccessResponse.swift in Sources */,
 				6570AA4C2ADFE28B003DC5EB /* SearchBoardingsResponse.swift in Sources */,
+				8F9C2D472AF0024B00D767CD /* SendPhoneCodeBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
