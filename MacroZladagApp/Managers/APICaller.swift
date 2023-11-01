@@ -234,26 +234,6 @@ final class APICaller {
         
     }
     
-    /// POST Req to request Verification code - OK
-    public func askOtpVerification<B: Encodable>(requestBody: B, completion: @escaping (Bool) -> Void){
-        let url = URL(string: "\(MyConstants.Urls.sendOtpCodeURLPath)")!
-        let responseType = VerificationCodeResponse.self
-        let reqMethod = HTTPMethod.POST
-        
-        fetchDataPOSTRequestResponse(from: url, requestBody: requestBody, responseType: responseType, httpReqMethod: reqMethod) { result in
-            switch result {
-            case true:
-                //                print(response)
-                completion(true)
-                
-            case false:
-                //                print("Error: \(error.localizedDescription )")
-                completion(false)
-            }
-        }
-    }
-    
-   
     
     func fetchDataGETRequest <T: Codable>(from url: URL, responseType: T.Type, httpReqMethod method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
         
@@ -283,31 +263,6 @@ final class APICaller {
         httpReqMethod method: HTTPMethod,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        
-        
-
-//        let jsonData = try? JSONSerialization.data(withJSONObject: B.self)
-//
-//        // create post request
-//        let url = URL(string: "http://httpbin.org/post")!
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//
-//        // insert json data to the request
-//        request.httpBody = jsonData
-//
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil else {
-//                print(error?.localizedDescription ?? "No data")
-//                return
-//            }
-//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//            if let responseJSON = responseJSON as? [String: Any] {
-//                print(responseJSON)
-//            }
-//        }
-//
-//        task.resume()
         
         
         createRequestWithBody(with: url, reqBody: requestBody, type: method) { request in

@@ -34,18 +34,6 @@ class OnboardingFormViewController: UIViewController {
         
         signInButton.delegate = self
         signUpPromptLB.delegate = self
-     
-        
-//        AppAccountManager.shared.validateOtpVerification(no: "62895803409473", otpCode: "", completion: { (isSuccess, message) in
-//            print("huahaha")
-//            if isSuccess {
-//                print("YEE")
-//            } else {
-//                print(message ?? "??")
-//            }
-//        })
-//        AppAccountManager.shared.signUp(signMethod: .phoneNumber, name: "Celine", no: "62895803409473", email: nil)
-        
     }
     
     

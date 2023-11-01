@@ -46,18 +46,7 @@ final class AppAccountManager {
         }
     }
     
-    /// Verification Code (OTP): request the code
-//    func askOtpVerification(no: String) {
-//        let reqBody = [
-//            "phoneNumber": no
-//        ]
-//        
-//        apiCaller.askOtpVerification(requestBody: reqBody) { exists in
-//            // Handle the result
-//            print("OTP response: \(exists)")
-//        }
-//    }
-    
+    /// Verification Code (OTP): request the code 
     func askOtpVerification(no: String, completion: @escaping (Bool, String?) -> Void) {
        
         let sendPhoneCode = SendPhoneCodeBody(phoneNumber: no)
