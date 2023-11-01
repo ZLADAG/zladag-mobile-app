@@ -79,6 +79,7 @@ class SignInByWhatsappViewController: UIViewController {
         ])
     }
     
+    
 }
 
 extension SignInByWhatsappViewController: PhoneNumTextFieldDelegate {
@@ -92,56 +93,69 @@ extension SignInByWhatsappViewController: PhoneNumTextFieldDelegate {
             nextButton.btn.isEnabled = false
         }
     }
-
+    
 }
 
 extension SignInByWhatsappViewController: PrimaryButtonFilledDelegate {
     func btnTapped() {
         
-        /// Validate: empty field, char between 10 - 13 without "62"
-        let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
-        
         /// Perform background tasks: This code is not running on the main thread
         DispatchQueue.global().async {
             
             // MARK: VALIDASI BKN PAKE ISPHONENUMEXIST YAA
-            AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+            /// Validate: empty field, char between 10 - 13 without "62"
+            
+            DispatchQueue.main.async {
+                let phoneNum = self.phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
                 
-                /// Update the UI or perform UI-related tasks: This code runs on the main thread
-                DispatchQueue.main.async { [self] in
-                    if exists {
-                        phoneInputField.errorLabel.isHidden = true
-                        
-                        DispatchQueue.global().async {
-                            AppAccountManager.shared.signInByPhone(no: "62\(phoneNum!)", completion: { [self] isSuccess in
-                                
-                                if isSuccess {
-                                    let alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
-                                    present(alert, animated: true, completion: nil)
-                                    
-                                    /// delays execution of code to dismiss
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
-                                        alert.dismiss(animated: true, completion: nil)
-                                        
-                                        let homeVC = HomeViewController()
-                                        self.navigationController?.pushViewController(homeVC, animated: true)
-                                    })
-                                } else {
-                                    let alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
-                                    let okAaction = nextButton.addOkAction()
-                                    alert.addAction(okAaction)
-                                    present(alert, animated: true, completion: nil)
-                                }
-                                
-                            })
+                
+                
+                AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+                    
+                    /// Update the UI or perform UI-related tasks: This code runs on the main thread
+                    DispatchQueue.main.async { [self] in
+                        if exists {
+                            phoneInputField.errorLabel.isHidden = true
                             
+                            DispatchQueue.global().async {
+                                AppAccountManager.shared.signInByPhone(no: "62\(phoneNum!)", completion: { [self] isSuccess in
+                                    
+                                    var alert: UIAlertController!
+                                    
+                                    if isSuccess {
+                                        alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
+                                    } else {
+                                        alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
+                                        
+                                        let okAaction = nextButton.addOkAction()
+                                        alert.addAction(okAaction)
+                                        
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        self.present(alert, animated: true, completion: nil)
+                                        
+                                        if isSuccess {
+                                            /// delays execution of code to dismiss
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
+                                                alert.dismiss(animated: true, completion: nil)
+                                                
+                                                let homeVC = HomeViewController()
+                                                self.navigationController?.pushViewController(homeVC, animated: true)
+                                            })
+                                        }
+                                    }
+                                    
+                                })
+                                
+                            }
+                            
+                        } else {
+                            phoneInputField.errorLabel.text = "Nomor ini belum terdaftar. Silahkan buat akun terlebih dahulu."
+                            phoneInputField.errorLabel.isHidden = false
                         }
                         
-                    } else {
-                        phoneInputField.errorLabel.text = "Nomor ini belum terdaftar. Silahkan buat akun terlebih dahulu."
-                        phoneInputField.errorLabel.isHidden = false
                     }
-                    
                 }
             }
         }

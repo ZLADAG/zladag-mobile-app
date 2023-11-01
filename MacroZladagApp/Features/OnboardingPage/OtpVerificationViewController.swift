@@ -40,12 +40,13 @@ class OtpVerificationViewController: UIViewController {
         
         otpFieldStack.delegate = self
         resendOtpPromptLB.delegate = self
+        askVerificationCode()
+
     }
-    
     // MARK: Private Functions
     private func setUpComponents(){
         
-        header.captionLabel.text = "Masukan OTP yang telah kami kirimkan ke \n\(phoneNum) via Whatsapp"
+        header.captionLabel.text = "Masukan OTP yang telah kami kirimkan ke \n+62\(phoneNum) via Whatsapp"
         
         /// Add time label
         resendOtpPromptLB.addTimeLabel(otpTimeLimit)
@@ -80,29 +81,35 @@ class OtpVerificationViewController: UIViewController {
         ])
         
     }
+    private func askVerificationCode() {
+        DispatchQueue.global().async {
+            AppAccountManager.shared.askOtpVerification(no: "62\(self.phoneNum)", completion: { isSuccess, message in
+                DispatchQueue.main.async {
+                    //                print(AppAccountManager.shared.verificationCode!)
+                    self.setUpTimer()
+                }
+            })
+        }
+    }
     
     // MARK: Function
     func setUpTimer() {
-        isOtpEnded = chackTimeLimit()
-        
+        isOtpEnded = checkTimeLimit()
         if !isOtpEnded {
             otpTimeLeft = otpTimeLimit
             startTimer()
         }
     }
-    private func chackTimeLimit() -> Bool{
-        
+    private func checkTimeLimit() -> Bool{
         if otpTimeLimit > 0 {
             return false
         }
         return true
     }
-    
     private func startTimer() {
         /// Initialization of the Timer with interval every inputted second with the function call.
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
-    
     private func endTimer() {
         timer.invalidate()
     }
@@ -137,23 +144,36 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
     func validateOtp() {
             
         let otpCode = otpFieldStack.getOtpCode()
-            
-        AppAccountManager.shared.validateOtpVerification(no: phoneNum, otpCode: otpCode, completion: { (isSuccess, message) in
-            print("huahaha")
-            if isSuccess {
-                print("YEE")
-                self.otpFieldStack.errorLabel.text = ""
-                self.otpFieldStack.errorLabel.isHidden = true
+       
+        DispatchQueue.global().async {
+            AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
+               
+                DispatchQueue.main.async { [self] in
+                    if isSuccess {
+                        self.otpFieldStack.errorLabel.text = ""
+                        self.otpFieldStack.errorLabel.isHidden = true
+                        
+                       
+                        DispatchQueue.global().async {
+                            // MARK: Direct to input username
+                            
+//                            let nextVC =
+//                            navigationController?.popToRootViewController(animated: true)
+//                            navigationController?.pushViewController(nextVC, animated: true)
+                        }
+                        
+                    } else {
+                        print(message ?? "??")
+                        self.otpFieldStack.errorLabel.text = message!
+                        self.otpFieldStack.errorLabel.isHidden = false
+                        self.otpFieldStack.resetField()
+                    }
+                }
                 
-                // MARK: ADD ACC HERE
-                //...
-                
-            } else {
-                print(message ?? "??")
-                self.otpFieldStack.errorLabel.text = message!
-                self.otpFieldStack.errorLabel.isHidden = false
-            }
-        })
+            })
+        }
+
+        
         
     }
     
@@ -163,7 +183,7 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
 extension OtpVerificationViewController: OnboardPromptLabelButtonDelegate {
     
     func defaultBtnTapped() {
-        setUpTimer()
+        askVerificationCode()
     }
     
 }

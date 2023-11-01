@@ -45,6 +45,21 @@ class OtpTextField: UIView {
         return otpCode
     }
     
+    func resetField() {
+        otpTF1.text = ""
+        otpTF2.text = ""
+        otpTF3.text = ""
+        otpTF4.text = ""
+        
+        otpTF1.isEnabled = true
+        otpTF1.becomeFirstResponder()
+        
+        removeBorder(otpTF1)
+        removeBorder(otpTF2)
+        removeBorder(otpTF3)
+        removeBorder(otpTF4)
+    }
+    
     // MARK: Private functions
     private func setUpComponents() {
         
@@ -147,7 +162,13 @@ class OtpTextField: UIView {
         label.textAlignment = .center
         return label
     }
-    
+    private func addBorder(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.customBlue.cgColor
+        textField.layer.borderWidth = 2
+    }
+    private func removeBorder(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+    }
 }
 
 /// Text field Protocols
@@ -241,11 +262,10 @@ extension OtpTextField: UITextFieldDelegate {
         
         /// Change border style
         if textField.hasText {
-            textField.layer.borderColor = UIColor.customBlue.cgColor
-            textField.layer.borderWidth = 2
+            addBorder(textField)
         }
         else {
-            textField.layer.borderWidth = 0
+            removeBorder(textField)
         }
 
         

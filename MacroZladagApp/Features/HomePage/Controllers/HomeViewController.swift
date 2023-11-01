@@ -175,6 +175,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         
         collectionView.backgroundColor = .customGray
         setupNavigationBar()
+        print("hohoho")
     }
     
     

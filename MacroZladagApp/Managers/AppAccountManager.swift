@@ -47,14 +47,38 @@ final class AppAccountManager {
     }
     
     /// Verification Code (OTP): request the code
-    func askOtpVerification(no: String) {
-        let reqBody = [
-            "phoneNumber": no
-        ]
+//    func askOtpVerification(no: String) {
+//        let reqBody = [
+//            "phoneNumber": no
+//        ]
+//        
+//        apiCaller.askOtpVerification(requestBody: reqBody) { exists in
+//            // Handle the result
+//            print("OTP response: \(exists)")
+//        }
+//    }
+    
+    func askOtpVerification(no: String, completion: @escaping (Bool, String?) -> Void) {
+       
+        let sendPhoneCode = SendPhoneCodeBody(phoneNumber: no)
         
-        apiCaller.askOtpVerification(requestBody: reqBody) { exists in
-            // Handle the result
-            print("OTP response: \(exists)")
+        askPostRequest(parameters: sendPhoneCode, path: MyConstants.Urls.sendOtpCodeURLPath) { [self] (result, error) in
+            print("\nsendPhoneCode")
+            if let result = result {
+                guard result["verificationCode"] != nil else {
+                    completion(false, "-")
+                    return
+                }
+                // DEBUG
+                verificationCode = String(result["verificationCode"] as! Int)
+                print(verificationCode!)
+                
+                completion(true, nil)
+
+                
+            } else if let error = error {
+                completion(false, error.localizedDescription)
+            }
         }
     }
     
@@ -66,16 +90,16 @@ final class AppAccountManager {
         askPostRequest(parameters: validateWAcode, path: MyConstants.Urls.verificationCodeURLPath) { (result, error) in
             print("\nvalidateWAcode")
             if let result = result {
-//                print("success: \(result)")
-                guard result["success"]! as! Bool else {
+
+                guard result["success"] != nil else {
                     completion(false, "Ups! OTP salah. Cek ulang dan coba lagi.")
                     return
                 }
                 
                 completion(true, nil)
 
+                
             } else if let error = error {
-//                print("error: \(error.localizedDescription)")
                 completion(false, error.localizedDescription)
             }
         }
@@ -84,11 +108,11 @@ final class AppAccountManager {
     
     // MARK: HALF DONEEEE!
     /// Sign-up: by WA, google, apple
-    func signUp(signMethod: SignMethod, name: String, no: String, email: String?) {
+    func signUp(signMethod: SignMethod, name: String, no: String, email: String?, completion: @escaping (Bool) -> Void) {
         let signUp = SignUpBody(signMethod: signMethod.rawValue, name: name, phoneNumber: no, email: email)
         
         askPostRequest(parameters: signUp, path: MyConstants.Urls.signUpURLPath) { (result, error) in
-            print("\nsignUp\(SignMethod.phoneNumber.rawValue)")
+            print("\nsignUp: \(SignMethod.phoneNumber.rawValue)")
             if let result = result {
                 print("success: \(result)")
             } else if let error = error {
@@ -98,7 +122,7 @@ final class AppAccountManager {
     }
     
     
-    // MARK: HALF DONEEEE!
+    // MARK: DONEEEE!
     /// Sign-in: Get access token as sign-in identifier
     func signInByPhone(no: String, completion: @escaping (Bool) -> Void) {
         let signInPhone = SignInPhoneBody(signMethod: SignMethod.phoneNumber.rawValue, phoneNumber: no)
@@ -109,7 +133,7 @@ final class AppAccountManager {
             if let result = result {
                 print("success: \(result)")
                 
-                guard result["personalAccessToken"]! as! Bool else {
+                guard result["personalAccessToken"] != nil else {
                     completion(false)
                     return
                 }

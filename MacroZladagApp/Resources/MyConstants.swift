@@ -10,8 +10,8 @@ import Foundation
 struct MyConstants {
     
     struct Urls {
-        static let baseURLPath = "https://zladag-sasato.uc.r.appspot.com/api"
-//        static let baseURLPath = "https://c6ef-2001-448a-20e0-24bd-69b2-a07c-9234-7a78.ngrok-free.app/api"
+        static let baseURLPath = "https://zladag-catnip-services.as.r.appspot.com/api"
+//        static let baseURLPath = "https://zladag-catnip-services.as.r.appspot.com/api"
         
         // MARK: Get Method
         /// Onboarding

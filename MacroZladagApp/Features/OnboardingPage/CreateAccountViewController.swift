@@ -97,28 +97,33 @@ extension CreateAccountViewController: PhoneNumTextFieldDelegate {
 extension CreateAccountViewController: PrimaryButtonFilledDelegate {
     func btnTapped() {
         
-        /// Validate: empty field, char between 10 - 13 without "62"
-        let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
-        
-        
         /// Perform background tasks: This code is not running on the main thread
         DispatchQueue.global().async {
-            AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+            DispatchQueue.main.async { [self] in
                 
-                /// Update the UI or perform UI-related tasks: This code runs on the main thread
-                DispatchQueue.main.async { [self] in
-                    if exists {
-                        phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
-                        phoneInputField.errorLabel.isHidden = false
+                /// Validate: empty field, char between 10 - 13 without "62"
+                let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
+                
+                AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+                    
+                    /// Update the UI or perform UI-related tasks: This code runs on the main thread
+                    DispatchQueue.main.async { [self] in
+                        if exists {
+                            phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
+                            phoneInputField.errorLabel.isHidden = false
+                            
+                        } else {
+                            phoneInputField.errorLabel.isHidden = true
+                            let otpVerificationVC = OtpVerificationViewController()
+                            otpVerificationVC.phoneNum = "\(String(describing: phoneNum!))"
+                            self.navigationController?.pushViewController(otpVerificationVC, animated: true)
+                        }
                         
-                    } else {
-                        phoneInputField.errorLabel.isHidden = true
-                        let otpVerificationVC = OtpVerificationViewController()
-                        otpVerificationVC.phoneNum = "+62\(String(describing: phoneNum!))"
-                        self.navigationController?.pushViewController(otpVerificationVC, animated: true)
                     }
                     
                 }
+                
+                
                 
             }
         }

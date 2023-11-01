@@ -414,16 +414,17 @@ final class APICaller {
             }
 
             guard let data = data else {
-                completion(nil, NSError(domain: "dataNilError", code: -100001, userInfo: nil))
+                completion(nil, error)
                 return
             }
 
             do {
                 /// create json object from data
                 guard let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
-                    completion(nil, NSError(domain: "invalidJSONTypeError", code: -100009, userInfo: nil))
+                    completion(nil, error)
                     return
                 }
+                print(json)
                 completion(json, nil)
             } catch let error {
                 completion(nil, error)
