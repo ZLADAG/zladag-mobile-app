@@ -22,7 +22,8 @@ class OnboardingFormViewController: UIViewController {
         buttonText: "Masuk"
     )
     
-    
+    let loadingIndicator = UIActivityIndicatorView(style: .large)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,8 +34,9 @@ class OnboardingFormViewController: UIViewController {
         
         signInButton.delegate = self
         signUpPromptLB.delegate = self
-        
     }
+    
+    
     private func setUpComponents() {
         image = createImage("photo.on.rectangle.angled")
         allComponentView = setUpAllComponent()
@@ -168,7 +170,6 @@ extension OnboardingFormViewController: PrimaryButtonFilledDelegate {
         let signUpVC = CreateAccountViewController()
         navigationController?.pushViewController(signUpVC, animated: true)
     }
-    
     
 }
 

@@ -35,15 +35,20 @@ class OnboardButtonOutline: UIView {
     // MARK: Private Functions
     private func setUpComponents(_ iconName: String, _ btnTitle: String){
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+        let icon = UIImage(systemName: iconName)!
 
     
-        btn = UIButton(configuration: .borderedProminent())
+        btn = UIButton(type: .system)
+        
+        btn.setImage(icon, for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle(btnTitle, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        btn.setTitle("   \(btnTitle)", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         btn.setTitleColor(.black, for: .normal)
         
-        btn.tintColor = .white
+        btn.tintColor = .black
         btn.layer.borderColor = UIColor.customGray.cgColor
         btn.layer.borderWidth = 2
         btn.layer.cornerRadius = 25
@@ -51,18 +56,18 @@ class OnboardButtonOutline: UIView {
         btn.layer.masksToBounds = true
 
         
+        
+       
+        
         btn.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
-        
-        let icon = UIImage(systemName: iconName)!
-        
-        btn.setImage(icon, for: .normal)
-        btn.imageView?.contentMode = .scaleAspectFit
+
         setUpConstraints()
     }
     private func setUpConstraints() {
         self.addSubview(btn)
         
-        NSLayoutConstraint.activate([            btn.heightAnchor.constraint(equalToConstant: 50),
+        NSLayoutConstraint.activate([
+            btn.heightAnchor.constraint(equalToConstant: 54),
 
             btn.topAnchor.constraint(equalTo: self.topAnchor),
             btn.bottomAnchor.constraint(equalTo: self.bottomAnchor),
