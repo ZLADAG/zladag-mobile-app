@@ -18,6 +18,9 @@ extension UIColor {
     static let customGray = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 255/255)
     static let customGray2 = UIColor(red: 218/255, green: 220/255, blue: 226/255, alpha: 255/255)
     static let customGray3 = UIColor(red: 118/255, green: 118/255, blue: 118/255, alpha: 255/255)
+    static let customLightGray = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
+    static let customLightGray2 = UIColor(red: 197/255, green: 197/255, blue: 197/255, alpha: 255/255)
+    static let customLightGray3 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
     static let customGrayForIcons = UIColor(red: 158/255, green: 167/255, blue: 187/255, alpha: 255/255)
     static let customGrayForBorder = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 255/255)
     static let customGrayForImage = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 255/255)
@@ -28,5 +31,10 @@ extension UIColor {
     
     static let textBlack = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 255/255)
     static let textRed = UIColor(red: 219/255, green: 88/255, blue: 88/255, alpha: 255/255)
+    
+    // Gender Tag color
+    static let customLightPink = UIColor(red: 255/255, green: 207/255, blue: 207/255, alpha: 255/255)
+    static let customLightBlue = UIColor(red: 222/255, green: 239/255, blue: 255/255, alpha: 255/255)
+
 }
 

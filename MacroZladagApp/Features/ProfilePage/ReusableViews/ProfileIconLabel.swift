@@ -9,15 +9,32 @@ import UIKit
 
 class ProfileIconLabel: UIView {
     
+    enum IconLabelType {
+        case menu
+        case healthRecordTag
+        case facilityTag
+    }
+    
     var icon: UIImageView!
     var title: UILabel!
     
     private var contentStack: UIStackView!
     
+    private var iconSize = 0.0
+    private var stackSpacing = 0.0
+    
+    private var fontTextColor = UIColor.black
+    private var fontSize = 0.0
+    private var fontWeight : UIFont.Weight = .medium
+    
+    private var padding = 0.0
+    private var bgColor = UIColor.clear
+    private var cornerRad = 0.0
+    
     // MARK: Initialize Methods
-    init(iconName: String, titleName: String) {
+    init(iconName: String, titleName: String, type: IconLabelType) {
         super.init(frame: .zero)
-        setUpComponents(iconName, titleName)
+        setUpComponents(iconName, titleName, type)
     }
     
     override init(frame: CGRect) {
@@ -29,7 +46,14 @@ class ProfileIconLabel: UIView {
     }
     
     // MARK: Functions
-    private func setUpComponents(_ iconName: String, _ titleName: String) {
+    private func setUpComponents(_ iconName: String, _ titleName: String, _ type: IconLabelType) {
+        
+        configureType(type)
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = bgColor
+        self.layer.cornerRadius = cornerRad
+        
         icon = createIcon(iconName)
         title = createTitleLabel(titleName)
         
@@ -38,10 +62,51 @@ class ProfileIconLabel: UIView {
         contentStack.axis  = NSLayoutConstraint.Axis.horizontal
         contentStack.distribution  = UIStackView.Distribution.fill
         contentStack.alignment = UIStackView.Alignment.center
-        contentStack.spacing   = 8.0
+        contentStack.spacing   = stackSpacing
+        
         setUpConstraints()
     }
     
+    
+    private func configureType(_ type: IconLabelType) {
+        switch type {
+        case .healthRecordTag:
+            iconSize = 16
+            stackSpacing = 4
+            fontTextColor = UIColor.white
+            fontSize = 12
+            padding = 8
+            bgColor = .facilityBlue
+            cornerRad = 4
+        case .facilityTag:
+            iconSize = 16
+            stackSpacing = 8
+            fontSize = 14
+            padding = 8
+            bgColor = .customLightGray3
+            cornerRad = 4
+        default:
+            iconSize = 24
+            stackSpacing = 8
+            fontSize = 16
+            fontWeight = .bold
+        }
+    }
+    
+    
+    private func setUpConstraints() {
+        self.addSubview(contentStack)
+        
+        NSLayoutConstraint.activate([
+            icon.heightAnchor.constraint(equalToConstant: iconSize),
+            icon.widthAnchor.constraint(equalToConstant: iconSize),
+            
+            contentStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            contentStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            contentStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            contentStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+        ])
+    }
     private func createTitleLabel(_ text: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,39 +115,24 @@ class ProfileIconLabel: UIView {
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.setContentHuggingPriority(.required, for: .horizontal)
         
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: fontSize, weight: fontWeight)
         label.text = text
-        label.textColor = .black
+        label.textColor = fontTextColor
         label.numberOfLines = 0
         return label
     }
-    
-    private func setUpConstraints() {
-        self.addSubview(contentStack)
-        
-        NSLayoutConstraint.activate([
-            icon.heightAnchor.constraint(equalToConstant: 24),
-            icon.widthAnchor.constraint(equalToConstant: 24),
-            
-            contentStack.topAnchor.constraint(equalTo: self.topAnchor),
-            contentStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            contentStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-        ])
-    }
     private func createIcon(_ iconName:String) -> UIImageView {
-        let dimension: CGFloat = 24.0 // The desired dimension for the square UIImageView
-
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if UIImage(systemName: iconName) != nil {
+            imageView.image = UIImage(systemName: iconName)
+            imageView.tintColor = fontTextColor
 
-        imageView.image = UIImage(named: iconName)
-        
-        imageView.backgroundColor = .purple
-//        imageView.frame.size = CGSize(width: 24, height: 24)
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = dimension / 2
-        imageView.layer.backgroundColor = UIColor.white.cgColor
-        
+        } else {
+            imageView.image = UIImage(named: iconName)?.withTintColor(fontTextColor)
+        }
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }

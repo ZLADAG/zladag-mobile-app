@@ -67,7 +67,6 @@ class BoardingReviewCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 5.0
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.customGray2.cgColor
-
         
     }
     
@@ -158,7 +157,5 @@ class BoardingReviewCollectionViewCell: UICollectionViewCell {
     
     func configure() {
         setUpConstraints()
-        
-
     }
 }

@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let vc = OnboardingFormViewController()
 //        let navVC = UINavigationController(rootViewController: vc)
 //        window.rootViewController = navVC
-        window.rootViewController = ProfileViewController()
+        window.rootViewController = ProfilePetListDetailsViewController()
 //        navVC.navigationBar.tintColor = .red
         
 //        let vc = OnboardingFormViewController()

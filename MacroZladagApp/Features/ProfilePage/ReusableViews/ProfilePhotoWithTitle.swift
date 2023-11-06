@@ -34,9 +34,12 @@ class ProfilePhotoWithTitle: UIView {
     
     // MARK: Functions
     private func setUpComponents(_ profileType: ProfileType,_ img: String, _ title: String, _ detailName: String?, _ age: Int?) {
-        photoImage = createPhotoView(img)
-        var stack: UIStackView!
         
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        photoImage = createPhotoView(img)
+        
+        var stack: UIStackView!
         switch profileType {
         case .pet:
             stack = createPetProfile(title, detailName!, age!)
@@ -71,7 +74,7 @@ class ProfilePhotoWithTitle: UIView {
         ])
     }
     private func createUserProfile(_ title: String) -> UIStackView {
-        nameTitleLabel = createTitleSemiBoldLabel(title)
+        nameTitleLabel = createTitleBoldLabel(title)
         
         let stack = UIStackView(arrangedSubviews: [nameTitleLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false

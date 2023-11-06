@@ -18,7 +18,7 @@ final class APICaller {
 //        static let baseAPIURL = "https://22c6-158-140-189-122.ngrok-free.app/api"
 //        static let baseAPIURL = "http://localhost:8100/api"
         
-        static let baseAPIURL = "https://zladag-sasato.uc.r.appspot.com/api"
+        static let baseAPIURL = "https://zladag-catnip-services.as.r.appspot.com/api"
         static let baseAPIURLLocal = "http://localhost:8080/api"
     }
     
