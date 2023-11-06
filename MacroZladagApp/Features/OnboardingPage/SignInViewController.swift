@@ -49,8 +49,10 @@ class SignInViewController: UIViewController {
     
     private func setUpComponents(){
         
-        // set up sign in options stack
-        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, whatsappSignInBtn])
+        let divider = OptionDivider()
+        /// set up sign in options stack
+//        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, divider, whatsappSignInBtn])
+        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, whatsappSignInBtn])
         signInOptionStack.translatesAutoresizingMaskIntoConstraints = false
         signInOptionStack.axis  = NSLayoutConstraint.Axis.vertical
         signInOptionStack.distribution  = UIStackView.Distribution.fill

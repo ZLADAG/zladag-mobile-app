@@ -33,12 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = TabBarViewController()
         
-//        let vc = OnboardingFormViewController()
-//        let navVC = UINavigationController(rootViewController: vc)
-//        window.rootViewController = navVC
-        window.rootViewController = ProfilePetListDetailsViewController()
-//        navVC.navigationBar.tintColor = .red
-        
+        let vc = OnboardingFormViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        window.rootViewController = navVC
+        navVC.navigationBar.tintColor = .white
+
 //        let vc = OnboardingFormViewController()
 //        let navVC = UINavigationController(rootViewController: vc)
 //

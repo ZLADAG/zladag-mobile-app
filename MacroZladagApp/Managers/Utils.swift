@@ -9,6 +9,8 @@ import Foundation
 
 // Utility functions (currency formatting, ...)
 class Utils {
+    
+    // MARK: String Utils
     static func getStringCurrencyFormatted(_ value: Int) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
@@ -37,6 +39,7 @@ class Utils {
         }
     }
     
+    // MARK: API & JSON Utils
     static func getHome() -> HomeBoardingResponse? {
         do {
           if let bundlePath = Bundle.main.path(forResource: "GetHome", ofType: "json"),
@@ -88,4 +91,23 @@ class Utils {
        }
         return nil
     }
+    
+    /// Read JSON File
+    static func getJsonData<T: Codable>(fileName: String, fileType: String, responseType: T.Type) -> T? {
+        do {
+            if let bundlePath = Bundle.main.path(forResource: fileName, ofType: fileType),
+               let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                if let json = try? JSONDecoder().decode(T.self, from: jsonData) {
+                    return json
+                } else {
+                    print("Given JSON is not a valid dictionary object.")
+                    return nil
+                }
+            }
+        } catch {
+            print("Error reading JSON file: \(error)")
+        }
+        return nil
+    }
+    
 }
