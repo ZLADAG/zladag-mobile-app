@@ -29,13 +29,32 @@ final class APICaller {
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
         createRequest(
-            path: Constants.baseAPIURLLocal + "/home",
+            path: Constants.baseAPIURL + "/home",
             responseDecoder: HomeBoardingResponse.self,
             httpMethod: .GET,
             completion: { result in
                 completion(result)
             }
         )
+    }
+    
+    public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
+        createRequest(
+            path: Constants.baseAPIURL + "/search?\(params)",
+            responseDecoder: SearchBoardingsResponse.self,
+            httpMethod: .GET) { result in
+                completion(result)
+            }
+    }
+    
+    public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
+//        createRequest(path: Constants.baseAPIURLLocal + "/boardings/\(slug)"
+        createRequest(
+            path: Constants.baseAPIURL + "/boardings/\(slug)",
+            responseDecoder: BoardingDetailsResponse.self,
+            httpMethod: .GET) { result in
+                completion(result)
+            }
     }
     
     public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
@@ -67,39 +86,7 @@ final class APICaller {
         }
     }
     
-    public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
-//        createRequest(with: URL(string: Constants.baseAPIURL + "/search?\(params)"), type: .GET) { baseRequest in
-//        createRequest(with: URL(string: Constants.baseAPIURL + "/search"), type: .GET) { baseRequest in
-        createRequest(
-            path: Constants.baseAPIURLLocal + "/search",
-            responseDecoder: SearchBoardingsResponse.self,
-            httpMethod: .GET) { result in
-                completion(result)
-            }
-    }
     
-    public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
-
-//        createRequest(with: URL(string: Constants.baseAPIURL + "/boardings/\(slug)"), type: .GET) { baseRequest in
-//            print("slug:", slug)
-//            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
-//                guard let data = data, error == nil else {
-//                    completion(.failure(error!))
-//                    return
-//                }
-//                
-//                do {
-//                    let result = try JSONDecoder().decode(BoardingDetailsResponse.self, from: data)
-//                    print("GET /boardings/{slug}, slug: \(slug)")
-//                    completion(Result.success(result))
-//                } catch {
-//                    print("error in getBoardingBySlug:", error.localizedDescription)
-//                    completion(Result.failure(error))
-//                }
-//            }
-//            task.resume()
-//        }
-    }
     
     
     public func getBoardingsByName(name: String, completion: @escaping (Result<BoardingsResponse, Error>) -> Void) {
