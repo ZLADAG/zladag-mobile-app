@@ -310,6 +310,7 @@ final class APICaller {
             do {
                 let result = try JSONDecoder().decode(T.self, from: data)
                 print("\(httpMethod.rawValue) /\(path)")
+                print("TOKEN: \(AuthManager.shared.token)")
                 completion(Result.success(result))
             } catch {
                 print("error in \(httpMethod.rawValue) \(path):", error.localizedDescription)

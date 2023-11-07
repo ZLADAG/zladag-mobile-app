@@ -43,6 +43,7 @@
 		6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA582AE04EB4003DC5EB /* Utils.swift */; };
 		6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */; };
 		65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */; };
+		65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DED12AEFAFB60018722A /* AuthResponse.swift */; };
 		65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCD2ACAA796004D986C /* AppDelegate.swift */; };
 		65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCF2ACAA796004D986C /* SceneDelegate.swift */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
@@ -187,6 +188,7 @@
 		6570AA582AE04EB4003DC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaTextFieldViewController.swift; sourceTree = "<group>"; };
 		65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasukanDataAnabulViewController.swift; sourceTree = "<group>"; };
+		65B1DED12AEFAFB60018722A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		65C40CCA2ACAA796004D986C /* MacroZladagApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroZladagApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C40CCD2ACAA796004D986C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C40CCF2ACAA796004D986C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				6570AA192ADE8980003DC5EB /* BoardingImage.swift */,
 				655B017A2AD9F6DC0016FC81 /* FilterParams.swift */,
 				6570AA482ADFE1C6003DC5EB /* SearchPage.swift */,
+				65B1DED12AEFAFB60018722A /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				8FFEC01E2AEA5CF2005D790F /* OtpTextField.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
+				65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
 				8F9C2D412AEFFD8900D767CD /* SignUpBody.swift in Sources */,
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
