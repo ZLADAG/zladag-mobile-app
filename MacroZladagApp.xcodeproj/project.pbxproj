@@ -44,6 +44,7 @@
 		6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */; };
 		65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */; };
 		65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DED12AEFAFB60018722A /* AuthResponse.swift */; };
+		65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */; };
 		65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCD2ACAA796004D986C /* AppDelegate.swift */; };
 		65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCF2ACAA796004D986C /* SceneDelegate.swift */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
@@ -112,7 +113,7 @@
 		8F9C2D7B2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7A2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		8F9C2D7E2AF9335600D767CD /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7D2AF9335600D767CD /* PetHabitsCollectionViewController.swift */; };
 		8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */; };
-		8F9C2D852AF9F88C00D767CD /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D842AF9F88C00D767CD /* UserProfile.swift */; };
+		8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */; };
 		8F9C2D872AF9F89600D767CD /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D862AF9F89600D767CD /* PetProfile.swift */; };
 		8F9C2D892AF9F8A400D767CD /* PetProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */; };
 		8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8A2AF9FAB300D767CD /* Habit.swift */; };
@@ -189,6 +190,7 @@
 		6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaTextFieldViewController.swift; sourceTree = "<group>"; };
 		65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasukanDataAnabulViewController.swift; sourceTree = "<group>"; };
 		65B1DED12AEFAFB60018722A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		65C40CCA2ACAA796004D986C /* MacroZladagApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroZladagApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C40CCD2ACAA796004D986C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C40CCF2ACAA796004D986C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -262,7 +264,7 @@
 		8F9C2D7A2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		8F9C2D7D2AF9335600D767CD /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
 		8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCollectionViewLayout.swift; sourceTree = "<group>"; };
-		8F9C2D842AF9F88C00D767CD /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileResponse.swift; sourceTree = "<group>"; };
 		8F9C2D862AF9F89600D767CD /* PetProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
 		8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileDetails.swift; sourceTree = "<group>"; };
 		8F9C2D8A2AF9FAB300D767CD /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -798,10 +800,11 @@
 		8F9C2D832AF9F84D00D767CD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				8F9C2D842AF9F88C00D767CD /* UserProfile.swift */,
+				8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */,
 				8F9C2D862AF9F89600D767CD /* PetProfile.swift */,
 				8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */,
 				8F9C2D8A2AF9FAB300D767CD /* Habit.swift */,
+				65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				8FFEC0432AEA6202005D790F /* OtpVerificationViewController.swift in Sources */,
 				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
 				6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */,
+				65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */,
 				8F23EDBF2AE410A400B25026 /* User.swift in Sources */,
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */,
@@ -1101,7 +1105,7 @@
 				8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
 				8F9C2D552AF3127B00D767CD /* IconButtonTinted.swift in Sources */,
-				8F9C2D852AF9F88C00D767CD /* UserProfile.swift in Sources */,
+				8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */,
 				653040142AE9A2FE00EF5E17 /* TambahAnabulTextField.swift in Sources */,
 				8F9C2D532AF26F1300D767CD /* ProfileArrowMenu.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,

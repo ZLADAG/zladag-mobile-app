@@ -22,7 +22,21 @@ final class ProfilePageManager {
         dummyPets = [
             PetProfile(id: "1", name: "Michellez", petBreed: "Dog Beaglee", age: 1.2, image: "dummy-image"),
             PetProfile(id: "2", name: "Mengg", petBreed: "Garong", age: 1, image: "dummy-image"),
-            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image")
+            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+            
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
+//            PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
         ]
         
         dummyPetDetails = [

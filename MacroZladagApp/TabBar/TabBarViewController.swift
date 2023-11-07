@@ -53,7 +53,8 @@ class TabBarViewController: UITabBarController {
     func configureTabBar() {
         let vc1 = HomeViewController()
         let vc2 = YourOrdersViewController()
-        let vc3 = AccountViewController()
+//        let vc3 = AccountViewController()
+        let vc3 = ProfileViewController()
         
         vc1.title = ""
         vc2.title = "Your Orders"

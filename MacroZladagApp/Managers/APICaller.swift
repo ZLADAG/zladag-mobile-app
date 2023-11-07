@@ -28,7 +28,7 @@ final class APICaller {
     }
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
-        createRequest(
+        getRequest(
             path: Constants.baseAPIURL + "/home",
             responseDecoder: HomeBoardingResponse.self,
             httpMethod: .GET,
@@ -39,7 +39,7 @@ final class APICaller {
     }
     
     public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
-        createRequest(
+        getRequest(
             path: Constants.baseAPIURL + "/search?\(params)",
             responseDecoder: SearchBoardingsResponse.self,
             httpMethod: .GET) { result in
@@ -49,13 +49,24 @@ final class APICaller {
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
 //        createRequest(path: Constants.baseAPIURLLocal + "/boardings/\(slug)"
-        createRequest(
+        getRequest(
             path: Constants.baseAPIURL + "/boardings/\(slug)",
             responseDecoder: BoardingDetailsResponse.self,
             httpMethod: .GET) { result in
                 completion(result)
             }
     }
+    
+    public func getUserProfile(completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
+        getRequest(
+            path: Constants.baseAPIURL + "/profile",
+            responseDecoder: UserProfileResponse.self,
+            httpMethod: .GET,
+            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
+                completion(result)
+        }
+    }
+    
     
     public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
         createRequestLama(with: URL(string: Constants.baseAPIURL + "/signiasdasdas"), type: .POST) { baseRequest in
@@ -67,14 +78,6 @@ final class APICaller {
                 
                 do {
                     let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
-                    /*
-                     CARA NGIRIM JSON BODY KE API
-                     {
-                     body = {
-                     "otp": 123
-                     } // gimana car aswift
-                     
-                     */
                     print("GET /home")
                     completion(Result.success(result))
                 } catch {
@@ -99,12 +102,21 @@ final class APICaller {
     }
     
     public func getImage(path: String) -> String  {
-        //        print(Constants.baseAPIURL + "/images?path=\(path)")
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
     
     public func getRandomImageURL(id: Int) -> String  {
         return Constants.baseAPIURLLocal + "/get_image/\(id)"
+    }
+    
+    struct LocalLoadingResponse: Codable {
+        let hello: String
+    }
+    
+    public func getLocalLoading(completion: @escaping (Result<LocalLoadingResponse, Error>) -> Void) {
+        getRequest(path: Constants.baseAPIURLLocal + "/local-loading", responseDecoder: LocalLoadingResponse.self, httpMethod: .GET) { result in
+            completion(result)
+        }
     }
     
     
@@ -293,6 +305,36 @@ final class APICaller {
         case GET
         case POST
     }
+    
+    func getRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, token: String? = nil, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        guard let apiURL = URL(string: path) else { return }
+        
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = httpMethod.rawValue
+        
+        if let token {
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                print("\(httpMethod.rawValue) /\(path)")
+                completion(Result.success(result))
+            } catch {
+                print("error in \(httpMethod.rawValue) \(path):", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }
+        task.resume()
+    }
+
     
     func createRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
         

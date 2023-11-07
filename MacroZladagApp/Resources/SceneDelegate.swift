@@ -19,9 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
+        let navVc = UINavigationController(rootViewController: ProfileViewController())
+//        let navVc = UINavigationController(rootViewController: ProfilePetListDetailsViewController())
+//        let navVc = UINavigationController(rootViewController: PetFacilityPrefCollectionViewController())
+//        let navVc = UINavigationController(rootViewController: PetHabitsCollectionViewController())
         
-        window.rootViewController = TabBarViewController()
+        window.rootViewController = navVc
         
+//        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

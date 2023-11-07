@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 enum ProfileType: String {
     case user
     case pet
@@ -17,14 +18,14 @@ class ProfileViewController: UIViewController {
     /// Profile
     private var profile: ProfilePhotoWithTitle!
     private var userProfile: UIView!
-
+    
     /// Pet list menu title
     private var petListMenuTitle: ProfileIconLabel!
     private var petListMenuTitleView: UIView!
-
+    
     /// Pet Profiles Table View
     private var petProfileTableView = UITableView()
-//    private var profiles = ["Michelle", "Meng", "Guk"]
+    //    private var profiles = ["Michelle", "Meng", "Guk"]
     private let userProfileData = ProfilePageManager.shared.getUserProfile()
     private let userPets = ProfilePageManager.shared.getUserPets()
     
@@ -35,27 +36,70 @@ class ProfileViewController: UIViewController {
     /// Add pet button
     private var addPet: IconButtonTinted!
     private var addPetView: UIView!
-
+    
     /// Pet profiles wrapper
     private var petListContentStack: UIStackView!
     private var petListContentView: UIView!
-        
+    
     /// Profile setting & logout menu
     private var profileSetting: ProfileArrowMenu!
     private var logOutBtn: UIButton!
-   
+    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
+    var viewModel = UserProfileViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .customGray
-        configureBackButton()
-        setUpComponents()
         
-        addPet.delegate = self
-        
+        setupLoadingScreen()
+        APICaller.shared.getUserProfile { [weak self] result in
+            
+            var success = false
+            
+            switch result {
+            case .success(let userProfileResponse):
+                success = true
+                self?.viewModel = UserProfileViewModel(
+                    name: userProfileResponse.data.user.name,
+                    image: userProfileResponse.data.user.image,
+                    pets: userProfileResponse.data.pets.compactMap({ petDetail in
+                        return PetDetailsViewModel(
+                            id: petDetail.id,
+                            name: petDetail.name,
+                            petBreed: petDetail.petBreed,
+                            age: petDetail.age,
+                            image: petDetail.image
+                        )
+                    })
+                )
+                break
+            case .failure(let error):
+                print("ERROR IN PROFILE VC\n", error)
+                break
+            }
+            
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                    self?.spinner.hidesWhenStopped = true
+                    self?.spinner.stopAnimating()
+                    self?.spinner.removeFromSuperview()
+                    
+                    self?.configureBackButton()
+                    self?.setUpComponents()
+                    self?.addPet.delegate = self
+                })
+            }
+        }
     }
-    
-    
     
     @objc func logOutBtnTapped() {
         print("logOutBtnTapped")
@@ -72,13 +116,29 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: LOADING SCREEN
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
 }
 
 extension ProfileViewController {
     private func configureBackButton() {
         let iconSize = CGSize(width: 60, height: 60)
         if let customBackButtonImage = UIImage(systemName: "chevron.backward.circle.fill") {
-//        if let customBackButtonImage = UIImage(named: "chevron-rounded-icon") {
+            //        if let customBackButtonImage = UIImage(named: "chevron-rounded-icon") {
             
             /// Begin a graphics context with the desired size
             UIGraphicsBeginImageContextWithOptions(iconSize, false, 0.0)
@@ -103,7 +163,8 @@ extension ProfileViewController {
     
     private func setUpComponents() {
         /// Profile
-        profile = ProfilePhotoWithTitle(profileType: .user, img: userProfileData.image, title: userProfileData.name, detailName: nil, age: nil)
+        //        profile = ProfilePhotoWithTitle(profileType: .user, img: userProfileData.image, title: userProfileData.name, detailName: nil, age: nil)
+        profile = ProfilePhotoWithTitle(profileType: .user, img: userProfileData.image, title: viewModel.name, detailName: nil, age: nil)
         userProfile = UIView()
         userProfile.translatesAutoresizingMaskIntoConstraints = false
         userProfile.backgroundColor = .white
@@ -195,6 +256,7 @@ extension ProfileViewController {
         ])
         /// Pet list content - table view
         tableViewHeight = Double(userPets.count) * cellHeight - 1
+        //        tableViewHeight = Double(viewModel.pets.count) * cellHeight - 1
         NSLayoutConstraint.activate([
             petProfileTableView.heightAnchor.constraint(equalToConstant: tableViewHeight),
         ])
@@ -236,7 +298,7 @@ extension ProfileViewController: IconButtonTintedDelegate {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     private func configureTableView() {
         petProfileTableView.translatesAutoresizingMaskIntoConstraints = false
-        petProfileTableView.isScrollEnabled = false
+        petProfileTableView.isScrollEnabled = true
         
         /// set TV delegate
         petProfileTableView.delegate = self
@@ -252,11 +314,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userPets.count
+        //        print(viewModel.pets.count)
+        //        return viewModel.pets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfilePetTableViewCell.identifier) as! ProfilePetTableViewCell
         let content = ProfilePhotoWithTitle(profileType: .pet, img: userPets[indexPath.row].image, title: userPets[indexPath.row].name, detailName: userPets[indexPath.row].petBreed, age: userPets[indexPath.row].age)
+        //        let content = ProfilePhotoWithTitle(
+        //            profileType: .pet,
+        //            img: "dummy-image", // viewModel.pets[indexPath.row].image
+        //            title: viewModel.pets[indexPath.row].name,
+        //            detailName: viewModel.pets[indexPath.row].petBreed,
+        //            age: Double(viewModel.pets[indexPath.row].age)
+        //        )
         
         cell.setContent(content: content)
         
@@ -273,7 +344,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
             let petDetailVC = ProfilePetListDetailsViewController()
             petDetailVC.petProfile = ProfilePageManager.shared.getPetProfile(id: userProfileData.pets[indexPath.row].id)
-
+            
             self.navigationController?.pushViewController(petDetailVC, animated: true)
         }
     }
@@ -281,7 +352,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) {
             /// Change the background color back to normal
             cell.backgroundColor = UIColor.white
-
+            
         }
     }
+    
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 88
+    //    }
 }
