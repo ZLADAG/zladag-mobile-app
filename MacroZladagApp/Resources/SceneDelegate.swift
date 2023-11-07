@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = TabBarViewController()
         
-        let vc = PetFacilityPrefCollectionViewController()
+        let vc = ProfileViewController()
         let navVC = UINavigationController(rootViewController: vc)
         window.rootViewController = navVC
         navVC.navigationBar.tintColor = .white

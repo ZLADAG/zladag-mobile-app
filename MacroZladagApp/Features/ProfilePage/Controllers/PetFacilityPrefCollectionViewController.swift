@@ -32,23 +32,23 @@ class PetFacilityPrefCollectionViewController: UIViewController {
         
        
         
-        view.addSubview(collectionView)
+//        view.addSubview(collectionView)
+        self.view = collectionView
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        view.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
+//        view.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
+//        
+//        
+//        collectionView.setContentCompressionResistancePriority(.required, for: .vertical)
+//        collectionView.setContentHuggingPriority(.required, for: .vertical)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
-        view.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
-        
-        
-        collectionView.setContentCompressionResistancePriority(.required, for: .vertical)
-        collectionView.setContentHuggingPriority(.required, for: .vertical)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            collectionView.heightAnchor.constraint(equal),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+//        NSLayoutConstraint.activate([
+//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+////            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+////            collectionView.heightAnchor.constraint(equal),
+//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//        ])
         
         //
         //        self.collectionView.dataSource = self
