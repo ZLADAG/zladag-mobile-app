@@ -92,8 +92,6 @@ final class ProfilePageManager {
                 boardingFacilities: [
                     Facility(name: "Delivery"),
                     Facility(name: "Food"),
-                    Facility(name: "Grooming"),
-                    Facility(name: "Playground")
                 ],
                 petHabits: [],
                 historyOfIllness: nil,

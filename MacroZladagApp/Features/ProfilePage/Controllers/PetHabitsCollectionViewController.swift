@@ -12,31 +12,24 @@ class PetHabitsCollectionViewController: UIViewController {
     var collectionView: UICollectionView!
     var habits : [Habit] = []
     
+    public var heightConstraint: NSLayoutConstraint!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
-        
-        self.collectionView.alwaysBounceVertical = true
-        self.collectionView.backgroundColor = .white
-        self.collectionView.isScrollEnabled = false
-        
-        self.collectionView.register(PetHabitsCollectionViewCell.self, forCellWithReuseIdentifier: PetHabitsCollectionViewCell.identifier)
-    }
-    override func loadView() {
-        
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 11
-        layout.minimumLineSpacing = 11 // Adjust as needed
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // Adjust as needed
-        
+        let layout = UICollectionViewLayout.leftAligned()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.alwaysBounceVertical = true
+        collectionView.isScrollEnabled = false
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PetHabitsCollectionViewCell.self, forCellWithReuseIdentifier: PetHabitsCollectionViewCell.identifier)
+        
         self.view = collectionView
+        heightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 100)
+        heightConstraint.isActive = true
     }
 }
 
@@ -53,6 +46,23 @@ extension PetHabitsCollectionViewController: UICollectionViewDelegate, UICollect
         cell.bounds.size.width = cell.cellWidth
         cell.bounds.size.height = cell.cellHeight
         return cell
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            heightConstraint.isActive = false
+            let contentSize = layout.collectionViewContentSize
+            
+            /// Update the height constraint of the collectionView
+            heightConstraint = collectionView.heightAnchor.constraint(equalToConstant: contentSize.height)
+            heightConstraint.isActive = true
+            
+            /// Optionally, update the frame of the view (if needed)
+            view.frame.size.height = contentSize.height
+            view.layoutIfNeeded()
+        }
     }
     
 }

@@ -145,12 +145,12 @@ extension ProfilePetListDetailsViewController {
     private func createPetInfo() -> UIView {
         /// Facility preference
         let facilityTitle = ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Preferensi Fasilitas", type: .menu)
+        
         if petProfile.boardingFacilities.isEmpty {
             facilityContent = createLabel("Tidak ada")
         } else {
             addPetFacilityCollection()
         }
-        
         let facilityStack = createInfoContentStack(
             content: [facilityTitle, facilityContent],
             spacing: 16
@@ -158,6 +158,7 @@ extension ProfilePetListDetailsViewController {
         
         /// Habits
         let habitsTitle =  ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Kebiasaan", type: .menu)
+
         if petProfile.petHabits.isEmpty {
             habitsContent = createLabel("Tidak ada")
         } else {
@@ -202,11 +203,7 @@ extension ProfilePetListDetailsViewController {
             stack.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor, constant: -24),
             
         ])
-        
         return wrapView
-    }
-    private func configureContent(type: InfoContentType) {
-        
     }
     
     private func addPetFacilityCollection() {
@@ -220,16 +217,11 @@ extension ProfilePetListDetailsViewController {
         facilityCollection.view.translatesAutoresizingMaskIntoConstraints = false
         facilityCollection.didMove(toParent: self)
         
-        
-        let facilityCollectionHeight = facilityCollection.collectionView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
-        print(facilityCollectionHeight)
-//        facilityCollection.view.backgroundColor = .purple
         NSLayoutConstraint.activate([
-            facilityCollection.view.heightAnchor.constraint(equalToConstant: 100),
-            facilityCollection.view.topAnchor.constraint(equalTo: facilityContent.topAnchor, constant: 0),
-            facilityCollection.view.bottomAnchor.constraint(equalTo: facilityContent.bottomAnchor, constant: 0),
-            facilityCollection.view.leadingAnchor.constraint(equalTo: facilityContent.leadingAnchor, constant: 0),
-            facilityCollection.view.trailingAnchor.constraint(equalTo: facilityContent.trailingAnchor, constant: 0),
+            facilityCollection.view.topAnchor.constraint(equalTo: facilityContent.topAnchor),
+            facilityCollection.view.bottomAnchor.constraint(equalTo: facilityContent.bottomAnchor),
+            facilityCollection.view.leadingAnchor.constraint(equalTo: facilityContent.leadingAnchor),
+            facilityCollection.view.trailingAnchor.constraint(equalTo: facilityContent.trailingAnchor),
         ])
     }
     
@@ -244,14 +236,11 @@ extension ProfilePetListDetailsViewController {
         habitsCollection.view.translatesAutoresizingMaskIntoConstraints = false
         habitsCollection.didMove(toParent: self)
         
-        
-//        habitsCollection.view.backgroundColor = .purple
         NSLayoutConstraint.activate([
-            habitsCollection.view.heightAnchor.constraint(equalToConstant: 120),
-            habitsCollection.view.topAnchor.constraint(equalTo: habitsContent.topAnchor, constant: 0),
-            habitsCollection.view.bottomAnchor.constraint(equalTo: habitsContent.bottomAnchor, constant: 0),
-            habitsCollection.view.leadingAnchor.constraint(equalTo: habitsContent.leadingAnchor, constant: 0),
-            habitsCollection.view.trailingAnchor.constraint(equalTo: habitsContent.trailingAnchor, constant: 0),
+            habitsCollection.view.topAnchor.constraint(equalTo: habitsContent.topAnchor),
+            habitsCollection.view.bottomAnchor.constraint(equalTo: habitsContent.bottomAnchor),
+            habitsCollection.view.leadingAnchor.constraint(equalTo: habitsContent.leadingAnchor),
+            habitsCollection.view.trailingAnchor.constraint(equalTo: habitsContent.trailingAnchor),
         ])
     }
     
