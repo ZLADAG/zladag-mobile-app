@@ -8,41 +8,53 @@
 import UIKit
 
 class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelegate {
+    enum InfoContentType {
+        case facilities
+        case habits
+        case diseasesHist
+    }
     
+    var petProfile : PetProfileDetails!
+    
+    private let facilitiesPref = ["Facility 1", "Facility facility 2", "Facility facility facility 3", "Facility 4",]
+//    private let facilitiesPref: [String] = []
+    
+    private let habits = ["Agresif dengan kucing lain", "Bersahabat dengan anjing lain", "Vokal", "Sulit beradaptasi", "Mudah cemas"]
+//    private let habits: [String ] = []
+    
+    private var facilityCollection = PetFacilityPrefCollectionViewController()
+    private var habitsCollection = PetHabitsCollectionViewController()
+    private var facilityContent: UIView!
+    private var habitsContent: UIView!
     private var scrollView: UIScrollView!
-    private var editProfile: ProfileArrowMenu!
     private var contentStack: UIStackView!
+
+    private var editProfile: ProfileArrowMenu!
     
     var photo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        
         setUpComponents()
         view.backgroundColor = .customLightGray3
     }
     
-     
     private func setUpComponents() {
         
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false // Enable auto layout
-
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.isScrollEnabled = true
-        scrollView.isUserInteractionEnabled = true
-
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
-        
-        
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.scrollsToTop = false
         
         /// Photo
         let photoName = "dummy-image"
         photo = createImage(photoName)
         
-        let petBiodata = PetBiodataView()
-        let petInfo = PetAditionalInfoView()
+        let petBiodata = PetBiodataView(petProfile: petProfile)
+        let petInfo = createPetInfo()
         editProfile = addEditProfile()
         
         contentStack = UIStackView(arrangedSubviews: [petBiodata, petInfo, editProfile])
@@ -125,4 +137,167 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
     }
     
     
+}
+
+
+extension ProfilePetListDetailsViewController {
+   
+    private func createPetInfo() -> UIView {
+        /// Facility preference
+        let facilityTitle = ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Preferensi Fasilitas", type: .menu)
+        if petProfile.boardingFacilities.isEmpty {
+            facilityContent = createLabel("Tidak ada")
+        } else {
+            addPetFacilityCollection()
+        }
+        
+        let facilityStack = createInfoContentStack(
+            content: [facilityTitle, facilityContent],
+            spacing: 16
+        )
+        
+        /// Habits
+        let habitsTitle =  ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Kebiasaan", type: .menu)
+        if petProfile.petHabits.isEmpty {
+            habitsContent = createLabel("Tidak ada")
+        } else {
+            addPetHabitsCollection()
+        }
+        
+        let habitsStack = createInfoContentStack(
+            content: [habitsTitle, habitsContent],
+            spacing: 16
+        )
+        
+        /// Disease history
+        let historyOfIllness = petProfile.historyOfIllness
+//        historyOfIllness = ""
+        let historyOfIllnessTitle = ProfileIconLabel(iconName: "habits-icon", titleName: "Riwayat Penyakit", type: .menu)
+        var historyOfIllnessContent: UIView!
+
+        if historyOfIllness == "" || historyOfIllness == nil {
+            historyOfIllnessContent = createLabel("Tidak ada")
+        } else {
+            historyOfIllnessContent = createItalicFreeText(historyOfIllness!)
+        }
+        
+      
+        
+        let historyOfIllnessStack = createInfoContentStack(
+            content: [historyOfIllnessTitle, historyOfIllnessContent],
+            spacing: 16
+        )
+        
+        let stack = createInfoContentStack(content: [facilityStack, habitsStack, historyOfIllnessStack], spacing: 32)
+        
+        let wrapView = UIView()
+        wrapView.translatesAutoresizingMaskIntoConstraints = false
+        wrapView.addSubview(stack)
+        wrapView.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: wrapView.topAnchor, constant: 24),
+            stack.bottomAnchor.constraint(equalTo: wrapView.bottomAnchor, constant: -24),
+            stack.leadingAnchor.constraint(equalTo: wrapView.leadingAnchor, constant: 24),
+            stack.trailingAnchor.constraint(equalTo: wrapView.trailingAnchor, constant: -24),
+            
+        ])
+        
+        return wrapView
+    }
+    private func configureContent(type: InfoContentType) {
+        
+    }
+    
+    private func addPetFacilityCollection() {
+        addChild(facilityCollection)
+        facilityCollection.facilitiesPref = petProfile.boardingFacilities
+        
+        facilityContent = UIView()
+        facilityContent.addSubview(facilityCollection.view)
+        facilityContent.bounds = facilityCollection.view.frame
+
+        facilityCollection.view.translatesAutoresizingMaskIntoConstraints = false
+        facilityCollection.didMove(toParent: self)
+        
+        
+        let facilityCollectionHeight = facilityCollection.collectionView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
+        print(facilityCollectionHeight)
+//        facilityCollection.view.backgroundColor = .purple
+        NSLayoutConstraint.activate([
+            facilityCollection.view.heightAnchor.constraint(equalToConstant: 100),
+            facilityCollection.view.topAnchor.constraint(equalTo: facilityContent.topAnchor, constant: 0),
+            facilityCollection.view.bottomAnchor.constraint(equalTo: facilityContent.bottomAnchor, constant: 0),
+            facilityCollection.view.leadingAnchor.constraint(equalTo: facilityContent.leadingAnchor, constant: 0),
+            facilityCollection.view.trailingAnchor.constraint(equalTo: facilityContent.trailingAnchor, constant: 0),
+        ])
+    }
+    
+    private func addPetHabitsCollection() {
+        addChild(habitsCollection)
+        habitsCollection.habits = petProfile.petHabits
+
+        habitsContent = UIView()
+        habitsContent.addSubview(habitsCollection.view)
+        habitsContent.bounds = habitsCollection.view.frame
+        
+        habitsCollection.view.translatesAutoresizingMaskIntoConstraints = false
+        habitsCollection.didMove(toParent: self)
+        
+        
+//        habitsCollection.view.backgroundColor = .purple
+        NSLayoutConstraint.activate([
+            habitsCollection.view.heightAnchor.constraint(equalToConstant: 120),
+            habitsCollection.view.topAnchor.constraint(equalTo: habitsContent.topAnchor, constant: 0),
+            habitsCollection.view.bottomAnchor.constraint(equalTo: habitsContent.bottomAnchor, constant: 0),
+            habitsCollection.view.leadingAnchor.constraint(equalTo: habitsContent.leadingAnchor, constant: 0),
+            habitsCollection.view.trailingAnchor.constraint(equalTo: habitsContent.trailingAnchor, constant: 0),
+        ])
+    }
+    
+    private func createInfoContentStack(content: [UIView], spacing: Double) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: content)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = spacing
+        
+        return stack
+    }
+    private func createItalicFreeText(_ text: String) -> UIView {
+        let label = createLabel(text)
+        label.font = UIFont.italicSystemFont(ofSize: 14)
+        label.textColor = .black
+        
+        let labelWrapper = UIView()
+        labelWrapper.translatesAutoresizingMaskIntoConstraints = false
+        
+        labelWrapper.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: labelWrapper.topAnchor, constant: 8),
+            label.bottomAnchor.constraint(equalTo: labelWrapper.bottomAnchor, constant: -8),
+            label.leadingAnchor.constraint(equalTo: labelWrapper.leadingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: labelWrapper.trailingAnchor, constant: -8),
+        ])
+        labelWrapper.layer.cornerRadius = 4
+        labelWrapper.backgroundColor = .customLightGray3
+        return labelWrapper
+    }
+    private func createLabel (_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        /// wrap label fit text length
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+
+        label.text = text
+        label.textColor = .gray
+        label.numberOfLines = 0
+        
+        return label
+    }
 }

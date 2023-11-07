@@ -12,7 +12,7 @@ class GenderTag: UIView {
     var icon: UIImageView!
     
     // MARK: Initialize Methods
-    init(_ petGender: Gender) {
+    init(_ petGender: String) {
         super.init(frame: .zero)
         setUpComponents(petGender)
     }
@@ -25,7 +25,7 @@ class GenderTag: UIView {
         super.init(coder: aDecoder)
     }
     
-    private func setUpComponents(_ petGender: Gender) {
+    private func setUpComponents(_ petGender: String) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 8
         
@@ -33,7 +33,7 @@ class GenderTag: UIView {
         let maleIcon = "gender-male-icon"
         
         switch petGender {
-        case .female:
+        case "Female":
             icon = createIcon(femaleIcon)
             self.backgroundColor = .customLightPink
         default:

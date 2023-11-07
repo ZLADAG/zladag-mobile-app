@@ -11,7 +11,7 @@ class InfoContainer: UIView {
     
     enum InfoType {
         case age
-        case wight
+        case weight
     }
     
     var contentStack: UIStackView!

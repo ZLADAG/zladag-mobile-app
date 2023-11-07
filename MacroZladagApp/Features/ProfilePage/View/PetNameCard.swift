@@ -7,18 +7,18 @@
 
 import UIKit
 
-enum Gender: String {
-    case male
-    case female
-}
+//enum Gender: String {
+//    case male
+//    case female
+//}
 
-enum PetType: String {
-    case cat
-    case dog
-}
+//enum PetType: String {
+//    case cat
+//    case dog
+//}
 
 class PetNameCard: UIView {
-
+    
     var nameLabel : UILabel!
     var captionLabel : UILabel!
     var petGender : GenderTag!
@@ -26,7 +26,7 @@ class PetNameCard: UIView {
     private var contentStack: UIStackView!
     
     // MARK: Initialize Methods
-    init(_ name: String, _ type: PetType, _ gender:Gender) {
+    init(_ name: String, _ type:String, _ gender:String) {
         super.init(frame: .zero)
         setUpComponents(name, type, gender)
     }
@@ -39,26 +39,21 @@ class PetNameCard: UIView {
         super.init(coder: aDecoder)
     }
     
-    private func setUpComponents(_ name: String, _ type: PetType, _ gender:Gender) {
+    private func setUpComponents(_ name: String, _ type:String, _ gender:String) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 8
         
         self.layer.shadowOpacity = 0.1
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
         self.layer.shadowRadius = 16.0 //Here your control your blur
-
+        
         self.layer.backgroundColor = UIColor.white.cgColor
         
         nameLabel = createTitleLabel(name)
         petGender = GenderTag(gender)
         
-        switch type {
-        case .cat:
-            captionLabel = createDefaultLabel("Kucing")
-        default:
-            captionLabel = createDefaultLabel("Anjing")
-        }
-
+        captionLabel = createDefaultLabel(type)
+        
         let nameStack = UIStackView(arrangedSubviews: [nameLabel, captionLabel])
         nameStack.translatesAutoresizingMaskIntoConstraints = false
         nameStack.axis = .vertical

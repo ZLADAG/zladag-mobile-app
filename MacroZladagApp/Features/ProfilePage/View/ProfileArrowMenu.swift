@@ -9,11 +9,11 @@ import UIKit
 
 class ProfileArrowMenu: UIView {
     
-    var contentMenu: UIView!
+    var contentMenu = UIView()
     var nextIcon: UIImageView!
-    
+    var yPadding = 0.0
+
     private var contentStack: UIStackView!
-    private var yPadding = 0.0
     
     init(contentMenu: UIView, yPadding: Double) {
         super.init(frame: .zero)
@@ -29,7 +29,7 @@ class ProfileArrowMenu: UIView {
     }
     
     // MARK: Functions
-    private func setUpComponents<T:UIView>(_ contentMenu: T,_ y: Double) {
+    func setUpComponents<T:UIView>(_ contentMenu: T,_ y: Double) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         yPadding = y
@@ -67,10 +67,9 @@ class ProfileArrowMenu: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.image = UIImage(named: "arrow-right-icon")
+        imageView.image = UIImage(named: "arrow-right-icon")?.withTintColor(.customLightGray)
         
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.backgroundColor = UIColor.white.cgColor
         
         imageView.clipsToBounds = true
         return imageView

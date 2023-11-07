@@ -19,7 +19,7 @@ class ProfilePhotoWithTitle: UIView {
     private var allContentStack: UIStackView!
     
     // MARK: Initialize Methods
-    init(profileType: ProfileType, img: String, title: String, detailName: String?, age: Int?) {
+    init(profileType: ProfileType, img: String, title: String, detailName: String?, age: Double?) {
         super.init(frame: .zero)
         setUpComponents(profileType, img, title, detailName, age)
     }
@@ -33,7 +33,7 @@ class ProfilePhotoWithTitle: UIView {
     }
     
     // MARK: Functions
-    private func setUpComponents(_ profileType: ProfileType,_ img: String, _ title: String, _ detailName: String?, _ age: Int?) {
+    private func setUpComponents(_ profileType: ProfileType,_ img: String, _ title: String, _ detailName: String?, _ age: Double?) {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -86,7 +86,7 @@ class ProfilePhotoWithTitle: UIView {
         return stack
     }
   
-    private func createPetProfile(_ title: String, _ detail: String, _ age: Int) -> UIStackView {
+    private func createPetProfile(_ title: String, _ detail: String, _ age: Double) -> UIStackView {
         nameTitleLabel = createTitleSemiBoldLabel(title)
         detailStack = createDetailStack(detail, age)
         
@@ -117,7 +117,7 @@ class ProfilePhotoWithTitle: UIView {
         return imageView
     }
     
-    private func createDetailStack(_ detail: String, _ age: Int) -> UIStackView {
+    private func createDetailStack(_ detail: String, _ age: Double) -> UIStackView {
         nameDetailLabel = createDefaultLabel(detail)
         ageLabel = createDefaultLabel("\(age) tahun")
         let dividerLabel = createDefaultLabel("·")
