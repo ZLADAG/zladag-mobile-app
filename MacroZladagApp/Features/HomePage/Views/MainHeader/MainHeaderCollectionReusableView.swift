@@ -227,7 +227,9 @@ extension MainHeaderCollectionReusableView {
         
         self.delegate?.navigationController?.pushViewController(vc, animated: true)
         group.notify(queue: .main) {
+            
             vc.collectionView.reloadData()
+            
         }
     }
     

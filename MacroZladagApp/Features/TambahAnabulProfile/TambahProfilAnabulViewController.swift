@@ -53,7 +53,7 @@ class TambahProfilAnabulViewController: UIViewController {
     }
     
     @objc func profileImageButtonClicked() {
-        let imagePickerVC = UIImagePickerController() // inherit uiviewcontroller
+        let imagePickerVC = UIImagePickerController() // dia inherit uiviewcontroller
         imagePickerVC.sourceType = .photoLibrary
         imagePickerVC.delegate = self
         imagePickerVC.allowsEditing = true
@@ -140,3 +140,4 @@ extension TambahProfilAnabulViewController: UIImagePickerControllerDelegate, UIN
     
     
 }
+    

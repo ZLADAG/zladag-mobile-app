@@ -14,6 +14,8 @@ class SearchResultsViewController: UIViewController {
     public var anjingCount = 0
     public var kucingCount = 0
     
+    var isLoading: Bool = false
+    
     let navbarLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "Dekat Saya"
@@ -365,15 +367,15 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let group = DispatchGroup()
+        group.enter()
     
         let viewModel = viewModels[indexPath.row]
-        let vc = BoardingDetailsViewController()
+        let vc = BoardingDetailsViewController(group: group)
         vc.hidesBottomBarWhenPushed = true
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let group = DispatchGroup()
-        group.enter()
         
         APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
             defer {
@@ -430,9 +432,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
             }
         }
         
-        group.notify(queue: .main) {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
