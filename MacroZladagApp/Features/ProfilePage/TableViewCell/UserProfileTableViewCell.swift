@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class UserProfileTableViewCell: UITableViewCell {
     
@@ -49,6 +50,7 @@ class UserProfileTableViewCell: UITableViewCell {
     
     func configure(name: String, imageName: String? = nil) {
         profileNameLabel.text = name
+        self.imageName = imageName
         
         setupProfileImageView()
         setupProfileNameLabel()
@@ -63,7 +65,14 @@ class UserProfileTableViewCell: UITableViewCell {
     func setupProfileImageView() {
         addSubview(profileImageView)
         
-        profileImageView.image = UIImage(named: "banner0")
+        if let imageName, !imageName.isEmpty {
+            profileImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageName)))
+        } else {
+            profileImageView.image = UIImage(named: "profileimage-icon")
+            profileImageView.tintColor = .customLightGray
+            profileImageView.backgroundColor = .customLightGray3
+        }
+        
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.frame.size = CGSize(width: 48 + (2 * 2), height: 48 + (2 * 2))
 //        profileImageView.clipsToBounds = true

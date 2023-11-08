@@ -96,8 +96,9 @@ class ProfileFooterTableViewCell: UITableViewCell {
     }
     
     @objc func onClickLogOutButton() {
-        let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "oke", style: .destructive))
+        let alert = UIAlertController(title: "Log Out", message: "Apakah kamu yakin?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Keluar", style: .destructive))
+        alert.addAction(UIAlertAction(title: "Batal", style: .default))
                                       
         viewController?.present(alert, animated: true, completion: nil)
 

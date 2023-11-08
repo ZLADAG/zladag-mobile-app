@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyPetTableViewCell: UITableViewCell {
     
@@ -16,6 +17,8 @@ class MyPetTableViewCell: UITableViewCell {
     var subDetailLabel = UIStackView()
     var breedLabel = UILabel()
     var ageLabel = UILabel()
+    var imageName: String? = nil
+    var petBreed = ""
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +37,9 @@ class MyPetTableViewCell: UITableViewCell {
     
     func configure(petDetails: PetDetailsViewModel) {
         nameLabel.text = petDetails.name.capitalized
-        breedLabel.text = "\(petDetails.name.capitalized)  ·  \(petDetails.age) tahun"
+        breedLabel.text = "\(petDetails.petBreed.capitalized)  ·  \(petDetails.age) tahun"
+        self.imageName = petDetails.image
+        self.petBreed = petDetails.petBreed
         
         setupPetImageView()
         setupNameLabel()
@@ -47,6 +52,7 @@ class MyPetTableViewCell: UITableViewCell {
         breedLabel.frame = .zero
         ageLabel.frame = .zero
         subDetailLabel.frame = .zero
+        petImageView.image = nil
     }
     
     func configure2(petDetails: PetDetailsViewModel) {
@@ -61,9 +67,39 @@ class MyPetTableViewCell: UITableViewCell {
     func setupPetImageView() {
         addSubview(petImageView)
         
-        petImageView.image = UIImage(named: "banner0")
-        petImageView.contentMode = .scaleAspectFill
+        if let imageName, !imageName.isEmpty {
+            petImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageName)))
+            print(petImageView.subviews.count)
+            for sbv in petImageView.subviews {
+                if let name = sbv.layer.name, name == "emptyIconView" {
+                    sbv.removeFromSuperview()
+                }
+            }
+        } else {
+            let emptyIconView = UIImageView()
+            emptyIconView.layer.name = "emptyIconView"
+            if self.petBreed.lowercased().contains("cat") {
+                emptyIconView.image = UIImage(named: "cat-icon")
+            } else if self.petBreed.lowercased().contains("dog") {
+                emptyIconView.image = UIImage(named: "dog-icon")
+            }
+            
+            emptyIconView.contentMode = .scaleAspectFill
+            emptyIconView.tintColor = .customLightGray
+            
+            petImageView.backgroundColor = .customLightGray3
+            petImageView.addSubview(emptyIconView)
+            emptyIconView.frame = CGRect(
+                x: 24 - (17),
+                y: 24 - (17),
+                width: 34,
+                height: 34
+            )
+        }
+        
         petImageView.frame.size = CGSize(width: 48, height: 48)
+        petImageView.contentMode = .scaleAspectFill
+        
         petImageView.layer.cornerRadius = petImageView.width / 2
         petImageView.layer.masksToBounds = true
         

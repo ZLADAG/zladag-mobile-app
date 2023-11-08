@@ -58,7 +58,7 @@ class TabBarViewController: UITabBarController {
         
         vc1.title = ""
         vc2.title = "Your Orders"
-        vc3.title = "Account"
+        vc3.title = ""
 //
 //        vc1.navigationItem.largeTitleDisplayMode = .always
 //        vc2.navigationItem.largeTitleDisplayMode = .always

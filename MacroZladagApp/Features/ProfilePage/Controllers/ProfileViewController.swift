@@ -18,26 +18,56 @@ class ProfileViewController: UIViewController {
     let tableView = UITableView()
     var viewModel = UserProfileViewModel()
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.name = "Oke123"
-        
-        for i in 0..<20 {
-            viewModel.pets.append(
-                PetDetailsViewModel(
-                    id: i.description,
-                    name: "nama ini adalah \(i)",
-                    petBreed: "pet breed ini \(i)",
-                    age: Int.random(in: 0..<50),
-                    image: ""
-                )
-            )
-        }
-        
         view.backgroundColor = .white
+        setupLoadingScreen()
         
-        setupTableView()
+        APICaller.shared.getUserProfile { [weak self] result in
+            
+            var success = false
+            
+            switch result {
+            case .success(let userProfileResponse):
+                success = true
+                self?.viewModel = UserProfileViewModel(
+                    name: userProfileResponse.data.user.name,
+                    image: userProfileResponse.data.user.image,
+                    pets: userProfileResponse.data.pets.compactMap({ petDetail in
+                        return PetDetailsViewModel(
+                            id: petDetail.id,
+                            name: petDetail.name,
+                            petBreed: petDetail.petBreed,
+                            age: petDetail.age,
+                            image: petDetail.image
+                        )
+                    })
+                )
+                break
+            case .failure(let error):
+                print("ERROR IN PROFILE VC\n", error)
+                break
+            }
+            
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                    self?.spinner.hidesWhenStopped = true
+                    self?.spinner.stopAnimating()
+                    self?.spinner.removeFromSuperview()
+                    
+                    self?.setupTableView()
+                })
+            }
+        }
     }
     
     func setupTableView() {
@@ -59,19 +89,31 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 1 // rows
-        case 1: //  COBA KOMA
+        case 0, 2, 3:
+            return 1
+        case 1:
             return viewModel.pets.count
-        case 2:
-            return 1
-        case 3:
-            return 1
         default:
             return 0
         }
@@ -82,7 +124,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: UserProfileTableViewCell.identifier, for: indexPath) as! UserProfileTableViewCell
             cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
-            cell.configure(name: viewModel.name)
+            cell.configure(name: viewModel.name, imageName: viewModel.image)
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: MyPetTableViewCell.identifier, for: indexPath) as! MyPetTableViewCell
@@ -128,6 +170,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if indexPath.section == 1 {
+            let petDetailVC = ProfilePetListDetailsViewController()
+            petDetailVC.petProfile = ProfilePageManager.shared.getPetProfile(id: "1")
+            
+            self.navigationController?.pushViewController(petDetailVC, animated: true)            
+        }
+    }
+
     
     
     
