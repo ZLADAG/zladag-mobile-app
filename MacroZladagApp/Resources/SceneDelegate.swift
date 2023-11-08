@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let navVc = UINavigationController(rootViewController: PetFacilityPrefCollectionViewController())
 //        let navVc = UINavigationController(rootViewController: PetHabitsCollectionViewController())
         
-        window.rootViewController = TabBarViewController()
+        window.rootViewController = ReservationViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }
