@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        window.rootViewController = TabBarViewController()
         
-        let vc = ProfileViewController()
+        let vc = ReservationViewController()
         let navVC = UINavigationController(rootViewController: vc)
         window.rootViewController = navVC
         navVC.navigationBar.tintColor = .white
