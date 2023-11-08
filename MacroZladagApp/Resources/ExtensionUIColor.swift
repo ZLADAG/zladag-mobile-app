@@ -15,6 +15,7 @@ extension UIColor {
     static let customOrangeFont = UIColor(red: 227/255, green: 135/255, blue: 81/255, alpha: 255/255)
     static let customOrangeOpacityUbah = UIColor(red: 255/255, green: 238/255, blue: 227/255, alpha: 255/255)
     static let orangeWithOpacity = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: 255/255)
+    static let orangeDateRange = UIColor(red: 255/255, green: 231/255, blue: 217/255, alpha: 255/255)
     static let orangeButtonWithOpacity = UIColor(red: 255/255, green: 242/255, blue: 233/255, alpha: 255/255)
     
     static let customGray = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 255/255)
