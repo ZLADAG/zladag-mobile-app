@@ -49,10 +49,30 @@ class SegmentedInfoViewController: UIViewController {
 
     var infoDetailsStack: UIStackView!
     
+    // CERITANYA LOADING ANJAAYYYZZ
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpComponents()
-        setUpConstraint()
+        
+        self.mainVc?.group.notify(queue: .main) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.spinner.hidesWhenStopped = true
+                self.spinner.stopAnimating()
+                self.spinner.removeFromSuperview()
+                
+                self.setUpComponents()
+                self.setUpConstraint()
+            })
+        }
+        
+        setupLoadingScreen()
     }
     
     //MARK: Setup components
@@ -454,4 +474,18 @@ class SegmentedInfoViewController: UIViewController {
         return icon
     }
     
+    // MARK: SETUP LOADING SCREEN
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
 }

@@ -10,27 +10,31 @@ import UIKit
 
 class YourOrdersViewController: UIViewController {
     
-    
-    
-    let userDefaults2 = UserDefaults.standard.value(forKeyPath: "keyPath1")
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
-        return imageView
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .red
+        spinner.backgroundColor = .blue
+        return spinner
     }()
     
+    
     override func viewDidLoad() {
-        UserDefaults.standard.setValue("nilai1", forKey: "key1")
-        view.backgroundColor = .systemBackground
-        var userDefaults = UserDefaults.standard.value(forKey: "key1") as! String
-        print(userDefaults)
+        super.viewDidLoad()
         
-        UserDefaults.standard.setValue("nilai1Lagi", forKey: "key1")
-        userDefaults = UserDefaults.standard.value(forKey: "key1") as! String
-        print(userDefaults)
-        print(userDefaults2)
+        view.backgroundColor = .darkGray
+        
+        view.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 300),
+            spinner.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        spinner.startAnimating()
     }
     
 }

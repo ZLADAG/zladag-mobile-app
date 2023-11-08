@@ -19,25 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        if !AuthManager.shared.isSignedIn {
-//            let testVc = UIViewController()
-//            testVc.view.backgroundColor = .red
-//            let navVC = UINavigationController(rootViewController: WelcomeViewController())
-//            window.rootViewController = navVC
-//        } else {
-//            window.rootViewController = TabBarViewController()
-//        }
+//        let navVc = UINavigationController(rootViewController: ProfileViewController())
+//        let navVc = UINavigationController(rootViewController: ProfilePetListDetailsViewController())
+//        let navVc = UINavigationController(rootViewController: PetFacilityPrefCollectionViewController())
+//        let navVc = UINavigationController(rootViewController: PetHabitsCollectionViewController())
         
-//        let navVC = UINavigationController(rootViewController: CoretanTambahAnabulViewController())
-//        window.rootViewController = navVC
-
-//        window.rootViewController = TabBarViewController()
-        
-        let vc = ReservationViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        window.rootViewController = navVC
-        navVC.navigationBar.tintColor = .white
-        
+        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

@@ -16,9 +16,12 @@ class BoardingDetailsViewController: UIViewController {
     
     let infoSegment = SegmentedInfoViewController()
     let reviewSegment = SegmentedReviewViewController()
+    
+    var group: DispatchGroup
 
-    init() {
-        super.init(nibName: nil, bundle: nil) // INI APA SIH
+    init(group: DispatchGroup) {
+        self.group = group
+        super.init(nibName: nil, bundle: nil)
 
         self.infoSegment.mainVc = self
     }
@@ -473,7 +476,7 @@ class BoardingDetailsViewController: UIViewController {
            // You can adjust this value as needed to control when the segmented view sticks
            let threshold: CGFloat = contentAboveHeight - 40
     
-           print("height:\(contentAboveHeight)")
+//           print("height:\(contentAboveHeight)")
    
            if yOffset > threshold {
                // Stick the segmented view under the navigation bar

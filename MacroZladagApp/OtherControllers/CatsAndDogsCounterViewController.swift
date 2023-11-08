@@ -32,6 +32,7 @@ class CatsAndDogsCounterViewController: UIViewController {
     let dogIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "dog-icon")
+        imageView.tintColor = .customLightGray
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -39,6 +40,7 @@ class CatsAndDogsCounterViewController: UIViewController {
     let catIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cat-icon")
+        imageView.tintColor = .customLightGray
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

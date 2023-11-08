@@ -70,17 +70,39 @@ extension WelcomeViewController: ASAuthorizationControllerDelegate {
         
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
-            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
-                print(userId)
-                handleSignIn(true)
-            } else {
-                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
-                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
-                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
-                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
-                print(UserDefaults.standard.value(forKey: "userId") as! String)
-                handleSignIn(true)
-            }
+            print(credentials.user)
+            print(credentials.email!)
+            
+//            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
+//                print(userId)
+//                
+//                let email = UserDefaults.value(forKey: "email") as! String
+//                
+//                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: email) { result in
+//                    print("MANTAP \(result)\n")
+//                }
+//                
+//                
+//                handleSignIn(true)
+//            } else {
+//                print(credentials.user)
+//                print(credentials.email)
+//                print("======")
+//                
+//                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
+//                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
+//                print(UserDefaults.standard.value(forKey: "email"))
+//                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
+//                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
+//                print(UserDefaults.standard.value(forKey: "userId") as! String)
+//                
+////                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: credentials.email ?? "NO-EMAIL") { result in
+////                    print("MANTAP \(result)\n")
+////                    print(UserDefaults.standard.value(forKey: "email"))
+////                }
+//                
+//                handleSignIn(true)
+//            }
         default:
             break
         }

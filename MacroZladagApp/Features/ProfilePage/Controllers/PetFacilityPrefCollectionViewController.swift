@@ -11,7 +11,7 @@ import UIKit
 class PetFacilityPrefCollectionViewController: UIViewController {
     
     var collectionView: UICollectionView!
-    var facilitiesPref : [Facility] = []
+    var facilitiesPref : [String] = []
     
     public var heightConstraint: NSLayoutConstraint!
     
@@ -42,7 +42,7 @@ extension PetFacilityPrefCollectionViewController: UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetFacilityPrefCollectionViewCell.identifier, for: indexPath) as! PetFacilityPrefCollectionViewCell
         
-        let content = ProfileIconLabel(iconName: "facility-vet-icon", titleName: facilitiesPref[indexPath.row].name, type: .facilityTag)
+        let content = ProfileIconLabel(iconName: "facility-vet-icon", titleName: facilitiesPref[indexPath.row], type: .facilityTag)
         cell.setUpCell(content: content)
         cell.bounds.size.width = cell.cellWidth
         cell.bounds.size.height = cell.cellHeight

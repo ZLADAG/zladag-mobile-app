@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ProfilePhotoWithTitle: UIView {
     private var photoImage: UIImageView!
     

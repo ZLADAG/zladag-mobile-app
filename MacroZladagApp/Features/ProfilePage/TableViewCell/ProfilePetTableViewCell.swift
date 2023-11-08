@@ -14,6 +14,7 @@ class ProfilePetTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setUpComponents()
     }
     
@@ -35,6 +36,7 @@ class ProfilePetTableViewCell: UITableViewCell {
         addSubview(petProfileMenu)
         setUpConstraints()
     }
+    
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             petProfileMenu.topAnchor.constraint(equalTo: topAnchor, constant: 0),

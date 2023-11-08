@@ -175,7 +175,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         
         collectionView.backgroundColor = .customGray
         setupNavigationBar()
-        print("hohoho")
     }
     
     
@@ -197,6 +196,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         
         var makanBoardings: [SmallBoardingCell]?
         var tempatBermainBoardings: [SmallBoardingCell]?
+        
         
         APICaller.shared.getBoardings { result in
             defer {
@@ -354,17 +354,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
-//            if ga fetching {
-//                return
-//            }
+            
+            let group = DispatchGroup()
+            group.enter()
+            
+
             let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController()
+            let vc = BoardingDetailsViewController(group: group)
             vc.hidesBottomBarWhenPushed = true
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
-
-            let group = DispatchGroup()
-            group.enter()
             
             APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
                 defer {
@@ -420,19 +419,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     break
                 }
             }
-            group.notify(queue: .main) {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
+            vc.group = group
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         case .sectionTempatBermain(viewModels: let viewModels):
+            let group = DispatchGroup()
+            group.enter()
+            
             let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController()
+            let vc = BoardingDetailsViewController(group: group)
             vc.hidesBottomBarWhenPushed = true
             vc.navigationItem.largeTitleDisplayMode = .always
             vc.navigationController?.navigationBar.prefersLargeTitles = true
 
-            let group = DispatchGroup()
-            group.enter()
+            
             
             APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
                 defer {
@@ -489,9 +490,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
             }
             
-            group.notify(queue: .main) {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         }
     }

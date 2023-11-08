@@ -13,21 +13,55 @@ class AuthManager {
     private init() {}
     
     public var isSignedIn: Bool {
-        return self.appleId != nil
+        return self.token != nil
     }
     
-    public func exchangeForToken(name: String, email: String, completion: @escaping (Bool) -> Void) {
-//        var request = URLRequest(url: URL(filurl))
-//        request.httpMethod = "POST"
-//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    public func exchangeForToken(signInMethod: String, email: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
+        guard let url = URL(string: APICaller.Constants.baseAPIURL + "/sign-in") else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: String] = [
+            "signMethod": signInMethod,
+            "email": email
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(SignInResponse.self, from: data)
+                print("MANTAPP APPLE")
+                self.cacheToken(with: result.personalAccessToken)
+                completion(Result.success(result))
+            } catch {
+                print("ERROR WHEN DECODING SIGN IN RESPONSE")
+                completion(Result.failure(error))
+            }
+        }
+        
+        task.resume()
+        
+        
     }
     
     public func cacheToken(with token: String) {
-        
+        UserDefaults.standard.setValue(token, forKey: "token")
     }
     
     public var appleId: String? {
         return UserDefaults.standard.value(forKey: "userId") as? String
+    }
+    
+    public var token: String? {
+        return UserDefaults.standard.value(forKey: "token") as? String
     }
 }
 

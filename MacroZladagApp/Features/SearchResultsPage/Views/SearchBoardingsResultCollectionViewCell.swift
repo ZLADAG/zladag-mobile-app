@@ -322,13 +322,13 @@ extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UIC
         guard let viewModel else { return }
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let vc = BoardingDetailsViewController()
+        let group = DispatchGroup()
+        group.enter()
+        
+        let vc = BoardingDetailsViewController(group: group)
         vc.hidesBottomBarWhenPushed = true
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let group = DispatchGroup()
-        group.enter()
         
         APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
             defer {
@@ -385,9 +385,7 @@ extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UIC
             }
         }
         
-        group.notify(queue: .main) {
-            self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
-        }
+        self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
     }
     
     
