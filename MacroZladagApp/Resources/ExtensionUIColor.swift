@@ -14,7 +14,8 @@ extension UIColor {
     static let customDarkOrange = UIColor(red: 216/255, green: 92/255, blue:20/255, alpha: 255/255)
     static let customOrangeFont = UIColor(red: 227/255, green: 135/255, blue: 81/255, alpha: 255/255)
     static let customOrangeOpacityUbah = UIColor(red: 255/255, green: 238/255, blue: 227/255, alpha: 255/255)
-    static let orangeWithOpacity = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: CGFloat(0.1 * (255/255)))
+    static let orangeWithOpacity = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: 255/255)
+    static let orangeButtonWithOpacity = UIColor(red: 255/255, green: 242/255, blue: 233/255, alpha: 255/255)
     
     static let customGray = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 255/255)
     static let customGray2 = UIColor(red: 218/255, green: 220/255, blue: 226/255, alpha: 255/255)
@@ -36,6 +37,7 @@ extension UIColor {
     
     static let textBlack = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 255/255)
     static let textRed = UIColor(red: 219/255, green: 88/255, blue: 88/255, alpha: 255/255)
+    static let customRed = UIColor(red: 247/255, green: 0/255, blue: 0/255, alpha: 255/255)
     
     // Gender Tag color
     static let customLightPink = UIColor(red: 255/255, green: 207/255, blue: 207/255, alpha: 255/255)

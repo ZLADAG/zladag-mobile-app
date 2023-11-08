@@ -19,6 +19,7 @@ class NumberOfCatsAndDogsButton: UIButton {
             self.tintColor = .customGrayForIcons
             
             self.contentMode = .scaleAspectFit
+            tintColor = .customLightGray
         }
         
         required init?(coder: NSCoder) {

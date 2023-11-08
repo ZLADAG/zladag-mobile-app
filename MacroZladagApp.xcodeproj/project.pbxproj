@@ -42,9 +42,13 @@
 		6570AA572ADFF435003DC5EB /* BoardingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA562ADFF435003DC5EB /* BoardingDetailsViewModel.swift */; };
 		6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA582AE04EB4003DC5EB /* Utils.swift */; };
 		6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */; };
+		65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */; };
 		65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */; };
 		65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DED12AEFAFB60018722A /* AuthResponse.swift */; };
 		65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */; };
+		65B274A02AFAB6D70030A0F5 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B2749F2AFAB6D70030A0F5 /* UserProfileTableViewCell.swift */; };
+		65B274A22AFAC6780030A0F5 /* MyPetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B274A12AFAC6780030A0F5 /* MyPetTableViewCell.swift */; };
+		65B274A42AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B274A32AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift */; };
 		65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCD2ACAA796004D986C /* AppDelegate.swift */; };
 		65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C40CCF2ACAA796004D986C /* SceneDelegate.swift */; };
 		65C40CD72ACAA797004D986C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C40CD62ACAA797004D986C /* Assets.xcassets */; };
@@ -188,9 +192,13 @@
 		6570AA562ADFF435003DC5EB /* BoardingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingDetailsViewModel.swift; sourceTree = "<group>"; };
 		6570AA582AE04EB4003DC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaTextFieldViewController.swift; sourceTree = "<group>"; };
+		65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterTableViewCell.swift; sourceTree = "<group>"; };
 		65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasukanDataAnabulViewController.swift; sourceTree = "<group>"; };
 		65B1DED12AEFAFB60018722A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		65B2749F2AFAB6D70030A0F5 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		65B274A12AFAC6780030A0F5 /* MyPetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetTableViewCell.swift; sourceTree = "<group>"; };
+		65B274A32AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahAnabulTableViewCell.swift; sourceTree = "<group>"; };
 		65C40CCA2ACAA796004D986C /* MacroZladagApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroZladagApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C40CCD2ACAA796004D986C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C40CCF2ACAA796004D986C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -785,6 +793,10 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D712AF8927900D767CD /* ProfilePetTableViewCell.swift */,
+				65B2749F2AFAB6D70030A0F5 /* UserProfileTableViewCell.swift */,
+				65B274A12AFAC6780030A0F5 /* MyPetTableViewCell.swift */,
+				65B274A32AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift */,
+				65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1037,6 +1049,7 @@
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */,
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
+				65B274A42AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift in Sources */,
 				65C40CE32ACAC035004D986C /* ExtensionUIView.swift in Sources */,
 				8F27AD382AD3DAD200E40ECE /* DateToolTipView.swift in Sources */,
 				8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */,
@@ -1052,6 +1065,7 @@
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				8F9C2D772AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift in Sources */,
+				65B274A02AFAB6D70030A0F5 /* UserProfileTableViewCell.swift in Sources */,
 				8F9C2D792AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				8FFEC01C2AEA5CC8005D790F /* OnboardPromptLabelButton.swift in Sources */,
@@ -1071,6 +1085,7 @@
 				8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */,
 				8F9C2D7E2AF9335600D767CD /* PetHabitsCollectionViewController.swift in Sources */,
 				8F9C2D452AF0020A00D767CD /* ValidatePhoneCodeBody.swift in Sources */,
+				65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */,
 				6570AA532ADFEE53003DC5EB /* BoardingDetailsResponse.swift in Sources */,
 				8F9C2D752AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift in Sources */,
 				6570AA552ADFF06C003DC5EB /* BoardingCage.swift in Sources */,
@@ -1109,6 +1124,7 @@
 				653040142AE9A2FE00EF5E17 /* TambahAnabulTextField.swift in Sources */,
 				8F9C2D532AF26F1300D767CD /* ProfileArrowMenu.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,
+				65B274A22AFAC6780030A0F5 /* MyPetTableViewCell.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
 				6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */,
 				6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */,
