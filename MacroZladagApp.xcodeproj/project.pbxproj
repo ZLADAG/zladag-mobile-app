@@ -15,7 +15,6 @@
 		65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */; };
 		6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */; };
 		6530400D2AE9871900EF5E17 /* TambahProfilAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530400C2AE9871900EF5E17 /* TambahProfilAnabulViewController.swift */; };
-		653040102AE98BF100EF5E17 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530400F2AE98BF100EF5E17 /* IconView.swift */; };
 		653040122AE9A02100EF5E17 /* NecessarryFieldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040112AE9A02100EF5E17 /* NecessarryFieldLabel.swift */; };
 		653040142AE9A2FE00EF5E17 /* TambahAnabulTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040132AE9A2FE00EF5E17 /* TambahAnabulTextField.swift */; };
 		653040162AEA521B00EF5E17 /* ProfileImageViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040152AEA521B00EF5E17 /* ProfileImageViewButton.swift */; };
@@ -43,6 +42,19 @@
 		6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA582AE04EB4003DC5EB /* Utils.swift */; };
 		6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */; };
 		65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */; };
+		65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */; };
+		65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */; };
+		65A05C3E2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */; };
+		65A05C412AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3F2AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift */; };
+		65A05C422AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C402AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift */; };
+		65A05C462AFB7E1A00C0BC93 /* ProfileIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C432AFB7E1A00C0BC93 /* ProfileIconLabel.swift */; };
+		65A05C472AFB7E1A00C0BC93 /* ProfilePhotoWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C442AFB7E1A00C0BC93 /* ProfilePhotoWithTitle.swift */; };
+		65A05C482AFB7E1A00C0BC93 /* IconButtonTinted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C452AFB7E1A00C0BC93 /* IconButtonTinted.swift */; };
+		65A05C4E2AFB7E2800C0BC93 /* ProfileArrowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C492AFB7E2800C0BC93 /* ProfileArrowMenu.swift */; };
+		65A05C4F2AFB7E2800C0BC93 /* PetNameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4A2AFB7E2800C0BC93 /* PetNameCard.swift */; };
+		65A05C502AFB7E2800C0BC93 /* PetBiodataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4B2AFB7E2800C0BC93 /* PetBiodataView.swift */; };
+		65A05C512AFB7E2800C0BC93 /* GenderTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4C2AFB7E2800C0BC93 /* GenderTag.swift */; };
+		65A05C522AFB7E2800C0BC93 /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4D2AFB7E2800C0BC93 /* InfoContainer.swift */; };
 		65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */; };
 		65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DED12AEFAFB60018722A /* AuthResponse.swift */; };
 		65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */; };
@@ -101,21 +113,8 @@
 		8F9C2D452AF0020A00D767CD /* ValidatePhoneCodeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */; };
 		8F9C2D472AF0024B00D767CD /* SendPhoneCodeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */; };
 		8F9C2D4A2AF09D0000D767CD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */; };
-		8F9C2D4E2AF0F15300D767CD /* ProfilePhotoWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D4D2AF0F15300D767CD /* ProfilePhotoWithTitle.swift */; };
-		8F9C2D502AF0F9E500D767CD /* ProfileIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D4F2AF0F9E500D767CD /* ProfileIconLabel.swift */; };
-		8F9C2D532AF26F1300D767CD /* ProfileArrowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D522AF26F1300D767CD /* ProfileArrowMenu.swift */; };
-		8F9C2D552AF3127B00D767CD /* IconButtonTinted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D542AF3127B00D767CD /* IconButtonTinted.swift */; };
-		8F9C2D602AF5124A00D767CD /* ProfilePetListDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D5F2AF5124A00D767CD /* ProfilePetListDetailsViewController.swift */; };
-		8F9C2D622AF7630000D767CD /* PetNameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D612AF7630000D767CD /* PetNameCard.swift */; };
-		8F9C2D642AF7679B00D767CD /* GenderTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D632AF7679B00D767CD /* GenderTag.swift */; };
-		8F9C2D662AF77C7100D767CD /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D652AF77C7100D767CD /* InfoContainer.swift */; };
-		8F9C2D6A2AF7DDDC00D767CD /* PetBiodataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D692AF7DDDC00D767CD /* PetBiodataView.swift */; };
 		8F9C2D722AF8927900D767CD /* ProfilePetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D712AF8927900D767CD /* ProfilePetTableViewCell.swift */; };
-		8F9C2D752AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D742AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift */; };
-		8F9C2D772AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D762AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift */; };
-		8F9C2D792AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D782AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift */; };
 		8F9C2D7B2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7A2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift */; };
-		8F9C2D7E2AF9335600D767CD /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7D2AF9335600D767CD /* PetHabitsCollectionViewController.swift */; };
 		8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */; };
 		8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */; };
 		8F9C2D872AF9F89600D767CD /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D862AF9F89600D767CD /* PetProfile.swift */; };
@@ -165,7 +164,6 @@
 		65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTambahAnabulViewController.swift; sourceTree = "<group>"; };
 		6530400C2AE9871900EF5E17 /* TambahProfilAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahProfilAnabulViewController.swift; sourceTree = "<group>"; };
-		6530400F2AE98BF100EF5E17 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		653040112AE9A02100EF5E17 /* NecessarryFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessarryFieldLabel.swift; sourceTree = "<group>"; };
 		653040132AE9A2FE00EF5E17 /* TambahAnabulTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahAnabulTextField.swift; sourceTree = "<group>"; };
 		653040152AEA521B00EF5E17 /* ProfileImageViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewButton.swift; sourceTree = "<group>"; };
@@ -193,6 +191,19 @@
 		6570AA582AE04EB4003DC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaTextFieldViewController.swift; sourceTree = "<group>"; };
 		65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterTableViewCell.swift; sourceTree = "<group>"; };
+		65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
+		65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewController.swift; sourceTree = "<group>"; };
+		65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePetListDetailsViewController.swift; sourceTree = "<group>"; };
+		65A05C3F2AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewCell.swift; sourceTree = "<group>"; };
+		65A05C402AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewCell.swift; sourceTree = "<group>"; };
+		65A05C432AFB7E1A00C0BC93 /* ProfileIconLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileIconLabel.swift; sourceTree = "<group>"; };
+		65A05C442AFB7E1A00C0BC93 /* ProfilePhotoWithTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePhotoWithTitle.swift; sourceTree = "<group>"; };
+		65A05C452AFB7E1A00C0BC93 /* IconButtonTinted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonTinted.swift; sourceTree = "<group>"; };
+		65A05C492AFB7E2800C0BC93 /* ProfileArrowMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileArrowMenu.swift; sourceTree = "<group>"; };
+		65A05C4A2AFB7E2800C0BC93 /* PetNameCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetNameCard.swift; sourceTree = "<group>"; };
+		65A05C4B2AFB7E2800C0BC93 /* PetBiodataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetBiodataView.swift; sourceTree = "<group>"; };
+		65A05C4C2AFB7E2800C0BC93 /* GenderTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderTag.swift; sourceTree = "<group>"; };
+		65A05C4D2AFB7E2800C0BC93 /* InfoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
 		65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasukanDataAnabulViewController.swift; sourceTree = "<group>"; };
 		65B1DED12AEFAFB60018722A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
@@ -256,21 +267,8 @@
 		8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePhoneCodeBody.swift; sourceTree = "<group>"; };
 		8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPhoneCodeBody.swift; sourceTree = "<group>"; };
 		8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		8F9C2D4D2AF0F15300D767CD /* ProfilePhotoWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoWithTitle.swift; sourceTree = "<group>"; };
-		8F9C2D4F2AF0F9E500D767CD /* ProfileIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIconLabel.swift; sourceTree = "<group>"; };
-		8F9C2D522AF26F1300D767CD /* ProfileArrowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArrowMenu.swift; sourceTree = "<group>"; };
-		8F9C2D542AF3127B00D767CD /* IconButtonTinted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtonTinted.swift; sourceTree = "<group>"; };
-		8F9C2D5F2AF5124A00D767CD /* ProfilePetListDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePetListDetailsViewController.swift; sourceTree = "<group>"; };
-		8F9C2D612AF7630000D767CD /* PetNameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetNameCard.swift; sourceTree = "<group>"; };
-		8F9C2D632AF7679B00D767CD /* GenderTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTag.swift; sourceTree = "<group>"; };
-		8F9C2D652AF77C7100D767CD /* InfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
-		8F9C2D692AF7DDDC00D767CD /* PetBiodataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBiodataView.swift; sourceTree = "<group>"; };
 		8F9C2D712AF8927900D767CD /* ProfilePetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePetTableViewCell.swift; sourceTree = "<group>"; };
-		8F9C2D742AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F9C2D762AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F9C2D782AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewController.swift; sourceTree = "<group>"; };
 		8F9C2D7A2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		8F9C2D7D2AF9335600D767CD /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
 		8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCollectionViewLayout.swift; sourceTree = "<group>"; };
 		8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileResponse.swift; sourceTree = "<group>"; };
 		8F9C2D862AF9F89600D767CD /* PetProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
@@ -490,7 +488,6 @@
 		6530400E2AE98BD400EF5E17 /* ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
-				6530400F2AE98BF100EF5E17 /* IconView.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -751,9 +748,9 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */,
-				8F9C2D5F2AF5124A00D767CD /* ProfilePetListDetailsViewController.swift */,
-				8F9C2D782AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift */,
-				8F9C2D7D2AF9335600D767CD /* PetHabitsCollectionViewController.swift */,
+				65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */,
+				65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */,
+				65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -761,9 +758,9 @@
 		8F9C2D4C2AF0F09A00D767CD /* ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
-				8F9C2D4D2AF0F15300D767CD /* ProfilePhotoWithTitle.swift */,
-				8F9C2D4F2AF0F9E500D767CD /* ProfileIconLabel.swift */,
-				8F9C2D542AF3127B00D767CD /* IconButtonTinted.swift */,
+				65A05C452AFB7E1A00C0BC93 /* IconButtonTinted.swift */,
+				65A05C432AFB7E1A00C0BC93 /* ProfileIconLabel.swift */,
+				65A05C442AFB7E1A00C0BC93 /* ProfilePhotoWithTitle.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -771,11 +768,11 @@
 		8F9C2D512AF26D5F00D767CD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8F9C2D522AF26F1300D767CD /* ProfileArrowMenu.swift */,
-				8F9C2D612AF7630000D767CD /* PetNameCard.swift */,
-				8F9C2D632AF7679B00D767CD /* GenderTag.swift */,
-				8F9C2D692AF7DDDC00D767CD /* PetBiodataView.swift */,
-				8F9C2D652AF77C7100D767CD /* InfoContainer.swift */,
+				65A05C4C2AFB7E2800C0BC93 /* GenderTag.swift */,
+				65A05C4D2AFB7E2800C0BC93 /* InfoContainer.swift */,
+				65A05C4B2AFB7E2800C0BC93 /* PetBiodataView.swift */,
+				65A05C4A2AFB7E2800C0BC93 /* PetNameCard.swift */,
+				65A05C492AFB7E2800C0BC93 /* ProfileArrowMenu.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -783,8 +780,8 @@
 		8F9C2D582AF39A1A00D767CD /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				8F9C2D742AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift */,
-				8F9C2D762AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift */,
+				65A05C3F2AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift */,
+				65A05C402AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -995,7 +992,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F9C2D6A2AF7DDDC00D767CD /* PetBiodataView.swift in Sources */,
 				65C40CFB2ACACC44004D986C /* Boarding.swift in Sources */,
 				8F23EDC42AE41CCF00B25026 /* Order.swift in Sources */,
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
@@ -1012,7 +1008,8 @@
 				65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */,
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
 				6570AA472ADFD8AD003DC5EB /* HomeCellViewModel.swift in Sources */,
-				8F9C2D4E2AF0F15300D767CD /* ProfilePhotoWithTitle.swift in Sources */,
+				65A05C4F2AFB7E2800C0BC93 /* PetNameCard.swift in Sources */,
+				65A05C412AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift in Sources */,
 				8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */,
 				6570AA572ADFF435003DC5EB /* BoardingDetailsViewModel.swift in Sources */,
 				65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */,
@@ -1021,18 +1018,17 @@
 				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
 				65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */,
 				8FFEC03B2AEA5EE5005D790F /* SimpanButtonView.swift in Sources */,
-				8F9C2D502AF0F9E500D767CD /* ProfileIconLabel.swift in Sources */,
 				653040162AEA521B00EF5E17 /* ProfileImageViewButton.swift in Sources */,
-				8F9C2D662AF77C7100D767CD /* InfoContainer.swift in Sources */,
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
 				8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */,
 				8FFEC0922AEDBB35005D790F /* VerificationCodeResponse.swift in Sources */,
 				6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */,
 				8FFEC0942AEDBCD7005D790F /* OnboardPhoneNumInput.swift in Sources */,
+				65A05C482AFB7E1A00C0BC93 /* IconButtonTinted.swift in Sources */,
 				65C40CF42ACAC2A4004D986C /* AccountViewController.swift in Sources */,
-				8F9C2D622AF7630000D767CD /* PetNameCard.swift in Sources */,
 				65DC1D192AD32CCE005D8288 /* SearchButton.swift in Sources */,
 				8FFEC0222AEA5D43005D790F /* OnboardButtonOutline.swift in Sources */,
+				65A05C472AFB7E1A00C0BC93 /* ProfilePhotoWithTitle.swift in Sources */,
 				8F9ADDA22AD9A3DE0082E19B /* TestSwiftUIView.swift in Sources */,
 				8FFEC03A2AEA5EE5005D790F /* FasilitasContainerButton.swift in Sources */,
 				6570AA1E2ADE9C4E003DC5EB /* PetCategory.swift in Sources */,
@@ -1055,6 +1051,7 @@
 				8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */,
 				8FFEC0742AEB4002005D790F /* SearchAccByPhoneResponse.swift in Sources */,
 				6570AA502ADFE7D1003DC5EB /* SearchBoardingViewModel.swift in Sources */,
+				65A05C4E2AFB7E2800C0BC93 /* ProfileArrowMenu.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
 				65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */,
 				8F23EDC12AE410B000B25026 /* Pet.swift in Sources */,
@@ -1064,30 +1061,30 @@
 				8FFEC0202AEA5D16005D790F /* OnboardHeader.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
-				8F9C2D772AF8FAD800D767CD /* PetHabitsCollectionViewCell.swift in Sources */,
+				65A05C512AFB7E2800C0BC93 /* GenderTag.swift in Sources */,
 				65B274A02AFAB6D70030A0F5 /* UserProfileTableViewCell.swift in Sources */,
-				8F9C2D792AF8FC9C00D767CD /* PetFacilityPrefCollectionViewController.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
+				65A05C522AFB7E2800C0BC93 /* InfoContainer.swift in Sources */,
 				8FFEC01C2AEA5CC8005D790F /* OnboardPromptLabelButton.swift in Sources */,
 				6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */,
+				65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */,
 				8F9C2D3D2AEEEEFA00D767CD /* OptionDivider.swift in Sources */,
 				65257B752ADD469500C6290C /* DatePickerViewController.swift in Sources */,
 				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				6570AA222ADEA19E003DC5EB /* Service.swift in Sources */,
-				653040102AE98BF100EF5E17 /* IconView.swift in Sources */,
 				6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */,
 				6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */,
 				65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
+				65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* ExtensionUIColor.swift in Sources */,
+				65A05C502AFB7E2800C0BC93 /* PetBiodataView.swift in Sources */,
 				8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */,
-				8F9C2D7E2AF9335600D767CD /* PetHabitsCollectionViewController.swift in Sources */,
 				8F9C2D452AF0020A00D767CD /* ValidatePhoneCodeBody.swift in Sources */,
 				65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */,
 				6570AA532ADFEE53003DC5EB /* BoardingDetailsResponse.swift in Sources */,
-				8F9C2D752AF8FA9F00D767CD /* PetFacilityPrefCollectionViewCell.swift in Sources */,
 				6570AA552ADFF06C003DC5EB /* BoardingCage.swift in Sources */,
 				8F9C2D722AF8927900D767CD /* ProfilePetTableViewCell.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
@@ -1106,29 +1103,28 @@
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
 				8FFEC0182AEA5C3D005D790F /* PrimaryButtonFilled.swift in Sources */,
 				6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */,
-				8F9C2D602AF5124A00D767CD /* ProfilePetListDetailsViewController.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				8FFEC01E2AEA5CF2005D790F /* OtpTextField.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
 				65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */,
+				65A05C462AFB7E1A00C0BC93 /* ProfileIconLabel.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
 				8F9C2D412AEFFD8900D767CD /* SignUpBody.swift in Sources */,
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
-				8F9C2D642AF7679B00D767CD /* GenderTag.swift in Sources */,
 				653040122AE9A02100EF5E17 /* NecessarryFieldLabel.swift in Sources */,
 				8FFEC0472AEA6257005D790F /* SignInViewController.swift in Sources */,
 				8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
-				8F9C2D552AF3127B00D767CD /* IconButtonTinted.swift in Sources */,
 				8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */,
 				653040142AE9A2FE00EF5E17 /* TambahAnabulTextField.swift in Sources */,
-				8F9C2D532AF26F1300D767CD /* ProfileArrowMenu.swift in Sources */,
+				65A05C3E2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,
 				65B274A22AFAC6780030A0F5 /* MyPetTableViewCell.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
 				6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */,
 				6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */,
 				8FFEC09E2AEEBC2E005D790F /* SignUpResponse.swift in Sources */,
+				65A05C422AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift in Sources */,
 				65C40CF22ACAC298004D986C /* YourOrdersViewController.swift in Sources */,
 				8FFEC0712AEB0A76005D790F /* MyConstants.swift in Sources */,
 				6530400D2AE9871900EF5E17 /* TambahProfilAnabulViewController.swift in Sources */,
