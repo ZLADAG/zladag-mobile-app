@@ -13,28 +13,30 @@ class YourOrdersViewController: UIViewController {
     let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.style = .large
-        spinner.color = .red
-        spinner.backgroundColor = .blue
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
         return spinner
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .white
         
+    }
+    
+    func setupLoadingScreen() {
         view.addSubview(spinner)
+        
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            spinner.widthAnchor.constraint(equalToConstant: 300),
-            spinner.heightAnchor.constraint(equalToConstant: 300),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
         ])
         
         spinner.startAnimating()
     }
-    
 }

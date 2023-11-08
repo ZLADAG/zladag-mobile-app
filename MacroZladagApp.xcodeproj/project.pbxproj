@@ -644,8 +644,8 @@
 			isa = PBXGroup;
 			children = (
 				65C40CED2ACAC19E004D986C /* TabBarViewController.swift */,
-				65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */,
 				65C40CF32ACAC2A4004D986C /* AccountViewController.swift */,
+				65C40CF12ACAC298004D986C /* YourOrdersViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";

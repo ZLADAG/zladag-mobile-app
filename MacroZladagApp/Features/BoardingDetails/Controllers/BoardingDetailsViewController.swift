@@ -13,16 +13,16 @@ class BoardingDetailsViewController: UIViewController {
     var photoIdx = 0
     
     var viewModel: BoardingDetailsViewModel?
-    
+    var vc: UIViewController?
     let infoSegment = SegmentedInfoViewController()
     let reviewSegment = SegmentedReviewViewController()
     
-    var group: DispatchGroup
-
-    init(group: DispatchGroup) {
-        self.group = group
+    var slug: String
+    
+    init(slug: String) {
+        self.slug = slug
         super.init(nibName: nil, bundle: nil)
-
+        print(slug)
         self.infoSegment.mainVc = self
     }
     
@@ -218,48 +218,111 @@ class BoardingDetailsViewController: UIViewController {
         return button
     }()
     
-    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Navigation Controller Settings
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = ""
-        navigationController?.navigationBar.tintColor = .customOrange
-        navigationController?.navigationBar.barStyle = .default
-
-        navigationController?.navigationBar.isTranslucent = true
-        
-        // Create the button
-        let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(shareButtonTapped))
-        
-        // Add the button to the right side of the navigation bar
-        navigationItem.rightBarButtonItem = shareButton
-    
-        
-        // View Settings
+            
         view.backgroundColor = .white
-        view.isUserInteractionEnabled = true
-        
-        view.addSubview(scrollview)
-        setUpPhotos()
-        setUpHeader()
-        
-        scrollview.addSubview(infoSegmentedControlContainerView)
-        
-//        scrollview.addSubview(segmentedContainerView)
+        setupLoadingScreen()
 
+        APICaller.shared.getBoardingBySlug(slug: self.slug) { result in
+            var success = false
+            switch result {
+            case .success(let response):
+                self.viewModel = BoardingDetailsViewModel(
+                    name: response.data.name,
+                    distance: response.data.distance,
+                    address: response.data.address,
+                    slug: response.data.slug,
+                    description: response.data.description,
+                    boardingCategory: response.data.boardingCategory,
+                    subdistrictName: response.data.subdistrict,
+                    provinceName: response.data.province,
+//                    boardingCages: response.data.boardingCages,
+                    price: response.data.cheapestLodgingPrice,
+                    images: response.data.images,
+                    facilities: response.data.boardingFacilities,
+                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
+                    minimumAge: response.data.minimumAge,
+                    maximumAge: response.data.maximumAge
+                )
+                success = true
+                break
+            case .failure(let error):
+                print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
+                let localResult = Utils.getOneBoardingDetails()!.data
+                self.viewModel = BoardingDetailsViewModel(
+                    name: localResult.name,
+                    distance: localResult.distance,
+                    address: localResult.address,
+                    slug: localResult.slug,
+                    description: localResult.description,
+                    boardingCategory: localResult.boardingCategory,
+                    subdistrictName: localResult.subdistrict,
+                    provinceName: localResult.province,
+//                    boardingCages: localResult.boardingCages,
+                    price: localResult.cheapestLodgingPrice,
+                    images: localResult.images,
+                    facilities: localResult.boardingFacilities,
+                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
+                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
+                    minimumAge: localResult.minimumAge,
+                    maximumAge: localResult.maximumAge
+                )
+            }
+            
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    
+                    self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+                    self.navigationItem.title = ""
+                    self.navigationController?.navigationBar.tintColor = .customOrange
+                    self.navigationController?.navigationBar.barStyle = .default
+                    
+                    self.navigationController?.navigationBar.isTranslucent = true
+                    
+                    // Create the button
+                    let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(self.shareButtonTapped))
+                    
+                    // Add the button to the right side of the navigation bar
+                    self.navigationItem.rightBarButtonItem = shareButton
+                    
+                    
+                    // View Settings
+                    self.view.isUserInteractionEnabled = true
+                    
+                    self.view.addSubview(self.scrollview)
+//                    self.view.insertSubview(self.scrollview, belowSubview: self.spinner)
+                    self.setUpPhotos()
+                    self.setUpHeader()
+                    
+                    self.scrollview.addSubview(self.infoSegmentedControlContainerView)
+                    
+                    self.addReviewSegmentView()
+                    self.reviewSegment.view.isHidden = true
+                    self.addInfoSegmentView()
+                    
+                    self.view.addSubview(self.selectServiceView)
+                    
+                    self.setupConstraints()
+                    
+                    self.scrollview.delegate = self
+                    
+                    self.spinner.stopAnimating()
+                    self.spinner.hidesWhenStopped = true
+                    self.spinner.isHidden = true
+                })
+            }
+        }
         
-        addReviewSegmentView()
-        reviewSegment.view.isHidden = true
-        addInfoSegmentView()
-        
-        view.addSubview(selectServiceView)
-        
-        setupConstraints()
-        
-        scrollview.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -340,7 +403,7 @@ class BoardingDetailsViewController: UIViewController {
             photosPageControl.centerXAnchor.constraint(equalTo: scrollview.centerXAnchor),
         ])
         photoCollection.frame = view.bounds
-        photoCollection.backgroundColor = .yellow
+        photoCollection.backgroundColor = .white
         
         // Header Content
         NSLayoutConstraint.activate([
@@ -624,11 +687,16 @@ class BoardingDetailsViewController: UIViewController {
         ratingNumLabel = createRateNumLabel("\(ratingNum)")
         reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
         
+//        ratingIcon.frame.size = CGSize(width: 16, height: 16)
+//        ratingIcon.translatesAutoresizingMaskIntoConstraints = false
+//        ratingIcon.widthAnchor.constraint(equalToConstant: ratingIcon.width).isActive = true
+//        ratingIcon.heightAnchor.constraint(equalToConstant: ratingIcon.height).isActive = true
+//
         let stackView   = UIStackView(arrangedSubviews: [ratingIcon, ratingNumLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false;
         stackView.axis  = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.fill
-        stackView.alignment = UIStackView.Alignment.center
+        stackView.alignment = UIStackView.Alignment.leading
         stackView.spacing   = 5.0
         
         let allStackView = UIStackView(arrangedSubviews: [stackView, reviewerNumLabel])
@@ -710,7 +778,19 @@ class BoardingDetailsViewController: UIViewController {
         showSegmentedView(index: selectedIndex)
         print("Selected index: \(selectedIndex)")
         changeSegmentedControlLinePosition()
-
+    }
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.frame = CGRect(
+            x: view.frame.midX - 25,
+            y: view.frame.midY - 25,
+            width: 50,
+            height: 50
+        )
+        
+        spinner.startAnimating()
     }
 }
 

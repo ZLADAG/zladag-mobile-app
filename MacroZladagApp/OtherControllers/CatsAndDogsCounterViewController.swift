@@ -88,89 +88,25 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     let incrementKucingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "increment-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let incrementAnjingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "increment-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let decrementKucingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "decrement-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let decrementAnjingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "decrement-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
@@ -354,6 +290,18 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     func setupButtons() {
+        decrementAnjingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
+        decrementAnjingButton.imageView?.tintColor = .customLightGray
+        incrementAnjingButton.setImage(UIImage(named: "increment-button"), for: .normal)
+        incrementAnjingButton.imageView?.tintColor = .customOrange
+        
+        decrementKucingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
+        decrementKucingButton.imageView?.tintColor = .customLightGray
+        incrementKucingButton.setImage(UIImage(named: "increment-button"), for: .normal)
+        incrementKucingButton.imageView?.tintColor = .customOrange
+        
+        
+        // OBJC FUNCTIONS
         decrementKucingButton.addTarget(self, action: #selector(catDecrementButton), for: .touchUpInside)
         incrementKucingButton.addTarget(self, action: #selector(catIncrementButton), for: .touchUpInside)
         
@@ -375,11 +323,16 @@ class CatsAndDogsCounterViewController: UIViewController {
             self.kucingCount -= 1
             kucingCountLabel.text = self.kucingCount.description
         }
+        
+        if kucingCount == 0 {
+            decrementKucingButton.imageView?.tintColor = .lightGray
+        }
     }
     
     @objc func catIncrementButton() {
         self.kucingCount += 1
         kucingCountLabel.text = self.kucingCount.description
+        decrementKucingButton.imageView?.tintColor = .customOrange
     }
     
     @objc func dogDecrementButton() {
@@ -387,11 +340,16 @@ class CatsAndDogsCounterViewController: UIViewController {
             self.anjingCount -= 1
             anjingCountLabel.text = self.anjingCount.description
         }
+        
+        if anjingCount == 0 {
+            decrementAnjingButton.imageView?.tintColor = .lightGray
+        }
     }
     
     @objc func dogIncrementButton() {
         self.anjingCount += 1
         anjingCountLabel.text = self.anjingCount.description
+        decrementAnjingButton.imageView?.tintColor = .customOrange
     }
     
     @objc func saveData() {

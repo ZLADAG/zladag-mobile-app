@@ -368,69 +368,11 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let group = DispatchGroup()
-        group.enter()
-    
         let viewModel = viewModels[indexPath.row]
-        let vc = BoardingDetailsViewController(group: group)
+        let vc = BoardingDetailsViewController(slug: viewModel.slug)
         vc.hidesBottomBarWhenPushed = true
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.navigationController?.navigationBar.prefersLargeTitles = true
-        
-        APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
-            defer {
-                group.leave()
-            }
-
-            switch result {
-            case .success(let response):
-                vc.viewModel = BoardingDetailsViewModel(
-                    name: response.data.name,
-                    distance: response.data.distance,
-                    address: response.data.address,
-                    slug: response.data.slug,
-                    description: response.data.description,
-                    boardingCategory: response.data.boardingCategory,
-                    subdistrictName: response.data.subdistrict,
-                    provinceName: response.data.province,
-                    boardingCages: response.data.boardingCages,
-                    price: response.data.cheapestLodgingPrice,
-                    images: response.data.images,
-                    facilities: response.data.boardingFacilities,
-                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
-                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-                    minimumAge: response.data.minimumAge,
-                    maximumAge: response.data.maximumAge,
-                    rating: viewModel.rating,
-                    numOfReviews: viewModel.numOfReviews
-                )
-                break
-            case .failure(let error):
-                let localResult = Utils.getOneBoardingDetails()!.data
-                vc.viewModel = BoardingDetailsViewModel(
-                    name: localResult.name,
-                    distance: localResult.distance,
-                    address: localResult.address,
-                    slug: localResult.slug,
-                    description: localResult.description,
-                    boardingCategory: localResult.boardingCategory,
-                    subdistrictName: localResult.subdistrict,
-                    provinceName: localResult.province,
-                    boardingCages: localResult.boardingCages,
-                    price: localResult.cheapestLodgingPrice,
-                    images: localResult.images,
-                    facilities: localResult.boardingFacilities,
-                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-                    minimumAge: localResult.minimumAge,
-                    maximumAge: localResult.maximumAge,
-                    rating: viewModel.rating,
-                    numOfReviews: viewModel.numOfReviews
-                )
-                print(error.localizedDescription)
-                break
-            }
-        }
         
         self.navigationController?.pushViewController(vc, animated: true)
     }

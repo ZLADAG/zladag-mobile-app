@@ -61,18 +61,21 @@ class SegmentedInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mainVc?.group.notify(queue: .main) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.spinner.hidesWhenStopped = true
-                self.spinner.stopAnimating()
-                self.spinner.removeFromSuperview()
-                
-                self.setUpComponents()
-                self.setUpConstraint()
-            })
-        }
+//        self.mainVc?.group.notify(queue: .main) {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                self.spinner.hidesWhenStopped = true
+//                self.spinner.stopAnimating()
+//                self.spinner.removeFromSuperview()
+//                
+//                self.setUpComponents()
+//                self.setUpConstraint()
+//            })
+//        }
+//        
+//        setupLoadingScreen()
         
-        setupLoadingScreen()
+        self.setUpComponents()
+        self.setUpConstraint()
     }
     
     //MARK: Setup components
