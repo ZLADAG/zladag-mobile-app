@@ -69,10 +69,12 @@ class MyPetTableViewCell: UITableViewCell {
         
         if let imageName, !imageName.isEmpty {
             petImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageName)))
-            print(petImageView.subviews.count)
+            
             for sbv in petImageView.subviews {
-                if let name = sbv.layer.name, name == "emptyIconView" {
-                    sbv.removeFromSuperview()
+                if let name = sbv.layer.name {
+                    if name == "emptyIconView" {
+                        sbv.removeFromSuperview()
+                    }
                 }
             }
         } else {
@@ -113,7 +115,6 @@ class MyPetTableViewCell: UITableViewCell {
         addSubview(subDetailLabel)
 
         subDetailLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: nameLabel.bottom + 4)
-//        subDetailLabel.frame = CGRect(x: 100, y: 30, width: 200, height: 40)
     }
     
     func setupNameLabel() {
@@ -181,8 +182,6 @@ class MyPetTableViewCell: UITableViewCell {
         
         var dividerLabel = createDefaultLabel("·")
         dividerLabel.sizeToFit()
-        
-        print(">>> \(breedLabel.height), \(ageLabel.height)\n")
         
         var stack = UIStackView(arrangedSubviews: [breedLabel, dividerLabel, ageLabel])
 //        stack.translatesAutoresizingMaskIntoConstraints = false

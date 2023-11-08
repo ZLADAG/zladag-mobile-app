@@ -33,6 +33,7 @@ class PetBiodataView: UIView {
         let name = petProfile.name
         let type = petProfile.petBreed
         let gender = petProfile.petGender
+        
         let nameCard = PetNameCard(name, type, gender)
         offsetHeight = nameCard.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height/2
         

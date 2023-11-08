@@ -11,7 +11,7 @@ import UIKit
 class PetHabitsCollectionViewController: UIViewController {
     
     var collectionView: UICollectionView!
-    var habits : [Habit] = []
+    var habits : [String] = []
     
     public var heightConstraint: NSLayoutConstraint!
 
@@ -43,7 +43,7 @@ extension PetHabitsCollectionViewController: UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetHabitsCollectionViewCell.identifier, for: indexPath) as! PetHabitsCollectionViewCell
         
-        cell.setUpCell(habitText: habits[indexPath.row].name)
+        cell.setUpCell(habitText: habits[indexPath.row])
         cell.bounds.size.width = cell.cellWidth
         cell.bounds.size.height = cell.cellHeight
         return cell

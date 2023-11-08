@@ -123,6 +123,7 @@ class ProfileIconLabel: UIView {
     }
     private func createIcon(_ iconName:String) -> UIImageView {
         let imageView = UIImageView()
+        imageView.tintColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         if UIImage(systemName: iconName) != nil {

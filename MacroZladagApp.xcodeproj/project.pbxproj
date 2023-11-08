@@ -55,6 +55,7 @@
 		65A05C502AFB7E2800C0BC93 /* PetBiodataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4B2AFB7E2800C0BC93 /* PetBiodataView.swift */; };
 		65A05C512AFB7E2800C0BC93 /* GenderTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4C2AFB7E2800C0BC93 /* GenderTag.swift */; };
 		65A05C522AFB7E2800C0BC93 /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C4D2AFB7E2800C0BC93 /* InfoContainer.swift */; };
+		65A05C572AFB800900C0BC93 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C562AFB800900C0BC93 /* IconView.swift */; };
 		65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */; };
 		65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1DED12AEFAFB60018722A /* AuthResponse.swift */; };
 		65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */; };
@@ -118,7 +119,7 @@
 		8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */; };
 		8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */; };
 		8F9C2D872AF9F89600D767CD /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D862AF9F89600D767CD /* PetProfile.swift */; };
-		8F9C2D892AF9F8A400D767CD /* PetProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */; };
+		8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */; };
 		8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8A2AF9FAB300D767CD /* Habit.swift */; };
 		8F9C2D8D2AF9FB9500D767CD /* ProfilePageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */; };
 		8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */; };
@@ -204,6 +205,7 @@
 		65A05C4B2AFB7E2800C0BC93 /* PetBiodataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetBiodataView.swift; sourceTree = "<group>"; };
 		65A05C4C2AFB7E2800C0BC93 /* GenderTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderTag.swift; sourceTree = "<group>"; };
 		65A05C4D2AFB7E2800C0BC93 /* InfoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
+		65A05C562AFB800900C0BC93 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		65B1DEAD2AEECE020018722A /* MasukanDataAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasukanDataAnabulViewController.swift; sourceTree = "<group>"; };
 		65B1DED12AEFAFB60018722A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
@@ -272,7 +274,7 @@
 		8F9C2D7F2AF946B300D767CD /* ExtensionCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCollectionViewLayout.swift; sourceTree = "<group>"; };
 		8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileResponse.swift; sourceTree = "<group>"; };
 		8F9C2D862AF9F89600D767CD /* PetProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
-		8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileDetails.swift; sourceTree = "<group>"; };
+		8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileDetailsResponse.swift; sourceTree = "<group>"; };
 		8F9C2D8A2AF9FAB300D767CD /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageManager.swift; sourceTree = "<group>"; };
 		8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPSegmentedInfoViewController.swift; sourceTree = "<group>"; };
@@ -485,13 +487,6 @@
 			path = TambahAnabulProfile;
 			sourceTree = "<group>";
 		};
-		6530400E2AE98BD400EF5E17 /* ReusableViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ReusableViews;
-			sourceTree = "<group>";
-		};
 		6563A46B2AD53CE00058A130 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +528,14 @@
 			path = BoardingDetails;
 			sourceTree = "<group>";
 		};
+		65A05C552AFB800100C0BC93 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				65A05C562AFB800900C0BC93 /* IconView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		65C40CC12ACAA796004D986C = {
 			isa = PBXGroup;
 			children = (
@@ -559,7 +562,7 @@
 				65C40CE12ACAC000004D986C /* Resources */,
 				65C40CE42ACAC095004D986C /* Managers */,
 				65C40CE82ACAC0D6004D986C /* Models */,
-				6530400E2AE98BD400EF5E17 /* ReusableViews */,
+				65A05C552AFB800100C0BC93 /* ReusableViews */,
 				65303FC42AE8FC0F00EF5E17 /* Features */,
 				65303FC02AE86A6A00EF5E17 /* OtherControllers */,
 				6563A46B2AD53CE00058A130 /* Experiments */,
@@ -748,9 +751,9 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */,
+				65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */,
 				65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */,
 				65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */,
-				65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -810,8 +813,8 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D842AF9F88C00D767CD /* UserProfileResponse.swift */,
+				8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */,
 				8F9C2D862AF9F89600D767CD /* PetProfile.swift */,
-				8F9C2D882AF9F8A400D767CD /* PetProfileDetails.swift */,
 				8F9C2D8A2AF9FAB300D767CD /* Habit.swift */,
 				65B2749D2AFA488A0030A0F5 /* UserProfileViewModel.swift */,
 			);
@@ -1013,7 +1016,7 @@
 				8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */,
 				6570AA572ADFF435003DC5EB /* BoardingDetailsViewModel.swift in Sources */,
 				65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */,
-				8F9C2D892AF9F8A400D767CD /* PetProfileDetails.swift in Sources */,
+				8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */,
 				8FFEC0762AEB6A81005D790F /* AppAccountManager.swift in Sources */,
 				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
 				65DC1D172AD2B678005D8288 /* PromoCollectionViewCell.swift in Sources */,
@@ -1077,6 +1080,7 @@
 				65B1DEAE2AEECE020018722A /* MasukanDataAnabulViewController.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
+				65A05C572AFB800900C0BC93 /* IconView.swift in Sources */,
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
 				65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* ExtensionUIColor.swift in Sources */,

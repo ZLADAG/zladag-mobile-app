@@ -67,6 +67,17 @@ final class APICaller {
         }
     }
     
+    public func getPetDetailsById(id: String, completion: @escaping (Result<PetProfileDetailsResponse, Error>) -> Void) {
+        getRequest(
+            path: Constants.baseAPIURL + "/profile/pets/\(id)",
+            responseDecoder: PetProfileDetailsResponse.self,
+            httpMethod: .GET,
+            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
+                completion(result)
+        }
+    }
+    
+    
     
     public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
         createRequestLama(with: URL(string: Constants.baseAPIURL + "/signiasdasdas"), type: .POST) { baseRequest in

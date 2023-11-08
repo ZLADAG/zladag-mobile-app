@@ -11,6 +11,12 @@ struct UserProfile: Codable { // <<< YANG DIPAKAI CELINE
     let name : String
     let image : String
     let pets : [PetProfile]
+    
+    init() {
+        self.name = ""
+        self.image = ""
+        self.pets = []
+    }
 }
 
 //

@@ -6,9 +6,7 @@
 //
 
 import UIKit
-
-
-
+import SDWebImage
 
 class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelegate {
     enum InfoContentType {
@@ -17,7 +15,7 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         case diseasesHist
     }
     
-    var petProfile : PetProfileDetails!
+    var petProfile = PetProfileDetails()
     
     private var facilityCollection = PetFacilityPrefCollectionViewController()
     private var habitsCollection = PetHabitsCollectionViewController()
@@ -30,10 +28,43 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
     
     var photo: UIImageView!
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
+    var petId: String
+    
+    init(petId: String) {
+        self.petId = petId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .customLightGray3
-        setUpComponents()
+        
+        setupLoadingScreen()
+        
+        APICaller.shared.getPetDetailsById(id: petId) { result in
+            switch result {
+            case .success(let response):
+                self.petProfile = response.data
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.setUpComponents()
+                    self.spinner.removeFromSuperview()
+                }
+                break
+            case .failure(let error):
+                print("ERROR WHEN FETCHING GET PET DETAILS BY ID\n\(error)")
+                break
+            }
+        }
+        
     }
     
     private func setUpComponents() {
@@ -45,9 +76,9 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         scrollView.scrollsToTop = false
         
         /// Photo
-        let photoName = "dummy-image"
-        photo = createImage(photoName)
+        let photoName = !(petProfile.image.isEmpty) ? petProfile.image : "dummy-image"
         
+        photo = createImage(photoName)
         let petBiodata = PetBiodataView(petProfile: petProfile)
         let petInfo = createPetInfo()
         editProfile = addEditProfile()
@@ -112,7 +143,11 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.image = UIImage(named: imgName)
+        if !(imgName == "dummy-image") {
+            imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imgName)))
+        } else {
+            imageView.image = UIImage(named: imgName)
+        }
         imageView.contentMode = .scaleAspectFill
         
         imageView.clipsToBounds = true
@@ -132,6 +167,24 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         print("arrowMenuBtnTapped")
     }
     
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError()
+    }
     
 }
 

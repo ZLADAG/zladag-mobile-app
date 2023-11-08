@@ -174,8 +174,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if indexPath.section == 1 {
-            let petDetailVC = ProfilePetListDetailsViewController()
-            petDetailVC.petProfile = ProfilePageManager.shared.getPetProfile(id: "1")
+            viewModel.pets[indexPath.row].id
+            let petDetailVC = ProfilePetListDetailsViewController(petId: viewModel.pets[indexPath.row].id)
             
             self.navigationController?.pushViewController(petDetailVC, animated: true)            
         }
