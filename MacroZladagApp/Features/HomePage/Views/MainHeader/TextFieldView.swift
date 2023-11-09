@@ -51,16 +51,14 @@ class TextFieldView: UIButton {
         addSubview(thisImageView)
         addSubview(thisLabel)
         
-        if hasMapIcon != nil {
+        if hasMapIcon != nil { // UTK LOCATION
             addSubview(mapIcon)
         }
         
-        if hasMapIcon == nil {
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "in")
-            dateFormatter.dateStyle = .medium
+        if hasMapIcon == nil { // UTK CALENDAR!
             
-            self.thisLabel.text = dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+            self.thisLabel.text = AppAccountManager.shared.calendarTextDetails
+            
         }
     }
     

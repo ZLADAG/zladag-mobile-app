@@ -12,14 +12,19 @@ class UbahPencarianViewController: UIViewController {
     weak var searchControllerDelegate: SearchResultsViewController?
     
     let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
+    
     let dateFieldView = TextFieldView(fieldTitle: "", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
+    
+    // LAZY KRN DIA AMBIL PROPERTI YG BELUM INIT ^^^^^^^
     lazy var kucingCount = searchControllerDelegate?.kucingCount
     lazy var anjingCount = searchControllerDelegate?.anjingCount
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
+    
     let searchButton = SearchButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         view.backgroundColor = .white
         
@@ -125,8 +130,8 @@ class UbahPencarianViewController: UIViewController {
     }
     
     @objc func presentDatePickerSheet() {
-        let vc  = DatePickerViewController()
-//        vc.delegate = self
+        let vc = CustomDatePickerViewController()
+        vc.ubahControllerDelegate = self
         
         let navVc = UINavigationController(rootViewController: vc)
         
@@ -136,31 +141,37 @@ class UbahPencarianViewController: UIViewController {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.83 * context.maximumDetentValue
+                    0.75 * context.maximumDetentValue
                 })
             ]
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
         }
         
-        
-        self.navigationController?.present(navVc, animated: true, completion: nil)
+        navigationController?.present(navVc, animated: true, completion: nil)
     }
     
     @objc func updateSearch() {
         var navbarDetails = String()
         var petCategories = [String]()
         
+        self.anjingCount = AppAccountManager.shared.anjingCount
+        self.kucingCount = AppAccountManager.shared.kucingCount
+        
         guard
             let anjingCount = self.anjingCount,
             let kucingCount = self.kucingCount else { return }
         
+        
+        
         if anjingCount > 0 {
+            print("ANJING \(anjingCount)")
             self.searchControllerDelegate?.anjingCount = anjingCount
             petCategories.append("dog")
         }
 
         if kucingCount > 0 {
+            print("KUCING \(kucingCount)")
             self.searchControllerDelegate?.kucingCount = kucingCount
             petCategories.append("cat")
         }
@@ -188,8 +199,8 @@ class UbahPencarianViewController: UIViewController {
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
-        self.searchControllerDelegate?.detailsLabel.text = navbarDetails
-        self.searchControllerDelegate?.detailsValue = navbarDetails
+        self.searchControllerDelegate?.detailsLabel.text = "\(AppAccountManager.shared.calendarTextDetails)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
+//        self.searchControllerDelegate?.detailsValue = self.searchControllerDelegate!.detailsLabel.text!
         
         let group = DispatchGroup()
         group.enter()

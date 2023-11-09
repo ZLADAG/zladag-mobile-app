@@ -11,12 +11,14 @@ import HorizonCalendar
 class CustomDatePickerViewController: UIViewController {
 
     var mainView: MainHeaderCollectionReusableView?
+    var controllerDelegate: SearchResultsViewController?
+    var ubahControllerDelegate: UbahPencarianViewController?
     
     var todayComps: DateComponents? = Calendar.current.dateComponents(in: .current, from: Date())
     
     var calendarView: CalendarView?
-    var selectedDay1: Day? = nil
-    var selectedDay2: Day? = nil
+    var selectedDay1: Day? = AppAccountManager.shared.selectedDay1
+    var selectedDay2: Day? = AppAccountManager.shared.selectedDay2
     
     let dariTanggalLabel = UILabel()
     let minDateLabel = UILabel()
@@ -210,6 +212,12 @@ class CustomDatePickerViewController: UIViewController {
             }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setupLabels()
+    }
+    
     func setupLabels() {
         view.addSubview(dariTanggalLabel)
         view.addSubview(sampaiTanggalLabel)
@@ -228,13 +236,21 @@ class CustomDatePickerViewController: UIViewController {
         sampaiTanggalLabel.textColor = .textBlack
         sampaiTanggalLabel.sizeToFit()
         
-        minDateLabel.text = "-"
+        if AppAccountManager.shared.selectedDay1 == nil {
+            minDateLabel.text = "-"
+        } else {
+            minDateLabel.text = "\(Utils.getFormattedDate(date: Calendar.current.date(from: selectedDay1!.components)!))"
+        }
         minDateLabel.font = .systemFont(ofSize: 16, weight: .bold)
         minDateLabel.textColor = .textBlack
         minDateLabel.textAlignment = .left
         minDateLabel.sizeToFit()
         
-        maxDateLabel.text = "-"
+        if AppAccountManager.shared.selectedDay1 == nil {
+            maxDateLabel.text = "-"
+        } else {
+            maxDateLabel.text = "\(Utils.getFormattedDate(date: Calendar.current.date(from: selectedDay2!.components)!))"
+        }
         maxDateLabel.font = .systemFont(ofSize: 16, weight: .bold)
         maxDateLabel.textColor = .textBlack
         maxDateLabel.textAlignment = .right
@@ -341,7 +357,18 @@ class CustomDatePickerViewController: UIViewController {
         let date2 = Calendar.current.date(from: self.selectedDay2!.components)!
         let date2String = Utils.getFormattedDateShortedWithYear(date: date2)
         
+        self.mainView?.minDate = date1
+        self.mainView?.maxDate = date2
         self.mainView?.dateFieldView.thisLabel.text = "\(date1String) - \(date2String)"
+        
+        self.ubahControllerDelegate?.dateFieldView.thisLabel.text = "\(date1String) - \(date2String)"
+        
+        AppAccountManager.shared.calendarTextDetails = "\(date1String) - \(date2String)"
+        AppAccountManager.shared.selectedDay1 = self.selectedDay1
+        AppAccountManager.shared.selectedDay2 = self.selectedDay2
+        
+//        print(self.mainView?.minDate) // MARK: CATATAN
+//        print(self.mainView?.maxDate)
         
         dismiss(animated: true)
     }

@@ -214,12 +214,12 @@ class SearchResultsViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         
         navigationController?.navigationItem.titleView = navbarTitleView
-        rightBarButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
+        rightBarButton.addTarget(self, action: #selector(onClickUbahButton), for: .touchUpInside)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButton)
     }
     
-    @objc func rightButtonClicked() {
+    @objc func onClickUbahButton() {
         let vc  = UbahPencarianViewController()
         let navVc = UINavigationController(rootViewController: vc)
         vc.modalPresentationStyle = .pageSheet
@@ -244,71 +244,8 @@ class SearchResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.backgroundColor = .magenta
         configureCollectionView()
         setupCustomNavbar()
-    }
-    
-    func setupNavigationBar() {
-        //        let imageView = UIImageView(image: UIImage(systemName: "star"))
-        //        imageView.contentMode = .scaleAspectFill
-        //        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        //        imageView.widthAnchor.constraint(equalToConstant: 113).isActive = true
-        //        navigationController?.navigationBar.backgroundColor = .clear
-        //        navigationItem.titleView = imageView
-        let titleView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .red
-            return view
-        }()
-        
-        titleView.addSubview(navbarLocationLabel)
-        titleView.addSubview(navbarDetailsLabel)
-        
-//        titleView.translatesAutoresizingMaskIntoConstraints = false
-//        navbarLocationLabel.translatesAutoresizingMaskIntoConstraints = false
-//        navbarDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        NSLayoutConstraint.activate([
-//            titleView.topAnchor
-//        ])
-        
-        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        navbarLocationLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        navbarDetailsLabel.frame = CGRect(x: 0, y: navbarLocationLabel.bottom, width: 100, height: 20)
-        
-        navigationController?.navigationItem.titleView = titleView
-        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .done, target: nil, action: nil)
-    }
-    
-    func setupNavigationBar2() {
-        let appearance = UINavigationBarAppearance()
-//        appearance.backgroundColor = .customLightOrange
-        appearance.backgroundColor = .clear
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.compactAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
-    }
-    
-    func setupNavigationBar3() {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .customLightOrange
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .white
-        
-//        navigationController?.navigationBar.standardAppearance = appearance2
-//        navigationController?.navigationBar.compactAppearance = appearance2
-//        navigationController?.navigationBar.scrollEdgeAppearance = appearance2
     }
     
     override func viewDidLayoutSubviews() {

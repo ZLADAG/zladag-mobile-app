@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HorizonCalendar
 
 final class AppAccountManager {
     static let shared = AppAccountManager()
@@ -22,7 +23,17 @@ final class AppAccountManager {
     /// Signed in user
     var signedInUser : User?
     
+    var anjingCount = 0
+    var kucingCount = 0
     
+    var calendarTextDetails: String = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "in")
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+    }()
+    var selectedDay1: Day?
+    var selectedDay2: Day?
     
     
     // MARK: Onboarding Functions

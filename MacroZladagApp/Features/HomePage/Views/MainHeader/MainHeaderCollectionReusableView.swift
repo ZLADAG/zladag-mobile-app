@@ -44,12 +44,12 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     let searchContainerView = SearchContainerView()
     let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
     
-    var minDateComps: DateComponents?
-    var maxDateComps: DateComponents?
+    var minDate: Date?
+    var maxDate: Date?
     let dateFieldView = TextFieldView(fieldTitle: "", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
     
-    public var kucingCount = 0
-    public var anjingCount = 0
+    public var kucingCount = AppAccountManager.shared.kucingCount
+    public var anjingCount = AppAccountManager.shared.anjingCount
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
     
     let searchButton = SearchButton()
@@ -68,8 +68,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         return uiView
     }()
     
-    var minDate: Date = Date()
-    var maxDate: Date = Date()
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -150,6 +149,9 @@ extension MainHeaderCollectionReusableView {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
 
+        self.anjingCount = AppAccountManager.shared.anjingCount
+        self.kucingCount = AppAccountManager.shared.kucingCount
+        
         var navbarDetails = String()
         var petCategories = [String]()
         if self.anjingCount > 0 {
@@ -184,6 +186,8 @@ extension MainHeaderCollectionReusableView {
             
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
+        
+        navbarDetails = "\(dateFieldView.thisLabel.text!)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
         
         vc.detailsLabel.text = navbarDetails
         vc.detailsValue = navbarDetails
@@ -280,20 +284,6 @@ extension MainHeaderCollectionReusableView {
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
         }
-//        
-//        if (startDate != nil) {
-//            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
-////            print(startDate)
-//        } else {
-//            vc.startDate = nil
-//        }
-//        
-//        if (endDate != nil) {
-//            vc.endDateLabel.text = String(vc.getDate(self.endDate!))
-////            print(endDate)
-//        } else {
-//            vc.endDate = nil
-//        }
         
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }

@@ -184,6 +184,12 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         setupNavigationBar()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.collectionView.reloadData()
+    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -404,6 +410,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case 0:
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderCollectionReusableView.identifier, for: indexPath) as? MainHeaderCollectionReusableView else { return UICollectionReusableView() }
             header.delegate = self
+            header.numberOfCatsAndDogsButton.catLabel.text = AppAccountManager.shared.kucingCount.description
+            header.numberOfCatsAndDogsButton.dogLabel.text = AppAccountManager.shared.anjingCount.description
+            header.dateFieldView.thisLabel.text = AppAccountManager.shared.calendarTextDetails
             return header
         case 1:
             guard let header1 = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionOneHeaderCollectionReusableView.identifier, for: indexPath) as? SectionOneHeaderCollectionReusableView else { return UICollectionReusableView() }
