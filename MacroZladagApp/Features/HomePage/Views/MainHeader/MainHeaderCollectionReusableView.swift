@@ -43,7 +43,11 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     
     let searchContainerView = SearchContainerView()
     let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
+    
+    var minDateComps: DateComponents?
+    var maxDateComps: DateComponents?
     let dateFieldView = TextFieldView(fieldTitle: "", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
+    
     public var kucingCount = 0
     public var anjingCount = 0
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
