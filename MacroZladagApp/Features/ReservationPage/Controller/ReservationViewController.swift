@@ -39,7 +39,7 @@ class ReservationViewController: UIViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(530))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
                 sectionLayout = NSCollectionLayoutSection(group: group)
@@ -88,11 +88,11 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
-            cell.backgroundColor = .purple
+            cell.backgroundColor = .white
+            cell.setUpCell()
             return cell
         }
     }
-    
     
 }
 
