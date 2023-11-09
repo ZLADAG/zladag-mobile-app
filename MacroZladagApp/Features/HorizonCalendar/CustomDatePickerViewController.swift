@@ -10,7 +10,9 @@ import HorizonCalendar
 
 class CustomDatePickerViewController: UIViewController {
 
-    var mainViewController: CobaCobaViewController?
+    var mainView: MainHeaderCollectionReusableView?
+    
+    var todayComps: DateComponents? = Calendar.current.dateComponents(in: .current, from: Date())
     
     var calendarView: CalendarView?
     var selectedDay1: Day? = nil
@@ -95,19 +97,19 @@ class CustomDatePickerViewController: UIViewController {
     
     func doTheLogic(_ day: Day) {
         if self.selectedDay1 == nil && self.selectedDay2 == nil {
-            self.selectedDay1 = day
+            if day.components.day! >= todayComps!.day! {
+                self.selectedDay1 = day
+            } else {
+                self.selectedDay1 = nil
+                updateDateLabel(day1: self.selectedDay1, day2: self.selectedDay2)
+            }
         } else if self.selectedDay1 != nil && self.selectedDay2 == nil {
             self.selectedDay2 = day
             
-            if self.selectedDay2! < self.selectedDay1! {
-                self.selectedDay2 = nil
-                self.selectedDay1 = day
-            } else if self.selectedDay2! == self.selectedDay1! {
+            if self.selectedDay2! <= self.selectedDay1! {
                 self.selectedDay2 = nil
                 self.selectedDay1 = day
             }
-            
-            
         } else if self.selectedDay1 != nil && self.selectedDay2 != nil {
             self.selectedDay1 = day
             self.selectedDay2 = nil
@@ -117,6 +119,7 @@ class CustomDatePickerViewController: UIViewController {
     }
     
     func updateDateLabel(day1: Day?, day2: Day?) {
+        
         if day1 == nil {
             minDateLabel.text = "-"
         } else {
@@ -128,17 +131,13 @@ class CustomDatePickerViewController: UIViewController {
         } else {
             maxDateLabel.text = Utils.getFormattedDate(date: Calendar.current.date(from: day2!.components)!)
         }
-        
-        
     }
     
-    
     func setupCalendar() {
-        calendarView = CalendarView(initialContent: makeContent())
+        calendarView = CalendarView(initialContent: makeContent()) // HORIZON CALENDAR'S
         guard let calendarView else { return }
         
         view.addSubview(calendarView)
-        
         
         calendarView.daySelectionHandler = { [weak self] day in
             guard let self = self else { return }
@@ -148,7 +147,6 @@ class CustomDatePickerViewController: UIViewController {
             let newContent = self.makeContent()
             self.calendarView?.setContent(newContent)
         }
-        
 
         calendarView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -196,14 +194,46 @@ class CustomDatePickerViewController: UIViewController {
                     backgroundColor: .clear
                 )
                 
+                if let todayComps = self.todayComps {
+                    if
+                        let dayTemp = day.components.day,
+                        let monthTemp = day.components.month,
+                        let yearTemp = day.components.year
+                    {
+                        if dayTemp == todayComps.day && monthTemp == todayComps.month && yearTemp == todayComps.year {
+                            invariantViewProperties.textColor = .textBlack
+                            invariantViewProperties.backgroundColor = .customLightGray.withAlphaComponent(0.2)
+                        }
+                    }
+                }
+                
+                
                 if day == selectedDay1 {
-                    invariantViewProperties.textColor = .white
-                    invariantViewProperties.backgroundColor = .customOrange
+                    if let selectedDay1 {
+                        if selectedDay1.components.month! >= self.todayComps?.month ?? 99 {
+                            if selectedDay1.components.day! >= self.todayComps?.day ?? 99 {
+                                invariantViewProperties.textColor = .white
+                                invariantViewProperties.backgroundColor = .customOrange
+                            } else {
+                                self.selectedDay1 = nil
+                                self.selectedDay2 = nil
+                                self.updateDateLabel(day1: self.selectedDay1, day2: self.selectedDay2)
+                            }
+                        }
+                    }
                 }
                 
                 if day == selectedDay2 {
-                    invariantViewProperties.textColor = .white
-                    invariantViewProperties.backgroundColor = .customOrange
+                    if let selectedDay2 {
+                        if selectedDay2.components.month! >= self.todayComps?.month ?? 99 {
+                            if selectedDay2.components.day! >= self.todayComps?.day ?? 99 {
+                                invariantViewProperties.textColor = .white
+                                invariantViewProperties.backgroundColor = .customOrange
+                            } else {
+                                self.selectedDay2 = nil
+                            }
+                        }
+                    }
                 }
                 
                 return DayLabel.calendarItemModel(
@@ -212,14 +242,15 @@ class CustomDatePickerViewController: UIViewController {
                 )
             }
             .dayRangeItemProvider(for: [dateRangeToHighlight]) { dayRangeLayoutContext in
-                
                 if self.selectedDay1 != nil && self.selectedDay2 != nil {
-                    DayRangeIndicatorView.calendarItemModel(
+//                    self.todayComps = nil
+                    return DayRangeIndicatorView.calendarItemModel(
                         invariantViewProperties: DayRangeIndicatorView.InvariantViewProperties.init(indicatorColor: .orangeDateRange),
                         viewModel: DayRangeIndicatorView.ViewModel.init(framesOfDaysToHighlight: dayRangeLayoutContext.daysAndFrames.map { $0.frame })
                     )
                 } else {
-                    DayRangeIndicatorView.calendarItemModel(
+//                    self.todayComps = Calendar.current.dateComponents(in: .current, from: Date())
+                    return DayRangeIndicatorView.calendarItemModel(
                         invariantViewProperties: DayRangeIndicatorView.InvariantViewProperties.init(indicatorColor: UIColor.black),
                         viewModel: DayRangeIndicatorView.ViewModel.init(framesOfDaysToHighlight: [CGRect.zero])
                     )
@@ -293,9 +324,9 @@ class CustomDatePickerViewController: UIViewController {
     @objc func onClickSimpanButton() {
         print("simpan")
         guard self.selectedDay1 != nil && self.selectedDay2 != nil else { return }
-        mainViewController?.minDate = Calendar.current.date(from: self.selectedDay1!.components)!
-        mainViewController?.maxDate = Calendar.current.date(from: self.selectedDay2!.components)!
-        mainViewController?.label.text = "oke\n\(Utils.getFormattedDate(date: mainViewController!.minDate))\n\(Utils.getFormattedDate(date: mainViewController!.maxDate))"
+//        mainViewController?.minDate = Calendar.current.date(from: self.selectedDay1!.components)!
+//        mainViewController?.maxDate = Calendar.current.date(from: self.selectedDay2!.components)!
+//        mainViewController?.label.text = "oke\n\(Utils.getFormattedDate(date: mainViewController!.minDate))\n\(Utils.getFormattedDate(date: mainViewController!.maxDate))"
         dismiss(animated: true)
     }
     

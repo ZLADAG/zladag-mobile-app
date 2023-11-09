@@ -206,8 +206,8 @@ class DatePickerViewController: UIViewController {
             extractedAllDate = "\(extractedStartDate) - \(extractedEndDate)"
         }
         
-        delegate?.startDate = self.startDate
-        delegate?.endDate = self.endDate
+        delegate?.minDate = self.startDate ?? Date()
+        delegate?.maxDate = self.endDate ?? Date()
         delegate?.dateFieldView.thisLabel.text = "\(extractedAllDate)"
     }
     

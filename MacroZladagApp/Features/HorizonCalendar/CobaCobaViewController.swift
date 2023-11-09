@@ -63,7 +63,7 @@ class CobaCobaViewController: UIViewController {
     
     @objc func onClickButton() {
         let vc  = CustomDatePickerViewController()
-        vc.mainViewController = self
+//        vc.mainViewController = self
         let navVc = UINavigationController(rootViewController: vc)
         
         if let sheet = navVc.sheetPresentationController {

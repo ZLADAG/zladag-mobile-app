@@ -64,8 +64,8 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         return uiView
     }()
     
-    var startDate: Date?
-    var endDate: Date?
+    var minDate: Date = Date()
+    var maxDate: Date = Date()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -259,8 +259,8 @@ extension MainHeaderCollectionReusableView {
     }
     
     @objc func presentDatePickerSheet() {
-        let vc  = DatePickerViewController()
-        vc.delegate = self
+        let vc = CustomDatePickerViewController()
+        vc.mainView = self
         
         let navVc = UINavigationController(rootViewController: vc)
         
@@ -270,26 +270,26 @@ extension MainHeaderCollectionReusableView {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.83 * context.maximumDetentValue
+                    0.75 * context.maximumDetentValue
                 })
             ]
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
         }
-        
-        if (startDate != nil) {
-            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
-//            print(startDate)
-        } else {
-            vc.startDate = nil
-        }
-        
-        if (endDate != nil) {
-            vc.endDateLabel.text = String(vc.getDate(self.endDate!))
-//            print(endDate)
-        } else {
-            vc.endDate = nil
-        }
+//        
+//        if (startDate != nil) {
+//            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
+////            print(startDate)
+//        } else {
+//            vc.startDate = nil
+//        }
+//        
+//        if (endDate != nil) {
+//            vc.endDateLabel.text = String(vc.getDate(self.endDate!))
+////            print(endDate)
+//        } else {
+//            vc.endDate = nil
+//        }
         
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }

@@ -175,7 +175,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         
         
         let navLabel = UILabel()
-        navLabel.text = "Deskripsi anabul"
+        navLabel.text = "Jumlah anabul"
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: (32 - 23) / 2, width: 290, height: 23)
         
@@ -235,7 +235,7 @@ class CatsAndDogsCounterViewController: UIViewController {
             catIcon.heightAnchor.constraint(equalToConstant: 36),
             
             dogIcon.leadingAnchor.constraint(equalTo: anjingContainer.leadingAnchor, constant: 16),
-            dogIcon.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 20),
+            dogIcon.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 16),
             dogIcon.widthAnchor.constraint(equalToConstant: 36),
             dogIcon.heightAnchor.constraint(equalToConstant: 36),
             
@@ -291,12 +291,12 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     func setupButtons() {
         decrementAnjingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
-        decrementAnjingButton.imageView?.tintColor = .customLightGray
+        decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         incrementAnjingButton.setImage(UIImage(named: "increment-button"), for: .normal)
         incrementAnjingButton.imageView?.tintColor = .customOrange
         
         decrementKucingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
-        decrementKucingButton.imageView?.tintColor = .customLightGray
+        decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         incrementKucingButton.setImage(UIImage(named: "increment-button"), for: .normal)
         incrementKucingButton.imageView?.tintColor = .customOrange
         
@@ -325,7 +325,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         }
         
         if kucingCount == 0 {
-            decrementKucingButton.imageView?.tintColor = .lightGray
+            decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
     }
     
@@ -333,6 +333,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         self.kucingCount += 1
         kucingCountLabel.text = self.kucingCount.description
         decrementKucingButton.imageView?.tintColor = .customOrange
+        decrementKucingButton.imageView?.layer.opacity = 1.0
     }
     
     @objc func dogDecrementButton() {
@@ -342,7 +343,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         }
         
         if anjingCount == 0 {
-            decrementAnjingButton.imageView?.tintColor = .lightGray
+            decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
     }
     
@@ -350,6 +351,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         self.anjingCount += 1
         anjingCountLabel.text = self.anjingCount.description
         decrementAnjingButton.imageView?.tintColor = .customOrange
+        decrementAnjingButton.imageView?.layer.opacity = 1.0
     }
     
     @objc func saveData() {
