@@ -758,9 +758,29 @@ class BoardingDetailsViewController: UIViewController {
     }
     
     @objc func selectServiceButtonTapped() {
-
-        let urlAdress = "https://www.google.com"
-        presentOpenUrlAlert("Open Webpage", "You will be directed to a webpage", urlAdress)
+        if !AuthManager.shared.isSignedIn {
+            let vc  = SmallLoginSheetViewController()
+            vc.mainViewController = self
+            let navVc = UINavigationController(rootViewController: vc)
+            
+            vc.modalPresentationStyle = .pageSheet
+            
+            if let sheet = navVc.sheetPresentationController {
+                sheet.preferredCornerRadius = 10
+                sheet.detents = [
+                    .custom(resolver: { context in
+                        0.25 * context.maximumDetentValue
+                    })
+                ]
+                sheet.prefersGrabberVisible = true
+                sheet.largestUndimmedDetentIdentifier = .large
+            }
+            
+            navigationController?.present(navVc, animated: true, completion: nil)
+        } else {
+            let urlAdress = "https://www.google.com"
+            presentOpenUrlAlert("Open Webpage", "You will be directed to a webpage", urlAdress)
+        }
     }
     
     @objc func photosPageControlValueChanged(_ sender: UIPageControl) {
