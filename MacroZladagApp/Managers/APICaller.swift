@@ -141,6 +141,7 @@ final class APICaller {
         let reqMethod = HTTPMethod.GET
         
         fetchDataGETRequest(from: url, responseType: responseType, httpReqMethod: reqMethod) { result in
+            
             switch result {
             case .success(let response):
                 print(response)
@@ -156,24 +157,23 @@ final class APICaller {
     
     
     func fetchDataGETRequest <T: Codable>(from url: URL, responseType: T.Type, httpReqMethod method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
-//        
-//        createRequest(with: url, type: method) { baseRequest in
-//            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
-//                guard let data = data, error == nil else {
-//                    completion(.failure(error!))
-//                    return
-//                }
-//                
-//                do {
-//                    let result = try JSONDecoder().decode(T.self, from: data)
-//                    completion(Result.success(result))
-//                } catch {
-//                    print("error in \(T.self):", error.localizedDescription)
-//                    completion(Result.failure(error))
-//                }
-//            }
-//            task.resume()
-//        }
+        createRequest2(with: url, type: method) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(error!))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: data)
+                    completion(Result.success(result))
+                } catch {
+                    print("error in \(T.self):", error.localizedDescription)
+                    completion(Result.failure(error))
+                }
+            }
+            task.resume()
+        }
     }
     
     func fetchDataPOSTRequest<T: Decodable, B: Encodable>(
@@ -344,6 +344,17 @@ final class APICaller {
             }
         }
         task.resume()
+    }
+    
+    private func createRequest2(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
+        guard let apiURL = url else { return }
+        
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = type.rawValue
+        
+        // nanti tanya cindy apakah sudah wajib set header auth sebelum requests
+        
+        completion(request) // continue the request
     }
 
     

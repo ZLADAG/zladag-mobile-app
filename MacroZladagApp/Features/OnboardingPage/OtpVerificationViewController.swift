@@ -147,20 +147,11 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
        
         DispatchQueue.global().async {
             AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
-               
+               print(">OTP", isSuccess)
                 DispatchQueue.main.async { [self] in
                     if isSuccess {
                         self.otpFieldStack.errorLabel.text = ""
                         self.otpFieldStack.errorLabel.isHidden = true
-                        
-                       
-                        DispatchQueue.global().async {
-                            // MARK: Direct to input username
-                            
-//                            let nextVC =
-//                            navigationController?.popToRootViewController(animated: true)
-//                            navigationController?.pushViewController(nextVC, animated: true)
-                        }
                         
                     } else {
                         print(message ?? "??")

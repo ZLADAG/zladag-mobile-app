@@ -7,6 +7,12 @@
 
 import UIKit
 
+/*
+ BUTUH
+ SignInViewController
+ CreateAccountViewController
+ */
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -19,10 +25,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        let navVc = UINavigationController(rootViewController: CreateAccountViewController())
-//        window.rootViewController = navVc
+        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
+        window.rootViewController = navVc
         
-        window.rootViewController = TabBarViewController()
+//        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

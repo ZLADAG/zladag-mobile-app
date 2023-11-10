@@ -26,7 +26,7 @@ class OnboardingFormViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("OKEEE")
         // Do any additional setup after loading the view.
         view.backgroundColor = .customGray2
         

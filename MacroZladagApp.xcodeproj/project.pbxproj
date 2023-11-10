@@ -879,11 +879,11 @@
 		8FFEC03D2AEA618C005D790F /* OnboardingPage */ = {
 			isa = PBXGroup;
 			children = (
-				8FFEC03E2AEA61B6005D790F /* CreateAccountViewController.swift */,
 				8FFEC0402AEA61DF005D790F /* OnboardingFormViewController.swift */,
+				8FFEC03E2AEA61B6005D790F /* CreateAccountViewController.swift */,
+				8FFEC0462AEA6257005D790F /* SignInViewController.swift */,
 				8FFEC0422AEA6202005D790F /* OtpVerificationViewController.swift */,
 				8FFEC0442AEA6220005D790F /* SignInByWhatsappViewController.swift */,
-				8FFEC0462AEA6257005D790F /* SignInViewController.swift */,
 			);
 			path = OnboardingPage;
 			sourceTree = "<group>";
