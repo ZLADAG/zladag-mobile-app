@@ -100,6 +100,15 @@ final class APICaller {
         }
     }
     
+    public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
+        getRequest(
+            path: Constants.baseAPIURL + "/pet-categories/\(species)/breeds-and-habits",
+            responseDecoder: BreedsAndHabitsResponse.self,
+            httpMethod: .GET,
+            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
+                completion(result)
+        }
+    }
     
     
     
