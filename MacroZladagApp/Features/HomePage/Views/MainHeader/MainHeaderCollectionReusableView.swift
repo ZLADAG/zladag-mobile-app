@@ -86,7 +86,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         
         searchButton.addTarget(self, action: #selector(goToSearchResultsViewController), for: .touchUpInside)
         
-        dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
+//        dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
         
         numberOfCatsAndDogsButton.addTarget(self, action: #selector(presentCatsAndDogSheet), for: .touchUpInside)
     }
@@ -258,41 +258,7 @@ extension MainHeaderCollectionReusableView {
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }
     
-    @objc func presentDatePickerSheet() {
-        let vc  = DatePickerViewController()
-        vc.delegate = self
-        
-        let navVc = UINavigationController(rootViewController: vc)
-        
-        vc.modalPresentationStyle = .pageSheet
-        
-        if let sheet = navVc.sheetPresentationController {
-            sheet.preferredCornerRadius = 10
-            sheet.detents = [
-                .custom(resolver: { context in
-                    0.83 * context.maximumDetentValue
-                })
-            ]
-            sheet.prefersGrabberVisible = true
-            sheet.largestUndimmedDetentIdentifier = .large
-        }
-        
-        if (startDate != nil) {
-            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
-//            print(startDate)
-        } else {
-            vc.startDate = nil
-        }
-        
-        if (endDate != nil) {
-            vc.endDateLabel.text = String(vc.getDate(self.endDate!))
-//            print(endDate)
-        } else {
-            vc.endDate = nil
-        }
-        
-        delegate?.navigationController?.present(navVc, animated: true, completion: nil)
-    }
+    
 }
 
 

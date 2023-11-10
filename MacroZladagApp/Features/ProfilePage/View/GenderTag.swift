@@ -35,10 +35,10 @@ class GenderTag: UIView {
         switch petGender {
         case "Female":
             icon = createIcon(femaleIcon)
-            self.backgroundColor = .customLightPink
+            self.backgroundColor = .customLightPink2
         default:
             icon = createIcon(maleIcon)
-            self.backgroundColor = .customLightBlue
+            self.backgroundColor = .customLightBlue2
         }
         
         setUpConstraints()

@@ -77,6 +77,17 @@ final class APICaller {
         }
     }
     
+    public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
+
+        createRequest(
+            path: Constants.baseAPIURL + "/pet-categories/\(species)/breeds-and-habits",
+            responseDecoder: BreedsAndHabitsResponse.self,
+            httpMethod: .GET,
+            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
+                completion(result)
+            }
+    }
+    
     
     
     public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
@@ -347,12 +358,17 @@ final class APICaller {
     }
 
     
-    func createRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
+    func createRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, token: String? = nil, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let apiURL = URL(string: path) else { return }
         
         var request = URLRequest(url: apiURL)
         request.httpMethod = httpMethod.rawValue
+        
+        if let token {
+            request.setValue(token, forHTTPHeaderField: "Authorization")
+            
+        }
         
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {

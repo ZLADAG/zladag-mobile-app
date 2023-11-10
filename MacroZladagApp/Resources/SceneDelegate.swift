@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        let navVc = UINavigationController(rootViewController: ProfileViewController())
-        let navVc = UINavigationController(rootViewController: CobaCobaViewController())
+        let navVc = UINavigationController(rootViewController: ProfileViewController())
+//        let navVc = UINavigationController(rootViewController: CobaCobaViewController())
         window.rootViewController = navVc
         
 //        window.rootViewController = TabBarViewController()

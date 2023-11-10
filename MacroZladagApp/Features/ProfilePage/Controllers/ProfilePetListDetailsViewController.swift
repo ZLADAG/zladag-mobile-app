@@ -155,7 +155,7 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
     }
     
     @objc func arrowMenuBtnTapped(gesture:UITapGestureRecognizer){
-        // Define the clicked effect
+        /// Define the clicked effect
         UIView.animate(withDuration: 0.1, animations: {
             self.editProfile.backgroundColor = UIColor.customLightGray3
         }) { _ in
@@ -164,7 +164,16 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
             }
         }
         
+        let editPetVC =  TambahProfilAnabulViewController()
+        setEditProfileInputField()
+        navigationController?.pushViewController(editPetVC, animated: true)
         print("arrowMenuBtnTapped")
+    }
+    
+    func setEditProfileInputField() {
+        let editPetVC =  TambahProfilAnabulViewController()
+//        editPetVC = petProfile.name
+//        editPetVC.berat
     }
     
     func setupLoadingScreen() {
