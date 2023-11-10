@@ -136,12 +136,19 @@ class SmallLoginSheetViewController: UIViewController {
     
     
     @objc func onClickMasukButton() {
-        print("masukkkk")
+        print("onClickMasukButton")
+        let vc = SignInViewController()
+        
+        self.mainViewController?.dismiss(animated: true)
+        self.mainViewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func onClickBuatAkun() {
-        print("buatakun")
-//        let vc = 
+        print("onClickBuatAkun")
+        
+        let vc = CreateAccountViewController()
+        self.mainViewController?.dismiss(animated: true)
+        self.mainViewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func onClickCloseButton() {
