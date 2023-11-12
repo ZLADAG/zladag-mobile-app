@@ -23,7 +23,7 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
     private var habitsContent: UIView!
     private var scrollView: UIScrollView!
     private var contentStack: UIStackView!
-
+    
     private var editProfile: ProfileArrowMenu!
     
     var photo: UIImageView!
@@ -43,27 +43,44 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         super.init(nibName: nil, bundle: nil)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .customLightGray3
-        
-        setupLoadingScreen()
-        
+    override func viewWillAppear(_ animated: Bool) {
         APICaller.shared.getPetDetailsById(id: petId) { result in
             switch result {
             case .success(let response):
                 self.petProfile = response.data
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.setUpComponents()
-                    self.spinner.removeFromSuperview()
-                }
                 break
             case .failure(let error):
                 print("ERROR WHEN FETCHING GET PET DETAILS BY ID\n\(error)")
                 break
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .customLightGray3
+        
+        setupLoadingScreen()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.setUpComponents()
+            self.spinner.removeFromSuperview()
+        }
+        
+        // MARK: BEFORE
+//        APICaller.shared.getPetDetailsById(id: petId) { result in
+//            switch result {
+//            case .success(let response):
+//                self.petProfile = response.data
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    self.setUpComponents()
+//                    self.spinner.removeFromSuperview()
+//                }
+//                break
+//            case .failure(let error):
+//                print("ERROR WHEN FETCHING GET PET DETAILS BY ID\n\(error)")
+//                break
+//            }
+//        }
         
     }
     
@@ -165,16 +182,15 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         }
         
         let editPetVC =  TambahProfilAnabulViewController()
-        setEditProfileInputField()
+        editPetVC.confCurrentPetData(pet: petProfile)
+        
+//        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTappedOnEditPetVC))
+//        editPetVC.navigationController?.navigationItem.backBarButtonItem = backButton
+        
         navigationController?.pushViewController(editPetVC, animated: true)
         print("arrowMenuBtnTapped")
     }
     
-    func setEditProfileInputField() {
-        let editPetVC =  TambahProfilAnabulViewController()
-//        editPetVC = petProfile.name
-//        editPetVC.berat
-    }
     
     func setupLoadingScreen() {
         view.addSubview(spinner)
@@ -199,7 +215,7 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
 
 
 extension ProfilePetListDetailsViewController {
-   
+    
     private func createPetInfo() -> UIView {
         /// Facility preference
         let facilityTitle = ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Preferensi Fasilitas", type: .menu)
@@ -216,7 +232,7 @@ extension ProfilePetListDetailsViewController {
         
         /// Habits
         let habitsTitle =  ProfileIconLabel(iconName: "facility-grooming-icon", titleName: "Kebiasaan", type: .menu)
-
+        
         if petProfile.petHabits.isEmpty {
             habitsContent = createLabel("Tidak ada")
         } else {
@@ -230,17 +246,17 @@ extension ProfilePetListDetailsViewController {
         
         /// Disease history
         let historyOfIllness = petProfile.historyOfIllness
-//        historyOfIllness = ""
+        //        historyOfIllness = ""
         let historyOfIllnessTitle = ProfileIconLabel(iconName: "habits-icon", titleName: "Riwayat Penyakit", type: .menu)
         var historyOfIllnessContent: UIView!
-
+        
         if historyOfIllness == "" || historyOfIllness == nil {
             historyOfIllnessContent = createLabel("Tidak ada")
         } else {
             historyOfIllnessContent = createItalicFreeText(historyOfIllness!)
         }
         
-      
+        
         
         let historyOfIllnessStack = createInfoContentStack(
             content: [historyOfIllnessTitle, historyOfIllnessContent],
@@ -271,7 +287,7 @@ extension ProfilePetListDetailsViewController {
         facilityContent = UIView()
         facilityContent.addSubview(facilityCollection.view)
         facilityContent.bounds = facilityCollection.view.frame
-
+        
         facilityCollection.view.translatesAutoresizingMaskIntoConstraints = false
         facilityCollection.didMove(toParent: self)
         
@@ -286,7 +302,7 @@ extension ProfilePetListDetailsViewController {
     private func addPetHabitsCollection() {
         addChild(habitsCollection)
         habitsCollection.habits = petProfile.petHabits
-
+        
         habitsContent = UIView()
         habitsContent.addSubview(habitsCollection.view)
         habitsContent.bounds = habitsCollection.view.frame
@@ -340,7 +356,7 @@ extension ProfilePetListDetailsViewController {
         label.setContentHuggingPriority(.required, for: .horizontal)
         
         label.font = .systemFont(ofSize: 14, weight: .medium)
-
+        
         label.text = text
         label.textColor = .gray
         label.numberOfLines = 0
