@@ -10,6 +10,7 @@ import UIKit
 class LanjutWelcomingViewController: UIViewController {
     
     var userProfileName: String?
+    var phoneNumber: String?
     
     let mainLabel: UILabel = {
         let label = UILabel()
@@ -67,6 +68,8 @@ class LanjutWelcomingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        postRequestSignUp()
+        
         if let userProfileName = self.userProfileName {
             print("PENGGUNA:", userProfileName)            
         }
@@ -85,6 +88,50 @@ class LanjutWelcomingViewController: UIViewController {
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton4), for: .touchUpOutside)
         
         nantiSajaButton.addTarget(self, action: #selector(clickNantiSajaButton), for: .touchUpInside)
+    }
+    
+    func postRequestSignUp() {
+        guard let userProfileName, let phoneNumber else { return }
+        print(phoneNumber)
+        print(userProfileName)
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        
+        APICaller.shared.postRequestSignUp(
+            name: userProfileName,
+            phoneNumber: phoneNumber) { result in
+                defer {
+                    group.leave()
+                }
+                
+                switch result {
+                case .success(let response):
+                    print("SIGN UP: \(response.success)")
+                    break
+                case .failure(let error):
+                    print("ERROR WHEN SIGNING UP\n\(error)")
+                    break
+                }
+                
+            }
+        
+        group.notify(queue: .main) {
+            APICaller.shared.postRequestSignIn(
+                phoneNumber: phoneNumber) { result in
+                    switch result {
+                    case .success(let response):
+                        print("sign in token: \(response.personalAccessToken)")
+                        AuthManager.shared.cacheToken(with: response.personalAccessToken)
+                        break
+                    case .failure(let error):
+                        print("ERROR WHEN SIGNING IN\n\(error)")
+                    }
+                }
+        }
+        
+        
     }
     
     func setupHeaderLabels() {

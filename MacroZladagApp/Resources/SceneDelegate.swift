@@ -19,11 +19,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
+        if AuthManager.shared.isSignedIn {
+            window.rootViewController = TabBarViewController()
+        } else {
+            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
+            window.rootViewController = navVc
+        }
+        
 //        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//        let navVc = UINavigationController(rootViewController: AnabulTersimpanViewController())
+////        let navVc = UINavigationController(rootViewController: SignInViewController())
 //        window.rootViewController = navVc
         
-        window.rootViewController = TabBarViewController()
+//        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

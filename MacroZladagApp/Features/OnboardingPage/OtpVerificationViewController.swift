@@ -146,7 +146,8 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
     func validateOtp() {
             
         let otpCode = otpFieldStack.getOtpCode()
-        AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
+        let phoneNumber = "62\(self.phoneNum)"
+        AppAccountManager.shared.validateOtpVerification(no: phoneNumber, otpCode: otpCode, completion: { (isSuccess, message) in
             
             if isSuccess {
                 DispatchQueue.main.async {
@@ -160,6 +161,7 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
                         alert.dismiss(animated: true)
                         
                         let vc = WelcomingViewController()
+                        vc.phoneNumber = phoneNumber
                         self.navigationController?.pushViewController(vc, animated: true)
                     })
                 }
@@ -172,10 +174,7 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
                 }
             }
         })
-
-        
     }
-    
 }
 
 /// Prompt Label Button Protocol

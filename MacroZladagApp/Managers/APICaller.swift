@@ -139,6 +139,67 @@ final class APICaller {
         }
     }
     
+    public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-up")!)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let reqBody: [String: String] = [
+            "signMethod": "phoneNumber",
+            "name": name,
+            "phoneNumber": phoneNumber
+        ]
+        
+        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: req) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(SuccessResponse.self, from: data)
+                completion(Result.success(result))
+            } catch {
+                print("error when decoding /sign-up:\n", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
+    public func postRequestSignIn(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
+        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-in")!)
+        req.httpMethod = "POST"
+        
+//        req.setValue("application/json", forHTTPHeaderField: "Accept") // NGARUH!!!
+        
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let reqBody: [String: String] = [
+            "signMethod": "phoneNumber",
+            "phoneNumber": phoneNumber
+        ]
+        
+        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: req) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(SignInResponse.self, from: data)
+                completion(Result.success(result))
+            } catch {
+                print("error when decoding /sign-in:\n", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
     
     
     

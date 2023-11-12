@@ -38,7 +38,7 @@ class AuthManager {
             
             do {
                 let result = try JSONDecoder().decode(SignInResponse.self, from: data)
-                print("MANTAPP APPLE")
+                print("APPLE")
                 self.cacheToken(with: result.personalAccessToken)
                 completion(Result.success(result))
             } catch {

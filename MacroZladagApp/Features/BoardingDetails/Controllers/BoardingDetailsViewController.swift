@@ -346,7 +346,6 @@ class BoardingDetailsViewController: UIViewController {
 //                       .map { $0.frame.height }
 //                       .reduce(0, +)
 //        print("contentAboveHeight - INFO: \(contentAboveHeight)")
-
     }
     
     func addReviewSegmentView() {
@@ -777,9 +776,6 @@ class BoardingDetailsViewController: UIViewController {
             }
             
             navigationController?.present(navVc, animated: true, completion: nil)
-        } else {
-            let urlAdress = "https://www.google.com"
-            presentOpenUrlAlert("Open Webpage", "You will be directed to a webpage", urlAdress)
         }
     }
     

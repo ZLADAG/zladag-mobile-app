@@ -96,8 +96,6 @@ extension CreateAccountViewController: PhoneNumTextFieldDelegate {
 
 extension CreateAccountViewController: PrimaryButtonFilledDelegate {
     func btnTapped() {
-        print("yes")
-        
         /// Perform background tasks: This code is not running on the main thread
         DispatchQueue.global().async {
             DispatchQueue.main.async { [self] in

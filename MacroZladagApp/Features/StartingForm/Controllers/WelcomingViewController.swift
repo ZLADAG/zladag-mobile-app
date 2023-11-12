@@ -8,6 +8,8 @@
 import UIKit
 
 class WelcomingViewController: UIViewController {
+    
+    var phoneNumber: String?
 
     let imageView = UIImageView()
     let headingLabel = UILabel()
@@ -145,6 +147,7 @@ class WelcomingViewController: UIViewController {
         
         let vc = LanjutWelcomingViewController()
         vc.userProfileName = self.nameTextFieldView.textField.text
+        vc.phoneNumber = self.phoneNumber
         
         navigationController?.pushViewController(vc, animated: true)
     }

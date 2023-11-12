@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class SignInViewController: UIViewController {
     
@@ -105,6 +106,7 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         if optionType!.contains("apple") {
             print("go to SignInBy APPLE ViewController")
+            handleSignInWithApple()
         }
         else if optionType!.contains("google") {
             print("go to SignInBy GOOGLE ViewController")
@@ -121,3 +123,74 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         }
     }
 }
+
+extension SignInViewController: ASAuthorizationControllerDelegate {
+    func handleSignInWithApple() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.email, .fullName]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        
+        controller.performRequests()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        switch authorization.credential {
+        case let credentials as ASAuthorizationAppleIDCredential:
+//            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
+//                print(userId)
+//                handleSignIn(true)
+//            } else {
+//                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
+//                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
+//                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
+//                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
+//                print(UserDefaults.standard.value(forKey: "userId") as! String)
+//                handleSignIn(true)
+//            }
+            
+            print(credentials.user)
+            print(credentials.email)
+            print(credentials.fullName?.givenName)
+            print(credentials.fullName?.familyName)
+//            handleSignIn(true)
+        default:
+            break
+        }
+        
+        
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("USER CANCELLED APPLE SIGN IN")
+        print(error.localizedDescription)
+        print()
+    }
+    
+    func handleSignIn(_ success: Bool) {
+        guard success else {
+            let alert = UIAlertController(title: "Gagal!", message: "Apple Sign In tidak berhasil", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        let mainAppTabBarVC = TabBarViewController()
+        mainAppTabBarVC.modalPresentationStyle = .fullScreen // user can't swipe it away!
+
+        present(mainAppTabBarVC, animated: true)
+        
+    }
+}
+
+extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
+    }
+}
+
+
