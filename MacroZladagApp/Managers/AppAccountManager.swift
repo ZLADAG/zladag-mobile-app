@@ -41,7 +41,6 @@ final class AppAccountManager {
         apiCaller.postRequest(parameters: parameters, path: path) { (result, error) in
             if let result = result {
                 completion(result, nil)
-                
             } else if let error = error {
                 completion(nil, error)
             }
@@ -74,8 +73,6 @@ final class AppAccountManager {
                 print(verificationCode!)
                 
                 completion(true, nil)
-
-                
             } else if let error = error {
                 completion(false, error.localizedDescription)
             }
@@ -90,15 +87,11 @@ final class AppAccountManager {
         askPostRequest(parameters: validateWAcode, path: MyConstants.Urls.verificationCodeURLPath) { (result, error) in
             print("\nvalidateWAcode")
             if let result = result {
-
                 guard result["success"] != nil else {
                     completion(false, "Ups! OTP salah. Cek ulang dan coba lagi.")
                     return
                 }
-                
                 completion(true, nil)
-
-                
             } else if let error = error {
                 completion(false, error.localizedDescription)
             }
@@ -106,7 +99,7 @@ final class AppAccountManager {
     }
     
     
-    // MARK: HALF DONEEEE!
+    // MARK: HALF DONEEEE!         mantappp celllll
     /// Sign-up: by WA, google, apple
     func signUp(signMethod: SignMethod, name: String, no: String, email: String?, completion: @escaping (Bool) -> Void) {
         let signUp = SignUpBody(signMethod: signMethod.rawValue, name: name, phoneNumber: no, email: email)

@@ -82,14 +82,16 @@ class OtpVerificationViewController: UIViewController {
         
     }
     private func askVerificationCode() {
-        DispatchQueue.global().async {
-            AppAccountManager.shared.askOtpVerification(no: "62\(self.phoneNum)", completion: { isSuccess, message in
-                DispatchQueue.main.async {
-                    //                print(AppAccountManager.shared.verificationCode!)
-                    self.setUpTimer()
+        var isSuccessGlobal = false
+        AppAccountManager.shared.askOtpVerification(no: "62\(self.phoneNum)", completion: { isSuccess, message in
+            print("askOtpVerification: \(isSuccess)")
+            isSuccessGlobal = isSuccess
+            if isSuccessGlobal {
+                DispatchQueue.main.async { [weak self] in
+                    self?.setUpTimer()
                 }
-            })
-        }
+            }
+        })
     }
     
     // MARK: Function
@@ -144,27 +146,33 @@ extension OtpVerificationViewController: OtpTextFieldDelegate {
     func validateOtp() {
             
         let otpCode = otpFieldStack.getOtpCode()
-       
-        DispatchQueue.global().async {
-            AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
-               print(">OTP", isSuccess)
-                DispatchQueue.main.async { [self] in
-                    if isSuccess {
-                        self.otpFieldStack.errorLabel.text = ""
-                        self.otpFieldStack.errorLabel.isHidden = true
+        AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
+            
+            if isSuccess {
+                DispatchQueue.main.async {
+                    self.otpFieldStack.errorLabel.text = ""
+                    self.otpFieldStack.errorLabel.isHidden = true
+                    
+                    let alert = UIAlertController(title: "Berhasil", message: "", preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                        alert.dismiss(animated: true)
                         
-                    } else {
-                        print(message ?? "??")
-                        self.otpFieldStack.errorLabel.text = message!
-                        self.otpFieldStack.errorLabel.isHidden = false
-                        self.otpFieldStack.resetField()
-                    }
+                        let vc = WelcomingViewController()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    })
                 }
-                
-            })
-        }
+            } else {
+                print(message ?? "??")
+                DispatchQueue.main.async {
+                    self.otpFieldStack.errorLabel.text = message!
+                    self.otpFieldStack.errorLabel.isHidden = false
+                    self.otpFieldStack.resetField()
+                }
+            }
+        })
 
-        
         
     }
     

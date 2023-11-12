@@ -660,10 +660,10 @@
 		65A05C7C2AFE30D300C0BC93 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				65A05C802AFE30D300C0BC93 /* WelcomingViewController.swift */,
 				65A05C7D2AFE30D300C0BC93 /* LanjutWelcomingViewController.swift */,
 				65A05C7E2AFE30D300C0BC93 /* TambahProfilAnabulViewController.swift */,
 				65A05C7F2AFE30D300C0BC93 /* AnabulTersimpanViewController.swift */,
-				65A05C802AFE30D300C0BC93 /* WelcomingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

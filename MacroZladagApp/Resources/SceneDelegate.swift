@@ -7,12 +7,6 @@
 
 import UIKit
 
-/*
- BUTUH
- SignInViewController
- CreateAccountViewController
- */
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
