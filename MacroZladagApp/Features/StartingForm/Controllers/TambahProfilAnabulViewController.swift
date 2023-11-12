@@ -1181,10 +1181,8 @@ class TambahProfilAnabulViewController: UIViewController {
         let vc = AnabulTersimpanViewController()
         vc.viewModel = self.viewModel
         
-        vc.modalPresentationStyle = .fullScreen // user can't swipe it away!
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
-        
-//        navigationController?.pushViewController(vc, animated: true)
     }
 
     

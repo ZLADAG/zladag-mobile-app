@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
 //        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//        let navVc = UINavigationController(rootViewController: WelcomingViewController())
+//        let navVc = UINavigationController(rootViewController: AnabulTersimpanViewController())
 //        window.rootViewController = navVc
         
         window.rootViewController = TabBarViewController()

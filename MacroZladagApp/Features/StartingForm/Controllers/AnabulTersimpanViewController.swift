@@ -12,78 +12,80 @@ import Foundation
 class AnabulTersimpanViewController: UIViewController {
     
     public var viewModel: PetCreationViewModel?
+    
+    let mainTitle = UILabel()
+    let cariPetHoteButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         
         print("ANABUL TERSIMPAN PAGE")
         
+        postRequest()
+        setupTitle()
+        setupCariPetHoteButton()
     }
     
-    func coba() {
-        let image = UIImage(named: "kucinggila")
+    func setupTitle() {
+        view.addSubview(mainTitle)
         
-        var multipart = MultipartRequest()
-        let fields = [
-            ["petBreedId", "PD7750815537"],
-            ["petGender", "male"],
-            ["name", "WHAT IS UR NAME"],
-            ["age", "1"],
-            ["bodyMass", "3.1"],
-            ["historyOfIllness", "RIWAYAT SAKIT 123"],
-            ["hasBeenSterilized", "0"],
-            ["hasBeenVaccinatedRoutinely", "0"],
-            ["hasBeenFleaFreeRegularly", "0"],
-            ["boardingFacilities[]", "ac"],
-            ["boardingFacilities[]", "playground"],
-            ["petHabitIds[]", "PT6192063300"]
-        ]
+        mainTitle.text = "Anabul tersimpan"
+        mainTitle.textColor = .textBlack
+        mainTitle.font = .systemFont(ofSize: 32, weight: .bold)
+        mainTitle.sizeToFit()
         
-        for field in fields {
-            multipart.add(key: field[0], value: field[1])
-        }
-
-        multipart.add(
-            key: "image",
-            fileName: "kucinggila.png",
-            fileMimeType: "image/png",
-            fileData: image?.pngData() ?? Data()
-        )
-
+        mainTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 54),
+            mainTitle.widthAnchor.constraint(equalToConstant: mainTitle.width),
+            mainTitle.heightAnchor.constraint(equalToConstant: mainTitle.height),
+        ])
+    }
+    
+    func setupCariPetHoteButton() {
+        view.addSubview(cariPetHoteButton)
         
-        let url = URL(string: APICaller.Constants.baseAPIURL + "/profile/pets/store")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
-        request.httpBody = multipart.httpBody
-        request.setValue(
-            "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957",
-            forHTTPHeaderField: "Authorization"
-        )
+        cariPetHoteButton.addTarget(self, action: #selector(onClickCariPetHoteButton), for: .touchUpInside)
         
-//        let (data, response) = try URLSession.shared.data(for: request)
-//
-//        print((response as! HTTPURLResponse).statusCode)
-//        print(String(data: data, encoding: .utf8)!)
+        cariPetHoteButton.backgroundColor = .customOrange
+        cariPetHoteButton.layer.cornerRadius = 4
+        cariPetHoteButton.layer.masksToBounds = true
+        cariPetHoteButton.frame.size = CGSize(width: 334, height: 44)
         
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
+        let label = UILabel()
+        label.text = "Cari Pet Hotel"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.sizeToFit()
+        
+        cariPetHoteButton.addSubview(label)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        cariPetHoteButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cariPetHoteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cariPetHoteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -260),
+            cariPetHoteButton.widthAnchor.constraint(equalToConstant: cariPetHoteButton.width),
+            cariPetHoteButton.heightAnchor.constraint(equalToConstant: cariPetHoteButton.height),
             
-            do {
-                let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(result)
-            } catch {
-                print(error)
-                print("ERROR WHEN POST PET PROFILE")
-            }
-        }
+            label.centerXAnchor.constraint(equalTo: cariPetHoteButton.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: cariPetHoteButton.centerYAnchor),
+            label.widthAnchor.constraint(equalToConstant: label.width),
+            label.heightAnchor.constraint(equalToConstant: label.height),
+        ])
         
-        task.resume()
-
+    }
+    
+    @objc func onClickCariPetHoteButton() {
+        print("onClickCariPetHoteButton")
+        
+        let vc = TabBarViewController()
+        
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     func postRequest() {
