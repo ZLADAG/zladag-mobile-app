@@ -117,6 +117,7 @@ class AuthManager {
     
     public var token: String? {
         return UserDefaults.standard.value(forKey: "token") as? String
+//        return "Bearer 12|oonA7QAmnDpIp07QYYcdiecyzvuFrGTFSn1lQucX2297533c"
     }
 }
 

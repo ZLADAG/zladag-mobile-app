@@ -38,6 +38,7 @@ final class APICaller {
     }
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
+        print("Slug: \(slug)")
         getRequest(path: "/boardings/\(slug)") { result in
             completion(result)
         }
@@ -56,7 +57,7 @@ final class APICaller {
     }
     
     public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
-        getRequest(path: "/pet-categories/\(species)/breeds-and-habits") { result in
+        getRequest(path: "/pet-categories/\(species)/breeds-and-habits", usingToken: true) { result in
             completion(result)
         }
     }
@@ -92,7 +93,7 @@ final class APICaller {
     }
     
     
-    public func postRequestSignUp2(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+    public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
         let signUpBody = SignUpBody(signMethod: "phoneNumber", name: name, phoneNumber: phoneNumber)
         
         postRequest(path: "/sign-up", body: signUpBody) { result in
@@ -100,75 +101,14 @@ final class APICaller {
         }
     }
     
-    public func postRequestSignIn2(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
+    public func postRequestSignIn(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
         let signInPhoneBody = SignInPhoneBody(signMethod: "phoneNumber", phoneNumber: phoneNumber)
         
         postRequest(path: "/sign-in", body: signInPhoneBody) { result in
             completion(result)
         }
     }
-    
-    public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
-        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-up")!)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let reqBody: [String: String] = [
-            "signMethod": "phoneNumber",
-            "name": name,
-            "phoneNumber": phoneNumber
-        ]
-        
-        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: req) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(SuccessResponse.self, from: data)
-                completion(Result.success(result))
-            } catch {
-                print("error when decoding /sign-up:\n", error.localizedDescription)
-                completion(Result.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-    public func postRequestSignIn(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
-        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-in")!)
-        req.httpMethod = "POST"
-        
-//        req.setValue("application/json", forHTTPHeaderField: "Accept") // NGARUH!!!
-        
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let reqBody: [String: String] = [
-            "signMethod": "phoneNumber",
-            "phoneNumber": phoneNumber
-        ]
-        
-        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: req) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(SignInResponse.self, from: data)
-                completion(Result.success(result))
-            } catch {
-                print("error when decoding /sign-in:\n", error.localizedDescription)
-                completion(Result.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
+
     
     // MARK: GENERIC REQUESTS
     
@@ -186,8 +126,9 @@ final class APICaller {
         
         if usingToken {
             request.addValue(
-//                "Bearer " + AuthManager.shared.token ?? "NO-TOKEN",
-                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
+//                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+//                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
                 forHTTPHeaderField: "Authorization"
             )
         }
@@ -199,6 +140,8 @@ final class APICaller {
             }
             
             do {
+//                let result2 = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(result2)
                 let result = try JSONDecoder().decode(T.self, from: data)
                 print("GET \(path)")
                 completion(Result.success(result))

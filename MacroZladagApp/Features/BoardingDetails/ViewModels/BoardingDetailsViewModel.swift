@@ -26,8 +26,8 @@ struct BoardingDetailsViewModel {
     let price: Int
     let images: [String]
     let facilities: [String]
-    let shouldHaveBeenVaccinated: Int
-    let shouldHaveToBeFleaFree: Int
+    let shouldHaveBeenVaccinated: Bool
+    let shouldHaveToBeFleaFree: Bool
     let minimumAge: Int
     let maximumAge: Int
     
@@ -37,7 +37,7 @@ struct BoardingDetailsViewModel {
     let endCheckOutTime: String = "99"
     
 //    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, boardingCages: [BoardingCage], price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int) {
-    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int) {
+    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Bool?, shouldHaveToBeFleaFree: Bool?, minimumAge: Int, maximumAge: Int) {
         self.name = name
         self.distance = distance
         self.address = address
@@ -50,8 +50,8 @@ struct BoardingDetailsViewModel {
         self.price = price
         self.images = images
         self.facilities = facilities
-        self.shouldHaveBeenVaccinated = shouldHaveBeenVaccinated
-        self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree
+        self.shouldHaveBeenVaccinated = shouldHaveBeenVaccinated ?? false
+        self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree ?? false
         self.minimumAge = minimumAge
         self.maximumAge = maximumAge
         

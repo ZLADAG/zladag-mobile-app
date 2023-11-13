@@ -42,10 +42,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
 //        let navVc = UINavigationController(rootViewController: SignInViewController())
-        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-        window.rootViewController = navVc
+//        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
+//        window.rootViewController = navVc
         
-//        window.rootViewController = TabBarViewController()
+        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }
