@@ -19,18 +19,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        if AuthManager.shared.isSignedIn {
-            window.rootViewController = TabBarViewController()
-        } else {
-            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-            window.rootViewController = navVc
-        }
+//        if AuthManager.shared.isSignedIn {
+//            window.rootViewController = TabBarViewController()
+//        } else {
+//            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
+//            window.rootViewController = navVc
+//        }
         
+        // TODO:
+            /*
+             - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
+             - coba simpan phoneNumber di userdefaults
+             - log out coba dibuat, tinggal hapus value UserDefaults. (UserDefaults.standard.removeObject(forKey: "")
+             - nanti sign in lagi
+             
+             - sekarang utk appleId, cek dulu phoneNumber di userdefaults
+             - jika tidak ada, gaboleh sign in, harus create account, krn butuh phoneNumber
+             - jika ada, langsung simpan email
+             
+             - coba tanya cindy, mending sign in with apple, selama phoneNumber nya valid, di lolosin aja
+             - karena pas pertama kali sign up kan pasti pake phoneNumber, email dapet dari mana?
+             
+             
+             */
+        
+        
+//        let navVc = UINavigationController(rootViewController: SignInViewController())
 //        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-////        let navVc = UINavigationController(rootViewController: SignInViewController())
 //        window.rootViewController = navVc
         
-//        window.rootViewController = TabBarViewController()
+        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

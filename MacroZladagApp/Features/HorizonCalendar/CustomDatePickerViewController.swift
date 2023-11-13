@@ -32,6 +32,7 @@ class CustomDatePickerViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         
         setupNavBar()
         setupCalendar()
@@ -105,6 +106,8 @@ class CustomDatePickerViewController: UIViewController {
     func setupCalendar() {
         calendarView = CalendarView(initialContent: makeContent()) // HORIZON CALENDAR'S
         guard let calendarView else { return }
+        
+        calendarView.backgroundColor = .white
         
         view.addSubview(calendarView)
         
