@@ -141,7 +141,6 @@ class WelcomingViewController: UIViewController {
     }
     
     @objc func clickLanjutButton() {
-//        guard self.lanjutButton.isEnabled else { return }
         
         nameTextFieldView.textField.resignFirstResponder()
         
@@ -169,10 +168,7 @@ class WelcomingViewController: UIViewController {
     // MARK: Keyboard Notification Center
     
     @objc func keyboardWillShow(notification: NSNotification) {
-//        DispatchQueue.main.async {
-//            self.lanjutButton.layer.opacity = self.buttonOpacity
-//        }
-//        
+
         guard let userInfo = notification.userInfo else { return }
         
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -185,9 +181,6 @@ class WelcomingViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-//        DispatchQueue.main.async {
-//            self.lanjutButton.layer.opacity = self.buttonOpacity
-//        }
         
         guard let userInfo = notification.userInfo else { return }
         
@@ -198,6 +191,5 @@ class WelcomingViewController: UIViewController {
             self.view.frame.origin.y += keyboardFrame.height
         }
     }
-    
 
 }

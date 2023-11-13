@@ -84,7 +84,7 @@ class OtpVerificationViewController: UIViewController {
         
         AuthManager.shared.askWhatsAppVerificationCode(phoneNumber: "62\(self.phoneNum)") { success, message in
             if success {
-                print("verificationCode: \(message)")
+                print("\nverificationCode: \(message)")
                 DispatchQueue.main.async { [weak self] in
                     self?.setUpTimer()
                 }

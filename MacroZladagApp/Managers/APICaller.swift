@@ -92,6 +92,22 @@ final class APICaller {
     }
     
     
+    public func postRequestSignUp2(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        let signUpBody = SignUpBody(signMethod: "phoneNumber", name: name, phoneNumber: phoneNumber)
+        
+        postRequest(path: "/sign-up", body: signUpBody) { result in
+            completion(result)
+        }
+    }
+    
+    public func postRequestSignIn2(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
+        let signInPhoneBody = SignInPhoneBody(signMethod: "phoneNumber", phoneNumber: phoneNumber)
+        
+        postRequest(path: "/sign-in", body: signInPhoneBody) { result in
+            completion(result)
+        }
+    }
+    
     public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
         var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-up")!)
         req.httpMethod = "POST"
@@ -201,13 +217,16 @@ final class APICaller {
     ) {
         var req = URLRequest(url: URL(string: Constants.baseAPIURL + path)!)
         req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Accept")
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if let body {
-            print("USING HTTP BODY")
+            print("\nUSING HTTP BODY")
             print(body)
-            print("===")
             req.httpBody = try? JSONEncoder().encode(body)
+        }
+        
+        if usingToken {
+            req.setValue("", forHTTPHeaderField: "Authorization")
         }
         
         URLSession.shared.dataTask(with: req) { data, _, error in
@@ -215,10 +234,8 @@ final class APICaller {
                 completion(.failure(error!))
                 return
             }
-            print("MASOOOK")
+            
             do {
-                let result2 = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(">>", result2)
                 let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))
             } catch {

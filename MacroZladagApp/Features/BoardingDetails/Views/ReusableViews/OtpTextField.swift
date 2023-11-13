@@ -213,7 +213,7 @@ extension OtpTextField: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case otpTF4:
-            print("MASOOOKK")
+            print("ready to validateOtp()")
             delegate?.validateOtp()
             break
         default:
