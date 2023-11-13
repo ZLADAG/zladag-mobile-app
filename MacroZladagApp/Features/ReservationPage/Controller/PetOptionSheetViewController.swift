@@ -24,6 +24,7 @@ class PetOptionSheetViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(PetOptionTableViewCell.self, forCellReuseIdentifier: PetOptionTableViewCell.identifier)
+        tableView.separatorStyle = .none
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -44,7 +45,7 @@ class PetOptionSheetViewController: UIViewController {
         addPetButton = UIButton(configuration: .plain())
         addPetButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addPetButton.setTitle("Pilih Profil Anabul", for: .normal)
+        addPetButton.setTitle("Tambah Anabul baru", for: .normal)
         addPetButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addPetButton.tintColor = .black
         addPetButton.contentHorizontalAlignment = .fill
@@ -90,9 +91,9 @@ class PetOptionSheetViewController: UIViewController {
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
@@ -119,10 +120,23 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
-//        cell.backgroundColor = .white
-//        cell.setUpCell()
+        let img = "dummy-image"
+        let title = "Maz bro"
+        let detailName = "Kucing"
+        let age = 0.0
+        cell.configure(img: img, title: title, detailName: detailName, age: age)
+        
+        cell.selectionStyle = .none
+
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellHeight = 64.0
+        let cellSpacing = 8.0
+        return cellHeight + cellSpacing
+    }
+    
     
     
 }
