@@ -152,7 +152,10 @@ final class APICaller {
         }
         
         if usingToken {
-            req.setValue("", forHTTPHeaderField: "Authorization")
+            req.setValue(
+                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+                forHTTPHeaderField: "Authorization"
+            )
         }
         
         URLSession.shared.dataTask(with: req) { data, _, error in
