@@ -20,12 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
 //        if AuthManager.shared.isSignedIn {
-//            window.rootViewController = TabBarViewController()
+            window.rootViewController = TabBarViewController()
 //        } else {
 //            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
 //            window.rootViewController = navVc
 //        }
-        
         // TODO:
             /*
              - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
