@@ -36,11 +36,6 @@ class UserProfileTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -59,13 +54,10 @@ class UserProfileTableViewCell: UITableViewCell {
         setupAnabulKuLabel()
     }
     
-    
-    
-    
     func setupProfileImageView() {
         addSubview(profileImageView)
         
-        if let imageName, !imageName.isEmpty {
+        if let imageName {
             profileImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageName)))
         } else {
             profileImageView.image = UIImage(named: "profileimage-icon")

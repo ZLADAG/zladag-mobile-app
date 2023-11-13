@@ -38,8 +38,10 @@ class ProfileViewController: UIViewController {
             
             switch result {
             case .success(let userProfileResponse):
+                print("BERHASIL")
                 success = true
                 self?.viewModel = UserProfileViewModel(
+                    id: userProfileResponse.data.user.id,
                     name: userProfileResponse.data.user.name,
                     image: userProfileResponse.data.user.image,
                     pets: userProfileResponse.data.pets.compactMap({ petDetail in
@@ -52,6 +54,10 @@ class ProfileViewController: UIViewController {
                         )
                     })
                 )
+                
+                
+                
+                print(userProfileResponse.data)
                 break
             case .failure(let error):
                 print("ERROR IN PROFILE VC\n", error)
@@ -68,6 +74,9 @@ class ProfileViewController: UIViewController {
                 })
             }
         }
+        
+        print("user profile details!")
+        print(viewModel.image)
     }
     
     func setupTableView() {

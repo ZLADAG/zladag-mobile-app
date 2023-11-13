@@ -5,6 +5,14 @@
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
 //
 
+/*
+ getBoardings - /home
+ getBoardingsSearch - /search
+ getBoardingBySlug - /boardings/\(slug)
+ getUserProfile - /profile
+ getPetDetailsById - /profile/pets/\(id)
+
+ */
 
 
 import Foundation
@@ -19,6 +27,11 @@ final class APICaller {
         static let baseAPIURLLocal = "http://localhost:8080/api"
     }
     
+    enum HTTPMethod: String {
+        case GET
+        case POST
+    }
+    
     enum APIError: Error {
         case failedToGetData
         case invalidURL
@@ -28,55 +41,40 @@ final class APICaller {
     }
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/home",
-            responseDecoder: HomeBoardingResponse.self,
-            httpMethod: .GET,
-            completion: { result in
-                completion(result)
-            }
-        )
+        getRequest(path: "/home") { result in
+            completion(result)
+        }
     }
     
     public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/search?\(params)",
-            responseDecoder: SearchBoardingsResponse.self,
-            httpMethod: .GET) { result in
-                completion(result)
-            }
+        getRequest(path: "/search?\(params)") { result in
+            completion(result)
+        }
     }
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
-//        createRequest(path: Constants.baseAPIURLLocal + "/boardings/\(slug)"
-        getRequest(
-            path: Constants.baseAPIURL + "/boardings/\(slug)",
-            responseDecoder: BoardingDetailsResponse.self,
-            httpMethod: .GET) { result in
-                completion(result)
-            }
+        getRequest(path: "/boardings/\(slug)") { result in
+            completion(result)
+        }
     }
     
     public func getUserProfile(completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/profile",
-            responseDecoder: UserProfileResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
+        getRequest(path: "/profile", usingToken: true) { result in
+            completion(result)
         }
     }
     
     public func getPetDetailsById(id: String, completion: @escaping (Result<PetProfileDetailsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/profile/pets/\(id)",
-            responseDecoder: PetProfileDetailsResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
+        getRequest(path: "/profile/pets/\(id)") { result in
+            completion(result)
         }
     }
     
+    public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
+        getRequest(path: "/pet-categories/\(species)/breeds-and-habits") { result in
+            completion(result)
+        }
+    }
     
     
     public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
@@ -100,27 +98,6 @@ final class APICaller {
         }
     }
     
-    public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/pet-categories/\(species)/breeds-and-habits",
-            responseDecoder: BreedsAndHabitsResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
-        }
-    }
-    
-    
-    
-    public func getBoardingsByName(name: String, completion: @escaping (Result<BoardingsResponse, Error>) -> Void) {
-//        createRequest(
-//            path: Constants.baseAPIURLLocal + "/boardingdetails",
-//            responseDecoder: BoardingDetailsResponse.self,
-//            httpMethod: .GET) { result in
-//                completion(result)
-//            }
-    }
-    
     public func getImage(path: String) -> String  {
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
@@ -129,15 +106,7 @@ final class APICaller {
         return Constants.baseAPIURLLocal + "/get_image/\(id)"
     }
     
-    struct LocalLoadingResponse: Codable {
-        let hello: String
-    }
     
-    public func getLocalLoading(completion: @escaping (Result<LocalLoadingResponse, Error>) -> Void) {
-        getRequest(path: Constants.baseAPIURLLocal + "/local-loading", responseDecoder: LocalLoadingResponse.self, httpMethod: .GET) { result in
-            completion(result)
-        }
-    }
     
     public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
         var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-up")!)
@@ -379,23 +348,23 @@ final class APICaller {
         task.resume()
     }
     
-    
-    
-    // MARK: HTTP REQUESTS
-    enum HTTPMethod: String {
-        case GET
-        case POST
-    }
-    
-    func getRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, token: String? = nil, completion: @escaping (Result<T, Error>) -> Void) {
+    func getRequest<T: Codable>(
+        path: String,
+        usingToken: Bool = false,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
         
-        guard let apiURL = URL(string: path) else { return }
+        guard let apiURL = URL(string: Constants.baseAPIURL + path) else { return }
         
         var request = URLRequest(url: apiURL)
-        request.httpMethod = httpMethod.rawValue
+        request.httpMethod = "GET"
         
-        if let token {
-            request.addValue(token, forHTTPHeaderField: "Authorization")
+        if usingToken {
+            request.addValue(
+//                "Bearer " + AuthManager.shared.token ?? "NO-TOKEN",
+                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
+                forHTTPHeaderField: "Authorization"
+            )
         }
         
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -406,10 +375,10 @@ final class APICaller {
             
             do {
                 let result = try JSONDecoder().decode(T.self, from: data)
-                print("\(httpMethod.rawValue) /\(path)")
+                print("GET \(path)")
                 completion(Result.success(result))
             } catch {
-                print("error in \(httpMethod.rawValue) \(path):", error.localizedDescription)
+                print("error in GET \(path)\n", error.localizedDescription)
                 completion(Result.failure(error))
             }
         }
