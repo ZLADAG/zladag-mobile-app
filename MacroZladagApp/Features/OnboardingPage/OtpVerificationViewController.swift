@@ -62,7 +62,7 @@ class OtpVerificationViewController: UIViewController {
         setUpConstraints()
         
     }
-    private func setUpConstraints(){
+    private func setUpConstraints() {
         
         view.addSubview(header)
         NSLayoutConstraint.activate([
@@ -73,25 +73,26 @@ class OtpVerificationViewController: UIViewController {
         
         view.addSubview(allComponentStack)
         NSLayoutConstraint.activate([
-            
             // Set wraping constraint
             allComponentStack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 40),
             allComponentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             allComponentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
         ])
-        
     }
+    
     private func askVerificationCode() {
-        var isSuccessGlobal = false
-        AppAccountManager.shared.askOtpVerification(no: "62\(self.phoneNum)", completion: { isSuccess, message in
-            print("askOtpVerification: \(isSuccess)")
-            isSuccessGlobal = isSuccess
-            if isSuccessGlobal {
+        
+        AuthManager.shared.askWhatsAppVerificationCode(phoneNumber: "62\(self.phoneNum)") { success, message in
+            if success {
+                print("verificationCode: \(message)")
                 DispatchQueue.main.async { [weak self] in
                     self?.setUpTimer()
                 }
+            } else {
+                print("\nSOMETHING'S WRONG IN AuthManager.shared.askWhatsAppVerificationCode \n")
+                print("askOtpVerification: \(success), message: \(message)")
             }
-        })
+        }
     }
     
     // MARK: Function
@@ -143,21 +144,21 @@ class OtpVerificationViewController: UIViewController {
 
 
 extension OtpVerificationViewController: OtpTextFieldDelegate {
+    
     func validateOtp() {
-            
         let otpCode = otpFieldStack.getOtpCode()
         let phoneNumber = "62\(self.phoneNum)"
-        AppAccountManager.shared.validateOtpVerification(no: phoneNumber, otpCode: otpCode, completion: { (isSuccess, message) in
-            
-            if isSuccess {
+        
+        AuthManager.shared.validateOtpVerification(phoneNumber: phoneNumber, otpCode: otpCode, completion: { (success, message) in
+            if success {
                 DispatchQueue.main.async {
                     self.otpFieldStack.errorLabel.text = ""
                     self.otpFieldStack.errorLabel.isHidden = true
                     
-                    let alert = UIAlertController(title: "Berhasil", message: "", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Berhasil!", message: "", preferredStyle: .alert)
                     self.present(alert, animated: true)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.65, execute: {
                         alert.dismiss(animated: true)
                         
                         let vc = WelcomingViewController()

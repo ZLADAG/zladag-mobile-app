@@ -108,9 +108,7 @@ extension SignInByWhatsappViewController: PrimaryButtonFilledDelegate {
             DispatchQueue.main.async {
                 let phoneNum = self.phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
                 
-                
-                
-                AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+                AuthManager.shared.doesExistPhoneNumber(num: "62\(String(describing: phoneNum!))") { exists in
                     
                     /// Update the UI or perform UI-related tasks: This code runs on the main thread
                     DispatchQueue.main.async { [self] in

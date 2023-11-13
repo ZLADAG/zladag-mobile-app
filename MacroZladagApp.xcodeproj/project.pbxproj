@@ -561,6 +561,28 @@
 			path = BoardingDetails;
 			sourceTree = "<group>";
 		};
+		6597C32D2B028E94008F6D0D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6597C32E2B02938A008F6D0D /* HTTPBody */,
+				65B1DED12AEFAFB60018722A /* AuthResponse.swift */,
+				8FFEC0732AEB4002005D790F /* SearchAccByPhoneResponse.swift */,
+				8FFEC0912AEDBB35005D790F /* VerificationCodeResponse.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		6597C32E2B02938A008F6D0D /* HTTPBody */ = {
+			isa = PBXGroup;
+			children = (
+				8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */,
+				8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */,
+				8F9C2D422AF0019E00D767CD /* SignInPhoneBody.swift */,
+				8F9C2D402AEFFD8900D767CD /* SignUpBody.swift */,
+			);
+			path = HTTPBody;
+			sourceTree = "<group>";
+		};
 		65A05C552AFB800100C0BC93 /* ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,6 +754,7 @@
 		65C40CE82ACAC0D6004D986C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6597C32D2B028E94008F6D0D /* Auth */,
 				8F23EDC22AE4141B00B25026 /* NonApiModel */,
 				65A05C952AFE321500C0BC93 /* PetCreation */,
 				8F9C2D832AF9F84D00D767CD /* Profile */,
@@ -743,7 +766,6 @@
 				6570AA192ADE8980003DC5EB /* BoardingImage.swift */,
 				655B017A2AD9F6DC0016FC81 /* FilterParams.swift */,
 				6570AA482ADFE1C6003DC5EB /* SearchPage.swift */,
-				65B1DED12AEFAFB60018722A /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -986,15 +1008,9 @@
 		8FFEC0722AEB3FA3005D790F /* AccountVerification */ = {
 			isa = PBXGroup;
 			children = (
-				8FFEC0732AEB4002005D790F /* SearchAccByPhoneResponse.swift */,
-				8FFEC0912AEDBB35005D790F /* VerificationCodeResponse.swift */,
 				8FFEC0952AEE7133005D790F /* ErrorResponse.swift */,
 				8FFEC0992AEE75BD005D790F /* SignInResponse.swift */,
 				8FFEC09D2AEEBC2E005D790F /* SignUpResponse.swift */,
-				8F9C2D402AEFFD8900D767CD /* SignUpBody.swift */,
-				8F9C2D422AF0019E00D767CD /* SignInPhoneBody.swift */,
-				8F9C2D442AF0020A00D767CD /* ValidatePhoneCodeBody.swift */,
-				8F9C2D462AF0024B00D767CD /* SendPhoneCodeBody.swift */,
 			);
 			path = AccountVerification;
 			sourceTree = "<group>";

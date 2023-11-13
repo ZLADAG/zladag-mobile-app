@@ -8,6 +8,7 @@
 import Foundation
 
 class AuthManager {
+    
     static let shared = AuthManager()
     
     private init() {}
@@ -50,6 +51,60 @@ class AuthManager {
         task.resume()
         
         
+    }
+    
+    /// Verification Code (OTP): request the code
+    func askWhatsAppVerificationCode(phoneNumber: String, completion: @escaping (Bool, String) -> Void) {
+       
+        let sendPhoneCode = SendPhoneCodeBody(phoneNumber: phoneNumber)
+        
+        APICaller.shared.postAskWhatsAppVerificationCode(
+            sendPhoneCodeBody: sendPhoneCode) { result in
+                switch result {
+                case .success(let response):
+                    completion(true, response.verificationCode.description)
+                    break
+                case .failure(let error):
+                    print("error when decoding postAskWhatsAppVerificationCode")
+                    completion(false, error.localizedDescription)
+                    break
+                }
+            }
+    }
+    
+    func validateOtpVerification(phoneNumber: String, otpCode: String, completion: @escaping (Bool, String?) -> Void) {
+        
+        let validateWAcode = ValidatePhoneCodeBody(phoneNumber: phoneNumber, verificationCode: otpCode)
+        
+        APICaller.shared.postValidateWhatsAppVerificationCode(validatePhoneCodeBody: validateWAcode) { result in
+            switch result {
+            case .success(let response):
+                if response.success {
+                    completion(true, nil)
+                } else {
+                    completion(false, "Ups! OTP salah. Cek ulang dan coba lagi.")
+                }
+                break
+            case .failure(let error):
+                print(error)
+                completion(false, error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    /// Validate if there's already an acc with inputted number
+    func doesExistPhoneNumber(num: String, completion: @escaping (Bool) -> Void) {
+        APICaller.shared.getSearchPhoneNumIfExists(num: num) { result in
+            switch result {
+            case .success(let response):
+                completion(response.hasAnAccount)
+                break
+            case .failure(let error):
+                print("error in AuthManager.shared.doesExistPhoneNumber:\n\(error)")
+                break
+            }
+        }
     }
     
     public func cacheToken(with token: String) {
