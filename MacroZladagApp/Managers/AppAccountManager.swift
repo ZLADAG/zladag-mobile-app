@@ -74,30 +74,7 @@ final class AppAccountManager {
     
     // MARK: DONEEEE!
     /// Sign-in: Get access token as sign-in identifier
-    func signInByPhone(no: String, completion: @escaping (Bool) -> Void) {
-        let signInPhone = SignInPhoneBody(signMethod: SignMethod.phoneNumber.rawValue, phoneNumber: no)
-        
-//        askPostRequest(parameters: signInPhone, path: MyConstants.Urls.signInURLPath) { [self] (result, error) in
-//            print("\nsignInPhone")
-//
-//            if let result = result {
-//                print("success: \(result)")
-//                
-//                guard result["personalAccessToken"] != nil else {
-//                    completion(false)
-//                    return
-//                }
-//                
-//                signedInUser = User(token: result["personalAccessToken"]! as! String, signMethod: .phoneNumber)
-//                
-//                completion(true)
-//                
-//            } else if let error = error {
-//                print("error: \(error.localizedDescription)")
-//                completion(false)
-//            }
-//        }
-    }
+    
     
     // MARK: Undone!
     /// Sign Out

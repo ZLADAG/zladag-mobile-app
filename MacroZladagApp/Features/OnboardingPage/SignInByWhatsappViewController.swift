@@ -39,7 +39,7 @@ class SignInByWhatsappViewController: UIViewController {
         switchOnboardPromptLB.delegate = self
     }
     
-    private func setUpComponents(){
+    private func setUpComponents() {
         
         //set nextButton to disabled
         nextButton.btn.isEnabled = false
@@ -62,7 +62,7 @@ class SignInByWhatsappViewController: UIViewController {
         
     }
     
-    private func setUpConstraints(){
+    private func setUpConstraints() {
         
         view.addSubview(header)
         NSLayoutConstraint.activate([
@@ -109,45 +109,45 @@ extension SignInByWhatsappViewController: PrimaryButtonFilledDelegate {
                 let phoneNum = self.phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
                 
                 AuthManager.shared.doesExistPhoneNumber(num: "62\(String(describing: phoneNum!))") { exists in
-                    
+                    print("phoneNumberExists?: \(exists)")
                     /// Update the UI or perform UI-related tasks: This code runs on the main thread
                     DispatchQueue.main.async { [self] in
                         if exists {
                             phoneInputField.errorLabel.isHidden = true
                             
-                            DispatchQueue.global().async {
-                                AppAccountManager.shared.signInByPhone(no: "62\(phoneNum!)", completion: { [self] isSuccess in
-                                    
-                                    var alert: UIAlertController!
-                                    
-                                    if isSuccess {
-                                        alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
-                                    } else {
-                                        alert = nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
-                                        
-                                        let okAaction = nextButton.addOkAction()
-                                        alert.addAction(okAaction)
-                                        
-                                    }
-                                    
-                                    DispatchQueue.main.async {
-                                        self.present(alert, animated: true, completion: nil)
-                                        
-                                        if isSuccess {
-                                            /// delays execution of code to dismiss
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
-                                                alert.dismiss(animated: true, completion: nil)
-                                                
-                                                let homeVC = HomeViewController()
-                                                self.navigationController?.pushViewController(homeVC, animated: true)
-                                            })
-                                        }
-                                    }
-                                    
-                                })
+                            let phoneNumber = "62\(phoneNum!)"
+                            AuthManager.shared.postRequestSignInByPhoneNumber(phoneNumber: phoneNumber) { [weak self] success in
+                                guard let strongSelf = self else { return }
                                 
+                                var alert: UIAlertController!
+                                
+                                if success {
+                                    alert = strongSelf.nextButton.addDefaultAlert(title: "Welcome back!", message: "+62\(phoneNum!) successfully signed in")
+                                } else {
+                                    alert = strongSelf.nextButton.addDefaultAlert(title: "Failed!", message: "+62\(phoneNum!) successfully signed in")
+                                    
+                                    let okAaction = strongSelf.nextButton.addOkAction()
+                                    alert.addAction(okAaction)
+                                    
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    strongSelf.present(alert, animated: true, completion: nil)
+                                    
+                                    if success {
+                                        /// delays execution of code to dismiss
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
+                                            alert.dismiss(animated: true, completion: nil)
+                                            
+                                            
+                                            let mainAppTabBarVC = TabBarViewController()
+                                            mainAppTabBarVC.modalPresentationStyle = .fullScreen
+
+                                            strongSelf.present(mainAppTabBarVC, animated: true)
+                                        })
+                                    }
+                                }
                             }
-                            
                         } else {
                             phoneInputField.errorLabel.text = "Nomor ini belum terdaftar. Silahkan buat akun terlebih dahulu."
                             phoneInputField.errorLabel.isHidden = false

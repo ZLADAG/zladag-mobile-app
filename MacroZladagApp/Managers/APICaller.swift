@@ -62,7 +62,7 @@ final class APICaller {
         }
     }
     
-    public func getSearchPhoneNumIfExists(num: String, completion: @escaping (Result<SearchAccByPhoneResponse, Error>) -> Void){
+    public func getSearchPhoneNumIfExists(num: String, completion: @escaping (Result<SearchAccByPhoneResponse, Error>) -> Void) {
         getRequest(path: "/search-for-account-by-phone-number?phoneNumber=\(num)") { result in
             completion(result)
         }
@@ -90,23 +90,6 @@ final class APICaller {
     
     public func getRandomImageURL(id: Int) -> String  {
         return Constants.baseAPIURLLocal + "/get_image/\(id)"
-    }
-    
-    
-    public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
-        let signUpBody = SignUpBody(signMethod: "phoneNumber", name: name, phoneNumber: phoneNumber)
-        
-        postRequest(path: "/sign-up", body: signUpBody) { result in
-            completion(result)
-        }
-    }
-    
-    public func postRequestSignIn(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
-        let signInPhoneBody = SignInPhoneBody(signMethod: "phoneNumber", phoneNumber: phoneNumber)
-        
-        postRequest(path: "/sign-in", body: signInPhoneBody) { result in
-            completion(result)
-        }
     }
 
     

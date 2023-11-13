@@ -38,7 +38,6 @@ class ProfileViewController: UIViewController {
             
             switch result {
             case .success(let userProfileResponse):
-                print("BERHASIL")
                 success = true
                 self?.viewModel = UserProfileViewModel(
                     id: userProfileResponse.data.user.id,
@@ -248,6 +247,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: TambahAnabulTableViewCell.identifier, for: indexPath) as! TambahAnabulTableViewCell
+            cell.mainViewController = self
             cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
             cell.configure()
             return cell

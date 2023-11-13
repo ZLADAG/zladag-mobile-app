@@ -107,6 +107,7 @@ class ProfileFooterTableViewCell: UITableViewCell {
 
             self?.viewController?.present(mainAppTabBarVC, animated: true)
         }))
+        // TODO: AUTHMANAGER.LOGOUT!
         alert.addAction(UIAlertAction(title: "Batal", style: .default))
                                       
         viewController?.present(alert, animated: true, completion: nil)

@@ -137,7 +137,7 @@ class AnabulTersimpanViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(
-            "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957",
+            AuthManager.shared.token ?? "NO-TOKEN",
             forHTTPHeaderField: "Authorization"
         )
         

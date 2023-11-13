@@ -104,7 +104,7 @@ class LanjutWelcomingViewController: UIViewController {
         group.enter()
         
         var success = false
-        APICaller.shared.postRequestSignUp(name: userProfileName, phoneNumber: phoneNumber) { result in
+        AuthManager.shared.postRequestSignUp(name: userProfileName, phoneNumber: phoneNumber) { result in
             defer {
                 group.leave()
             }
@@ -120,24 +120,10 @@ class LanjutWelcomingViewController: UIViewController {
         }
         
         group.notify(queue: .main) {
-            APICaller.shared.postRequestSignIn(phoneNumber: phoneNumber) { result in
+            AuthManager.shared.postRequestSignInByPhoneNumber(phoneNumber: phoneNumber) { result in
                 group.enter()
                 defer {
                     group.leave()
-                }
-                
-                switch result {
-                case .success(let response):
-                    success = true
-                    AuthManager.shared.cacheToken(with: response.personalAccessToken)
-                    
-                    print("SUCCESSFULLY SIGNED IN")
-                    print("name: \(self.userProfileName ?? "")")
-                    print("Phone: \(self.phoneNumber ?? "")")
-                    print("Token: \(response.personalAccessToken)")
-                    break
-                case .failure(let error):
-                    print("ERROR WHEN SIGNING IN\n\(error)")
                 }
                 
 //                if success {} // TODO: PENJAGAAN KALAU API GAGAL
