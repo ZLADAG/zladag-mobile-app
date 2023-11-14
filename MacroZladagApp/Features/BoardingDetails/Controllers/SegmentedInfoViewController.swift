@@ -257,7 +257,7 @@ class SegmentedInfoViewController: UIViewController {
         subViews.append(openHoursStack)
         
         // Vaccinated
-        if mainVcViewModel.shouldHaveBeenVaccinated == 1 {
+        if mainVcViewModel.shouldHaveBeenVaccinated {
             let vaccinatedStack = createIconLabelWithTitle("policy-vaccine-icon", "Sudah Vaksin", "Anabul melakukan vaksin tahunan")
             subViews.append(vaccinatedStack)
         }
@@ -269,7 +269,7 @@ class SegmentedInfoViewController: UIViewController {
         subViews.append(ageRangeStack)
         
         // FleaFree
-        if mainVcViewModel.shouldHaveToBeFleaFree == 1 {
+        if mainVcViewModel.shouldHaveToBeFleaFree {
             let fleaFreeStack = createIconLabelWithTitle("policy-clean-icon", "Bebas Kutu", "Anabul bebas dari kutu yang dapat menular")
             subViews.append(fleaFreeStack)
         }

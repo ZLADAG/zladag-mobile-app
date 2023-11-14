@@ -5,8 +5,6 @@
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
 //
 
-
-
 import Foundation
 
 final class APICaller {
@@ -28,97 +26,62 @@ final class APICaller {
     }
     
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/home",
-            responseDecoder: HomeBoardingResponse.self,
-            httpMethod: .GET,
-            completion: { result in
-                completion(result)
-            }
-        )
+        getRequest(path: "/home") { result in
+            completion(result)
+        }
     }
     
     public func getBoardingsSearch(params: String, completion: @escaping (Result<SearchBoardingsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/search?\(params)",
-            responseDecoder: SearchBoardingsResponse.self,
-            httpMethod: .GET) { result in
-                completion(result)
-            }
+        getRequest(path: "/search?\(params)") { result in
+            completion(result)
+        }
     }
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
-//        createRequest(path: Constants.baseAPIURLLocal + "/boardings/\(slug)"
-        getRequest(
-            path: Constants.baseAPIURL + "/boardings/\(slug)",
-            responseDecoder: BoardingDetailsResponse.self,
-            httpMethod: .GET) { result in
-                completion(result)
-            }
+        print("Slug: \(slug)")
+        getRequest(path: "/boardings/\(slug)") { result in
+            completion(result)
+        }
     }
     
     public func getUserProfile(completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/profile",
-            responseDecoder: UserProfileResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
+        getRequest(path: "/profile", usingToken: true) { result in
+            completion(result)
         }
     }
     
     public func getPetDetailsById(id: String, completion: @escaping (Result<PetProfileDetailsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/profile/pets/\(id)",
-            responseDecoder: PetProfileDetailsResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
-        }
-    }
-    
-    
-    
-    public func postOTP(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
-        createRequestLama(with: URL(string: Constants.baseAPIURL + "/signiasdasdas"), type: .POST) { baseRequest in
-            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
-                guard let data = data, error == nil else {
-                    completion(.failure(error!))
-                    return
-                }
-                
-                do {
-                    let result = try JSONDecoder().decode(HomeBoardingResponse.self, from: data)
-                    print("GET /home")
-                    completion(Result.success(result))
-                } catch {
-                    print("error in getBoardings:", error.localizedDescription)
-                    completion(Result.failure(error))
-                }
-            }
-            task.resume()
+        getRequest(path: "/profile/pets/\(id)") { result in
+            completion(result)
         }
     }
     
     public func getBreedsAndHabits(species: String, completion: @escaping (Result<BreedsAndHabitsResponse, Error>) -> Void) {
-        getRequest(
-            path: Constants.baseAPIURL + "/pet-categories/\(species)/breeds-and-habits",
-            responseDecoder: BreedsAndHabitsResponse.self,
-            httpMethod: .GET,
-            token: "Bearer 2|DyBGni1tUJhDFrP1dAnPDAqpRprCkWrtPkubCCWP84035957") { result in
-                completion(result)
+        getRequest(path: "/pet-categories/\(species)/breeds-and-habits", usingToken: true) { result in
+            completion(result)
         }
     }
     
+    public func getSearchPhoneNumIfExists(num: String, completion: @escaping (Result<SearchAccByPhoneResponse, Error>) -> Void) {
+        getRequest(path: "/search-for-account-by-phone-number?phoneNumber=\(num)") { result in
+            completion(result)
+        }
+    }
     
+    public func postAskWhatsAppVerificationCode(sendPhoneCodeBody: SendPhoneCodeBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
+        postRequest(
+            path: "/send-whatsapp-verification-code",
+            body: sendPhoneCodeBody) { result in
+                completion(result)
+            }
+    }
     
-    public func getBoardingsByName(name: String, completion: @escaping (Result<BoardingsResponse, Error>) -> Void) {
-//        createRequest(
-//            path: Constants.baseAPIURLLocal + "/boardingdetails",
-//            responseDecoder: BoardingDetailsResponse.self,
-//            httpMethod: .GET) { result in
-//                completion(result)
-//            }
+    public func postValidateWhatsAppVerificationCode(validatePhoneCodeBody: ValidatePhoneCodeBody, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequest(
+            path: "/validate-whatsapp-verification-code",
+            body: validatePhoneCodeBody) { result in
+                completion(result)
+            }
     }
     
     public func getImage(path: String) -> String  {
@@ -128,364 +91,84 @@ final class APICaller {
     public func getRandomImageURL(id: Int) -> String  {
         return Constants.baseAPIURLLocal + "/get_image/\(id)"
     }
+
     
-    struct LocalLoadingResponse: Codable {
-        let hello: String
-    }
+    // MARK: GENERIC REQUESTS
     
-    public func getLocalLoading(completion: @escaping (Result<LocalLoadingResponse, Error>) -> Void) {
-        getRequest(path: Constants.baseAPIURLLocal + "/local-loading", responseDecoder: LocalLoadingResponse.self, httpMethod: .GET) { result in
-            completion(result)
-        }
-    }
-    
-    public func postRequestSignUp(name: String, phoneNumber: String, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
-        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-up")!)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let reqBody: [String: String] = [
-            "signMethod": "phoneNumber",
-            "name": name,
-            "phoneNumber": phoneNumber
-        ]
-        
-        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: req) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(SuccessResponse.self, from: data)
-                completion(Result.success(result))
-            } catch {
-                print("error when decoding /sign-up:\n", error.localizedDescription)
-                completion(Result.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-    public func postRequestSignIn(phoneNumber: String, completion: @escaping (Result<SignInResponse, Error>) -> Void) {
-        var req = URLRequest(url: URL(string: Constants.baseAPIURL + "/sign-in")!)
-        req.httpMethod = "POST"
-        
-//        req.setValue("application/json", forHTTPHeaderField: "Accept") // NGARUH!!!
-        
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let reqBody: [String: String] = [
-            "signMethod": "phoneNumber",
-            "phoneNumber": phoneNumber
-        ]
-        
-        req.httpBody = try? JSONSerialization.data(withJSONObject: reqBody, options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: req) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(SignInResponse.self, from: data)
-                completion(Result.success(result))
-            } catch {
-                print("error when decoding /sign-in:\n", error.localizedDescription)
-                completion(Result.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-    
-    
-    
-    /// GET Req to check if there's already an acc with inputted number - OK
-    public func searchPhoneNumIsExist(num: String, completion: @escaping (Bool) -> Void){
-        let params = "?phoneNumber=\(num)"
-        let url = URL(string: "\(MyConstants.Urls.searchPhoneNumURLPath)\(params)")!
-        let responseType = SearchAccByPhoneResponse.self
-        let reqMethod = HTTPMethod.GET
-        
-        fetchDataGETRequest(from: url, responseType: responseType, httpReqMethod: reqMethod) { result in
-            
-            switch result {
-            case .success(let response):
-                print(response)
-                completion(response.hasAnAccount)
-                
-            case .failure(let error):
-                print("Error: \(error)")
-                completion(false)
-            }
-        }
-        
-    }
-    
-    
-    func fetchDataGETRequest <T: Codable>(from url: URL, responseType: T.Type, httpReqMethod method: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
-        createRequest2(with: url, type: method) { baseRequest in
-            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
-                guard let data = data, error == nil else {
-                    completion(.failure(error!))
-                    return
-                }
-                
-                do {
-                    let result = try JSONDecoder().decode(T.self, from: data)
-                    completion(Result.success(result))
-                } catch {
-                    print("error in \(T.self):", error.localizedDescription)
-                    completion(Result.failure(error))
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    func fetchDataPOSTRequest<T: Decodable, B: Encodable>(
-        from url: URL,
-        requestBody: B,
-        responseType: T.Type,
-        httpReqMethod method: HTTPMethod,
+    func getRequest<T: Codable>(
+        path: String,
+        usingToken: Bool = false,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
         
+        guard let apiURL = URL(string: Constants.baseAPIURL + path) else { return }
         
-        createRequestWithBody(with: url, reqBody: requestBody, type: method) { request in
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
-                    completion(.failure(error ?? APIError.requestFailed))
-                    return
-                }
-                
-//                guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-//                    completion(.failure(APIError.requestFailed))
-//                    return
-//                }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: Any] {
-                    print("lala\(data)")
-                    print(error?.localizedDescription ?? "No data")
-                    print(responseJSON)
-                }
-//                do {
-//                    let responseObject = try JSONDecoder().decode(T.self, from: data)
-//                    completion(.success(responseObject))
-//                } catch {
-//                    print("Error decoding response: \(error)")
-//                    completion(.failure(APIError.jsonSerializationFailed))
-//                }
-            }
-            task.resume()
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        if usingToken {
+            request.addValue(
+//                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+//                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
+                forHTTPHeaderField: "Authorization"
+            )
         }
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+//                let result2 = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(result2)
+                let result = try JSONDecoder().decode(T.self, from: data)
+                print("GET \(path)")
+                completion(Result.success(result))
+            } catch {
+                print("error in GET \(path)\n", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }.resume()
     }
     
-    
-    func fetchDataPOSTRequestResponse<T: Decodable, B: Encodable>(
-        from url: URL,
-        requestBody: B,
-        responseType: T.Type,
-        httpReqMethod method: HTTPMethod,
-        completion: @escaping (Bool) -> Void
+    public func postRequest<A: Codable, B: Codable>(
+        path: String,
+        usingToken: Bool = false,
+        body: B? = nil,
+        completion: @escaping (Result<A, Error>) -> Void
     ) {
-        createRequestWithBody(with: url, reqBody: requestBody, type: method) { request in
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                
-//                let httpResponsee = response
-//                print(httpResponsee)
-                guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                    //                    completion(.failure(APIError.requestFailed))
-                    print("haa")
-
-                    completion(true)
-                    return
-                }
-                
-                let isRequestSuccessful = (200...299).contains(httpResponse.statusCode)
-                print(httpResponse.statusCode)
-                completion(isRequestSuccessful)
-            }
-            task.resume()
-        }
-    }
-    
-    
-    
-    func postRequest<T: Codable>(parameters: T, path: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
-
-        /// declare parameter as a dictionary which contains string as key and value combination.
+        var req = URLRequest(url: URL(string: Constants.baseAPIURL + path)!)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        /// create the url with NSURL
-        let url = URL(string: "\(path)")!
-        
-
-        /// create the session object
-        let session = URLSession.shared
-
-        /// create the Request object using the url object
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        
-        /// HTTP Headers
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-
-
-//        do {
-//            request.httpBody = try JSONSerialization.data(withJSONObject: parameters!, options: .fragmentsAllowed) // pass dictionary to data object and set it as request body
-//        } catch let error {
-//            print(error.localizedDescription)
-//            completion(nil, error)
-//        }
-
-        do {
-                let jsonData = try JSONEncoder().encode(parameters)
-                request.httpBody = jsonData
-            } catch {
-                completion(nil, error)
-                return
-            }
-        
-        /// create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-
-            guard error == nil else {
-                completion(nil, error)
-                return
-            }
-
-            guard let data = data else {
-                completion(nil, error)
-                return
-            }
-
-            do {
-                /// create json object from data
-                guard let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
-                    completion(nil, error)
-                    return
-                }
-                print(json)
-                completion(json, nil)
-            } catch let error {
-                completion(nil, error)
-            }
-        })
-
-        task.resume()
-    }
-    
-    
-    
-    // MARK: HTTP REQUESTS
-    enum HTTPMethod: String {
-        case GET
-        case POST
-    }
-    
-    func getRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, token: String? = nil, completion: @escaping (Result<T, Error>) -> Void) {
-        
-        guard let apiURL = URL(string: path) else { return }
-        
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = httpMethod.rawValue
-        
-        if let token {
-            request.addValue(token, forHTTPHeaderField: "Authorization")
+        if let body {
+            print("\nUSING HTTP BODY")
+            print(body)
+            req.httpBody = try? JSONEncoder().encode(body)
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+        if usingToken {
+            req.setValue("", forHTTPHeaderField: "Authorization")
+        }
+        
+        URLSession.shared.dataTask(with: req) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(error!))
                 return
             }
             
             do {
-                let result = try JSONDecoder().decode(T.self, from: data)
-                print("\(httpMethod.rawValue) /\(path)")
+                let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))
             } catch {
-                print("error in \(httpMethod.rawValue) \(path):", error.localizedDescription)
+                print("error when decoding in \(path):\n", error.localizedDescription)
                 completion(Result.failure(error))
             }
-        }
-        task.resume()
+        }.resume()
     }
-    
-    private func createRequest2(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
-        guard let apiURL = url else { return }
-        
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = type.rawValue
-        
-        // nanti tanya cindy apakah sudah wajib set header auth sebelum requests
-        
-        completion(request) // continue the request
-    }
-
-    
-    func createRequest<T: Codable>(path: String, responseDecoder: T.Type, httpMethod: HTTPMethod, completion: @escaping (Result<T, Error>) -> Void) {
-        
-        guard let apiURL = URL(string: path) else { return }
-        
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = httpMethod.rawValue
-        
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(T.self, from: data)
-                print("\(httpMethod.rawValue) /\(path)")
-                print("TOKEN: \(AuthManager.shared.token)")
-                completion(Result.success(result))
-            } catch {
-                print("error in \(httpMethod.rawValue) \(path):", error.localizedDescription)
-                completion(Result.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-    private func createRequestLama(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
-        guard let apiURL = url else { return }
-        
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = type.rawValue
-        
-        // nanti tanya cindy apakah sudah wajib set header auth sebelum requests
-        
-        completion(request) // continue the request
-    }
-    
-    private func createRequestWithBody<B: Encodable>(with url: URL?, reqBody: B, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
-        guard let apiURL = url else { return }
-        
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = type.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-
-        do {
-            /// Serialize the request body (reqBody) to JSON data
-            let jsonData = try JSONEncoder().encode(reqBody)
-            /// Set the JSON data as the HTTP body
-            request.httpBody = jsonData
-            /// Call the completion handler with the created request
-            completion(request)
-        } catch {
-            print("Error encoding request body: \(error)")
-        }
-    }
-    
-    
-   
-    
     
 }

@@ -1,14 +1,14 @@
+////
+////  ErrorResponse.swift
+////  MacroZladagApp
+////
+////  Created by Celine Margaretha on 29/10/23.
+////
 //
-//  ErrorResponse.swift
-//  MacroZladagApp
+///// Implemented in sign-in, sign-up-, sign-out
+//import Foundation
 //
-//  Created by Celine Margaretha on 29/10/23.
-//
-
-/// Implemented in sign-in, sign-up-, sign-out
-import Foundation
-
-struct ErrorResponse: Codable {
-    let message: String
-    let errors: [String: [String]]
-}
+//struct ErrorResponse: Codable {
+//    let message: String
+//    let errors: [String: [String]]
+//}

@@ -64,74 +64,75 @@ class LanjutWelcomingViewController: UIViewController {
     
     var prevTambahAnabulButtonFrame: CGRect = CGRect()
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        postRequestSignUp()
-        
-        if let userProfileName = self.userProfileName {
-            print("PENGGUNA:", userProfileName)            
-        }
-        
         view.backgroundColor = .white
         
-        setupHeaderLabels()
-        setupTambahAnabulButton()
-        setupLineBreakView()
-        setupNantiSajaButton()
+        setupLoadingScreen()
+        postRequestAutoSignIn { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.setupHeaderLabels()
+            strongSelf.setupTambahAnabulButton()
+            strongSelf.setupLineBreakView()
+            strongSelf.setupNantiSajaButton()
+            
+            strongSelf.prevTambahAnabulButtonFrame = strongSelf.tambahAnabulButton.frame
+            strongSelf.spinner.stopAnimating()
+            strongSelf.spinner.removeFromSuperview()
+        }
         
-        self.prevTambahAnabulButtonFrame = tambahAnabulButton.frame
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton), for: .touchDown)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton2), for: .touchUpInside)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton3), for: .touchDragOutside)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton4), for: .touchUpOutside)
         
-        nantiSajaButton.addTarget(self, action: #selector(clickNantiSajaButton), for: .touchUpInside)
+        nantiSajaButton.addTarget(self, action: #selector(onClickNantiSajaButton), for: .touchUpInside)
     }
     
-    func postRequestSignUp() {
+    func postRequestAutoSignIn(completion: @escaping () -> ()) {
         guard let userProfileName, let phoneNumber else { return }
-        print(phoneNumber)
-        print(userProfileName)
         
         let group = DispatchGroup()
         group.enter()
         
+        var success = false
+        AuthManager.shared.postRequestSignUp(name: userProfileName, phoneNumber: phoneNumber) { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let response):
+                print("\nSIGN UP: \(response.success)")
+                break
+            case .failure(let error):
+                print("ERROR WHEN SIGNING UP\n\(error)")
+                break
+            }
+        }
         
-        APICaller.shared.postRequestSignUp(
-            name: userProfileName,
-            phoneNumber: phoneNumber) { result in
+        group.notify(queue: .main) {
+            AuthManager.shared.postRequestSignInByPhoneNumber(phoneNumber: phoneNumber) { result in
+                group.enter()
                 defer {
                     group.leave()
                 }
                 
-                switch result {
-                case .success(let response):
-                    print("SIGN UP: \(response.success)")
-                    break
-                case .failure(let error):
-                    print("ERROR WHEN SIGNING UP\n\(error)")
-                    break
-                }
-                
+//                if success {} // TODO: PENJAGAAN KALAU API GAGAL
             }
-        
-        group.notify(queue: .main) {
-            APICaller.shared.postRequestSignIn(
-                phoneNumber: phoneNumber) { result in
-                    switch result {
-                    case .success(let response):
-                        print("sign in token: \(response.personalAccessToken)")
-                        AuthManager.shared.cacheToken(with: response.personalAccessToken)
-                        break
-                    case .failure(let error):
-                        print("ERROR WHEN SIGNING IN\n\(error)")
-                    }
-                }
         }
         
-        
+        group.notify(queue: .main) {
+            completion()
+        }
     }
     
     func setupHeaderLabels() {
@@ -260,6 +261,21 @@ class LanjutWelcomingViewController: UIViewController {
         ])
     }
     
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
     // MARK: OBJC BUTTONS
     
     // TOUCH DOWN
@@ -292,8 +308,13 @@ class LanjutWelcomingViewController: UIViewController {
         tambahAnabulButton.frame = prevTambahAnabulButtonFrame
     }
     
-    @objc func clickNantiSajaButton() {
+    @objc func onClickNantiSajaButton() {
         print("clicked nanti saja")
+        
+        let mainAppTabBarVC = TabBarViewController()
+        mainAppTabBarVC.modalPresentationStyle = .fullScreen
+
+        present(mainAppTabBarVC, animated: true)
     }
     
 }

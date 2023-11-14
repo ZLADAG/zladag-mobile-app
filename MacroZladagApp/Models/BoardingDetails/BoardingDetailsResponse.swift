@@ -20,8 +20,8 @@ struct BoardingDetails: Codable {
     let boardingCategory: String
     let boardingFacilities: [String]
 //    var boardingCages: [BoardingCage]
-    let shouldHaveBeenVaccinated: Int
-    let shouldHaveToBeFleaFree: Int
+    let shouldHaveBeenVaccinated: Bool?
+    let shouldHaveToBeFleaFree: Bool?
     let minimumAge: Int
     let maximumAge: Int
     let description: String

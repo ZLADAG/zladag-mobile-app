@@ -8,5 +8,5 @@
 import Foundation
 
 struct VerificationCodeResponse: Codable {
-     let verificationCode: String
+     let verificationCode: Int
  }

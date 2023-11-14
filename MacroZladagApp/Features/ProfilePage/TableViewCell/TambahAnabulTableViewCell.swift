@@ -11,6 +11,8 @@ class TambahAnabulTableViewCell: UITableViewCell {
     
     static let identifier = "TambahAnabulTableViewCell"
     
+    weak var mainViewController: ProfileViewController?
+    
     let button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .orangeButtonWithOpacity
@@ -20,12 +22,6 @@ class TambahAnabulTableViewCell: UITableViewCell {
         
         return button
     }()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -73,7 +69,9 @@ class TambahAnabulTableViewCell: UITableViewCell {
     }
     
     @objc func onClickTambahAnabulButton() {
-        print("oke")
+        guard let mainViewController else { return }
+        
+        mainViewController.navigationController?.pushViewController(TambahProfilAnabulViewController(), animated: true)
     }
 
 }

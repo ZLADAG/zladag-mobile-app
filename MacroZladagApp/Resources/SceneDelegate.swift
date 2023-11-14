@@ -36,10 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              - jika tidak ada, gaboleh sign in, harus create account, krn butuh phoneNumber
              - jika ada, langsung simpan email
              
-             - coba tanya cindy, mending sign in with apple, selama phoneNumber nya valid, di lolosin aja
-             - karena pas pertama kali sign up kan pasti pake phoneNumber, email dapet dari mana?
-             
-             
+             -  UI VIEW UNTUK NOT LOGGED IN STATE
              */
         
         

@@ -30,6 +30,7 @@ class CreateAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle  = .light
         view.backgroundColor = .white
         
         setUpComponents()
@@ -102,39 +103,32 @@ extension CreateAccountViewController: PrimaryButtonFilledDelegate {
                 
                 /// Validate: empty field, char between 10 - 13 without "62"
                 let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
+                guard let phoneNum else { print("phoneNum  = nil"); return }
                 
-                AppAccountManager.shared.isPhoneNumberExist(no: "62\(String(describing: phoneNum!))") { exists in
+                AuthManager.shared.doesExistPhoneNumber(num: "62\(String(describing: phoneNum))") { exists in
                     
                     /// Update the UI or perform UI-related tasks: This code runs on the main thread
                     DispatchQueue.main.async { [self] in
                         if exists {
                             phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
                             phoneInputField.errorLabel.isHidden = false
-                            
                         } else {
                             phoneInputField.errorLabel.isHidden = true
+                            
                             let otpVerificationVC = OtpVerificationViewController()
-                            otpVerificationVC.phoneNum = "\(String(describing: phoneNum!))"
+                            otpVerificationVC.phoneNum = "\(String(describing: phoneNum))"
+                            
                             self.navigationController?.pushViewController(otpVerificationVC, animated: true)
                         }
-                        
                     }
-                    
                 }
-                
-                
-                
             }
         }
-        
-        
     }
-    
 }
 
-
-
 extension CreateAccountViewController: OnboardPromptLabelButtonDelegate {
+    
     func defaultBtnTapped() {
         
         let signInVC = SignInViewController()
@@ -142,4 +136,5 @@ extension CreateAccountViewController: OnboardPromptLabelButtonDelegate {
         navigationController?.popViewController(animated: true)
         navigationController?.pushViewController(signInVC, animated: true)
     }
+    
 }

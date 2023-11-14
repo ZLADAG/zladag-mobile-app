@@ -38,6 +38,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
         setUpComponents()
@@ -106,7 +107,7 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         if optionType!.contains("apple") {
             print("go to SignInBy APPLE ViewController")
-            handleSignInWithApple()
+            self.handleSignInWithApple()
         }
         else if optionType!.contains("google") {
             print("go to SignInBy GOOGLE ViewController")

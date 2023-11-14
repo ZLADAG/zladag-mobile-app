@@ -152,6 +152,11 @@ extension MainHeaderCollectionReusableView {
         self.anjingCount = AppAccountManager.shared.anjingCount
         self.kucingCount = AppAccountManager.shared.kucingCount
         
+        guard (self.anjingCount > 0 || self.kucingCount > 0) else {
+            self.presentCatsAndDogSheet()
+            return
+        }
+        
         var navbarDetails = String()
         var petCategories = [String]()
         if self.anjingCount > 0 {
