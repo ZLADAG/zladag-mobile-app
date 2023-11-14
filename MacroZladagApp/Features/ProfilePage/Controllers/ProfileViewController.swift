@@ -27,8 +27,22 @@ class ProfileViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         view.backgroundColor = .white
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        view.subviews.forEach { sbv in
+            sbv.removeFromSuperview()
+        }
+//        for sbv in view.subviews {
+//            sbv.removeFromSuperview()
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         setupLoadingScreen()
         
@@ -74,9 +88,57 @@ class ProfileViewController: UIViewController {
         }
     }
     
+//    let tableViewRefreshControl: UIRefreshControl = {
+//        let a = UIRefreshControl()
+//        
+//        return a
+//    }()
+    
+    let tableViewRefreshControl = UIRefreshControl()
+    
+    @objc func onPullRefresh(sender: UIRefreshControl) {
+        sender.beginRefreshing()
+        
+        APICaller.shared.getUserProfile { [weak self] result in
+            
+            var success = false
+            
+            switch result {
+            case .success(let userProfileResponse):
+                success = true
+                self?.viewModel = UserProfileViewModel(
+                    id: userProfileResponse.data.user.id,
+                    name: userProfileResponse.data.user.name,
+                    image: userProfileResponse.data.user.image,
+                    pets: userProfileResponse.data.pets.compactMap({ petDetail in
+                        return PetDetailsViewModel(
+                            id: petDetail.id,
+                            name: petDetail.name,
+                            petBreed: petDetail.petBreed,
+                            age: petDetail.age,
+                            image: petDetail.image
+                        )
+                    })
+                )
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    sender.endRefreshing()
+                }
+                
+                break
+            case .failure(let error):
+                print("ERROR WHEN PULL-REFRESHING IN PROFILE VC\n", error)
+                
+                break
+            }
+        }
+    }
+    
     func setupTableView() {
         view.addSubview(tableView)
         
+        tableViewRefreshControl.addTarget(self, action: #selector(onPullRefresh), for: .valueChanged)
+        tableView.refreshControl = tableViewRefreshControl
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
@@ -90,7 +152,7 @@ class ProfileViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -244,6 +306,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.separatorInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             }
             cell.configure(petDetails: viewModel.pets[indexPath.row])
+            print(">>", viewModel.pets[indexPath.row].petBreed)
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: TambahAnabulTableViewCell.identifier, for: indexPath) as! TambahAnabulTableViewCell
