@@ -51,7 +51,7 @@ final class APICaller {
     }
     
     public func getPetDetailsById(id: String, completion: @escaping (Result<PetProfileDetailsResponse, Error>) -> Void) {
-        getRequest(path: "/profile/pets/\(id)") { result in
+        getRequest(path: "/profile/pets/\(id)", usingToken: true) { result in
             completion(result)
         }
     }
