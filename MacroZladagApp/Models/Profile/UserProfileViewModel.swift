@@ -8,17 +8,20 @@
 import Foundation
 
 struct UserProfileViewModel {
+    var id: String
     var name: String
-    var image: String
+    var image: String?
     var pets: [PetDetailsViewModel]
     
     init() {
+        self.id = ""
         self.name = ""
         self.image = ""
         self.pets = []
     }
     
-    init(name: String, image: String, pets: [PetDetailsViewModel]) {
+    init(id: String, name: String, image: String?, pets: [PetDetailsViewModel]) {
+        self.id = id
         self.name = name
         self.image = image
         self.pets = pets
@@ -30,6 +33,6 @@ struct PetDetailsViewModel {
     let name: String
     let petBreed: String
     let age: Int
-    let image: String
+    let image: String?
 }
 

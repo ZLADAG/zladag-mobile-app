@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,15 +19,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATd-34-VhU">
                                 <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="wMq-bl-1G9">
-                                        <rect key="frame" x="144.66666666666666" y="321" width="86" height="86"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="wMq-bl-1G9">
+                                        <rect key="frame" x="129.66666666666666" y="306" width="116" height="116"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="86" id="NQG-ro-QUW"/>
-                                            <constraint firstAttribute="height" constant="86" id="ilO-0g-Dbc"/>
+                                            <constraint firstAttribute="width" constant="116" id="NQG-ro-QUW"/>
+                                            <constraint firstAttribute="height" constant="116" id="ilO-0g-Dbc"/>
                                         </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="wMq-bl-1G9" firstAttribute="centerX" secondItem="ATd-34-VhU" secondAttribute="centerX" id="3kj-8p-fNA"/>
                                     <constraint firstItem="wMq-bl-1G9" firstAttribute="centerY" secondItem="ATd-34-VhU" secondAttribute="centerY" id="w3u-ld-ekJ"/>
@@ -36,7 +36,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ATd-34-VhU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Omp-g6-LXt"/>
                             <constraint firstItem="ATd-34-VhU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XTS-Ev-4ez"/>
@@ -51,9 +51,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="app-icon" width="1024" height="1024"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="app-icon" width="116" height="116"/>
     </resources>
 </document>

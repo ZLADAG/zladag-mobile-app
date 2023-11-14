@@ -19,12 +19,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        let navVc = UINavigationController(rootViewController: ProfileViewController())
-//        let navVc = UINavigationController(rootViewController: ProfilePetListDetailsViewController())
-//        let navVc = UINavigationController(rootViewController: PetFacilityPrefCollectionViewController())
-//        let navVc = UINavigationController(rootViewController: PetHabitsCollectionViewController())
-        
-        window.rootViewController = PetOptionSheetViewController()
+//        if AuthManager.shared.isSignedIn {
+            window.rootViewController = TabBarViewController()
+//        } else {
+//            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
+//            window.rootViewController = navVc
+//        }
+        // TODO:
+            /*
+             - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
+             - coba simpan phoneNumber di userdefaults
+             - log out coba dibuat, tinggal hapus value UserDefaults. (UserDefaults.standard.removeObject(forKey: "")
+             - nanti sign in lagi
+             
+             - sekarang utk appleId, cek dulu phoneNumber di userdefaults
+             - jika tidak ada, gaboleh sign in, harus create account, krn butuh phoneNumber
+             - jika ada, langsung simpan email
+             
+             -  UI VIEW UNTUK NOT LOGGED IN STATE
+             */
+
         self.window = window
         self.window?.makeKeyAndVisible()
     }

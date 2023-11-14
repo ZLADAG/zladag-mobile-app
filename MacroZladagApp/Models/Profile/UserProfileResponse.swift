@@ -31,8 +31,9 @@ struct UserProfile2: Codable {
 }
 
 struct UserDetails: Codable {
+    let id: String
     let name: String
-    let image: String
+    let image: String?
 }
 
 struct PetDetails: Codable {
@@ -40,5 +41,5 @@ struct PetDetails: Codable {
     let name: String
     let petBreed: String
     let age: Int
-    let image: String
+    let image: String?
 }

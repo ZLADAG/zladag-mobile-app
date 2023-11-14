@@ -19,6 +19,7 @@ class TextFieldView: UIButton {
         label.text = self.fieldTitle
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .textBlack
+        label.sizeToFit()
         return label
     }()
     
@@ -50,16 +51,14 @@ class TextFieldView: UIButton {
         addSubview(thisImageView)
         addSubview(thisLabel)
         
-        if hasMapIcon != nil {
+        if hasMapIcon != nil { // UTK LOCATION
             addSubview(mapIcon)
         }
         
-        if hasMapIcon == nil {
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "in")
-            dateFormatter.dateStyle = .medium
+        if hasMapIcon == nil { // UTK CALENDAR!
             
-            self.thisLabel.text = dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+            self.thisLabel.text = AppAccountManager.shared.calendarTextDetails
+            
         }
     }
     
@@ -74,6 +73,11 @@ class TextFieldView: UIButton {
             mapIcon.frame = CGRect(x: self.frame.width - 8 - 16, y: 14, width: 16, height: 16)
         }
         
-        thisLabel.frame = CGRect(x: thisImageView.frame.maxX + 4, y: thisImageView.frame.minY, width: 100, height: 18)
+        thisLabel.frame = CGRect(
+            x: thisImageView.frame.maxX + 4,
+            y: thisImageView.frame.minY,
+            width: 145,
+            height: 18
+        )
     }
 }

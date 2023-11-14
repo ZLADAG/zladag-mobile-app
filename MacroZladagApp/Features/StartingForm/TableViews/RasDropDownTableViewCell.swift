@@ -1,0 +1,87 @@
+//
+//  RasDropDownTableViewCell.swift
+//  MacroZladagApp
+//
+//  Created by Daniel Bernard Sahala Simamora on 02/11/23.
+//
+
+import UIKit
+
+class RasDropDownTableViewCell: UITableViewCell {
+    static let identifier = "RasDropDownTableViewCell"
+    
+    let label = UILabel()
+    let checkBoxView = UIView()
+    
+    public var isCheckBoxSelected: Bool = false
+    public var petBreed: PetBreedRadioButton? = nil
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // Initialization code
+    }
+    
+    func configure(with petBreed: PetBreedRadioButton) {
+        self.petBreed = petBreed
+        label.text = "\(petBreed.name)"
+        
+        if let petBreed = self.petBreed {
+            checkBoxView.backgroundColor = petBreed.isSelected ? .customBlueForLabels : .clear
+        } else {
+            checkBoxView.backgroundColor = .clear
+        }
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        backgroundColor = .customGrayForInputFields
+        
+        // CHECKBOX
+        contentView.addSubview(checkBoxView)
+        
+        if let petBreed = self.petBreed {
+            if petBreed.isSelected {
+                checkBoxView.backgroundColor = petBreed.isSelected ? .customBlueForLabels : .clear
+            }
+        } else {
+            checkBoxView.backgroundColor = .clear
+        }
+        
+        checkBoxView.layer.cornerRadius = 2
+        checkBoxView.layer.borderColor = UIColor.customGrayForCheckboxBorder.cgColor
+        checkBoxView.layer.borderWidth = 1
+        checkBoxView.frame.size = CGSize(width: 24, height: 24)
+
+        // LABEL
+        contentView.addSubview(label)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .textBlack
+        label.sizeToFit()
+    }
+    
+    override func layoutSubviews() {
+//        checkBoxView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            checkBoxView.topAnchor.constraint(equalTo: topAnchor),
+//            checkBoxView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+//            checkBoxView.widthAnchor.constraint(equalToConstant: checkBoxView.width),
+//            checkBoxView.heightAnchor.constraint(equalToConstant: checkBoxView.height),
+//        ])
+//
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            label.leadingAnchor.constraint(equalTo: checkBoxView.trailingAnchor, constant: 10),
+//            label.centerYAnchor.constraint(equalTo: checkBoxView.centerYAnchor),
+//            label.widthAnchor.constraint(equalToConstant: label.width),
+//            label.heightAnchor.constraint(equalToConstant: label.height)
+//        ])
+        
+        checkBoxView.frame = CGRect(x: frame.minX + 16, y: 0, width: checkBoxView.width, height: checkBoxView.height)
+
+        label.center = checkBoxView.center
+        label.frame = CGRect(x: checkBoxView.frame.maxX + 10, y: label.frame.minY, width: label.width, height: label.height)
+    }
+    
+}

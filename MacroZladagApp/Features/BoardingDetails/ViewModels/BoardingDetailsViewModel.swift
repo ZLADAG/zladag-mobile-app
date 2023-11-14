@@ -16,14 +16,18 @@ struct BoardingDetailsViewModel {
     let boardingCategory: String
     let subdistrictName: String
     let provinceName: String
-    let boardingCages: [BoardingCage]
+    let boardingCages: [BoardingCage] = [
+        BoardingCage(name: "S", length: 35, width: 60),
+        BoardingCage(name: "M", length: 60, width: 85),
+        BoardingCage(name: "L", length: 85, width: 110),
+    ]
     var rating: Double
     var numOfReviews: Int
     let price: Int
     let images: [String]
     let facilities: [String]
-    let shouldHaveBeenVaccinated: Int
-    let shouldHaveToBeFleaFree: Int
+    let shouldHaveBeenVaccinated: Bool
+    let shouldHaveToBeFleaFree: Bool
     let minimumAge: Int
     let maximumAge: Int
     
@@ -32,7 +36,8 @@ struct BoardingDetailsViewModel {
     let startCheckOutTime: String = "99"
     let endCheckOutTime: String = "99"
     
-    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, boardingCages: [BoardingCage], price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int, rating: Double, numOfReviews: Int) {
+//    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, boardingCages: [BoardingCage], price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int) {
+    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Bool?, shouldHaveToBeFleaFree: Bool?, minimumAge: Int, maximumAge: Int) {
         self.name = name
         self.distance = distance
         self.address = address
@@ -41,19 +46,17 @@ struct BoardingDetailsViewModel {
         self.boardingCategory = boardingCategory
         self.subdistrictName = subdistrictName
         self.provinceName = provinceName
-        self.boardingCages = boardingCages
+//        self.boardingCages = boardingCages
         self.price = price
         self.images = images
         self.facilities = facilities
-        self.shouldHaveBeenVaccinated = shouldHaveBeenVaccinated
-        self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree
+        self.shouldHaveBeenVaccinated = shouldHaveBeenVaccinated ?? false
+        self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree ?? false
         self.minimumAge = minimumAge
         self.maximumAge = maximumAge
-        self.rating = rating
-        self.numOfReviews = numOfReviews
         
-//        self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
-//        self.numOfReviews = Int.random(in: 20...100)
+        self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
+        self.numOfReviews = Int.random(in: 20...100)
     }
     
 //    mutating func setupDates() {

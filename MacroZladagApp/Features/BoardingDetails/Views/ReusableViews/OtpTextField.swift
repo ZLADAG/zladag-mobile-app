@@ -210,6 +210,18 @@ extension OtpTextField: UITextFieldDelegate {
         return status
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case otpTF4:
+            print("ready to validateOtp()")
+            delegate?.validateOtp()
+            break
+        default:
+            print("textFieldDidEndEditing?")
+            break
+        }
+    }
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         
         let text = textField.text
@@ -232,7 +244,6 @@ extension OtpTextField: UITextFieldDelegate {
             case otpTF4:
                 otpTF4.isEnabled = true
                 otpTF4.resignFirstResponder()
-                delegate?.validateOtp()
             default:
                 break
             }

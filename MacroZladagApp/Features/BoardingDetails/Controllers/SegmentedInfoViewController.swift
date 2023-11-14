@@ -61,18 +61,21 @@ class SegmentedInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mainVc?.group.notify(queue: .main) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.spinner.hidesWhenStopped = true
-                self.spinner.stopAnimating()
-                self.spinner.removeFromSuperview()
-                
-                self.setUpComponents()
-                self.setUpConstraint()
-            })
-        }
+//        self.mainVc?.group.notify(queue: .main) {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                self.spinner.hidesWhenStopped = true
+//                self.spinner.stopAnimating()
+//                self.spinner.removeFromSuperview()
+//                
+//                self.setUpComponents()
+//                self.setUpConstraint()
+//            })
+//        }
+//        
+//        setupLoadingScreen()
         
-        setupLoadingScreen()
+        self.setUpComponents()
+        self.setUpConstraint()
     }
     
     //MARK: Setup components
@@ -254,7 +257,7 @@ class SegmentedInfoViewController: UIViewController {
         subViews.append(openHoursStack)
         
         // Vaccinated
-        if mainVcViewModel.shouldHaveBeenVaccinated == 1 {
+        if mainVcViewModel.shouldHaveBeenVaccinated {
             let vaccinatedStack = createIconLabelWithTitle("policy-vaccine-icon", "Sudah Vaksin", "Anabul melakukan vaksin tahunan")
             subViews.append(vaccinatedStack)
         }
@@ -266,7 +269,7 @@ class SegmentedInfoViewController: UIViewController {
         subViews.append(ageRangeStack)
         
         // FleaFree
-        if mainVcViewModel.shouldHaveToBeFleaFree == 1 {
+        if mainVcViewModel.shouldHaveToBeFleaFree {
             let fleaFreeStack = createIconLabelWithTitle("policy-clean-icon", "Bebas Kutu", "Anabul bebas dari kutu yang dapat menular")
             subViews.append(fleaFreeStack)
         }

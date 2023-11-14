@@ -16,7 +16,7 @@ class NecessarryFieldLabel: UILabel {
         super.init(frame: .zero)
         
         let firstAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium),
             .foregroundColor: UIColor.textBlack.cgColor
         ]
         

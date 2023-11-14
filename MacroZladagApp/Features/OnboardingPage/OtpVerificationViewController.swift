@@ -62,7 +62,7 @@ class OtpVerificationViewController: UIViewController {
         setUpConstraints()
         
     }
-    private func setUpConstraints(){
+    private func setUpConstraints() {
         
         view.addSubview(header)
         NSLayoutConstraint.activate([
@@ -73,22 +73,25 @@ class OtpVerificationViewController: UIViewController {
         
         view.addSubview(allComponentStack)
         NSLayoutConstraint.activate([
-            
             // Set wraping constraint
             allComponentStack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 40),
             allComponentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             allComponentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
         ])
-        
     }
+    
     private func askVerificationCode() {
-        DispatchQueue.global().async {
-            AppAccountManager.shared.askOtpVerification(no: "62\(self.phoneNum)", completion: { isSuccess, message in
-                DispatchQueue.main.async {
-                    //                print(AppAccountManager.shared.verificationCode!)
-                    self.setUpTimer()
+        
+        AuthManager.shared.askWhatsAppVerificationCode(phoneNumber: "62\(self.phoneNum)") { success, message in
+            if success {
+                print("\nverificationCode: \(message)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.setUpTimer()
                 }
-            })
+            } else {
+                print("\nSOMETHING'S WRONG IN AuthManager.shared.askWhatsAppVerificationCode \n")
+                print("askOtpVerification: \(success), message: \(message)")
+            }
         }
     }
     
@@ -141,42 +144,38 @@ class OtpVerificationViewController: UIViewController {
 
 
 extension OtpVerificationViewController: OtpTextFieldDelegate {
-    func validateOtp() {
-            
-        let otpCode = otpFieldStack.getOtpCode()
-       
-        DispatchQueue.global().async {
-            AppAccountManager.shared.validateOtpVerification(no: "62\(self.phoneNum)", otpCode: otpCode, completion: { (isSuccess, message) in
-               
-                DispatchQueue.main.async { [self] in
-                    if isSuccess {
-                        self.otpFieldStack.errorLabel.text = ""
-                        self.otpFieldStack.errorLabel.isHidden = true
-                        
-                       
-                        DispatchQueue.global().async {
-                            // MARK: Direct to input username
-                            
-//                            let nextVC =
-//                            navigationController?.popToRootViewController(animated: true)
-//                            navigationController?.pushViewController(nextVC, animated: true)
-                        }
-                        
-                    } else {
-                        print(message ?? "??")
-                        self.otpFieldStack.errorLabel.text = message!
-                        self.otpFieldStack.errorLabel.isHidden = false
-                        self.otpFieldStack.resetField()
-                    }
-                }
-                
-            })
-        }
-
-        
-        
-    }
     
+    func validateOtp() {
+        let otpCode = otpFieldStack.getOtpCode()
+        let phoneNumber = "62\(self.phoneNum)"
+        
+        AuthManager.shared.validateOtpVerification(phoneNumber: phoneNumber, otpCode: otpCode, completion: { (success, message) in
+            if success {
+                DispatchQueue.main.async {
+                    self.otpFieldStack.errorLabel.text = ""
+                    self.otpFieldStack.errorLabel.isHidden = true
+                    
+                    let alert = UIAlertController(title: "Berhasil!", message: "", preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.65, execute: {
+                        alert.dismiss(animated: true)
+                        
+                        let vc = WelcomingViewController()
+                        vc.phoneNumber = phoneNumber
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    })
+                }
+            } else {
+                print(message ?? "??")
+                DispatchQueue.main.async {
+                    self.otpFieldStack.errorLabel.text = message!
+                    self.otpFieldStack.errorLabel.isHidden = false
+                    self.otpFieldStack.resetField()
+                }
+            }
+        })
+    }
 }
 
 /// Prompt Label Button Protocol

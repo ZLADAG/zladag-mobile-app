@@ -43,9 +43,13 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     
     let searchContainerView = SearchContainerView()
     let locationFieldView = TextFieldView(fieldTitle: "Dekat Saya", image: UIImage(named: "location-icon"), hasMapIcon: true)
+    
+    var minDate: Date?
+    var maxDate: Date?
     let dateFieldView = TextFieldView(fieldTitle: "", image: UIImage(named: "calendar-icon"), hasMapIcon: nil)
-    public var kucingCount = 0
-    public var anjingCount = 0
+    
+    public var kucingCount = AppAccountManager.shared.kucingCount
+    public var anjingCount = AppAccountManager.shared.anjingCount
     let numberOfCatsAndDogsButton = NumberOfCatsAndDogsButton()
     
     let searchButton = SearchButton()
@@ -64,8 +68,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         return uiView
     }()
     
-    var startDate: Date?
-    var endDate: Date?
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -146,6 +149,14 @@ extension MainHeaderCollectionReusableView {
     @objc func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
 
+        self.anjingCount = AppAccountManager.shared.anjingCount
+        self.kucingCount = AppAccountManager.shared.kucingCount
+        
+        guard (self.anjingCount > 0 || self.kucingCount > 0) else {
+            self.presentCatsAndDogSheet()
+            return
+        }
+        
         var navbarDetails = String()
         var petCategories = [String]()
         if self.anjingCount > 0 {
@@ -180,6 +191,8 @@ extension MainHeaderCollectionReusableView {
             
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
+        
+        navbarDetails = "\(dateFieldView.thisLabel.text!)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
         
         vc.detailsLabel.text = navbarDetails
         vc.detailsValue = navbarDetails
@@ -259,8 +272,8 @@ extension MainHeaderCollectionReusableView {
     }
     
     @objc func presentDatePickerSheet() {
-        let vc  = DatePickerViewController()
-        vc.delegate = self
+        let vc = CustomDatePickerViewController()
+        vc.mainView = self
         
         let navVc = UINavigationController(rootViewController: vc)
         
@@ -270,25 +283,11 @@ extension MainHeaderCollectionReusableView {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.83 * context.maximumDetentValue
+                    0.75 * context.maximumDetentValue
                 })
             ]
             sheet.prefersGrabberVisible = true
             sheet.largestUndimmedDetentIdentifier = .large
-        }
-        
-        if (startDate != nil) {
-            vc.startDateLabel.text = String(vc.getDate(self.startDate!))
-//            print(startDate)
-        } else {
-            vc.startDate = nil
-        }
-        
-        if (endDate != nil) {
-            vc.endDateLabel.text = String(vc.getDate(self.endDate!))
-//            print(endDate)
-        } else {
-            vc.endDate = nil
         }
         
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)

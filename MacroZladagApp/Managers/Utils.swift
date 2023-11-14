@@ -110,4 +110,28 @@ class Utils {
         return nil
     }
     
+    static func getFormattedDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "d MMMM yyyy"
+
+        return dateFormatter.string(from: date)
+    }
+    
+    static func getFormattedDateShortedWithYear(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "d MMM yyyy"
+
+        return dateFormatter.string(from: date)
+    }
+    
+    static func getFormattedDateShorted(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "d MMM"
+
+        return dateFormatter.string(from: date)
+    }
+    
 }

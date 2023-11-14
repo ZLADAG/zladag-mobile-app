@@ -19,9 +19,9 @@ struct BoardingDetails: Codable {
     let province: String
     let boardingCategory: String
     let boardingFacilities: [String]
-    let boardingCages: [BoardingCage]
-    let shouldHaveBeenVaccinated: Int
-    let shouldHaveToBeFleaFree: Int
+//    var boardingCages: [BoardingCage]
+    let shouldHaveBeenVaccinated: Bool?
+    let shouldHaveToBeFleaFree: Bool?
     let minimumAge: Int
     let maximumAge: Int
     let description: String
@@ -30,3 +30,11 @@ struct BoardingDetails: Codable {
     let cheapestLodgingPrice: Int
     let images: [String]
 }
+
+/*
+[
+    BoardingCage(name: "S", length: 35, width: 60),
+    BoardingCage(name: "M", length: 60, width: 85),
+    BoardingCage(name: "L", length: 85, width: 110),
+]
+ */

@@ -31,8 +31,8 @@ class NumberOfCatsAndDogsButton: UIButton {
         }
     }
     
-    public var catValue: Int = 0
-    public var dogValue: Int = 0
+    public var catValue: Int = AppAccountManager.shared.kucingCount
+    public var dogValue: Int = AppAccountManager.shared.anjingCount
     
     let catIconView: UIImageView = {
         return IconView(image: UIImage(named: "cat-icon"))
@@ -48,7 +48,7 @@ class NumberOfCatsAndDogsButton: UIButton {
     lazy var catLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.text = catValue.description
+        label.text = AppAccountManager.shared.kucingCount.description
         label.textAlignment = .center
         return label
     }()
@@ -56,7 +56,7 @@ class NumberOfCatsAndDogsButton: UIButton {
     lazy var dogLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.text = dogValue.description
+        label.text = AppAccountManager.shared.anjingCount.description
         label.textAlignment = .center
         return label
     }()

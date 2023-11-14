@@ -65,12 +65,13 @@ class CatsAndDogsCounterViewController: UIViewController {
         return uiView
     }()
     
-    public var kucingCount: Int = 0
-    public var anjingCount: Int = 0
+    public var kucingCount: Int = AppAccountManager.shared.kucingCount
+    public var anjingCount: Int = AppAccountManager.shared.anjingCount
     
     lazy var kucingCountLabel: UILabel = {
         let label = UILabel()
-        label.text = self.kucingCount.description
+//        label.text = self.kucingCount.description
+        label.text = AppAccountManager.shared.kucingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .textBlack
         label.textAlignment = .center
@@ -79,7 +80,8 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     lazy var anjingCountLabel: UILabel = {
         let label = UILabel()
-        label.text = self.anjingCount.description
+//        label.text = self.anjingCount.description
+        label.text = AppAccountManager.shared.anjingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .textBlack
@@ -88,89 +90,25 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     let incrementKucingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "increment-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let incrementAnjingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "increment-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let decrementKucingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "decrement-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
     let decrementAnjingButton: UIButton = {
         let button = UIButton()
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "decrement-button")
-        imageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: button.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
-        
         return button
     }()
     
@@ -199,6 +137,11 @@ class CatsAndDogsCounterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(AppAccountManager.shared.calendarTextDetails)
+        
+        self.anjingCount = AppAccountManager.shared.anjingCount
+        self.kucingCount = AppAccountManager.shared.kucingCount
+        
         view.backgroundColor = .white
         
         view.addSubview(kucingContainer)
@@ -217,15 +160,15 @@ class CatsAndDogsCounterViewController: UIViewController {
 
         view.addSubview(simpanButton)
         
-        if let controllerDelegate {
-            kucingCountLabel.text = controllerDelegate.kucingCount.description
-            anjingCountLabel.text = controllerDelegate.anjingCount.description
-        }
-        
-        if let mainHeaderDelegate {
-            kucingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.catLabel.text
-            anjingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.dogLabel.text
-        }
+//        if let controllerDelegate {
+//            kucingCountLabel.text = controllerDelegate.kucingCount.description
+//            anjingCountLabel.text = controllerDelegate.anjingCount.description
+//        }
+//        
+//        if let mainHeaderDelegate {
+//            kucingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.catLabel.text
+//            anjingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.dogLabel.text
+//        }
         
         setupNavBar()
         setupButtons()
@@ -239,7 +182,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         
         
         let navLabel = UILabel()
-        navLabel.text = "Deskripsi anabul"
+        navLabel.text = "Jumlah anabul"
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: (32 - 23) / 2, width: 290, height: 23)
         
@@ -299,7 +242,7 @@ class CatsAndDogsCounterViewController: UIViewController {
             catIcon.heightAnchor.constraint(equalToConstant: 36),
             
             dogIcon.leadingAnchor.constraint(equalTo: anjingContainer.leadingAnchor, constant: 16),
-            dogIcon.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 20),
+            dogIcon.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 16),
             dogIcon.widthAnchor.constraint(equalToConstant: 36),
             dogIcon.heightAnchor.constraint(equalToConstant: 36),
             
@@ -354,6 +297,31 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     func setupButtons() {
+        print("OKE")
+        let anjingCount = Int(anjingCountLabel.text ?? "0")!
+        let kucingCount = Int(kucingCountLabel.text ?? "0")!
+        
+        decrementAnjingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
+        if anjingCount == 0 {
+            decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
+
+        } else {
+            decrementAnjingButton.imageView?.tintColor = .customOrange
+        }
+        incrementAnjingButton.setImage(UIImage(named: "increment-button"), for: .normal)
+        incrementAnjingButton.imageView?.tintColor = .customOrange
+        
+        decrementKucingButton.setImage(UIImage(named: "decrement-button"), for: .normal)
+        if kucingCount == 0 {
+            decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
+        } else {
+            decrementKucingButton.imageView?.tintColor = .customOrange
+        }
+        incrementKucingButton.setImage(UIImage(named: "increment-button"), for: .normal)
+        incrementKucingButton.imageView?.tintColor = .customOrange
+        
+        
+        // OBJC FUNCTIONS
         decrementKucingButton.addTarget(self, action: #selector(catDecrementButton), for: .touchUpInside)
         incrementKucingButton.addTarget(self, action: #selector(catIncrementButton), for: .touchUpInside)
         
@@ -375,11 +343,21 @@ class CatsAndDogsCounterViewController: UIViewController {
             self.kucingCount -= 1
             kucingCountLabel.text = self.kucingCount.description
         }
+        
+        if kucingCount == 0 {
+            decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
+        }
+        
+//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func catIncrementButton() {
         self.kucingCount += 1
         kucingCountLabel.text = self.kucingCount.description
+        decrementKucingButton.imageView?.tintColor = .customOrange
+        decrementKucingButton.imageView?.layer.opacity = 1.0
+        
+//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func dogDecrementButton() {
@@ -387,14 +365,27 @@ class CatsAndDogsCounterViewController: UIViewController {
             self.anjingCount -= 1
             anjingCountLabel.text = self.anjingCount.description
         }
+        
+        if anjingCount == 0 {
+            decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
+        }
+        
+//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func dogIncrementButton() {
         self.anjingCount += 1
         anjingCountLabel.text = self.anjingCount.description
+        decrementAnjingButton.imageView?.tintColor = .customOrange
+        decrementAnjingButton.imageView?.layer.opacity = 1.0
+        
+//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func saveData() {
+        AppAccountManager.shared.anjingCount = self.anjingCount
+        AppAccountManager.shared.kucingCount = self.kucingCount
+        
         mainHeaderDelegate?.numberOfCatsAndDogsButton.catLabel.text = kucingCount.description
         mainHeaderDelegate?.numberOfCatsAndDogsButton.dogLabel.text = anjingCount.description
         
@@ -404,14 +395,14 @@ class CatsAndDogsCounterViewController: UIViewController {
         mainHeaderDelegate?.delegate?.dismiss(animated: true)
         
         if let controllerDelegate {
-            controllerDelegate.anjingCount = self.anjingCount
-            controllerDelegate.kucingCount = self.kucingCount
+            controllerDelegate.anjingCount = AppAccountManager.shared.anjingCount
+            controllerDelegate.kucingCount = AppAccountManager.shared.kucingCount
             
-            ubahControllerDelegate?.anjingCount = self.anjingCount
-            ubahControllerDelegate?.kucingCount = self.kucingCount
+            ubahControllerDelegate?.anjingCount = AppAccountManager.shared.anjingCount
+            ubahControllerDelegate?.kucingCount = AppAccountManager.shared.kucingCount
             
-            ubahControllerDelegate?.numberOfCatsAndDogsButton.catLabel.text = self.kucingCount.description
-            ubahControllerDelegate?.numberOfCatsAndDogsButton.dogLabel.text = self.anjingCount.description
+            ubahControllerDelegate?.numberOfCatsAndDogsButton.catLabel.text =  AppAccountManager.shared.kucingCount.description
+            ubahControllerDelegate?.numberOfCatsAndDogsButton.dogLabel.text =  AppAccountManager.shared.anjingCount.description
             
             dismiss(animated: true)
         }

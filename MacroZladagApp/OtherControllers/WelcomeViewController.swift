@@ -70,39 +70,23 @@ extension WelcomeViewController: ASAuthorizationControllerDelegate {
         
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
-            print(credentials.user)
-            print(credentials.email!)
-            
 //            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
 //                print(userId)
-//                
-//                let email = UserDefaults.value(forKey: "email") as! String
-//                
-//                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: email) { result in
-//                    print("MANTAP \(result)\n")
-//                }
-//                
-//                
 //                handleSignIn(true)
 //            } else {
-//                print(credentials.user)
-//                print(credentials.email)
-//                print("======")
-//                
 //                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
 //                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
-//                print(UserDefaults.standard.value(forKey: "email"))
 //                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
 //                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
 //                print(UserDefaults.standard.value(forKey: "userId") as! String)
-//                
-////                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: credentials.email ?? "NO-EMAIL") { result in
-////                    print("MANTAP \(result)\n")
-////                    print(UserDefaults.standard.value(forKey: "email"))
-////                }
-//                
 //                handleSignIn(true)
 //            }
+            
+            print(credentials.user)
+            print(credentials.email)
+            print(credentials.fullName?.givenName)
+            print(credentials.fullName?.familyName)
+            handleSignIn(true)
         default:
             break
         }
@@ -138,3 +122,21 @@ extension WelcomeViewController: ASAuthorizationControllerPresentationContextPro
         return view.window!
     }
 }
+
+/*
+ print(credentials.user)                  ->   000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
+ print(credentials.email)                 ->   Optional("daniel.simamora2000@gmail.com")
+ print(credentials.fullName?.givenName)   ->   Optional("Daniel")
+ print(credentials.fullName?.familyName)  ->   Optional("Simamora")
+ 
+ // hide email
+ 000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
+ Optional("bwtt88d4v4@privaterelay.appleid.com")
+ Optional("Daniel")
+ Optional("Simamora")
+ 
+ 
+ 
+ 
+ 
+ */

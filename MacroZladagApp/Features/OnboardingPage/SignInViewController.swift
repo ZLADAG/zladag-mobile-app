@@ -38,6 +38,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
         setUpComponents()
@@ -106,7 +107,7 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         if optionType!.contains("apple") {
             print("go to SignInBy APPLE ViewController")
-            handleAppleSignIn()
+            self.handleSignInWithApple()
         }
         else if optionType!.contains("google") {
             print("go to SignInBy GOOGLE ViewController")
@@ -122,8 +123,10 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
             navigationController?.pushViewController(signInVC!, animated: true)
         }
     }
-    
-    func handleAppleSignIn() {
+}
+
+extension SignInViewController: ASAuthorizationControllerDelegate {
+    func handleSignInWithApple() {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.email, .fullName]
@@ -134,52 +137,33 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         controller.performRequests()
     }
-}
-
-
-extension SignInViewController: ASAuthorizationControllerDelegate {
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
-            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
-                let email = UserDefaults.standard.value(forKey: "email") as! String
-                print(userId)
-                print(email)
-                print("PERNAH NYIMPAN APPLEID")
-                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: email) { result in
-                    switch result {
-                    case .success(let response):
-                        print("TOKEN: \(response.personalAccessToken)")
-                        break
-                    case .failure(let error):
-                        print("ERROR WHEN EXCHANGIN TOKEN: \(error)")
-                    }
-                }
-                handleSignIn(true)
-            } else {
-                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
-                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
-                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
-                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
-                
-                print("BELUM PERNAH SIMPAN APPLEID")
-                let email = UserDefaults.standard.value(forKey: "email") as! String
-                AuthManager.shared.exchangeForToken(signInMethod: "apple", email: email) { result in
-                    switch result {
-                    case .success(let response):
-                        print("TOKEN: \(response.personalAccessToken)")
-                        break
-                    case .failure(let error):
-                        print("ERROR WHEN EXCHANGING TOKEN: \(error)")
-                    }
-                }
-                handleSignIn(true)
-            }
-            break
+//            if let userId = UserDefaults.standard.value(forKey: "userId") as? String {
+//                print(userId)
+//                handleSignIn(true)
+//            } else {
+//                UserDefaults.standard.setValue(credentials.user, forKey: "userId")
+//                UserDefaults.standard.setValue(credentials.email ?? "NO-EMAIL", forKey: "email")
+//                UserDefaults.standard.setValue(credentials.fullName?.givenName ?? "NO-FIRSTNAME", forKey: "firstName")
+//                UserDefaults.standard.setValue(credentials.fullName?.familyName ?? "NO-LASTNAME", forKey: "lastName")
+//                print(UserDefaults.standard.value(forKey: "userId") as! String)
+//                handleSignIn(true)
+//            }
+            
+            print(credentials.user)
+            print(credentials.email)
+            print(credentials.fullName?.givenName)
+            print(credentials.fullName?.familyName)
+//            handleSignIn(true)
         default:
             break
         }
+        
+        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
@@ -202,7 +186,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         present(mainAppTabBarVC, animated: true)
         
     }
-    
 }
 
 extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
@@ -210,4 +193,5 @@ extension SignInViewController: ASAuthorizationControllerPresentationContextProv
         return view.window!
     }
 }
+
 

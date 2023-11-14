@@ -1,5 +1,5 @@
 //
-//  MasukanDataAnabulViewController.swift
+//  LanjutWelcomingViewController.swift
 //  MacroZladagApp
 //
 //  Created by Daniel Bernard Sahala Simamora on 30/10/23.
@@ -7,7 +7,10 @@
 
 import UIKit
 
-class MasukanDataAnabulViewController: UIViewController {
+class LanjutWelcomingViewController: UIViewController {
+    
+    var userProfileName: String?
+    var phoneNumber: String?
     
     let mainLabel: UILabel = {
         let label = UILabel()
@@ -23,7 +26,7 @@ class MasukanDataAnabulViewController: UIViewController {
         let label = UILabel()
         label.text = "Untuk pengalaman lebih sesuai"
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .customGray4
+        label.textColor = .customGrayForLabels
         label.textAlignment = .center
         return label
     }()
@@ -61,24 +64,75 @@ class MasukanDataAnabulViewController: UIViewController {
     
     var prevTambahAnabulButtonFrame: CGRect = CGRect()
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
         
-        setupHeaderLabels()
-        setupTambahAnabulButton()
-        setupLineBreakView()
-        setupNantiSajaButton()
+        setupLoadingScreen()
+        postRequestAutoSignIn { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.setupHeaderLabels()
+            strongSelf.setupTambahAnabulButton()
+            strongSelf.setupLineBreakView()
+            strongSelf.setupNantiSajaButton()
+            
+            strongSelf.prevTambahAnabulButtonFrame = strongSelf.tambahAnabulButton.frame
+            strongSelf.spinner.stopAnimating()
+            strongSelf.spinner.removeFromSuperview()
+        }
         
-        self.prevTambahAnabulButtonFrame = tambahAnabulButton.frame
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton), for: .touchDown)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton2), for: .touchUpInside)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton3), for: .touchDragOutside)
         tambahAnabulButton.addTarget(self, action: #selector(clickTambahAnabulButton4), for: .touchUpOutside)
         
-        nantiSajaButton.addTarget(self, action: #selector(clickNantiSajaButton), for: .touchUpInside)
+        nantiSajaButton.addTarget(self, action: #selector(onClickNantiSajaButton), for: .touchUpInside)
+    }
+    
+    func postRequestAutoSignIn(completion: @escaping () -> ()) {
+        guard let userProfileName, let phoneNumber else { return }
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        var success = false
+        AuthManager.shared.postRequestSignUp(name: userProfileName, phoneNumber: phoneNumber) { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let response):
+                print("\nSIGN UP: \(response.success)")
+                break
+            case .failure(let error):
+                print("ERROR WHEN SIGNING UP\n\(error)")
+                break
+            }
+        }
+        
+        group.notify(queue: .main) {
+            AuthManager.shared.postRequestSignInByPhoneNumber(phoneNumber: phoneNumber) { result in
+                group.enter()
+                defer {
+                    group.leave()
+                }
+                
+//                if success {} // TODO: PENJAGAAN KALAU API GAGAL
+            }
+        }
+        
+        group.notify(queue: .main) {
+            completion()
+        }
     }
     
     func setupHeaderLabels() {
@@ -110,6 +164,7 @@ class MasukanDataAnabulViewController: UIViewController {
         tambahAnabulButton.layer.masksToBounds = true
         
         let plusImageView = UIImageView(image: UIImage(named: "plus-icon"))
+        plusImageView.tintColor = .white
         let tambahAnabulLabel = UILabel()
         tambahAnabulLabel.text = "Tambah Anabul"
         tambahAnabulLabel.textColor = .white
@@ -150,15 +205,15 @@ class MasukanDataAnabulViewController: UIViewController {
         let atauLineBreakView = UIView()
         
         let leftLine = UIView()
-        leftLine.backgroundColor = .customGray4
+        leftLine.backgroundColor = .customGrayForLabels
         
         let rightLine = UIView()
-        rightLine.backgroundColor = .customGray4
+        rightLine.backgroundColor = .customGrayForLabels
         
         let atauLabel = UILabel()
         atauLabel.text = "Atau"
         atauLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        atauLabel.textColor = .customGray4
+        atauLabel.textColor = .customGrayForLabels
         
         view.addSubview(atauLineBreakView)
         atauLineBreakView.addSubview(leftLine)
@@ -206,6 +261,21 @@ class MasukanDataAnabulViewController: UIViewController {
         ])
     }
     
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
     // MARK: OBJC BUTTONS
     
     // TOUCH DOWN
@@ -238,8 +308,13 @@ class MasukanDataAnabulViewController: UIViewController {
         tambahAnabulButton.frame = prevTambahAnabulButtonFrame
     }
     
-    @objc func clickNantiSajaButton() {
+    @objc func onClickNantiSajaButton() {
         print("clicked nanti saja")
+        
+        let mainAppTabBarVC = TabBarViewController()
+        mainAppTabBarVC.modalPresentationStyle = .fullScreen
+
+        present(mainAppTabBarVC, animated: true)
     }
     
 }

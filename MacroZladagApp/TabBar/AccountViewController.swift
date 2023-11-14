@@ -14,7 +14,6 @@ class AccountViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         print("HELLO ACCOUNT")
-        
     }
     
 }

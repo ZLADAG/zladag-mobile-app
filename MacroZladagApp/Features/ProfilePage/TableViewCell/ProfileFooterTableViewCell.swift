@@ -97,7 +97,17 @@ class ProfileFooterTableViewCell: UITableViewCell {
     
     @objc func onClickLogOutButton() {
         let alert = UIAlertController(title: "Log Out", message: "Apakah kamu yakin?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Keluar", style: .destructive))
+        alert.addAction(UIAlertAction(title: "Keluar", style: .destructive, handler: { [weak self] _ in
+            UserDefaults.standard.removeObject(forKey: "token")
+            print(AuthManager.shared.isSignedIn)
+            print(AuthManager.shared.token)
+            
+            let mainAppTabBarVC = TabBarViewController()
+            mainAppTabBarVC.modalPresentationStyle = .fullScreen
+
+            self?.viewController?.present(mainAppTabBarVC, animated: true)
+        }))
+        // TODO: AUTHMANAGER.LOGOUT!
         alert.addAction(UIAlertAction(title: "Batal", style: .default))
                                       
         viewController?.present(alert, animated: true, completion: nil)
