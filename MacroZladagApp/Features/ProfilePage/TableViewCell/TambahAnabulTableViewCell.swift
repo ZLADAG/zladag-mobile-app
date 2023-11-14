@@ -70,8 +70,9 @@ class TambahAnabulTableViewCell: UITableViewCell {
     
     @objc func onClickTambahAnabulButton() {
         guard let mainViewController else { return }
-        
-        mainViewController.navigationController?.pushViewController(TambahProfilAnabulViewController(), animated: true)
+        let vc = TambahProfilAnabulViewController()
+        vc.hidesBottomBarWhenPushed = true
+        mainViewController.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

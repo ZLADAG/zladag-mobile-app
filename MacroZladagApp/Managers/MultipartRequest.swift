@@ -28,7 +28,7 @@ public struct MultipartRequest {
     }
 
     private func disposition(_ key: String) -> String {
-        "Content-Disposition: form-data; name=\"\(key)\""
+        return "Content-Disposition: form-data; name=\"\(key)\""
     }
 
     public mutating func add(
@@ -39,6 +39,7 @@ public struct MultipartRequest {
         data.append(disposition(key) + separator)
         appendSeparator()
         data.append(value + separator)
+        print(disposition(key) + separator + value + separator + "\n")
     }
 
     public mutating func add(

@@ -36,6 +36,7 @@ class MyPetTableViewCell: UITableViewCell {
     }
     
     func configure(petDetails: PetDetailsViewModel) {
+        
         nameLabel.text = petDetails.name.capitalized
         breedLabel.text = "\(petDetails.petBreed.capitalized)  ·  \(petDetails.age) tahun"
         self.imageName = petDetails.image
@@ -55,15 +56,6 @@ class MyPetTableViewCell: UITableViewCell {
         petImageView.image = nil
     }
     
-    func configure2(petDetails: PetDetailsViewModel) {
-        nameLabel.text = petDetails.name.capitalized
-        
-        setupPetImageView()
-        setupNameLabel()
-        setupSubDetailLabel(petDetails: petDetails)
-    }
-    
-    
     func setupPetImageView() {
         addSubview(petImageView)
         
@@ -80,6 +72,7 @@ class MyPetTableViewCell: UITableViewCell {
         } else {
             let emptyIconView = UIImageView()
             emptyIconView.layer.name = "emptyIconView"
+            
             if self.petBreed.lowercased().contains("cat") {
                 emptyIconView.image = UIImage(named: "cat-icon")
             } else if self.petBreed.lowercased().contains("dog") {
@@ -108,15 +101,6 @@ class MyPetTableViewCell: UITableViewCell {
         petImageView.frame.origin = CGPoint(x: 24, y: 12)
     }
     
-    func setupSubDetailLabel(petDetails: PetDetailsViewModel) {
-        
-        subDetailLabel = createDetailStack(petDetails.petBreed, petDetails.age)
-        subDetailLabel.backgroundColor = .red
-        addSubview(subDetailLabel)
-
-        subDetailLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: nameLabel.bottom + 4)
-    }
-    
     func setupNameLabel() {
         addSubview(nameLabel)
         
@@ -124,10 +108,10 @@ class MyPetTableViewCell: UITableViewCell {
         nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         nameLabel.textColor = .textBlack
         
-        nameLabel.setContentHuggingPriority(.required, for: .horizontal)
-        nameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        nameLabel.adjustsFontSizeToFitWidth = true
         
         nameLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: petImageView.top + 2)
+//        nameLabel.frame = CGRect(x: petImageView.right + 12, y: petImageView.top + 2, width: nameLabel.width, height: nameLabel.height)
         
     }
     
@@ -139,77 +123,6 @@ class MyPetTableViewCell: UITableViewCell {
         breedLabel.textColor = .customLightGray
         
         breedLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: nameLabel.bottom + 4)
-    }
-    
-    func setupAgeLabel() {
-        addSubview(ageLabel)
-        
-        let dotSeparator = UILabel()
-        addSubview(dotSeparator)
-        dotSeparator.text = "·"
-        dotSeparator.backgroundColor = .red
-        dotSeparator.sizeToFit()
-        dotSeparator.textColor = .customLightGray
-        dotSeparator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dotSeparator.leadingAnchor.constraint(equalTo: breedLabel.trailingAnchor, constant: 8),
-            dotSeparator.centerYAnchor.constraint(equalTo: breedLabel.centerYAnchor),
-            dotSeparator.widthAnchor.constraint(equalToConstant: dotSeparator.width),
-            dotSeparator.heightAnchor.constraint(equalToConstant: dotSeparator.height),
-        ])
-        
-        ageLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        ageLabel.textColor = .customLightGray
-        ageLabel.sizeToFit()
-        ageLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            ageLabel.topAnchor.constraint(equalTo: breedLabel.topAnchor),
-            ageLabel.leadingAnchor.constraint(equalTo: dotSeparator.leadingAnchor, constant: 8),
-            ageLabel.widthAnchor.constraint(equalToConstant: ageLabel.width),
-            ageLabel.heightAnchor.constraint(equalToConstant: ageLabel.height),
-        ])
-        
-        
-    }
-    
-    func createDetailStack(_ detail: String, _ age: Int) -> UIStackView {
-        
-        breedLabel = createDefaultLabel(detail.capitalized)
-        breedLabel.sizeToFit()
-        
-        ageLabel = createDefaultLabel("\(age) tahun")
-        ageLabel.sizeToFit()
-        
-        var dividerLabel = createDefaultLabel("·")
-        dividerLabel.sizeToFit()
-        
-        var stack = UIStackView(arrangedSubviews: [breedLabel, dividerLabel, ageLabel])
-//        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis  = NSLayoutConstraint.Axis.horizontal
-        stack.distribution  = UIStackView.Distribution.fill
-        stack.alignment = UIStackView.Alignment.leading
-        stack.spacing   = 8.0
-        stack.frame.size = CGSize(
-            width: breedLabel.width + ageLabel.width + dividerLabel.width + 16,
-            height: breedLabel.height
-        )
-        
-        return stack
-    }
-    
-    func createDefaultLabel(_ text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        /// wrap label fit text length
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.text = text
-        label.textColor = .systemGray2
-        label.numberOfLines = 0
-        return label
     }
 
 }
