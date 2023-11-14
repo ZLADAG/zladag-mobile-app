@@ -109,9 +109,7 @@ final class APICaller {
         
         if usingToken {
             request.addValue(
-//                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
                 "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
-//                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
                 forHTTPHeaderField: "Authorization"
             )
         }
