@@ -52,7 +52,16 @@ extension UIColor {
     // Gender Tag color
     static let customLightPink = UIColor(red: 255/255, green: 207/255, blue: 207/255, alpha: 255/255)
     static let customLightBlue = UIColor(red: 222/255, green: 239/255, blue: 255/255, alpha: 255/255)
+      
+    // Order Labels
+    static let orderLabelBlue = UIColor(red: 88/255, green: 164/255, blue: 219/255, alpha: 255/255)
+    static let orderLabelBlueBG = UIColor(red: 235/255, green: 251/255, blue: 249/255, alpha: 255/255)
 
+    static let orderLabelGray = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
+    static let orderLabelGrayBG = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+
+    static let orderLabelRed = UIColor(red: 202/255, green: 4/255, blue: 4/255, alpha: 255/255)
+    static let orderLabelRedBG = UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 255/255)
 
 }
 

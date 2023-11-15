@@ -13,6 +13,8 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
     
     let hotelNameLabel = UILabel()
     let petNameLabel = UILabel()
+    let dividerView = UIView()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,17 +26,20 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = true
         
         
-        if viewModel.status == "active" {
-            setupHotelNameLabel(hotelName: "atv" + viewModel.hotelName)
-        } else if viewModel.status == "history" {
-            setupHotelNameLabel(hotelName: "hty " + viewModel.hotelName)
-        }
+//        if viewModel.section == "active" {
+//            setupHotelNameLabel(hotelName: "atv" + viewModel.hotelName)
+//        } else if viewModel.section == "history" {
+//            setupHotelNameLabel(hotelName: "hty " + viewModel.hotelName)
+//        }
+        
+        setupHotelNameLabel(hotelName: viewModel.hotelName)
         setupPetNameLabel(petName: viewModel.petName)
+        setupOrderLabelView(ordeLabel: viewModel.orderLabel)
+        setupDividerView()
     }
     
     private func setupHotelNameLabel(hotelName: String) {
         contentView.addSubview(hotelNameLabel)
-        
         
         hotelNameLabel.text = hotelName
         hotelNameLabel.backgroundColor = .clear
@@ -67,6 +72,28 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         petNameLabel.frame = CGRect(x: pawIcon.right + 4, y: pawIcon.top + 1, width: petNameLabel.width, height: petNameLabel.height)
     }
     
+    private func setupOrderLabelView(ordeLabel: OrderLabel) {
+        let orderLabelView = OrderLabelView(orderLabel: ordeLabel)
+        contentView.addSubview(orderLabelView)
+        
+        orderLabelView.frame = CGRect(x: 16, y: petNameLabel.bottom + 17, width: orderLabelView.width, height: orderLabelView.height)
+    }
+    
+    private func setupDividerView() {
+        
+        contentView.addSubview(dividerView)
+        
+        dividerView.backgroundColor = .customLightGray242
+        
+        dividerView.frame = CGRect(x: hotelNameLabel.left, y: petNameLabel.bottom + 8, width: 342, height: 1)
+    }
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+        
+//        dividerView.frame = .zero
+        
+//    }
     
     required init(coder: NSCoder) {
         fatalError()

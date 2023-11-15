@@ -38,6 +38,7 @@
 		6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */; };
 		6597C3552B054AE8008F6D0D /* DummyOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3542B054AE8008F6D0D /* DummyOrders.swift */; };
 		6597C3582B05559E008F6D0D /* OrderCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3572B05559E008F6D0D /* OrderCardCollectionViewCell.swift */; };
+		6597C35B2B0588CA008F6D0D /* OrderLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C35A2B0588CA008F6D0D /* OrderLabelView.swift */; };
 		65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */; };
 		65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */; };
 		65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */; };
@@ -211,6 +212,7 @@
 		6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaTextFieldViewController.swift; sourceTree = "<group>"; };
 		6597C3542B054AE8008F6D0D /* DummyOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyOrders.swift; sourceTree = "<group>"; };
 		6597C3572B05559E008F6D0D /* OrderCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		6597C35A2B0588CA008F6D0D /* OrderLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderLabelView.swift; sourceTree = "<group>"; };
 		65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterTableViewCell.swift; sourceTree = "<group>"; };
 		65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
 		65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewController.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				6597C3572B05559E008F6D0D /* OrderCardCollectionViewCell.swift */,
+				6597C35A2B0588CA008F6D0D /* OrderLabelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1262,6 +1265,7 @@
 				65B274A02AFAB6D70030A0F5 /* UserProfileTableViewCell.swift in Sources */,
 				65C40D0D2ACCD0EE004D986C /* SearchBoardingsResultCollectionViewCell.swift in Sources */,
 				65A05C522AFB7E2800C0BC93 /* InfoContainer.swift in Sources */,
+				6597C35B2B0588CA008F6D0D /* OrderLabelView.swift in Sources */,
 				8FFEC01C2AEA5CC8005D790F /* OnboardPromptLabelButton.swift in Sources */,
 				6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */,
 				65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */,
