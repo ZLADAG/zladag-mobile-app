@@ -144,13 +144,13 @@ class OrdersViewController: UIViewController {
         self.activeColumnXAnchorLeading = collectionViewActiveColumn.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         activeColumnXAnchorLeading.isActive = true
         
-        self.activeColumnXAnchorTrailing = collectionViewActiveColumn.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        self.activeColumnXAnchorTrailing = collectionViewActiveColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
         activeColumnXAnchorTrailing.isActive = true
         
         self.historyColumnXAnchorLeading = collectionViewHistoryColumn.leadingAnchor.constraint(equalTo: collectionViewActiveColumn.trailingAnchor)
         historyColumnXAnchorLeading.isActive = true
         
-        self.historyColumnXAnchorTrailing = collectionViewHistoryColumn.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        self.historyColumnXAnchorTrailing = collectionViewHistoryColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
         historyColumnXAnchorTrailing.isActive = true
     }
     
@@ -191,11 +191,8 @@ class OrdersViewController: UIViewController {
                 self.underlineViewXConstraint.constant = CGFloat(selectedSegmentIndex) * UIScreen.main.bounds.width / 2
                 
                 let xOffSet = -(screenWidth * 2) * CGFloat(selectedSegmentIndex) + screenWidth
-                print("aa", xOffSet)
+                
                 self.activeColumnXAnchorLeading.constant += xOffSet
-                self.activeColumnXAnchorTrailing.constant += xOffSet
-                print(self.historyColumnXAnchorLeading.constant)
-                print(self.historyColumnXAnchorTrailing.constant)
                 
                 self.view.layoutSubviews()
             })
@@ -204,12 +201,8 @@ class OrdersViewController: UIViewController {
                 self.underlineViewXConstraint.constant = CGFloat(selectedSegmentIndex) * UIScreen.main.bounds.width / 2
                 
                 let xOffSet = (screenWidth * 2) * CGFloat(1) - screenWidth
-                print("bb", xOffSet)
-                self.activeColumnXAnchorLeading.constant += xOffSet
-                self.activeColumnXAnchorTrailing.constant += xOffSet
                 
-                self.historyColumnXAnchorLeading.constant = 0
-                self.historyColumnXAnchorTrailing.constant = 0
+                self.activeColumnXAnchorLeading.constant += xOffSet
                 
                 self.view.layoutSubviews()
             })
