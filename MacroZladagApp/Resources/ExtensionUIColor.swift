@@ -25,6 +25,9 @@ extension UIColor {
     static let customLightGray = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
     static let customLightGray2 = UIColor(red: 197/255, green: 197/255, blue: 197/255, alpha: 255/255)
     static let customLightGray3 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+
+    static let customLightGray242 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+    static let customLightGray161 = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
     
     static let customGrayForLabels = UIColor(red: 171/255, green: 171/255, blue: 171/255, alpha: 255/255)
     static let customGrayForCheckboxBorder = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)

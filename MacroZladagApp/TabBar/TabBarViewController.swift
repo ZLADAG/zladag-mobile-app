@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
     let navbarLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "Dekat Saya"
-        label.textColor = .textBlack
+        label.textColor = .blue
         label.font = .systemFont(ofSize: 14, weight: .bold)
         return label
     }()
@@ -52,12 +52,11 @@ class TabBarViewController: UITabBarController {
     
     func configureTabBar() {
         let vc1 = HomeViewController()
-        let vc2 = YourOrdersViewController()
-//        let vc3 = AccountViewController()
+        let vc2 = OrdersViewController()
         let vc3 = ProfileViewController()
         
         vc1.title = ""
-        vc2.title = "Your Orders"
+//        vc2.title = "Your Orders"
         vc3.title = ""
 //
 //        vc1.navigationItem.largeTitleDisplayMode = .always
@@ -69,9 +68,9 @@ class TabBarViewController: UITabBarController {
         let nav3 = UINavigationController(rootViewController: vc3)
         
         
-        nav1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "tabbar-home-icon"), tag: 1)
-        nav2.tabBarItem = UITabBarItem(title: "Your Orders", image: UIImage(named: "tabbar-yourorders-icon"), tag: 2)
-        nav3.tabBarItem = UITabBarItem(title: "Account", image: UIImage(named: "tabbar-account-icon"), tag: 3)
+        nav1.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "tabbar-home-icon"), tag: 1)
+        nav2.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(named: "tabbar-yourorders-icon"), tag: 2)
+        nav3.tabBarItem = UITabBarItem(title: "Your Pet", image: UIImage(named: "tabbar-account-icon"), tag: 3)
         
 //        nav1.navigationBar.prefersLargeTitles = true
 //        nav2.navigationBar.prefersLargeTitles = true
@@ -108,6 +107,7 @@ class TabBarViewController: UITabBarController {
         nav1.navigationItem.titleView = titleView
         
         self.tabBar.tintColor = .customOrange
-        setViewControllers([nav1, nav2, nav3], animated: true)
+        setViewControllers([nav2, nav1, nav3], animated: true)
+//        setViewControllers([nav1, nav2, nav3], animated: true)
     }
 }

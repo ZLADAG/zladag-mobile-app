@@ -792,7 +792,7 @@ class BoardingDetailsViewController: UIViewController {
         let selectedIndex = sender.selectedSegmentIndex
         
         showSegmentedView(index: selectedIndex)
-        print("Selected index: \(selectedIndex)")
+//        print("Selected index: \(selectedIndex)")
         changeSegmentedControlLinePosition()
     }
     
