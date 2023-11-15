@@ -6,13 +6,19 @@
 //
 
 import UIKit
+protocol PetOrderCollectionViewCellDelegate {
+    func petOptButtonTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
+}
 
 class PetOrderCollectionViewCell: UICollectionViewCell {
+    
+    var delegate:PetOrderCollectionViewCellDelegate?
+    
     static let identifier = "PetOrderCollectionViewCell"
     
     var titleLabel : UILabel!
     
-    var petOptTitleLabel : UILabel!
+    var petOptTitleLabel : NecessarryFieldLabel!
     var petOptButton : UIButton!
     var cageOptTitleLabel : UILabel!
     var addOnOptTitleLabel : UILabel!
@@ -66,8 +72,13 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
 }
 
 extension PetOrderCollectionViewCell {
+    
+    private func changePetOption() {
+        print("changed!")
+    }
+    
     private func setPetOption() {
-        petOptTitleLabel = createLabel("Pilih Profil *")
+        petOptTitleLabel = NecessarryFieldLabel(textValue: "Pilih Profil ")
         petOptTitleLabel.font = .boldSystemFont(ofSize: 14)
         
         petOptButton = UIButton(configuration: .plain())
@@ -193,8 +204,22 @@ extension PetOrderCollectionViewCell {
             }
         }
         
-        print("petOptButtonTapped")
+        if let indexPath = findCellIndexPath() {
+            print("petOptButtonTapped on \(indexPath)")
+            delegate?.petOptButtonTapped(cell: self, atIndexPath: indexPath)
+        } else {
+            print("Unable to determine indexPath for the cell.")
+        }
+        
     }
+    
+    func findCellIndexPath() -> IndexPath? {
+        guard let collectionView = superview as? UICollectionView else {
+            return nil
+        }
+        return collectionView.indexPath(for: self)
+    }
+    
 }
 
 extension PetOrderCollectionViewCell {
@@ -270,3 +295,11 @@ extension PetOrderCollectionViewCell: UITextViewDelegate {
         }
     }
 }
+
+extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
+    func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath) {
+        print("profile at: \(atIdxPath)")
+    }
+}
+
+

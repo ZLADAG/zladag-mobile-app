@@ -6,9 +6,14 @@
 //
 
 import UIKit
+//protocol PetOptionTableViewCellDelegate {
+//    func petProfileSelected(cell: UITableViewCell, atIndexPath: IndexPath)
+//}
 
 class PetOptionTableViewCell: UITableViewCell {
 
+//    var delegate : PetOptionTableViewCellDelegate?
+    
     static let identifier = "PetOptionTableViewCell"
     
     var profileTag = ProfilePhotoWithTitle()

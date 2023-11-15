@@ -89,6 +89,8 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
             cell.backgroundColor = .white
+            
+            cell.delegate = self
             cell.setUpCell()
             return cell
         }
@@ -96,9 +98,13 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
     
 }
 
-
-
-
+extension ReservationViewController: PetOrderCollectionViewCellDelegate {
+    func petOptButtonTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
+        
+        print("\npetOptButtonTapped on \(String(describing: atIndexPath))")
+        present(PetOptionSheetViewController(), animated: true)
+    }
+}
 
 
 

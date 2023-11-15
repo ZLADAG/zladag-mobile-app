@@ -6,9 +6,13 @@
 //
 
 import UIKit
+protocol PetOptionSheetViewControllerDelegate {
+    func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath)
+}
 
 class PetOptionSheetViewController: UIViewController {
     
+    var delegate : PetOptionSheetViewControllerDelegate?
     var addPetButton : UIButton!
     var tableView = UITableView()
     
@@ -111,6 +115,8 @@ class PetOptionSheetViewController: UIViewController {
         
         print("addPetButtonTapped")
     }
+    
+    
 }
 
 extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSource {
@@ -125,12 +131,18 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
         let detailName = "Kucing"
         let age = 0.0
         cell.configure(img: img, title: title, detailName: detailName, age: age)
-        
         cell.selectionStyle = .none
-
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
+        delegate?.petProfileItemTapped(cell: cell, atIdxPath: indexPath)
+        print("profile at: \(indexPath)")
+        
+        /// change reservation controller view
+        
+        dismiss(animated: true)
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellHeight = 64.0
         let cellSpacing = 8.0
