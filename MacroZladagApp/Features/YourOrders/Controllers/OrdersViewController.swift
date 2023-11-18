@@ -93,11 +93,6 @@ class OrdersViewController: UIViewController {
         segmentedControlYConstraint.isActive = true
         
         DispatchQueue.main.async {
-//            for sbv in self.segmentedControl.subviews {
-//                print(sbv)
-//                print()
-//            }
-            
             // TODO: MISTIS!
             // ????????
             self.segmentedControl.subviews[0].isHidden = true
@@ -387,20 +382,24 @@ extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === collectionViewActiveColumn {
-            let viewModel = activeColumnViewModels[indexPath.row]
-            let vc = OrderDetailsViewController()
-            vc.hidesBottomBarWhenPushed = true
-
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            if !(activeColumnViewModels.isEmpty) {
+                let vc = OrderDetailsViewController(orderId: activeColumnViewModels[indexPath.row].id)
+                vc.hidesBottomBarWhenPushed = true
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
         } else if collectionView === collectionViewHistoryColumn {
-            let viewModel = historyColumnViewModels[indexPath.row]
-            let vc = OrderDetailsViewController()
-            vc.hidesBottomBarWhenPushed = true
-
-
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            if !(historyColumnViewModels.isEmpty) {
+                let vc = OrderDetailsViewController(orderId: historyColumnViewModels[indexPath.row].id)
+                vc.hidesBottomBarWhenPushed = true
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
         }
     }
-    
     
 }

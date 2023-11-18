@@ -74,6 +74,12 @@ final class APICaller {
         }
     }
     
+    public func getOrderDetailsById(orderId: String, completion: @escaping (Result<OrderDetailsResponse, Error>) -> Void) {
+        getRequest(path: "/profile/orders/\(orderId)", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
     public func postAskWhatsAppVerificationCode(sendPhoneCodeBody: SendPhoneCodeBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
         postRequest(
             path: "/send-whatsapp-verification-code",

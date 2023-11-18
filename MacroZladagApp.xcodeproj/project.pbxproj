@@ -44,6 +44,8 @@
 		6597C3622B08D682008F6D0D /* OrdersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3612B08D682008F6D0D /* OrdersResponse.swift */; };
 		6597C3642B08D9C4008F6D0D /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3632B08D9C4008F6D0D /* OrdersViewModel.swift */; };
 		6597C3662B092353008F6D0D /* EmptyOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3652B092353008F6D0D /* EmptyOrderCollectionViewCell.swift */; };
+		6597C3682B093C9D008F6D0D /* OrderDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3672B093C9D008F6D0D /* OrderDetailsResponse.swift */; };
+		6597C36A2B09438F008F6D0D /* OrderDetailsByIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3692B09438F008F6D0D /* OrderDetailsByIdViewModel.swift */; };
 		65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */; };
 		65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */; };
 		65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */; };
@@ -223,6 +225,8 @@
 		6597C3612B08D682008F6D0D /* OrdersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersResponse.swift; sourceTree = "<group>"; };
 		6597C3632B08D9C4008F6D0D /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
 		6597C3652B092353008F6D0D /* EmptyOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyOrderCollectionViewCell.swift; sourceTree = "<group>"; };
+		6597C3672B093C9D008F6D0D /* OrderDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsResponse.swift; sourceTree = "<group>"; };
+		6597C3692B09438F008F6D0D /* OrderDetailsByIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsByIdViewModel.swift; sourceTree = "<group>"; };
 		65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterTableViewCell.swift; sourceTree = "<group>"; };
 		65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
 		65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewController.swift; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				6597C3542B054AE8008F6D0D /* DummyOrders.swift */,
 				6597C3632B08D9C4008F6D0D /* OrdersViewModel.swift */,
 				6597C35E2B083D19008F6D0D /* OrderDetailsViewModel.swift */,
+				6597C3692B09438F008F6D0D /* OrderDetailsByIdViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 			isa = PBXGroup;
 			children = (
 				6597C3612B08D682008F6D0D /* OrdersResponse.swift */,
+				6597C3672B093C9D008F6D0D /* OrderDetailsResponse.swift */,
 			);
 			path = OrdersResponse;
 			sourceTree = "<group>";
@@ -1223,6 +1229,7 @@
 				8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */,
 				6570AA572ADFF435003DC5EB /* BoardingDetailsViewModel.swift in Sources */,
 				65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */,
+				6597C36A2B09438F008F6D0D /* OrderDetailsByIdViewModel.swift in Sources */,
 				8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */,
 				8FFEC0762AEB6A81005D790F /* AppAccountManager.swift in Sources */,
 				65A05C9A2AFE321600C0BC93 /* PetHabitCheckBox.swift in Sources */,
@@ -1252,6 +1259,7 @@
 				8FFEC03C2AEA5EE5005D790F /* SectionViews.swift in Sources */,
 				65A05C822AFE30D400C0BC93 /* SectionLabel.swift in Sources */,
 				65A05C8B2AFE30D400C0BC93 /* CoretanDoubleTableViewViewController.swift in Sources */,
+				6597C3682B093C9D008F6D0D /* OrderDetailsResponse.swift in Sources */,
 				8FFEC0392AEA5EE5005D790F /* UrutkanFilterButton.swift in Sources */,
 				8F9C2D4A2AF09D0000D767CD /* ProfileViewController.swift in Sources */,
 				8FFEC0432AEA6202005D790F /* OtpVerificationViewController.swift in Sources */,
