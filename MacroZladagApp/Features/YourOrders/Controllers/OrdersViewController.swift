@@ -5,14 +5,14 @@
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
 //
 
-import Foundation
 import UIKit
 
 class OrdersViewController: UIViewController {
     
-    let viewModel = DummyOrders()
-    var filteredOrdersA = [DummyOrder]()
-    var filteredOrdersB = [DummyOrder]()
+    var activeColumnViewModels = [OrdersViewModel]()
+    var historyColumnViewModels = [OrdersViewModel]()
+    
+    // MARK: COLLECTION VIEWS
     
     let collectionViewActiveColumn: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -27,16 +27,22 @@ class OrdersViewController: UIViewController {
     }()
     
     var activeColumnXAnchorLeading = NSLayoutConstraint()
-    var activeColumnXAnchorTrailing = NSLayoutConstraint()
+    var activeColumnWidthConstraint = NSLayoutConstraint()
+    
     var historyColumnXAnchorLeading = NSLayoutConstraint()
-    var historyColumnXAnchorTrailing = NSLayoutConstraint()
+    var historyColumnWidthConstraint = NSLayoutConstraint()
+    
+    let activeCollectionViewRefreshControl = UIRefreshControl()
+    let historyCollectionViewRefreshControl = UIRefreshControl()
+    
+    
+    // MARK: Segmented Control
     
     let segmentedControl = UISegmentedControl(items: ["Active", "History"])
     var segmentedControlYConstraint = NSLayoutConstraint()
     
     let underlineView = UIView()
     var underlineViewXConstraint = NSLayoutConstraint()
-    
     
     let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
@@ -46,38 +52,34 @@ class OrdersViewController: UIViewController {
         return spinner
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Your Orders"
+        navigationItem.title = "Your Orders"
         
         setupLoadingScreen()
-        setupSegmentedControl()
-        setupCollectionView()
+        fetchData(completion: { [weak self] in
+            self?.setupSegmentedControl()
+            self?.setupCollectionView()
+            
+            self?.spinner.hidesWhenStopped = true
+            self?.spinner.stopAnimating()
+        })
 //        setupEmptyStateView()
         
     }
-    
-    
     
     func setupSegmentedControl() {
         view.addSubview(segmentedControl)
         setupUnderlineView()
         
-        self.filteredOrdersA = viewModel.items.filter({ order in
-            return order.section == "active"
-        })
-        
-        self.filteredOrdersB = viewModel.items.filter({ order in
-            return order.section == "history"
-        })
-        
+        segmentedControl.backgroundColor = .white
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 16, weight: .medium), .foregroundColor: UIColor.customGrayForIcons], for: .normal)
         segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.textBlack], for: .selected)
         
         segmentedControl.addTarget(self, action: #selector(onChangeSegmentedControl), for: .valueChanged)
-        
         
         // constraints
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +98,7 @@ class OrdersViewController: UIViewController {
 //                print()
 //            }
             
+            // TODO: MISTIS!
             // ????????
             self.segmentedControl.subviews[0].isHidden = true
             self.segmentedControl.subviews[1].isHidden = true
@@ -124,49 +127,62 @@ class OrdersViewController: UIViewController {
         view.addSubview(collectionViewActiveColumn)
         view.addSubview(collectionViewHistoryColumn)
         
+        // default state: hide "History" column
         collectionViewActiveColumn.isHidden = false
         collectionViewHistoryColumn.isHidden = true
         
+        // collection view setups
         collectionViewActiveColumn.delegate = self
         collectionViewActiveColumn.dataSource = self
         collectionViewActiveColumn.register(OrderCardCollectionViewCell.self, forCellWithReuseIdentifier: OrderCardCollectionViewCell.identifier)
+        collectionViewActiveColumn.register(EmptyOrderCollectionViewCell.self, forCellWithReuseIdentifier: EmptyOrderCollectionViewCell.identifier)
         
         collectionViewHistoryColumn.delegate = self
         collectionViewHistoryColumn.dataSource = self
         collectionViewHistoryColumn.register(OrderCardCollectionViewCell.self, forCellWithReuseIdentifier: OrderCardCollectionViewCell.identifier)
+        collectionViewHistoryColumn.register(EmptyOrderCollectionViewCell.self, forCellWithReuseIdentifier: EmptyOrderCollectionViewCell.identifier)
         
+        // refresh control
+        activeCollectionViewRefreshControl.addTarget(self, action: #selector(onPullRefresh), for: .valueChanged)
+        historyCollectionViewRefreshControl.addTarget(self, action: #selector(onPullRefresh), for: .valueChanged)
+        
+        collectionViewActiveColumn.refreshControl = activeCollectionViewRefreshControl
+        collectionViewHistoryColumn.refreshControl = historyCollectionViewRefreshControl
+        
+        // collection view stylings
         collectionViewActiveColumn.backgroundColor = .customLightGray242
         collectionViewHistoryColumn.backgroundColor = .customLightGray242
         
         collectionViewActiveColumn.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         collectionViewHistoryColumn.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         
-        
         collectionViewActiveColumn.translatesAutoresizingMaskIntoConstraints = false
         collectionViewHistoryColumn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionViewActiveColumn.topAnchor.constraint(equalTo: underlineView.bottomAnchor),
-            /* Active Column LEADING ANCHOR */
-            /* Active Column TRAILING ANCHOR */
+            /* "Active" Column LEADING ANCHOR */
+            /* "Active" Column TRAILING ANCHOR */
             collectionViewActiveColumn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             collectionViewHistoryColumn.topAnchor.constraint(equalTo: underlineView.bottomAnchor),
-            /* History Column LEADING ANCHOR */
-            /* History Column TRAILING ANCHOR */
+            /* "History" Column LEADING ANCHOR */
+            /* "History" Column TRAILING ANCHOR */
             collectionViewHistoryColumn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
+        // "Active" Column
         self.activeColumnXAnchorLeading = collectionViewActiveColumn.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         activeColumnXAnchorLeading.isActive = true
         
-        self.activeColumnXAnchorTrailing = collectionViewActiveColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
-        activeColumnXAnchorTrailing.isActive = true
+        self.activeColumnWidthConstraint = collectionViewActiveColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
+        activeColumnWidthConstraint.isActive = true
         
+        // "History" Column
         self.historyColumnXAnchorLeading = collectionViewHistoryColumn.leadingAnchor.constraint(equalTo: collectionViewActiveColumn.trailingAnchor)
         historyColumnXAnchorLeading.isActive = true
         
-        self.historyColumnXAnchorTrailing = collectionViewHistoryColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
-        historyColumnXAnchorTrailing.isActive = true
+        self.historyColumnWidthConstraint = collectionViewHistoryColumn.widthAnchor.constraint(equalTo: view.widthAnchor)
+        historyColumnWidthConstraint.isActive = true
     }
     
     func setupLoadingScreen() {
@@ -182,62 +198,9 @@ class OrdersViewController: UIViewController {
         ])
         
         spinner.startAnimating()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.spinner.stopAnimating()
-            self.spinner.hidesWhenStopped = true
-        }
     }
     
-    func setupEmptyStateView() {
-        let imageView = UIImageView(image: UIImage(named: "empty-state-image"))
-        let mainLabel = UILabel()
-        let subLabel = UILabel()
-        
-        view.addSubview(imageView)
-        view.addSubview(mainLabel)
-        view.addSubview(subLabel)
-        
-        imageView.contentMode = .scaleAspectFit
-        imageView.frame.size = CGSize(width: 137.28, height: 173)
-        
-        mainLabel.text = "Belum ada pesanan"
-        mainLabel.textColor = .textBlack
-        mainLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        mainLabel.adjustsFontSizeToFitWidth = true
-        mainLabel.sizeToFit()
-        
-        subLabel.text = "Cari pet hotel untuk anabulmu"
-        subLabel.textColor = .customLightGray161
-        subLabel.font = .systemFont(ofSize: 16, weight: .regular)
-        subLabel.adjustsFontSizeToFitWidth = true
-        subLabel.sizeToFit()
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        subLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 80),
-            imageView.widthAnchor.constraint(equalToConstant: imageView.width),
-            imageView.heightAnchor.constraint(equalToConstant: imageView.height),
-            
-            mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
-            mainLabel.widthAnchor.constraint(equalToConstant: mainLabel.width),
-            mainLabel.heightAnchor.constraint(equalToConstant: mainLabel.height),
-            
-            subLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 4),
-            subLabel.widthAnchor.constraint(equalToConstant: subLabel.width),
-            subLabel.heightAnchor.constraint(equalToConstant: subLabel.height)
-            
-            
-        ])
-        
-    }
-    
-    // MARK: UIControl functions
+    // MARK: @objc UIControl functions
     
     @objc func onChangeSegmentedControl(sender: UISegmentedControl) {
         
@@ -255,10 +218,8 @@ class OrdersViewController: UIViewController {
                 self.activeColumnXAnchorLeading.constant += xOffSet
                 
                 self.view.layoutSubviews()
-            }) { finished in
-                if finished {
-                    self.collectionViewActiveColumn.isHidden = true
-                }
+            }) { _ in // FINISHED
+                self.collectionViewActiveColumn.isHidden = true
             }
         } else if segmentTitle == "Active" {
             UIView.animate(withDuration: 0.25, animations: {
@@ -270,16 +231,87 @@ class OrdersViewController: UIViewController {
                 self.activeColumnXAnchorLeading.constant += xOffSet
                 
                 self.view.layoutSubviews()
-            }) { finished in
-                if finished {
-                    self.collectionViewHistoryColumn.isHidden = true
+            }) { _ in // FINISHED
+                self.collectionViewHistoryColumn.isHidden = true
+            }
+        }
+    }
+    
+    @objc func onPullRefresh(sender: UIRefreshControl) {
+        sender.beginRefreshing()
+        
+        fetchData {
+            sender.endRefreshing()
+        }
+    }
+    
+    func fetchData(completion: (() -> ())? = nil) {
+        
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        
+        APICaller.shared.getProfileOrders(isActive: true) { result in
+            switch result {
+            case .success(let response):
+                self.activeColumnViewModels = response.data.compactMap({ orderDetails in
+                    return OrdersViewModel(
+                        id: orderDetails.id,
+                        boarding: orderDetails.boarding,
+                        pet: orderDetails.pet,
+                        checkInDate: orderDetails.checkInDate,
+                        checkOutDate: orderDetails.checkOutDate,
+                        status: orderDetails.status
+                    )
+                })
+                
+                DispatchQueue.main.async {
+                    self.collectionViewActiveColumn.reloadData()
                 }
+                group.leave()
+                break
+            case .failure(let error):
+                print("ERROR WHEN FETCHING /profile/orders?active=true")
+                print("\(error)\n")
+                break
             }
         }
         
+        APICaller.shared.getProfileOrders(isActive: false) { result in
+            
+            switch result {
+            case .success(let response):
+                self.historyColumnViewModels = response.data.compactMap({ orderDetails in
+                    return OrdersViewModel(
+                        id: orderDetails.id,
+                        boarding: orderDetails.boarding,
+                        pet: orderDetails.pet,
+                        checkInDate: orderDetails.checkInDate,
+                        checkOutDate: orderDetails.checkOutDate,
+                        status: orderDetails.status
+                    )
+                })
+                
+                DispatchQueue.main.async {
+                    self.collectionViewHistoryColumn.reloadData()
+                }
+                group.leave()
+                break
+            case .failure(let error):
+                print("ERROR WHEN FETCHING /profile/orders?active=false")
+                print("\(error)\n")
+                break
+            }
+        }
+        
+        group.notify(queue: .main) {
+            completion?()
+        }
     }
     
 }
+
+// MARK: COLLECTION VIEWS
 
 extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -287,15 +319,25 @@ extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollection
         
         if collectionView === collectionViewActiveColumn {
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderCardCollectionViewCell.identifier, for: indexPath) as! OrderCardCollectionViewCell
-            cell.configure(viewModel: self.filteredOrdersA[indexPath.row])
-            return cell
+            if !(activeColumnViewModels.isEmpty) {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderCardCollectionViewCell.identifier, for: indexPath) as! OrderCardCollectionViewCell
+                cell.configure(viewModel: self.activeColumnViewModels[indexPath.row])
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyOrderCollectionViewCell.identifier, for: indexPath) as! EmptyOrderCollectionViewCell
+                return cell
+            }
             
         } else if collectionView === collectionViewHistoryColumn {
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderCardCollectionViewCell.identifier, for: indexPath) as! OrderCardCollectionViewCell
-            cell.configure(viewModel: self.filteredOrdersB[indexPath.row])
-            return cell
+            if !(historyColumnViewModels.isEmpty) {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OrderCardCollectionViewCell.identifier, for: indexPath) as! OrderCardCollectionViewCell
+                cell.configure(viewModel: self.historyColumnViewModels[indexPath.row])
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyOrderCollectionViewCell.identifier, for: indexPath) as! EmptyOrderCollectionViewCell
+                return cell
+            }
             
         } else {
             return UICollectionViewCell()
@@ -305,10 +347,17 @@ extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView === collectionViewActiveColumn {
-            return self.filteredOrdersA.count
-            
+            if !(self.activeColumnViewModels.isEmpty) {
+                return self.activeColumnViewModels.count
+            } else {
+                return 1
+            }
         } else if collectionView === collectionViewHistoryColumn {
-            return self.filteredOrdersB.count
+            if !(self.historyColumnViewModels.isEmpty) {
+                return self.historyColumnViewModels.count
+            } else {
+                return 1
+            }
             
         } else {
             return 99
@@ -316,7 +365,41 @@ extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 342, height: 141)
+        
+        
+        if collectionView === collectionViewActiveColumn {
+            if !(self.activeColumnViewModels.isEmpty) {
+                return CGSize(width: 342, height: 141)
+            } else {
+                return CGSize(width: view.width, height: view.height)
+            }
+        } else if collectionView === collectionViewHistoryColumn {
+            if !(self.historyColumnViewModels.isEmpty) {
+                return CGSize(width: 342, height: 141)
+            } else {
+                return CGSize(width: 350, height: 500)
+            }
+            
+        } else {
+            return CGSize(width: 999, height: 999)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView === collectionViewActiveColumn {
+            let viewModel = activeColumnViewModels[indexPath.row]
+            let vc = OrderDetailsViewController()
+            vc.hidesBottomBarWhenPushed = true
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if collectionView === collectionViewHistoryColumn {
+            let viewModel = historyColumnViewModels[indexPath.row]
+            let vc = OrderDetailsViewController()
+            vc.hidesBottomBarWhenPushed = true
+
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

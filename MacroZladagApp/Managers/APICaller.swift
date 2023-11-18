@@ -68,6 +68,12 @@ final class APICaller {
         }
     }
     
+    public func getProfileOrders(isActive: Bool, completion: @escaping (Result<OrdersResponse, Error>) -> Void) {
+        getRequest(path: "/profile/orders?active=\(isActive.description)", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
     public func postAskWhatsAppVerificationCode(sendPhoneCodeBody: SendPhoneCodeBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
         postRequest(
             path: "/send-whatsapp-verification-code",
@@ -121,8 +127,9 @@ final class APICaller {
             }
             
             do {
-//                let result2 = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(result2)
+//                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(json)
+                
                 let result = try JSONDecoder().decode(T.self, from: data)
                 print("GET \(path)")
                 completion(Result.success(result))
@@ -160,6 +167,9 @@ final class APICaller {
             }
             
             do {
+//                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(json)
+
                 let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))
             } catch {

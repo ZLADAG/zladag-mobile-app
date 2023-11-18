@@ -34,8 +34,14 @@ class OrderLabelView: UIView {
         
         setupLabel()
         frame.size = CGSize(width: label.width + 16, height: label.height + 6)
-        label.frame = CGRect(x: 8, y: 3, width: label.width, height: label.height)
         
+        // override label's frame
+        label.frame = CGRect(
+            x: frame.midX - label.width / 2,
+            y: frame.midY - label.height / 2,
+            width: label.width,
+            height: label.height
+        )
     }
     
     private func setupLabel() {

@@ -113,7 +113,7 @@ class Utils {
     static func getFormattedDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
-        dateFormatter.dateFormat = "d MMMM yyyy"
+        dateFormatter.dateFormat = "d MMMM yyyy" // 22 November 2023,  4 December 2023
 
         return dateFormatter.string(from: date)
     }
@@ -121,7 +121,10 @@ class Utils {
     static func getFormattedDateShortedWithYear(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
-        dateFormatter.dateFormat = "d MMM yyyy"
+        dateFormatter.dateFormat = "d MMM yyyy" // 8 Dec 2023
+        
+        // "d" -> 2
+        // "dd" -> 02
 
         return dateFormatter.string(from: date)
     }
@@ -129,9 +132,17 @@ class Utils {
     static func getFormattedDateShorted(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
-        dateFormatter.dateFormat = "d MMM"
-
+        dateFormatter.dateFormat = "d MMM" // 4 Dec
+        
         return dateFormatter.string(from: date)
+    }
+    
+    static func getDateFromString(dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        return dateFormatter.date(from: dateString)
     }
     
 }

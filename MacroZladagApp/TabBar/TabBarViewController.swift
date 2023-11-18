@@ -56,7 +56,7 @@ class TabBarViewController: UITabBarController {
         let vc3 = ProfileViewController()
         
         vc1.title = ""
-//        vc2.title = "Your Orders"
+        vc2.title = ""
         vc3.title = ""
 //
 //        vc1.navigationItem.largeTitleDisplayMode = .always
@@ -107,7 +107,7 @@ class TabBarViewController: UITabBarController {
         nav1.navigationItem.titleView = titleView
         
         self.tabBar.tintColor = .customOrange
-        setViewControllers([nav2, nav1, nav3], animated: true)
-//        setViewControllers([nav1, nav2, nav3], animated: true)
+//        setViewControllers([nav2, nav1, nav3], animated: true)
+        setViewControllers([nav1, nav2, nav3], animated: true)
     }
 }

@@ -7,6 +7,23 @@
 
 import UIKit
 
+/*
+ dummy account:
+
+ "id": "UR9875071824"
+ "signMethod": "phoneNumber",
+ "name": "danielxyz",
+ "phoneNumber": "6212341231210",
+ "email": null
+
+ */
+
+/*
+ // TODO: (LAGI)
+    update UI tambahanabulviewcontroller
+    keyboard layout!
+ */
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?

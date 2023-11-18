@@ -213,9 +213,17 @@ class SegmentedInfoViewController: UIViewController {
         // Set Content
 //        cageSmallLabel = createCageLabel("S", 35, 60, "cm")
         
+        // MARK: "Z" cage name, optionals
         var labels = [UILabel]()
         for cage in mainVcViewModel.boardingCages {
-            labels.append(createCageLabel(cage.name, cage.width, cage.length, "cm"))
+            labels.append(
+                createCageLabel(
+                    String(cage.name.split(separator: " ").first ?? "Z"),
+                    cage.width,
+                    cage.length,
+                    "cm"
+                )
+            )
         }
         
         cageSizeContentStack = UIStackView(arrangedSubviews: labels)

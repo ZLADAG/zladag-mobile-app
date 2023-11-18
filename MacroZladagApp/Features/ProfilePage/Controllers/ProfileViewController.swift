@@ -129,6 +129,9 @@ class ProfileViewController: UIViewController {
             case .failure(let error):
                 print("ERROR WHEN PULL-REFRESHING IN PROFILE VC\n", error)
                 
+                DispatchQueue.main.async {
+                    sender.endRefreshing()
+                }
                 break
             }
         }
@@ -139,6 +142,7 @@ class ProfileViewController: UIViewController {
         
         tableViewRefreshControl.addTarget(self, action: #selector(onPullRefresh), for: .valueChanged)
         tableView.refreshControl = tableViewRefreshControl
+        
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self

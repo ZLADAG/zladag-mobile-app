@@ -236,6 +236,9 @@ class BoardingDetailsViewController: UIViewController {
             var success = false
             switch result {
             case .success(let response):
+                print("QWERTY\n")
+                print(response.data)
+                print()
                 self.viewModel = BoardingDetailsViewModel(
                     name: response.data.name,
                     distance: response.data.distance,
@@ -245,7 +248,7 @@ class BoardingDetailsViewController: UIViewController {
                     boardingCategory: response.data.boardingCategory,
                     subdistrictName: response.data.subdistrict,
                     provinceName: response.data.province,
-//                    boardingCages: response.data.boardingCages,
+                    boardingCages: response.data.boardingCages,
                     price: response.data.cheapestLodgingPrice,
                     images: response.data.images,
                     facilities: response.data.boardingFacilities,
@@ -268,7 +271,7 @@ class BoardingDetailsViewController: UIViewController {
                     boardingCategory: localResult.boardingCategory,
                     subdistrictName: localResult.subdistrict,
                     provinceName: localResult.province,
-//                    boardingCages: localResult.boardingCages,
+                    boardingCages: localResult.boardingCages,
                     price: localResult.cheapestLodgingPrice,
                     images: localResult.images,
                     facilities: localResult.boardingFacilities,

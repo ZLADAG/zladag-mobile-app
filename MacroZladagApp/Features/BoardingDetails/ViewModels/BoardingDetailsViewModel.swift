@@ -16,11 +16,7 @@ struct BoardingDetailsViewModel {
     let boardingCategory: String
     let subdistrictName: String
     let provinceName: String
-    let boardingCages: [BoardingCage] = [
-        BoardingCage(name: "S", length: 35, width: 60),
-        BoardingCage(name: "M", length: 60, width: 85),
-        BoardingCage(name: "L", length: 85, width: 110),
-    ]
+    let boardingCages: [BoardingCage]
     var rating: Double
     var numOfReviews: Int
     let price: Int
@@ -36,8 +32,24 @@ struct BoardingDetailsViewModel {
     let startCheckOutTime: String = "99"
     let endCheckOutTime: String = "99"
     
-//    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, boardingCages: [BoardingCage], price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int) {
-    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Bool?, shouldHaveToBeFleaFree: Bool?, minimumAge: Int, maximumAge: Int) {
+    init(
+        name: String,
+        distance: Double,
+        address: String,
+        slug: String,
+        description: String,
+        boardingCategory: String,
+        subdistrictName: String,
+        provinceName: String,
+        boardingCages: [BoardingCage],
+        price: Int,
+        images: [String],
+        facilities: [String],
+        shouldHaveBeenVaccinated: Bool?,
+        shouldHaveToBeFleaFree: Bool?,
+        minimumAge: Int,
+        maximumAge: Int
+    ) {
         self.name = name
         self.distance = distance
         self.address = address
@@ -46,7 +58,7 @@ struct BoardingDetailsViewModel {
         self.boardingCategory = boardingCategory
         self.subdistrictName = subdistrictName
         self.provinceName = provinceName
-//        self.boardingCages = boardingCages
+        self.boardingCages = boardingCages
         self.price = price
         self.images = images
         self.facilities = facilities
