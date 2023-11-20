@@ -7,7 +7,7 @@
 
 import UIKit
 protocol PetOptionSheetViewControllerDelegate {
-    func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath)
+    func petProfileItemTapped(cell: UITableViewCell, atIdxPathRow: Int)
 }
 
 class PetOptionSheetViewController: UIViewController {
@@ -49,10 +49,10 @@ class PetOptionSheetViewController: UIViewController {
         addPetButton = UIButton(configuration: .plain())
         addPetButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addPetButton.setTitle("Tambah Anabul baru", for: .normal)
+        addPetButton.setTitle(" Tambah Anabul baru", for: .normal)
         addPetButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addPetButton.tintColor = .black
-        addPetButton.contentHorizontalAlignment = .fill
+        addPetButton.contentHorizontalAlignment = .leading
         
         addPetButton.layer.masksToBounds = true
         addPetButton.layer.borderColor = UIColor.customLightGray3.cgColor
@@ -62,7 +62,7 @@ class PetOptionSheetViewController: UIViewController {
         /// Add right icon
         addPetButton.setImage( UIImage(systemName: "plus")!, for: .normal)
         addPetButton.imageView?.contentMode = .scaleAspectFit
-        addPetButton.semanticContentAttribute = .forceRightToLeft
+//        addPetButton.semanticContentAttribute = .forceRightToLeft
         
         /// Handler
         addPetButton.addTarget(self, action: #selector(addPetButtonTapped), for: .touchUpInside)
@@ -136,8 +136,10 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
-        delegate?.petProfileItemTapped(cell: cell, atIdxPath: indexPath)
-        print("profile at: \(indexPath)")
+        delegate?.petProfileItemTapped(cell: cell, atIdxPathRow: indexPath.row)
+        
+        
+        print("tabel cell: \(indexPath)")
         
         /// change reservation controller view
         

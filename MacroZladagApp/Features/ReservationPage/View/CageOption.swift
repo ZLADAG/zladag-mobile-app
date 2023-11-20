@@ -7,18 +7,19 @@
 
 import UIKit
 protocol CageOptionDelegate: AnyObject{
-    func radioButtonTapped()
-    func getCageOptionIdx(data: Int)
+    func radioButtonTapped(idx: Int)
+    func getCageOptionIdx(idx: Int, priceWithAmount: PriceWithAmount)
 }
 
 class CageOption: UIView {
     weak var delegate: CageOptionDelegate?
     let radioButton = UIButton()
     
-    var isClicked: Bool = false
-    var prefix = "Rp"
-    var price = 0
     var idx = 0
+    var isClicked: Bool = false
+    var pricePrefix = ""
+    var priceWithAmount : PriceWithAmount = PriceWithAmount(price: 0, amount: 0)
+
     
     // MARK: Initialize Methods
     init(name: String, price: Int) {
@@ -50,11 +51,13 @@ class CageOption: UIView {
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
+        priceWithAmount.price = price
+
         let priceLabel = UILabel()
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = .systemFont(ofSize: 14, weight: .medium)
         priceLabel.textColor = .textBlack
-        priceLabel.text = "\(prefix)\(price)"
+        priceLabel.text = "\(pricePrefix)\(price)"
         priceLabel.textAlignment = .right
         
         let textStack = UIStackView(arrangedSubviews: [nameLabel, priceLabel])
@@ -89,14 +92,23 @@ class CageOption: UIView {
         self.isClicked = !self.isClicked
 
         if self.isClicked {
-            radioButton.setImage(UIImage(named: "radioButton-icon"), for: .normal)
+            activateButton()
         } else {
-            radioButton.setImage(UIImage(named: "radioButton-icon-unselected"), for: .normal)
+            deactivateButton()
         }
-        delegate?.radioButtonTapped()
+        delegate?.radioButtonTapped(idx: self.idx)
         
         /// send index data value
-        delegate?.getCageOptionIdx(data: self.idx)
+        delegate?.getCageOptionIdx(idx: self.idx, priceWithAmount: self.priceWithAmount)
+    }
+    
+    func activateButton() {
+        radioButton.setImage(UIImage(named: "radioButton-icon"), for: .normal)
+        priceWithAmount.amount = 1
+    }
+    func deactivateButton() {
+        radioButton.setImage(UIImage(named: "radioButton-icon-unselected"), for: .normal)
+        priceWithAmount.amount = 0
     }
 
 }

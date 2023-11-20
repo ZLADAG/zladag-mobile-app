@@ -1,5 +1,5 @@
 //
-//  PetOrderCollectionViewCell.swift
+//  CatOrderCollectionViewCell.swift
 //  MacroZladagApp
 //
 //  Created by Celine Margaretha on 18/11/23.
@@ -7,17 +7,13 @@
 
 import UIKit
 
-protocol PetOrderCollectionViewCellDelegate {
-    func petOptButtonTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
-//    func petCageOptTapped(idx: Int, priceWithAmount: PriceWithAmount)
-    func petCageOptTapped(withPrice: Int)
-    func petAddOnServicesTapped(withPrice: Int)
-    
+protocol CatOrderCollectionViewCellDelegate {
+    func catOptButtonTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
 }
 
-class PetOrderCollectionViewCell: UICollectionViewCell {
+class CatOrderCollectionViewCell: UICollectionViewCell {
     
-    var delegate:PetOrderCollectionViewCellDelegate?
+    var delegate:CatOrderCollectionViewCellDelegate?
     
     static let identifier = "CatOrderCollectionViewCell"
     
@@ -43,8 +39,7 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     var cellSeparator : UIImageView!
     
     //Price calculation Variable
-    var cagePrice = 0
-    var addOnServicePrice = 0
+//    var cagePrice = 0
 //    var addOnService : [PriceWithAmount] = []
     
     override init(frame: CGRect) {
@@ -97,7 +92,7 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension PetOrderCollectionViewCell {
+extension CatOrderCollectionViewCell {
     
     private func changePetOption() {
         print("changed!")
@@ -147,6 +142,8 @@ extension PetOrderCollectionViewCell {
         petOpt.layer.borderColor = UIColor.customLightGray3.cgColor
         petOpt.layer.cornerRadius = 4
         
+        
+        
         petOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(petOptButtonTapped)))
 
         petOpt.addSubview(petOptWrap)
@@ -162,7 +159,34 @@ extension PetOrderCollectionViewCell {
             icon.widthAnchor.constraint(equalToConstant: 24),
         ])
         
+//        petOptButton = UIButton(configuration: .plain())
+//        petOptButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        petOptButton.setTitle("Pilih Profil Anabul", for: .normal)
+//        petOptButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+//        petOptButton.tintColor = .black
+//        petOptButton.contentHorizontalAlignment = .fill
+//
+//        petOptButton.layer.masksToBounds = true
+//        petOptButton.layer.borderColor = UIColor.customLightGray3.cgColor
+//        petOptButton.layer.borderWidth = 1.0
+//        petOptButton.layer.cornerRadius = 4.0
+//
+//        /// Add right icon
+//        petOptButton.setImage( UIImage(systemName: "plus")!, for: .normal)
+//        petOptButton.imageView?.contentMode = .scaleAspectFit
+//        petOptButton.semanticContentAttribute = .forceRightToLeft
+//
+//        /// Handler
+//        petOptButton.addTarget(self, action: #selector(petOptButtonTapped), for: .touchUpInside)
+//
+//
+//        /// Constraint
+//        petOptButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+        
         let content = createStack(views: [petOptTitleLabel, petOpt], spacing: 7)
+        
         cellContent.addArrangedSubview(content)
         cellContent.addArrangedSubview(addSeparator())
         
@@ -172,10 +196,10 @@ extension PetOrderCollectionViewCell {
         cageOptTitleLabel = createLabel("Kandang (per malam)")
         cageOptTitleLabel.font = .boldSystemFont(ofSize: 14)
         
-        let smallCage = CageOption(name: "Kandang Kecil", price: 30000)
+        let smallCage = CageOption(name: "Kandang Kecil", price: 50000)
         smallCage.idx = 0
         
-        let largeCage = CageOption(name: "Kandang Besar", price: 20000)
+        let largeCage = CageOption(name: "Kandang Besar", price: 50000)
         largeCage.idx = 1
         
         smallCage.delegate = self
@@ -262,7 +286,7 @@ extension PetOrderCollectionViewCell {
         
         if let indexPath = findCellIndexPath() {
             print("petOptButtonTapped on \(indexPath)")
-            delegate?.petOptButtonTapped(cell: self, atIndexPath: indexPath)
+            delegate?.catOptButtonTapped(cell: self, atIndexPath: indexPath)
             
 //            petProfileItemTapped(cell: UITableViewCell(), atIdxPath: IndexPath(row: 0, section: 0))
         } else {
@@ -280,7 +304,7 @@ extension PetOrderCollectionViewCell {
     
 }
 
-extension PetOrderCollectionViewCell {
+extension CatOrderCollectionViewCell {
     private func createLabel(_ text: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -307,17 +331,11 @@ extension PetOrderCollectionViewCell {
     }
 }
 
-extension PetOrderCollectionViewCell: CageOptionDelegate {
+extension CatOrderCollectionViewCell: CageOptionDelegate {
     func getCageOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
-        if priceWithAmount.amount == 1 {
-            cagePrice = priceWithAmount.price
-        } else {
-            cagePrice = -priceWithAmount.price
-        }
-        print("Cage = \(cagePrice)")
-//        delegate?.petCageOptTapped(idx: idx, priceWithAmount: priceWithAmount)
-        delegate?.petCageOptTapped(withPrice: cagePrice)
-//        print("Cage Option (Idx \(idx)) = \(priceWithAmount.price) x \(priceWithAmount.amount)")
+        print("Cage Option Idx: \(idx)")
+        print("\(priceWithAmount)")
+
     }
     
     func radioButtonTapped(idx: Int) {
@@ -325,7 +343,7 @@ extension PetOrderCollectionViewCell: CageOptionDelegate {
         case 0:
             allCageOpt[1].isClicked = false
             allCageOpt[1].deactivateButton()
-            
+
         case 1:
             allCageOpt[0].isClicked = false
             allCageOpt[0].deactivateButton()
@@ -339,16 +357,10 @@ extension PetOrderCollectionViewCell: CageOptionDelegate {
     
 }
 
-extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
+extension CatOrderCollectionViewCell: AddOnServiceOptionDelegate {
     func getAddOnServiceOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
-        
-        if priceWithAmount.amount == 1 {
-            addOnServicePrice = addOnServicePrice + priceWithAmount.price
-        } else if priceWithAmount.amount == 0 && addOnServicePrice > 0 {
-            addOnServicePrice = addOnServicePrice - priceWithAmount.price
-        }
-        print("addOnServices = \(addOnServicePrice)")
-//        print("Add On Service Option (Idx \(idx)) = \(priceWithAmount.price) x \(priceWithAmount.amount)")
+        print("Add On Service Option Idx: \(idx)")
+        print("\(priceWithAmount)")
     }
     
    
@@ -356,7 +368,7 @@ extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
     func checkboxTapped() {}
 }
 
-extension PetOrderCollectionViewCell: UITextViewDelegate {
+extension CatOrderCollectionViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.customLightGray {
             textView.text = nil
@@ -385,7 +397,7 @@ extension PetOrderCollectionViewCell: UITextViewDelegate {
     }
 }
 
-extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
+extension CatOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
     func petProfileItemTapped(cell: UITableViewCell, atIdxPathRow: Int) {
         
 //        if !self.petOptDefaultContent.isHidden {
@@ -401,3 +413,5 @@ extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
 
     }
 }
+
+

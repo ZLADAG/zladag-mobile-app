@@ -8,7 +8,7 @@
 import UIKit
 protocol AddOnServiceOptionDelegate: AnyObject{
     func checkboxTapped()
-    func getAddOnServiceOptionIdx(data: Int)
+    func getAddOnServiceOptionIdx(idx: Int, priceWithAmount: PriceWithAmount)
     
 }
 
@@ -19,8 +19,8 @@ class AddOnServiceOption: UIView {
     
     var idx = 0
     var isClicked: Bool = false
-    var prefix = "+ Rp"
-    var price = "0"
+    var pricePrefix = "+"
+    var priceWithAmount : PriceWithAmount = PriceWithAmount(price: 0, amount: 0)
     
     // MARK: Initialize Methods
     init(name: String, price: Int) {
@@ -52,13 +52,19 @@ class AddOnServiceOption: UIView {
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
+        priceWithAmount.price = price
+
         let priceLabel = UILabel()
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = .systemFont(ofSize: 14, weight: .medium)
         priceLabel.textColor = .textBlack
-        priceLabel.text = "\(prefix)\(price)"
+        if price != 0 {
+            priceLabel.text = "\(pricePrefix)\(price)"
+        } else {
+            priceLabel.text = ""
+        }
         priceLabel.textAlignment = .right
-        
+
         let textStack = UIStackView(arrangedSubviews: [nameLabel, priceLabel])
         textStack.translatesAutoresizingMaskIntoConstraints = false
         textStack.axis = .horizontal
@@ -92,13 +98,15 @@ class AddOnServiceOption: UIView {
         if self.isClicked {
             checkbox.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             checkbox.tintColor = .customOrange
+            priceWithAmount.amount = 1
         } else {
             checkbox.setImage(UIImage(named: "checkbox-icon-unselected"), for: .normal)
+            priceWithAmount.amount = 0
         }
         delegate?.checkboxTapped()
         
         /// send index data value
-        delegate?.getAddOnServiceOptionIdx(data: self.idx)
+        delegate?.getAddOnServiceOptionIdx(idx: self.idx, priceWithAmount: self.priceWithAmount)
     }
 
 }

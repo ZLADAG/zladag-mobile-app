@@ -7,5 +7,8 @@
 
 import Foundation
 struct Order {
-    
+    var petId: String
+    var note: String
+    var boardingCageId : [String]
+    var boardingServiceIds : [String]
 }

@@ -24,9 +24,9 @@ class HeaderInputButton: UIView {
     var infoLabel: UILabel!
     
     // MARK: Initialize Methods
-    init(_ title: String, _ inputValue: String, _ buttonType: ButtonType) {
+    init(_ inputValue: String, _ buttonType: ButtonType) {
         super.init(frame: .zero)
-        setUpComponents(title, inputValue, buttonType)
+        setUpComponents(inputValue, buttonType)
     }
     
     override init(frame: CGRect) {
@@ -37,7 +37,7 @@ class HeaderInputButton: UIView {
         super.init(coder: aDecoder)
     }
     
-    private func setUpComponents(_ title: String, _ inputValue: String, _ buttonType: ButtonType) {
+    private func setUpComponents(_ inputValue: String, _ buttonType: ButtonType) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 4
         self.layer.backgroundColor = UIColor.white.cgColor
@@ -45,7 +45,18 @@ class HeaderInputButton: UIView {
         /// Set button type
         self.btnType = buttonType
         
-        let titleLabel = createTitleLabel(title)
+        var titleLabel: UILabel!
+        var icon: UIImageView!
+        
+        switch buttonType {
+        case .date:
+            titleLabel = createTitleLabel("Tanggal")
+            icon = createIcon("calendar")
+        case .petAmount:
+            titleLabel = createTitleLabel("Anabul")
+            icon = createIcon("pawprint.fill")
+        }
+        
         infoLabel = createDefaultLabel("\(inputValue)")
 //        setInfoLabelText(inputValue)
         
@@ -56,8 +67,6 @@ class HeaderInputButton: UIView {
         stack.distribution = .fill
         stack.spacing = 4.0
         
-        let icon = createIcon("plus")
-        
         btn = UIStackView(arrangedSubviews: [stack, icon])
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.axis = .horizontal
@@ -67,20 +76,15 @@ class HeaderInputButton: UIView {
         
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(btnTapped)))
         
-        setUpConstraints()
-    }
-    
-    private func setUpConstraints() {
         self.addSubview(btn)
-        
         NSLayoutConstraint.activate([
             btn.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             btn.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             btn.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             btn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
         ])
-        
     }
+    
     
     func getInfoLabelText() -> String {
         return infoLabel.text ?? "text empty"
@@ -132,7 +136,7 @@ class HeaderInputButton: UIView {
         imageView.tintColor = .customOrange
         imageView.clipsToBounds = true
         
-        let iconSize = 16.0
+        let iconSize = 18.0
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalToConstant: iconSize),
             imageView.widthAnchor.constraint(equalToConstant: iconSize),

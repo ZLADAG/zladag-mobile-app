@@ -776,6 +776,10 @@ class BoardingDetailsViewController: UIViewController {
             }
             
             navigationController?.present(navVc, animated: true, completion: nil)
+        } else {
+//            let vc = ReservationViewController()
+//            navigationController?.pushViewController(vc, animated: true)
+
         }
     }
     
