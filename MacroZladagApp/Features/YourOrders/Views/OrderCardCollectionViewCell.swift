@@ -110,6 +110,7 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
     private func setupPetNameLabel(petName: String) {
         contentView.addSubview(petNameLabel)
         
+        
         pawIconImageView.image = UIImage(named: "paw-icon")
         pawIconImageView.backgroundColor = .clear
         pawIconImageView.contentMode = .scaleAspectFill
@@ -125,7 +126,8 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         petNameLabel.font = .systemFont(ofSize: 14, weight: .medium)
         petNameLabel.textColor = .grey1
         
-        petNameLabel.frame = CGRect(x: pawIconImageView.right + 4, y: pawIconImageView.top + 1, width: petNameLabel.width, height: petNameLabel.height)
+        
+        petNameLabel.frame = CGRect(x: pawIconImageView.right + 4, y: pawIconImageView.top - 2, width: petNameLabel.width, height: petNameLabel.height)
     }
     
     private func setupOrderLabelView(ordeLabel: OrderLabel) {

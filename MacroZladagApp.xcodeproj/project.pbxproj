@@ -80,6 +80,8 @@
 		6597C3AB2B0B6860008F6D0D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6597C3AA2B0B6860008F6D0D /* FirebaseStorage */; };
 		6597C3AD2B0B6860008F6D0D /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6597C3AC2B0B6860008F6D0D /* FirebaseStorageCombine-Community */; };
 		6597C3B02B0B6EE2008F6D0D /* FirebaseCloudMessagingToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3AF2B0B6EE2008F6D0D /* FirebaseCloudMessagingToken.swift */; };
+		6597C3B22B0BB562008F6D0D /* CoretanOrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3B12B0BB561008F6D0D /* CoretanOrderDetailsVC.swift */; };
+		6597C3B42B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597C3B32B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift */; };
 		65A05BEA2AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */; };
 		65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */; };
 		65A05C3D2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */; };
@@ -263,6 +265,8 @@
 		6597C3692B09438F008F6D0D /* OrderDetailsByIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsByIdViewModel.swift; sourceTree = "<group>"; };
 		6597C36B2B0B6602008F6D0D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6597C3AF2B0B6EE2008F6D0D /* FirebaseCloudMessagingToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCloudMessagingToken.swift; sourceTree = "<group>"; };
+		6597C3B12B0BB561008F6D0D /* CoretanOrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanOrderDetailsVC.swift; sourceTree = "<group>"; };
+		6597C3B32B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsSheetViewController.swift; sourceTree = "<group>"; };
 		65A05BE92AFAFC8D00C0BC93 /* ProfileFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterTableViewCell.swift; sourceTree = "<group>"; };
 		65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetHabitsCollectionViewController.swift; sourceTree = "<group>"; };
 		65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFacilityPrefCollectionViewController.swift; sourceTree = "<group>"; };
@@ -685,6 +689,8 @@
 			children = (
 				65C40CF12ACAC298004D986C /* OrdersViewController.swift */,
 				6597C35C2B083CF4008F6D0D /* OrderDetailsViewController.swift */,
+				6597C3B32B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift */,
+				6597C3B12B0BB561008F6D0D /* CoretanOrderDetailsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -703,8 +709,8 @@
 		6597C3562B05558C008F6D0D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6597C3572B05559E008F6D0D /* OrderCardCollectionViewCell.swift */,
 				6597C35A2B0588CA008F6D0D /* OrderLabelView.swift */,
+				6597C3572B05559E008F6D0D /* OrderCardCollectionViewCell.swift */,
 				6597C3652B092353008F6D0D /* EmptyOrderCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -1400,6 +1406,7 @@
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
 				8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */,
 				65A05C602AFC0FF500C0BC93 /* CustomDatePickerViewController.swift in Sources */,
+				6597C3B42B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift in Sources */,
 				8FFEC0202AEA5D16005D790F /* OnboardHeader.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
@@ -1482,6 +1489,7 @@
 				65A05C942AFE30D400C0BC93 /* WelcomingViewController.swift in Sources */,
 				6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */,
 				8FFEC09E2AEEBC2E005D790F /* SignUpResponse.swift in Sources */,
+				6597C3B22B0BB562008F6D0D /* CoretanOrderDetailsVC.swift in Sources */,
 				65A05C422AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift in Sources */,
 				65C40CF22ACAC298004D986C /* OrdersViewController.swift in Sources */,
 				8FFEC0712AEB0A76005D790F /* MyConstants.swift in Sources */,

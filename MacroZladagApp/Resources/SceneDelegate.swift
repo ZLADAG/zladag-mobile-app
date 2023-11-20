@@ -36,12 +36,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        if AuthManager.shared.isSignedIn {
-            window.rootViewController = TabBarViewController()
-//        } else {
-//            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//            window.rootViewController = navVc
-//        }
+        window.rootViewController = TabBarViewController()
+        
+//        let navVc = UINavigationController(rootViewController: CustomSheetViewController())
+//        window.rootViewController = navVc
+        
         // TODO:
             /*
              - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
@@ -57,11 +56,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              */
         
         
-//        let navVc = UINavigationController(rootViewController: SignInViewController())
-//        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//        window.rootViewController = navVc
-        
-        window.rootViewController = TabBarViewController()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

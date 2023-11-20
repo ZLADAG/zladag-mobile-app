@@ -39,25 +39,25 @@ class OrdersViewModel { // ganti struct!
             self.endDate = Date().addingTimeInterval(3600 * 24 * 10)
         }
         
-        switch status.lowercased() {
-        case "waiting":
+        switch status {
+        case "Menunggu Konfirmasi":
             self.orderLabel = .menunggu
             break
-        case "accepted":
+        case "Diterima":
             self.orderLabel = .menunggu
             break
-        case "lodged":
+        case "Dititipkan":
             self.orderLabel = .menunggu
             break
-        case "finished":
+        case "Selesai":
             self.orderLabel = .selesai
             break
-        case "failed":
+        case "Gagal":
             self.orderLabel = .gagal
             break
         default:
             self.orderLabel = .gagal
-            print("SWITCH STATUS TO DEFAULT: \(status)")
+            print("SWITCH STATUS TO DEFAULT: \"\(status)\"")
             break
         }
         

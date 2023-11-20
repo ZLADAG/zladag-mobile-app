@@ -11,14 +11,39 @@ class OrderDetailsViewController: UIViewController {
     
     let orderId: String
     var viewModel: OrderDetailsByIdViewModel? = nil
+    var sheetViewController: OrderDetailsSheetViewController?
     
     init(orderId: String) {
         self.orderId = orderId
         super.init(nibName: nil, bundle: nil)
     }
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+    // LEFT BAR BUTTON ACTS AS BACK BUTTON
+    let leftBarButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        
+        let backImageView = UIImageView(image: UIImage(named: "rounded-barbackbutton"))
+        backImageView.contentMode = .scaleAspectFit
+        backImageView.frame.size = CGSize(width: 32, height: 32)
+        
+        button.addSubview(backImageView)
+        
+        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        
+        backImageView.frame = CGRect(
+            x: (button.frame.width - backImageView.width) / 2,
+            y: (button.frame.height - backImageView.height) / 2,
+            width: backImageView.width,
+            height: backImageView.height
+        )
+        
+        return button
+    }()
+    
+    // MARK: BACKGROUND IMAGE
+    var backgroundImageString: String = ""
+    let backgroundImageView = UIImageView()
     
     let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
@@ -28,119 +53,89 @@ class OrderDetailsViewController: UIViewController {
         return spinner
     }()
     
-    var cobaValue: String = "mantap"
+    let button = UIButton()
     
-    let cobaLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.sizeToFit()
-        
-        return label
-    }()
-    
-    let cobaButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .orangeOpacityBackground
-        navigationItem.title = "Order Details"
+        navigationItem.title = ""
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .textBlack
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveData), name: Notification.Name("cobaText"), object: nil)
+        setupLoadingScreen()
+        fetchData {
+            if let viewModel = self.viewModel {
+                DispatchQueue.main.async { [weak self] in
+                    self?.spinner.hidesWhenStopped = true
+                    self?.spinner.stopAnimating()
+                    
+                    self?.setupNavigationBar()
+                    self?.setupBackgroundImageView()
+                    self?.setupSheet(viewModel: viewModel)
+                }
+            }
+        }
         
-        cobaLabel.text = self.cobaValue
         
-        cobaButton.backgroundColor = .red
-        cobaButton.setTitle("click", for: .normal)
-        cobaButton.addTarget(self, action: #selector(onClickCobaButton), for: .touchUpInside)
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.setHidesBackButton(true, animated: true)
         
+        navigationController?.navigationBar.backgroundColor = .clear
         
-        view.addSubview(cobaLabel)
-        view.addSubview(cobaButton)
+        leftBarButton.addTarget(self, action: #selector(onClickBackBarButton), for: .touchUpInside)
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBarButton)
+    }
+    
+    func setupBackgroundImageView() {
+        view.addSubview(backgroundImageView)
         
-        cobaLabel.translatesAutoresizingMaskIntoConstraints = false
-        cobaButton.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundImageString = "menunggu-bg"
+        backgroundImageView.image = UIImage(named: backgroundImageString)
+        
+        backgroundImageView.frame.size = CGSize(width: view.width, height: view.height)
+        
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cobaLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            cobaLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cobaLabel.widthAnchor.constraint(equalToConstant: 100),
-            cobaLabel.heightAnchor.constraint(equalToConstant: 100),
-            
-            cobaButton.topAnchor.constraint(equalTo: cobaLabel.bottomAnchor, constant: 200),
-            cobaButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cobaButton.widthAnchor.constraint(equalToConstant: 100),
-            cobaButton.heightAnchor.constraint(equalToConstant: 50),
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-    }
-    
-    @objc func onReceiveData(_ notification: Notification) {
-        self.cobaValue = "berubah!"
-        cobaLabel.text = self.cobaValue
-        
-        
-        
-        
         
     }
     
-    @objc func onClickCobaButton() {
-//        cobaLabel.text = self.cobaValue
-    }
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        view.backgroundColor = .orangeOpacityBackground
-//        navigationItem.title = "Order Details"
-//        navigationController?.navigationBar.topItem?.backButtonTitle = ""
-//        navigationController?.navigationBar.tintColor = .textBlack
-//        
-//        
-//        // TODO: COBA MAIN NAVBAR TINT
-//        
-//        setupLoadingScreen()
-//        
-//        fetchData {
-//            print(self.orderId)
-//            print()
-//            print(self.viewModel!)
-//            
-//            DispatchQueue.main.async { [weak self] in
-//                self?.spinner.hidesWhenStopped = true
-//                self?.spinner.stopAnimating()
-//                
-//                self?.setupUI()
-//            }
-//        }
-//    }
-    
-    private func setupUI() {
-        setupScrollView()
-    }
-    
-    func setupScrollView() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+    func setupSheet(viewModel: OrderDetailsByIdViewModel) {
+        let vc  = OrderDetailsSheetViewController(viewModel: viewModel)
+        vc.scrollView.isScrollEnabled = false
         
-        scrollView.backgroundColor = .clear
-        contentView.backgroundColor = .clear
+        let navVc = UINavigationController(rootViewController: vc)
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        self.sheetViewController = vc
+        navVc.presentationController?.delegate = self
+        
+        navVc.isModalInPresentation = true
+        navVc.modalPresentationStyle = .fullScreen
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 16
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.99 * context.maximumDetentValue
+                }),
+                .medium()
+            ]
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            contentView.widthAnchor.constraint(equalToConstant: view.width),
-            contentView.heightAnchor.constraint(equalToConstant: 5000),
-        ])
+            sheet.prefersGrabberVisible = false
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        navigationController?.present(navVc, animated: true)
     }
     
     
@@ -158,6 +153,8 @@ class OrderDetailsViewController: UIViewController {
         
         spinner.startAnimating()
     }
+    
+    // MARK: FETCH DATA
     
     private func fetchData(completion: (() -> ())? = nil) {
         APICaller.shared.getOrderDetailsById(orderId: self.orderId) { result in
@@ -207,10 +204,32 @@ class OrderDetailsViewController: UIViewController {
     
     // MARK: @objc UIControl functions
     
+    @objc func onClickBackBarButton() {
+        self.sheetViewController?.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
     required init(coder: NSCoder) {
         fatalError()
     }
 
+}
+
+// MARK: Sheet Presentation Controller
+extension OrderDetailsViewController: UISheetPresentationControllerDelegate {
+    
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        
+        guard let currentDetent = sheetPresentationController.selectedDetentIdentifier?.rawValue else { return }
+        
+        if currentDetent.contains("dynamic") {
+            self.sheetViewController?.scrollView.isScrollEnabled = true
+        } else if currentDetent.contains("medium") {
+            self.sheetViewController?.scrollView.isScrollEnabled = false
+        }
+        
+    }
+    
 }
 
 

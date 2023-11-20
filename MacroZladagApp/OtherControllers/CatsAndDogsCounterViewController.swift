@@ -179,10 +179,11 @@ class CatsAndDogsCounterViewController: UIViewController {
     func setupNavBar() {
         let navView = UIView()
         navView.frame = CGRect(x: 0, y: 0, width: 354, height: 32)
-        
+        navView.backgroundColor = .white
         
         let navLabel = UILabel()
         navLabel.text = "Jumlah anabul"
+        navLabel.textColor = .textBlack
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: (32 - 23) / 2, width: 290, height: 23)
         
