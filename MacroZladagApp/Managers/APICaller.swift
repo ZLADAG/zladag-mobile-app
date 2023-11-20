@@ -96,6 +96,16 @@ final class APICaller {
             }
     }
     
+    
+    public func postFcmToken(firebaseCloudMessagingToken: FirebaseCloudMessagingToken, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequest(
+            path: "/set-token",
+            usingToken: true,
+            body: firebaseCloudMessagingToken) { result in
+                completion(result)
+            }
+    }
+    
     public func getImage(path: String) -> String  {
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
@@ -173,8 +183,8 @@ final class APICaller {
             }
             
             do {
-//                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(json)
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
 
                 let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))

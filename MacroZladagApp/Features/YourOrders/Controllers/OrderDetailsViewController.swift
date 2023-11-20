@@ -28,6 +28,18 @@ class OrderDetailsViewController: UIViewController {
         return spinner
     }()
     
+    var cobaValue: String = "mantap"
+    
+    let cobaLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.sizeToFit()
+        
+        return label
+    }()
+    
+    let cobaButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orangeOpacityBackground
@@ -35,24 +47,72 @@ class OrderDetailsViewController: UIViewController {
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .textBlack
         
+        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveData), name: Notification.Name("cobaText"), object: nil)
         
-        // TODO: COBA MAIN NAVBAR TINT
+        cobaLabel.text = self.cobaValue
         
-        setupLoadingScreen()
+        cobaButton.backgroundColor = .red
+        cobaButton.setTitle("click", for: .normal)
+        cobaButton.addTarget(self, action: #selector(onClickCobaButton), for: .touchUpInside)
         
-        fetchData {
-            print(self.orderId)
-            print()
-            print(self.viewModel!)
+        
+        view.addSubview(cobaLabel)
+        view.addSubview(cobaButton)
+        
+        cobaLabel.translatesAutoresizingMaskIntoConstraints = false
+        cobaButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cobaLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            cobaLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cobaLabel.widthAnchor.constraint(equalToConstant: 100),
+            cobaLabel.heightAnchor.constraint(equalToConstant: 100),
             
-            DispatchQueue.main.async { [weak self] in
-                self?.spinner.hidesWhenStopped = true
-                self?.spinner.stopAnimating()
-                
-                self?.setupUI()
-            }
-        }
+            cobaButton.topAnchor.constraint(equalTo: cobaLabel.bottomAnchor, constant: 200),
+            cobaButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cobaButton.widthAnchor.constraint(equalToConstant: 100),
+            cobaButton.heightAnchor.constraint(equalToConstant: 50),
+        ])
     }
+    
+    @objc func onReceiveData(_ notification: Notification) {
+        self.cobaValue = "berubah!"
+        cobaLabel.text = self.cobaValue
+        
+        
+        
+        
+        
+    }
+    
+    @objc func onClickCobaButton() {
+//        cobaLabel.text = self.cobaValue
+    }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        view.backgroundColor = .orangeOpacityBackground
+//        navigationItem.title = "Order Details"
+//        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+//        navigationController?.navigationBar.tintColor = .textBlack
+//        
+//        
+//        // TODO: COBA MAIN NAVBAR TINT
+//        
+//        setupLoadingScreen()
+//        
+//        fetchData {
+//            print(self.orderId)
+//            print()
+//            print(self.viewModel!)
+//            
+//            DispatchQueue.main.async { [weak self] in
+//                self?.spinner.hidesWhenStopped = true
+//                self?.spinner.stopAnimating()
+//                
+//                self?.setupUI()
+//            }
+//        }
+//    }
     
     private func setupUI() {
         setupScrollView()
