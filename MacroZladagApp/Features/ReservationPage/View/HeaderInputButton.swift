@@ -100,7 +100,7 @@ class HeaderInputButton: UIView {
             self.backgroundColor = UIColor.customLightGray3
         }) { _ in
             UIView.animate(withDuration: 0.05) {
-                self.backgroundColor = UIColor.white 
+                self.backgroundColor = UIColor.white
             }
         }
         

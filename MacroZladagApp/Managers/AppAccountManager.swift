@@ -23,8 +23,8 @@ final class AppAccountManager {
     /// Signed in user
     var signedInUser : User?
     
-    var anjingCount = 0
-    var kucingCount = 0
+    var anjingCount = 2
+    var kucingCount = 3
     
     var calendarTextDetails: String = {
         let dateFormatter = DateFormatter()

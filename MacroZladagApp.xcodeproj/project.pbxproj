@@ -127,6 +127,7 @@
 		8F167EC62B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC52B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift */; };
 		8F167EC82B0A3AF900FDAAE9 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */; };
 		8F167ECA2B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */; };
+		8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */; };
 		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
 		8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */; };
 		8F23EDBF2AE410A400B25026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23EDBE2AE410A400B25026 /* User.swift */; };
@@ -317,6 +318,7 @@
 		8F167EC52B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetOrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPetAmountInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
 		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
 		8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COBAstickysegmentedbar.swift; sourceTree = "<group>"; };
 		8F23EDBE2AE410A400B25026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -904,6 +906,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8F167ECD2B0B0FE500FDAAE9 /* Reservation */ = {
+			isa = PBXGroup;
+			children = (
+				8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */,
+			);
+			path = Reservation;
+			sourceTree = "<group>";
+		};
 		8F23EDC22AE4141B00B25026 /* NonApiModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -912,6 +922,7 @@
 				8F23EDC02AE410B000B25026 /* Pet.swift */,
 				8F23EDC32AE41CCF00B25026 /* Order.swift */,
 				8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */,
+				8F167ECD2B0B0FE500FDAAE9 /* Reservation */,
 			);
 			path = NonApiModel;
 			sourceTree = "<group>";
@@ -1292,6 +1303,7 @@
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */,
 				8F9C2D9D2AFC590200D767CD /* CageOption.swift in Sources */,
+				8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */,
 				8F9C2DA32AFCBA5900D767CD /* PetOptionSheetViewController.swift in Sources */,
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
 				65B274A42AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift in Sources */,

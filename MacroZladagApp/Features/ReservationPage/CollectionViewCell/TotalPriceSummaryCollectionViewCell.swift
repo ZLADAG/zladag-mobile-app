@@ -8,7 +8,7 @@
 import UIKit
 protocol TotalPriceSummaryCollectionViewCellDelegate {
     func orderButtonTapped()
-    func updatePetAmount(petAmount: Int)
+    func updatePetAmount(amount: Int)
     func updateDefaultPrice(price: Int)
     func updateAddOnServicePrice(price: Int)
     func updateTotalPrice(price: Int)
@@ -28,7 +28,10 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
     
     var pricePrefix = "Rp"
     
+    var defaultPriceNameLabel: UILabel!
     
+    var defaultPriceLabel: UILabel!
+    var addOnServicePriceLabel: UILabel!
     var totalPriceLabel: UILabel!
     
     override init(frame: CGRect) {
@@ -40,9 +43,43 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpCell() {
-        let defaultPriceContent = createPriceContent("Total Harga Penginapan (\(amountPet) anabul)", defaultPrice)
-        let addOnServicePriceContent = createPriceContent("Total Add-on Service", addOnServicePrice)
+        /// Default service
+        defaultPriceNameLabel = UILabel()
+        defaultPriceNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        defaultPriceNameLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        defaultPriceNameLabel.textColor = .customLightGray
+        defaultPriceNameLabel.numberOfLines = 0
+        defaultPriceNameLabel.text = "Total Harga Penginapan (\(amountPet) anabul)"
+        defaultPriceNameLabel.textAlignment = .left
         
+        defaultPriceLabel = UILabel()
+        defaultPriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        defaultPriceLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        defaultPriceLabel.textColor = .textBlack
+        defaultPriceLabel.text = "\(pricePrefix)\(defaultPrice)"
+        defaultPriceLabel.textAlignment = .right
+        
+        let defaultPriceContent = createPriceContent(content: [defaultPriceNameLabel, defaultPriceLabel])
+        
+        /// add on service
+        let addOnServicePriceNameLabel = UILabel()
+        addOnServicePriceNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        addOnServicePriceNameLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        addOnServicePriceNameLabel.textColor = .customLightGray
+        addOnServicePriceNameLabel.numberOfLines = 0
+        addOnServicePriceNameLabel.text = "Total Add-on Service"
+        addOnServicePriceNameLabel.textAlignment = .left
+        
+        addOnServicePriceLabel = UILabel()
+        addOnServicePriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        addOnServicePriceLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        addOnServicePriceLabel.textColor = .textBlack
+        addOnServicePriceLabel.text = "\(pricePrefix)\(defaultPrice)"
+        addOnServicePriceLabel.textAlignment = .right
+        
+        let addOnServicePriceContent = createPriceContent(content: [addOnServicePriceNameLabel, addOnServicePriceLabel])
+        
+        /// Default + add on service wrapper
         let subTotalPriceStack = UIStackView(arrangedSubviews: [defaultPriceContent, addOnServicePriceContent])
         subTotalPriceStack.translatesAutoresizingMaskIntoConstraints = false
         subTotalPriceStack.axis = .vertical
@@ -100,37 +137,29 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func updatePetAmount(petAmount: Int) {
-        delegate?.updatePetAmount(petAmount: petAmount)
+    func updatePetAmount(amount: Int) {
+        self.amountPet = amount
+        self.defaultPriceNameLabel.text = "Total Harga Penginapan (\(amount) anabul)"
+        delegate?.updatePetAmount(amount: amount)
     }
     func updateDefaultPrice(price: Int) {
+        self.defaultPrice = price
+        self.defaultPriceLabel.text = "\(pricePrefix)\(price)"
         delegate?.updateDefaultPrice(price: price)
     }
     func updateAddOnServicePrice(price: Int) {
+        self.addOnServicePrice = price
+        self.addOnServicePriceLabel.text = "\(pricePrefix)\(price)"
         delegate?.updateAddOnServicePrice(price: price)
     }
     func updateTotalPrice(price: Int) {
+        self.totalPrice = price
+        self.totalPriceLabel.text = "\(pricePrefix)\(price)"
         delegate?.updateTotalPrice(price: price)
-        totalPriceLabel.text = "\(pricePrefix)\(totalPrice)"
-
     }
-    func createPriceContent(_ name: String, _ price: Int) -> UIStackView {
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        nameLabel.textColor = .customLightGray
-        nameLabel.numberOfLines = 0
-        nameLabel.text = name
-        nameLabel.textAlignment = .left
-        
-        let priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        priceLabel.textColor = .textBlack
-        priceLabel.text = "\(pricePrefix)\(price)"
-        priceLabel.textAlignment = .right
-        
-        let textStack = UIStackView(arrangedSubviews: [nameLabel, priceLabel])
+    func createPriceContent(content:[UIView]) -> UIStackView {
+       
+        let textStack = UIStackView(arrangedSubviews: content)
         textStack.translatesAutoresizingMaskIntoConstraints = false
         textStack.axis = .horizontal
         textStack.alignment = .fill

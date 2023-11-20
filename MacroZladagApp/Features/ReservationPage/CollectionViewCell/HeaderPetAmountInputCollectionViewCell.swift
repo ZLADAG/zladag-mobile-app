@@ -14,7 +14,7 @@ class HeaderPetAmountInputCollectionViewCell: UICollectionViewCell {
     
     var delegate: HeaderPetAmountInputCollectionViewCellDelegate?
     
-    var petAmountButton : HeaderInputButton!
+    private var petAmountButton : HeaderInputButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +25,7 @@ class HeaderPetAmountInputCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpCell() {
-        petAmountButton = HeaderInputButton("1 Kucing 1 Anjing", .petAmount)
+        petAmountButton = HeaderInputButton("-", .petAmount)
         petAmountButton.delegate = self
         
         addSubview(petAmountButton)
@@ -35,6 +35,11 @@ class HeaderPetAmountInputCollectionViewCell: UICollectionViewCell {
             petAmountButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             petAmountButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
+    }
+    
+    func updateInfoLabel(cats: Int, dogs: Int){
+        self.petAmountButton.infoLabel.text = "\(cats) Kucing \(dogs) Anjing"
+        ReservationManager.shared.totalPets = cats + dogs
     }
     
 }

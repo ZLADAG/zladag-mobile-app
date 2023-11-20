@@ -8,11 +8,14 @@
 import UIKit
 import HorizonCalendar
 protocol CustomDatePickerViewControllerDelegate {
-    func getDateLabel()
+    func getDateLabel(completion: (() -> Void)?)
 }
 class CustomDatePickerViewController: UIViewController {
 
     var delegate: CustomDatePickerViewControllerDelegate?
+    
+    var headerDateInputCell: HeaderDateInputCollectionViewCell?
+    
     var mainView: MainHeaderCollectionReusableView?
     var controllerDelegate: SearchResultsViewController?
     var ubahControllerDelegate: UbahPencarianViewController?
@@ -353,6 +356,10 @@ class CustomDatePickerViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .white
     }
     
+    func getDateLabel(completion: (() -> Void)?) {
+        delegate?.getDateLabel(completion: {})
+       }
+    
     @objc func onClickSimpanButton() {
         print("simpan")
         guard self.selectedDay1 != nil && self.selectedDay2 != nil else { return }
@@ -368,14 +375,18 @@ class CustomDatePickerViewController: UIViewController {
         self.mainView?.dateFieldView.thisLabel.text = "\(date1String) - \(date2String)"
         
         self.ubahControllerDelegate?.dateFieldView.thisLabel.text = "\(date1String) - \(date2String)"
-                
+            
+        self.headerDateInputCell?.datePickerButton.infoLabel.text = "\(date1String) - \(date2String)"
+        
+        print( self.headerDateInputCell?.datePickerButton.infoLabel.text)
         AppAccountManager.shared.calendarTextDetails = "\(date1String) - \(date2String)"
         AppAccountManager.shared.selectedDay1 = self.selectedDay1
         AppAccountManager.shared.selectedDay2 = self.selectedDay2
         
 //        print(self.mainView?.minDate) // MARK: CATATAN
 //        print(self.mainView?.maxDate)
-        delegate?.getDateLabel()
+        getDateLabel(completion: {})
+        
         dismiss(animated: true)
     }
     

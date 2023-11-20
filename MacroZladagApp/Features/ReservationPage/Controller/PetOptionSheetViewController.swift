@@ -6,15 +6,24 @@
 //
 
 import UIKit
+
+enum PetType: String {
+    case cat
+    case dog
+}
+
 protocol PetOptionSheetViewControllerDelegate {
     func petProfileItemTapped(cell: UITableViewCell, atIdxPathRow: Int)
 }
 
 class PetOptionSheetViewController: UIViewController {
     
+    
     var delegate : PetOptionSheetViewControllerDelegate?
     var addPetButton : UIButton!
     var tableView = UITableView()
+
+    var type: PetType!
     
     override func viewDidLoad() {
         super.viewDidLoad()

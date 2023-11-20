@@ -8,7 +8,7 @@
 import UIKit
 protocol HeaderDateInputCollectionViewCellDelegate {
     func dateInputInputBtnTapped()
-    func updateDateLabelText()
+    func updateDateLabelText(dateText: String)
 }
 class HeaderDateInputCollectionViewCell: UICollectionViewCell {
     static let identifier = "HeaderDateInputCollectionViewCell"
@@ -28,7 +28,7 @@ class HeaderDateInputCollectionViewCell: UICollectionViewCell {
     func setUpCell() {
         datePickerButton = HeaderInputButton(AppAccountManager.shared.calendarTextDetails, .date)
         datePickerButton.delegate = self
-
+        updateDateLabelText()
         addSubview(datePickerButton)
         NSLayoutConstraint.activate([
             datePickerButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
@@ -39,7 +39,10 @@ class HeaderDateInputCollectionViewCell: UICollectionViewCell {
     }
     
     func updateDateLabelText() {
-        print("nana")
+        let dateText = ""
+        delegate?.updateDateLabelText(dateText: dateText)
+        print("dateText: \(dateText)")
+        
         datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
     }
     
@@ -49,7 +52,7 @@ extension HeaderDateInputCollectionViewCell: HeaderInputButtonDelegate {
     func btnTapped(_ senderButtonType: HeaderInputButton.ButtonType) {
         print("tapped")
         delegate?.dateInputInputBtnTapped()
-        datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
+//        datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
     }
 }
 
