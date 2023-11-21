@@ -6,34 +6,28 @@
 //
 
 import UIKit
+
 protocol TotalPriceSummaryCollectionViewCellDelegate {
     func orderButtonTapped()
-    func updatePetAmount(amount: Int)
-    func updateDefaultPrice(price: Int)
-    func updateAddOnServicePrice(price: Int)
-    func updateTotalPrice(price: Int)
-    
 }
 class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
     static let identifier = "TotalPriceSummaryCollectionViewCell"
-
+    
     var delegate : TotalPriceSummaryCollectionViewCellDelegate?
-    
-    var orderButton : PrimaryButtonFilled!
-    
+    var pricePrefix = "Rp"
+
     var amountPet = 0
     var defaultPrice = 0
     var addOnServicePrice = 0
     var totalPrice = 0
     
-    var pricePrefix = "Rp"
-    
     var defaultPriceNameLabel: UILabel!
-    
     var defaultPriceLabel: UILabel!
     var addOnServicePriceLabel: UILabel!
     var totalPriceLabel: UILabel!
     
+    var orderButton : PrimaryButtonFilled!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpCell()
@@ -42,7 +36,7 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpCell() {
+    private func setUpCell() {
         /// Default service
         defaultPriceNameLabel = UILabel()
         defaultPriceNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +68,7 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         addOnServicePriceLabel.translatesAutoresizingMaskIntoConstraints = false
         addOnServicePriceLabel.font = .systemFont(ofSize: 14, weight: .medium)
         addOnServicePriceLabel.textColor = .textBlack
-        addOnServicePriceLabel.text = "\(pricePrefix)\(defaultPrice)"
+        addOnServicePriceLabel.text = "\(pricePrefix)\(addOnServicePrice)"
         addOnServicePriceLabel.textAlignment = .right
         
         let addOnServicePriceContent = createPriceContent(content: [addOnServicePriceNameLabel, addOnServicePriceLabel])
@@ -111,7 +105,7 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         
         orderButton = PrimaryButtonFilled(btnTitle: "Pesan Sekarang")
         orderButton.delegate = self
-
+        
         ///All content
         let content = UIStackView(arrangedSubviews: [subTotalPriceStack, addSeparator(), totalTextStack, addSeparator()])
         content.translatesAutoresizingMaskIntoConstraints = false
@@ -123,7 +117,7 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         addSubview(content)
         NSLayoutConstraint.activate([
             content.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-//            content.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
+            //            content.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
             content.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             content.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
         ])
@@ -137,34 +131,29 @@ class TotalPriceSummaryCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func updatePetAmount(amount: Int) {
+    func updatePetAmountLabel(amount: Int) {
         self.amountPet = amount
         self.defaultPriceNameLabel.text = "Total Harga Penginapan (\(amount) anabul)"
-        delegate?.updatePetAmount(amount: amount)
     }
-    func updateDefaultPrice(price: Int) {
+    func updateDefaultPriceLabel(price: Int) {
         self.defaultPrice = price
         self.defaultPriceLabel.text = "\(pricePrefix)\(price)"
-        delegate?.updateDefaultPrice(price: price)
     }
-    func updateAddOnServicePrice(price: Int) {
+    func updateAddOnServicePriceLabel(price: Int) {
         self.addOnServicePrice = price
         self.addOnServicePriceLabel.text = "\(pricePrefix)\(price)"
-        delegate?.updateAddOnServicePrice(price: price)
     }
-    func updateTotalPrice(price: Int) {
+    func updateTotalPriceLabel(price: Int) {
         self.totalPrice = price
         self.totalPriceLabel.text = "\(pricePrefix)\(price)"
-        delegate?.updateTotalPrice(price: price)
     }
-    func createPriceContent(content:[UIView]) -> UIStackView {
-       
+    
+    private func createPriceContent(content:[UIView]) -> UIStackView {
         let textStack = UIStackView(arrangedSubviews: content)
         textStack.translatesAutoresizingMaskIntoConstraints = false
         textStack.axis = .horizontal
         textStack.alignment = .fill
         textStack.distribution = .fill
-        
         return textStack
     }
     

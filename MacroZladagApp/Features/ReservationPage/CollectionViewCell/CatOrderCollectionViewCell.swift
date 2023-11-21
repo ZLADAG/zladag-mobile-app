@@ -144,7 +144,7 @@ extension CatOrderCollectionViewCell {
         
         
         
-        petOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(petOptButtonTapped)))
+        petOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(petOptTapped)))
 
         petOpt.addSubview(petOptWrap)
         NSLayoutConstraint.activate([
@@ -275,7 +275,7 @@ extension CatOrderCollectionViewCell {
         }
     }
     
-    @objc func petOptButtonTapped(gesture:UITapGestureRecognizer){
+    @objc func petOptTapped(gesture:UITapGestureRecognizer){
         UIView.animate(withDuration: 0.1, animations: {
             self.petOpt.backgroundColor = UIColor.customLightGray3
         }) { _ in
@@ -332,13 +332,7 @@ extension CatOrderCollectionViewCell {
 }
 
 extension CatOrderCollectionViewCell: CageOptionDelegate {
-    func getCageOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
-        print("Cage Option Idx: \(idx)")
-        print("\(priceWithAmount)")
-
-    }
-    
-    func radioButtonTapped(idx: Int) {
+    func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount) {
         switch idx {
         case 0:
             allCageOpt[1].isClicked = false
@@ -352,20 +346,17 @@ extension CatOrderCollectionViewCell: CageOptionDelegate {
             print("invalid idx cage button")
         }
         
+        print("Cage Option Idx: \(idx)")
+        print("\(priceWithAmount)")
     }
-    
     
 }
 
 extension CatOrderCollectionViewCell: AddOnServiceOptionDelegate {
-    func getAddOnServiceOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
+    func checkboxTapped(idx: Int, priceWithAmount: PriceWithAmount) {
         print("Add On Service Option Idx: \(idx)")
         print("\(priceWithAmount)")
     }
-    
-   
-    
-    func checkboxTapped() {}
 }
 
 extension CatOrderCollectionViewCell: UITextViewDelegate {
@@ -398,20 +389,11 @@ extension CatOrderCollectionViewCell: UITextViewDelegate {
 }
 
 extension CatOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
-    func petProfileItemTapped(cell: UITableViewCell, atIdxPathRow: Int) {
-        
-//        if !self.petOptDefaultContent.isHidden {
-//            self.petOptDefaultContent.isHidden = true
-//            self.petOptProfileContent.isHidden = false
-//        }
-//        else {
-//            self.petOptDefaultContent.isHidden = false
-//            self.petOptProfileContent.isHidden = true
-//        }
-//
-        print("profile at: \(atIdxPathRow)")
+    func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath) {
+        print("profile at: \(atIdxPath)")
 
     }
+    
 }
 
 

@@ -7,8 +7,8 @@
 
 import UIKit
 protocol CageOptionDelegate: AnyObject{
-    func radioButtonTapped(idx: Int)
-    func getCageOptionIdx(idx: Int, priceWithAmount: PriceWithAmount)
+//    func radioButtonTapped(idx: Int)
+    func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount)
 }
 
 class CageOption: UIView {
@@ -96,10 +96,10 @@ class CageOption: UIView {
         } else {
             deactivateButton()
         }
-        delegate?.radioButtonTapped(idx: self.idx)
+//        delegate?.radioButtonTapped(idx: self.idx)
         
         /// send index data value
-        delegate?.getCageOptionIdx(idx: self.idx, priceWithAmount: self.priceWithAmount)
+        delegate?.radioButtonTapped(idx: self.idx, priceWithAmount: self.priceWithAmount)
     }
     
     func activateButton() {

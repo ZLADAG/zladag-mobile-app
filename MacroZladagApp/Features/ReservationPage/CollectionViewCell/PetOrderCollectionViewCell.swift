@@ -8,11 +8,9 @@
 import UIKit
 
 protocol PetOrderCollectionViewCellDelegate {
-    func petOptButtonTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
-//    func petCageOptTapped(idx: Int, priceWithAmount: PriceWithAmount)
-    func petCageOptTapped(withPrice: Int)
-    func petAddOnServicesTapped(withPrice: Int)
-    
+    func petOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
+    func cageOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
+    func serviceOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
 }
 
 class PetOrderCollectionViewCell: UICollectionViewCell {
@@ -20,11 +18,16 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     var delegate:PetOrderCollectionViewCellDelegate?
     
     static let identifier = "CatOrderCollectionViewCell"
+    let placeholderText = "Pesan tambahan untuk pet hotel"
+
+    var type: PetType!
+    
+    var selectedPetProfile: ProfilePhotoWithTitle?
+    var selectedPetProfileIndexPath: IndexPath?
     
     var titleLabel : UILabel!
     
     var petOptTitleLabel : NecessarryFieldLabel!
-    var petOptButton : UIButton!
     var petOpt : UIView!
     var petOptDefaultContent : UIStackView!
     var petOptProfileContent : UIStackView!
@@ -37,15 +40,12 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     var messageTextField: UITextView!
     var messageTextFieldFrame : CGRect!
     
-    let placeholderText = "What do you like us to call you?"
-    
     var cellContent : UIStackView!
     var cellSeparator : UIImageView!
     
     //Price calculation Variable
     var cagePrice = 0
     var addOnServicePrice = 0
-//    var addOnService : [PriceWithAmount] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,7 +58,7 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
         messageTextField.removeObserver(self, forKeyPath: "contentSize")
     }
     
-    func setUpCell() {
+    private func setUpCell() {
         
         cellContent = createStack(views: [], spacing: 16)
         
@@ -103,12 +103,22 @@ extension PetOrderCollectionViewCell {
         print("changed!")
     }
     
+    func updatePetProfile(profile: ReservationPetViewModel) {
+        guard selectedPetProfile != nil else { return }
+        
+        selectedPetProfile!.updateNameTitleLabel(text: profile.petDetails.name)
+        selectedPetProfile!.updateNameDetailLabel(text: profile.petDetails.petBreed)
+        selectedPetProfile!.updateAgeLabel(age: Double(profile.petDetails.age))
+    }
+    
     private func setPetOption() {
         petOptTitleLabel = NecessarryFieldLabel(textValue: "Pilih Profil ")
         petOptTitleLabel.font = .boldSystemFont(ofSize: 14)
         
         /// add pet option button - profile type
-        petOptProfileContent = UIStackView(arrangedSubviews: [ProfilePhotoWithTitle(profileType: .pet, img: "dummy-image", title: "Nana", detailName: "Anjing", age: 5)])
+        selectedPetProfile = ProfilePhotoWithTitle(profileType: .pet, img: "dummy-image", title: "Nil", detailName: "-", age: 0)
+        
+        petOptProfileContent = UIStackView(arrangedSubviews: [selectedPetProfile!])
         petOptProfileContent.translatesAutoresizingMaskIntoConstraints = false
         petOptProfileContent.alignment = .fill
         petOptProfileContent.distribution = .fill
@@ -147,7 +157,7 @@ extension PetOrderCollectionViewCell {
         petOpt.layer.borderColor = UIColor.customLightGray3.cgColor
         petOpt.layer.cornerRadius = 4
         
-        petOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(petOptButtonTapped)))
+        petOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(petOptTapped)))
 
         petOpt.addSubview(petOptWrap)
         NSLayoutConstraint.activate([
@@ -193,11 +203,12 @@ extension PetOrderCollectionViewCell {
     private func setAddOnOption() {
         addOnOptTitleLabel = createLabel("Add-on Service")
         addOnOptTitleLabel.font = .boldSystemFont(ofSize: 14)
-        let services = ["Grooming","Pick Up", "Pet Food"]
+//        let services = ["Grooming","Pick Up", "Pet Food"]
+        let services = ReservationManager.shared.reservationModel.services
         let allServiceOpt = createStack(views: [], spacing: 16)
         var idx = 0
         for service in services {
-            let option = AddOnServiceOption(name: service, price: 50000)
+            let option = AddOnServiceOption(name: service.name, price: service.price)
             option.idx = idx
             idx += 1;
             option.delegate = self
@@ -242,6 +253,13 @@ extension PetOrderCollectionViewCell {
         cellContent.addArrangedSubview(messageTitleLabel)
     }
     
+    private func findCellIndexPath() -> IndexPath? {
+        guard let collectionView = superview as? UICollectionView else {
+            return nil
+        }
+        return collectionView.indexPath(for: self)
+    }
+    
     // MARK: Selectors
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         /// Check if the tap occurred outside the UITextView
@@ -251,7 +269,7 @@ extension PetOrderCollectionViewCell {
         }
     }
     
-    @objc func petOptButtonTapped(gesture:UITapGestureRecognizer){
+    @objc func petOptTapped(gesture:UITapGestureRecognizer){
         UIView.animate(withDuration: 0.1, animations: {
             self.petOpt.backgroundColor = UIColor.customLightGray3
         }) { _ in
@@ -261,25 +279,130 @@ extension PetOrderCollectionViewCell {
         }
         
         if let indexPath = findCellIndexPath() {
-            print("petOptButtonTapped on \(indexPath)")
-            delegate?.petOptButtonTapped(cell: self, atIndexPath: indexPath)
-            
-//            petProfileItemTapped(cell: UITableViewCell(), atIdxPath: IndexPath(row: 0, section: 0))
+            selectedPetProfileIndexPath = indexPath
+            delegate?.petOptTapped(cell: self, atIndexPath: indexPath)
         } else {
             print("Unable to determine indexPath for the cell.")
         }
-        
     }
-    
-    func findCellIndexPath() -> IndexPath? {
-        guard let collectionView = superview as? UICollectionView else {
-            return nil
+}
+
+// MARK: RADIO BUTTON
+extension PetOrderCollectionViewCell: CageOptionDelegate {
+    func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount) {
+        /// Appearance
+        switch idx {
+        case 0:
+            allCageOpt[1].isClicked = false
+            allCageOpt[1].deactivateButton()
+            
+        case 1:
+            allCageOpt[0].isClicked = false
+            allCageOpt[0].deactivateButton()
+            
+        default:
+            print("invalid idx cage button")
         }
-        return collectionView.indexPath(for: self)
+        
+        /// Price Calculation
+        if let indexPath = findCellIndexPath() {
+            
+            if priceWithAmount.amount == 1 {
+                cagePrice = priceWithAmount.price
+            } else {
+                cagePrice = 0
+            }
+            ReservationManager.shared.updateDefaultPrices(indexPath: indexPath, price: cagePrice)
+            delegate?.cageOptTapped(cell: self, atIndexPath: indexPath)
+
+        } else {
+            print("Unable to determine indexPath for the cell.")
+        }
+    }
+}
+
+// MARK: CHECK BOX
+extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
+    func checkboxTapped(idx: Int, priceWithAmount: PriceWithAmount) {
+        if let indexPath = findCellIndexPath() {
+            
+            if priceWithAmount.amount == 1 {
+                addOnServicePrice = addOnServicePrice + priceWithAmount.price
+            } else if priceWithAmount.amount == 0 && addOnServicePrice > 0 {
+                addOnServicePrice = addOnServicePrice - priceWithAmount.price
+            }
+            ReservationManager.shared.updateAddOnServicePrices(indexPath: indexPath, price: addOnServicePrice)
+            delegate?.serviceOptTapped(cell: self, atIndexPath: indexPath)
+
+        } else {
+            print("Unable to determine indexPath for the cell.")
+        }
+    }
+}
+
+// MARK: PET OPTION SHEET
+extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
+    func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath) {
+        
+//        print(cell)
+        if let petOptionCell = cell as? PetOptionTableViewCell {
+            
+            // Your code when the cell is of type PetOptionTableViewCell
+            updatePetProfile(profile: petOptionCell.profile)
+
+            self.petOptDefaultContent.isHidden = true
+            self.petOptProfileContent.isHidden = false
+            
+//            print(petOptionCell.profileTag)
+//            if !self.petOptDefaultContent.isHidden {
+//                self.petOptDefaultContent.isHidden = true
+//                self.petOptProfileContent.isHidden = false
+//            }
+//            else {
+//                self.petOptDefaultContent.isHidden = false
+//                self.petOptProfileContent.isHidden = true
+//            }
+            print("profile at: \(atIdxPath)")
+        } else {
+            // Handle the case when the cell is not of type PetOptionTableViewCell
+            print("Error: cell is not of type PetOptionTableViewCell")
+        }
+        
+
     }
     
 }
 
+// MARK: TEXTVIEW
+extension PetOrderCollectionViewCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.customLightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = placeholderText
+            textView.textColor = UIColor.customLightGray
+            print("empty")
+        }
+    }
+    
+    // MARK: Delegate
+    /// Implement the observer's method to handle changes in contentSize
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            /// Update the text view's height to match the content size
+            if let newContentSize = change?[.newKey] as? CGSize {
+                messageTextField.frame.size = newContentSize
+            }
+        }
+    }
+}
+
+// MARK: UI Creation
 extension PetOrderCollectionViewCell {
     private func createLabel(_ text: String) -> UILabel {
         let label = UILabel()
@@ -304,100 +427,5 @@ extension PetOrderCollectionViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode =  .scaleAspectFill
         return image
-    }
-}
-
-extension PetOrderCollectionViewCell: CageOptionDelegate {
-    func getCageOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
-        if priceWithAmount.amount == 1 {
-            cagePrice = priceWithAmount.price
-        } else {
-            cagePrice = -priceWithAmount.price
-        }
-        print("Cage = \(cagePrice)")
-//        delegate?.petCageOptTapped(idx: idx, priceWithAmount: priceWithAmount)
-        delegate?.petCageOptTapped(withPrice: cagePrice)
-//        print("Cage Option (Idx \(idx)) = \(priceWithAmount.price) x \(priceWithAmount.amount)")
-    }
-    
-    func radioButtonTapped(idx: Int) {
-        switch idx {
-        case 0:
-            allCageOpt[1].isClicked = false
-            allCageOpt[1].deactivateButton()
-            
-        case 1:
-            allCageOpt[0].isClicked = false
-            allCageOpt[0].deactivateButton()
-            
-        default:
-            print("invalid idx cage button")
-        }
-        
-    }
-    
-    
-}
-
-extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
-    func getAddOnServiceOptionIdx(idx: Int, priceWithAmount: PriceWithAmount) {
-        
-        if priceWithAmount.amount == 1 {
-            addOnServicePrice = addOnServicePrice + priceWithAmount.price
-        } else if priceWithAmount.amount == 0 && addOnServicePrice > 0 {
-            addOnServicePrice = addOnServicePrice - priceWithAmount.price
-        }
-        print("addOnServices = \(addOnServicePrice)")
-//        print("Add On Service Option (Idx \(idx)) = \(priceWithAmount.price) x \(priceWithAmount.amount)")
-    }
-    
-   
-    
-    func checkboxTapped() {}
-}
-
-extension PetOrderCollectionViewCell: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.customLightGray {
-            textView.text = nil
-            textView.textColor = UIColor.black
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = placeholderText
-            textView.textColor = UIColor.customLightGray
-            print("empty")
-            
-        }
-    }
-    
-    // MARK: Delegate
-    /// Implement the observer's method to handle changes in contentSize
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentSize" {
-            /// Update the text view's height to match the content size
-            if let newContentSize = change?[.newKey] as? CGSize {
-                messageTextField.frame.size = newContentSize
-            }
-        }
-    }
-}
-
-extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
-    func petProfileItemTapped(cell: UITableViewCell, atIdxPathRow: Int) {
-        
-//        if !self.petOptDefaultContent.isHidden {
-//            self.petOptDefaultContent.isHidden = true
-//            self.petOptProfileContent.isHidden = false
-//        }
-//        else {
-//            self.petOptDefaultContent.isHidden = false
-//            self.petOptProfileContent.isHidden = true
-//        }
-//
-        print("profile at: \(atIdxPathRow)")
-
     }
 }

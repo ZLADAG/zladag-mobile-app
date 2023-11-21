@@ -7,9 +7,7 @@
 
 import UIKit
 protocol AddOnServiceOptionDelegate: AnyObject{
-    func checkboxTapped()
-    func getAddOnServiceOptionIdx(idx: Int, priceWithAmount: PriceWithAmount)
-    
+    func checkboxTapped(idx: Int, priceWithAmount: PriceWithAmount)
 }
 
 class AddOnServiceOption: UIView {
@@ -103,10 +101,8 @@ class AddOnServiceOption: UIView {
             checkbox.setImage(UIImage(named: "checkbox-icon-unselected"), for: .normal)
             priceWithAmount.amount = 0
         }
-        delegate?.checkboxTapped()
-        
         /// send index data value
-        delegate?.getAddOnServiceOptionIdx(idx: self.idx, priceWithAmount: self.priceWithAmount)
+        delegate?.checkboxTapped(idx: self.idx, priceWithAmount: self.priceWithAmount)
     }
 
 }

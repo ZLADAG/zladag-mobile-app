@@ -7,13 +7,11 @@
 
 import UIKit
 
-
 class ProfilePhotoWithTitle: UIView {
     private var photoImage: UIImageView!
-    
-    var nameTitleLabel: UILabel!
-    var nameDetailLabel: UILabel!
-    var ageLabel: UILabel!
+    private var nameTitleLabel: UILabel!
+    private var nameDetailLabel: UILabel!
+    private var ageLabel: UILabel!
     
     private var titleStack: UIStackView!
     private var detailStack: UIStackView!
@@ -33,7 +31,35 @@ class ProfilePhotoWithTitle: UIView {
         super.init(coder: aDecoder)
     }
     
-    // MARK: Functions
+    // MARK: PUBLIC Functions
+    func updateImage(imageName: String?) {
+        self.photoImage = UIImageView(image: UIImage(named: imageName ?? "dummy-image"))
+    }
+    func updateNameTitleLabel(text: String) {
+        self.nameTitleLabel.text = text
+    }
+    func updateNameDetailLabel(text: String) {
+        self.nameDetailLabel.text = text
+    }
+    func updateAgeLabel(age: Double) {
+        self.ageLabel.text = "\(age) bulan"
+    }
+    
+    func getImage() -> UIImageView {
+       return photoImage
+    }
+    func getNameTitleLabel() -> UILabel {
+        return nameTitleLabel
+    }
+    func getNameDetailLabel() -> UILabel {
+        return nameDetailLabel
+    }
+    func getAgeLabel() -> UILabel {
+        return ageLabel
+    }
+    
+    
+    // MARK: PRIVATE Functions
     private func setUpComponents(_ profileType: ProfileType,_ img: String, _ title: String, _ detailName: String?, _ age: Double?) {
         
         self.translatesAutoresizingMaskIntoConstraints = false
