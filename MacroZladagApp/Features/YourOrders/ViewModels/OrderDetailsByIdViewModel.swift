@@ -15,7 +15,7 @@ struct OrderDetailsByIdViewModel {
     let contactLink: String?
     
     let petId: String
-    let peName: String
+    let petName: String
     let petBreed: String
     let petAge: Int
     let petImage: String?
@@ -31,6 +31,4 @@ struct OrderDetailsByIdViewModel {
     let totalAddOnPrice: Int
     let serviceFee: Int
     let totalAllPrice: Int
-    
-    
 }

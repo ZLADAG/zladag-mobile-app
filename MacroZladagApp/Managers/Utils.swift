@@ -24,6 +24,19 @@ class Utils {
         }
     }
     
+    static func getStringRpCurrencyFormatted(_ value: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = "."
+        
+        if let formatted = numberFormatter.string(from: value as NSNumber) {
+            return "Rp\(formatted)"
+        } else {
+            return "Rp\(value)"
+        }
+    }
+    
     static func getStringDistanceFormatted(_ value: Double) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
@@ -142,7 +155,9 @@ class Utils {
         dateFormatter.locale = .current
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        return dateFormatter.date(from: dateString)
+        let date = dateFormatter.date(from: dateString)
+        
+        return date?.addingTimeInterval(7 * 3600)
     }
     
 }

@@ -167,7 +167,7 @@ class OrderDetailsViewController: UIViewController {
                     province: response.data.boarding.province,
                     contactLink: response.data.boarding.contactLink,
                     petId: response.data.pet.id,
-                    peName: response.data.pet.name,
+                    petName: response.data.pet.name,
                     petBreed: response.data.pet.petBreed,
                     petAge: response.data.pet.age,
                     petImage: response.data.pet.image,
@@ -191,7 +191,7 @@ class OrderDetailsViewController: UIViewController {
                     totalAllPrice: response.data.order.totalAllPrice
                 )
                 
-                print("\nFINISH FETCHING ORDER BY ID")
+                print("\nFINISHED FETCHING ORDER BY ID")
                 completion?()
                 break
             case .failure(let error):
@@ -224,8 +224,10 @@ extension OrderDetailsViewController: UISheetPresentationControllerDelegate {
         
         if currentDetent.contains("dynamic") {
             self.sheetViewController?.scrollView.isScrollEnabled = true
+            self.sheetViewController?.sheetPresentationController?.prefersGrabberVisible = true
         } else if currentDetent.contains("medium") {
             self.sheetViewController?.scrollView.isScrollEnabled = false
+            self.sheetViewController?.sheetPresentationController?.prefersGrabberVisible = false
         }
         
     }

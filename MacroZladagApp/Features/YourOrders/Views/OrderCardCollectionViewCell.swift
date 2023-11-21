@@ -46,7 +46,8 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         layer.masksToBounds = true
 
-        setupHotelNameLabel(hotelName: viewModel.hotelName)
+//        setupHotelNameLabel(hotelName: viewModel.hotelName)
+        setupHotelNameLabel(hotelName: viewModel.id)
         setupDateLabel(startDate: viewModel.startDate, endDate: viewModel.endDate)
         setupPetNameLabel(petName: viewModel.petName)
         setupDividerView()
@@ -109,7 +110,6 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
     
     private func setupPetNameLabel(petName: String) {
         contentView.addSubview(petNameLabel)
-        
         
         pawIconImageView.image = UIImage(named: "paw-icon")
         pawIconImageView.backgroundColor = .clear
