@@ -51,7 +51,7 @@ final class APICaller {
     }
     
     public func getPetDetailsById(id: String, completion: @escaping (Result<PetProfileDetailsResponse, Error>) -> Void) {
-        getRequest(path: "/profile/pets/\(id)") { result in
+        getRequest(path: "/profile/pets/\(id)", usingToken: true) { result in
             completion(result)
         }
     }
@@ -71,6 +71,18 @@ final class APICaller {
     public func getBoardingReservationDataBySlug(slug: String, completion: @escaping (Result<BoardingReservationDataResponse, Error>) -> Void) {
         print("Slug: \(slug)")
         getRequest(path: "/boardings/\(slug)/pets-cages-and-services", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
+    public func getProfileOrders(isActive: Bool, completion: @escaping (Result<OrdersResponse, Error>) -> Void) {
+        getRequest(path: "/profile/orders?active=\(isActive.description)", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
+    public func getOrderDetailsById(orderId: String, completion: @escaping (Result<OrderDetailsResponse, Error>) -> Void) {
+        getRequest(path: "/profile/orders/\(orderId)", usingToken: true) { result in
             completion(result)
         }
     }
@@ -100,6 +112,15 @@ final class APICaller {
             }
     }
 
+    public func postFcmToken(firebaseCloudMessagingToken: FirebaseCloudMessagingToken, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequest(
+            path: "/set-token",
+            usingToken: true,
+            body: firebaseCloudMessagingToken) { result in
+                completion(result)
+            }
+    }
+    
     public func getImage(path: String) -> String  {
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
@@ -126,9 +147,7 @@ final class APICaller {
 
         if usingToken {
             request.addValue(
-//                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
                 "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
-//                "Bearer 1|8TVIzeJrCD6WqNzAV3eGRcZN57aiZjov4HhC42Lrc97b0a11",
                 forHTTPHeaderField: "Authorization"
             )
         }
@@ -140,8 +159,9 @@ final class APICaller {
             }
             
             do {
-//                let result2 = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(result2)
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+                
                 let result = try JSONDecoder().decode(T.self, from: data)
                 print("GET \(path)")
                 completion(Result.success(result))
@@ -179,6 +199,9 @@ final class APICaller {
             }
             
             do {
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+
                 let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))
             } catch {

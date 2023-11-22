@@ -106,8 +106,12 @@ class AnabulTersimpanViewController: UIViewController {
             fields.append(["boardingFacilities[]", facility])
         }
         
-        for petHabitId in viewModel.petHabitIds {
-            fields.append(["petHabitIds[]", petHabitId])
+        if viewModel.petHabitIds.count != 0 {
+            for petHabitId in viewModel.petHabitIds {
+                fields.append(["petHabitIds[]", petHabitId])
+            }
+        } else {
+            fields.append(["petHabitIds[]", "PT1781819477"])
         }
         
         fields.append(["petGender", viewModel.petGender])
@@ -137,11 +141,15 @@ class AnabulTersimpanViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(
-            AuthManager.shared.token ?? "NO-TOKEN",
+            "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
             forHTTPHeaderField: "Authorization"
         )
         
+        
+        
         request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
         request.httpBody = multipart.httpBody
         
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -150,7 +158,7 @@ class AnabulTersimpanViewController: UIViewController {
             }
             
             do {
-                let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
                 print(result)
             } catch {
                 print(error)

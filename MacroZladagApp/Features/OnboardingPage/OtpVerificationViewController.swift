@@ -29,19 +29,27 @@ class OtpVerificationViewController: UIViewController {
     
     private var allComponentStack: UIStackView!
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
     // MARK: Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         view.backgroundColor = .white
         
-        setUpComponents()
+        askVerificationCode { // dieksekusi hanya kalau berhasil, else keeps loading
+            DispatchQueue.main.async {
+                self.setUpComponents()
+            }
+        }
         
         otpFieldStack.delegate = self
         resendOtpPromptLB.delegate = self
-        askVerificationCode()
-
     }
     // MARK: Private Functions
     private func setUpComponents(){
@@ -80,15 +88,20 @@ class OtpVerificationViewController: UIViewController {
         ])
     }
     
-    private func askVerificationCode() {
+    private func askVerificationCode(completion: (() -> ())? = nil) {
         
         AuthManager.shared.askWhatsAppVerificationCode(phoneNumber: "62\(self.phoneNum)") { success, message in
             if success {
                 print("\nverificationCode: \(message)")
+                completion?()
                 DispatchQueue.main.async { [weak self] in
                     self?.setUpTimer()
                 }
             } else {
+                self.setupLoadingScreen()
+                self.spinner.hidesWhenStopped = true
+                self.spinner.stopAnimating()
+                
                 print("\nSOMETHING'S WRONG IN AuthManager.shared.askWhatsAppVerificationCode \n")
                 print("askOtpVerification: \(success), message: \(message)")
             }
@@ -139,6 +152,25 @@ class OtpVerificationViewController: UIViewController {
             endTimer()
         }
     }
+    
+    // MARK: LOADING SCREEN
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
+
     
 }
 

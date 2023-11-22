@@ -7,6 +7,30 @@
 
 import UIKit
 
+/*
+ celine:
+ 
+ homeVC
+ models/smallcell
+ */
+
+/*
+ dummy account:
+
+ "id": "UR9875071824"
+ "signMethod": "phoneNumber",
+ "name": "danielxyz",
+ "phoneNumber": "6212341231210",
+ "email": null
+
+ */
+
+/*
+ // TODO: (LAGI)
+    update UI tambahanabulviewcontroller
+    keyboard layout!
+ */
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -19,12 +43,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        if AuthManager.shared.isSignedIn {
-            window.rootViewController = ReservationViewController()
-//        } else {
-//            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//            window.rootViewController = navVc
-//        }
+        window.rootViewController = TabBarViewController()
+        
+//        let navVc = UINavigationController(rootViewController: CustomSheetViewController())
+//        window.rootViewController = navVc
+        
         // TODO:
             /*
              - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)

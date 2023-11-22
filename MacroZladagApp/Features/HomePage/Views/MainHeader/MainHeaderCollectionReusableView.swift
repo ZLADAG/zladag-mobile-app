@@ -22,6 +22,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     let lowerView: UIView = {
         let uiView = UIView()
         uiView.backgroundColor = .customGray
+//        uiView.backgroundColor = .red
         return uiView
     }()
     
@@ -83,7 +84,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(numberOfCatsAndDogsButton)
         addSubview(searchButton)
         
-        addSubview(promoView)
+//        addSubview(promoView)
         
         setupFrames()
         
@@ -221,18 +222,6 @@ extension MainHeaderCollectionReusableView {
 
                 break
             case .failure(let error):
-                vc.viewModels = Utils.getSearch()!.data.compactMap({ boarding in
-                    return SearchBoardingViewModel(
-                        slug: boarding.slug,
-                        name: boarding.name,
-                        distance: boarding.distance,
-                        subdistrictName: boarding.subdistrict,
-                        provinceName: boarding.province,
-                        price: boarding.cheapestLodgingPrice,
-                        imageURLStrings: boarding.images,
-                        facilities: boarding.boardingFacilities
-                    )
-                })
                 print(error.localizedDescription)
                 break
             }
@@ -243,6 +232,8 @@ extension MainHeaderCollectionReusableView {
             
             vc.collectionView.reloadData()
             
+            vc.spinner.hidesWhenStopped = true
+            vc.spinner.stopAnimating()
         }
     }
     
@@ -260,7 +251,7 @@ extension MainHeaderCollectionReusableView {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.4 * context.maximumDetentValue
+                    0.33 * context.maximumDetentValue
                 })
 //                .medium()
             ]

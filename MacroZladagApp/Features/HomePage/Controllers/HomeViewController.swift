@@ -26,6 +26,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         return spinner
     }()
     
+    let hugeView = UIView()
+    
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIdx, environment in // environment ipad? etc..
@@ -38,9 +40,9 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         switch section {
         case 0:
             let trailing: CGFloat = 16
-            let bottom: CGFloat = 24
+            let bottom: CGFloat = 0
             let cardWidth: CGFloat = 320
-            let cardHeight: CGFloat = 160
+            let cardHeight: CGFloat = 0
             
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
@@ -62,7 +64,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior.groupPaging
-            section.contentInsets.top = 36
+            section.contentInsets.top = 0
             section.boundarySupplementaryItems = [
                 NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(264)),
@@ -223,9 +225,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 tempatBermainBoardings = model.data.petHotelsWithPlaygroundFacility
                 break
             case .failure(let error):
-                guard let homeResponse = Utils.getHome() else { print("ERROR WHEN READING JSON FILE"); return }
-                makanBoardings = homeResponse.data.petHotelsWithFoodFacility
-                tempatBermainBoardings = homeResponse.data.petHotelsWithFoodFacility
                 print("ERROR IN HOME PAGE", error.localizedDescription)
                 break
             }
@@ -259,8 +258,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 slug: boarding.slug,
                 subdistrictName: boarding.subdistrict,
                 provinceName: boarding.province,
-                price: boarding.cheapestLodgingPrice,
-                imageURLString: boarding.images[0]
+                price: boarding.cheapestLodgingPrice ?? 0,
+                imageURLString: !(boarding.images.isEmpty) ? boarding.images[0] : "Boarding/BGTMPRYEXMPL/BGTMPRYEXMPL_3.png"
             )
         })))
         
@@ -271,8 +270,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 slug: boarding.slug,
                 subdistrictName: boarding.subdistrict,
                 provinceName: boarding.province,
-                price: boarding.cheapestLodgingPrice,
-                imageURLString: boarding.images[0]
+                price: boarding.cheapestLodgingPrice ?? 0,
+                imageURLString: !(boarding.images.isEmpty) ? boarding.images[0] : "Boarding/BGTMPRYEXMPL/BGTMPRYEXMPL_3.png"
             )
         })))
         
@@ -317,15 +316,24 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         )
     }
     
+    
     func setupLoadingScreen() {
-        view.addSubview(spinner)
+        view.addSubview(hugeView)
+        hugeView.addSubview(spinner)
+        
+        hugeView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            spinner.widthAnchor.constraint(equalToConstant: 300),
-            spinner.heightAnchor.constraint(equalToConstant: 300),
+            hugeView.topAnchor.constraint(equalTo: view.topAnchor),
+            hugeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hugeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hugeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            spinner.centerXAnchor.constraint(equalTo: hugeView.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: hugeView.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
         ])
         
         spinner.startAnimating()

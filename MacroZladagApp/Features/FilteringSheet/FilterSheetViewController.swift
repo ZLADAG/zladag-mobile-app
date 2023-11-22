@@ -168,10 +168,19 @@ class FilterSheetViewController: UIViewController {
     
     func setupNavBar() {
         let navView = UIView()
+        navView.backgroundColor = .white
         navView.frame = CGRect(x: 0, y: 0, width: 365 - 24 + 13, height: 23)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         let navLabel = UILabel()
         navLabel.text = "Filter"
+        navLabel.textColor = .textBlack
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 23)
         navView.addSubview(navLabel)

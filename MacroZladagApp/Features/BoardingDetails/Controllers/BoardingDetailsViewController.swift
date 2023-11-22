@@ -228,6 +228,8 @@ class BoardingDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .textBlack
             
         view.backgroundColor = .white
         setupLoadingScreen()
@@ -236,6 +238,9 @@ class BoardingDetailsViewController: UIViewController {
             var success = false
             switch result {
             case .success(let response):
+                print("QWERTY\n")
+                print(response.data)
+                print()
                 self.viewModel = BoardingDetailsViewModel(
                     name: response.data.name,
                     distance: response.data.distance,
@@ -245,20 +250,19 @@ class BoardingDetailsViewController: UIViewController {
                     boardingCategory: response.data.boardingCategory,
                     subdistrictName: response.data.subdistrict,
                     provinceName: response.data.province,
-//                    boardingCages: response.data.boardingCages,
-                    price: response.data.cheapestLodgingPrice,
+                    boardingCages: response.data.boardingCages,
+                    price: response.data.cheapestLodgingPrice ?? 0,
                     images: response.data.images,
                     facilities: response.data.boardingFacilities,
                     shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
                     shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-                    minimumAge: response.data.minimumAge,
-                    maximumAge: response.data.maximumAge
+                    minimumAge: response.data.minimumAge ?? 0,
+                    maximumAge: response.data.maximumAge ?? 0
                 )
                 success = true
                 break
             case .failure(let error):
                 print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
-               
             }
             
             if success {
@@ -783,7 +787,7 @@ class BoardingDetailsViewController: UIViewController {
         let selectedIndex = sender.selectedSegmentIndex
         
         showSegmentedView(index: selectedIndex)
-        print("Selected index: \(selectedIndex)")
+//        print("Selected index: \(selectedIndex)")
         changeSegmentedControlLinePosition()
     }
     

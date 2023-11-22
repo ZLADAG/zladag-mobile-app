@@ -80,9 +80,9 @@ class UbahPencarianViewController: UIViewController {
         let navView = UIView()
         navView.frame = CGRect(x: 0, y: 0, width: 354, height: 32)
         
-        
         let navLabel = UILabel()
         navLabel.text = "Ubah Pencarian"
+        navLabel.textColor = .textBlack
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: (32 - 23) / 2, width: 290, height: 23)
         
@@ -119,7 +119,7 @@ class UbahPencarianViewController: UIViewController {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.4 * context.maximumDetentValue
+                    0.33 * context.maximumDetentValue
                 })
             ]
             sheet.prefersGrabberVisible = true
@@ -226,18 +226,6 @@ class UbahPencarianViewController: UIViewController {
 
                 break
             case .failure(let error):
-                self.searchControllerDelegate?.viewModels = Utils.getSearch()!.data.compactMap({ boarding in
-                    return SearchBoardingViewModel(
-                        slug: boarding.slug,
-                        name: boarding.name,
-                        distance: boarding.distance,
-                        subdistrictName: boarding.subdistrict,
-                        provinceName: boarding.province,
-                        price: boarding.cheapestLodgingPrice,
-                        imageURLStrings: boarding.images,
-                        facilities: boarding.boardingFacilities
-                    )
-                })
                 print(error.localizedDescription)
                 break
             }

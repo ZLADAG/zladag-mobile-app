@@ -20,16 +20,17 @@ struct BoardingDetails: Codable {
     let province: String
     let boardingCategory: String
     let boardingFacilities: [String]
-//    var boardingCages: [BoardingCage]
+    var boardingCages: [BoardingCage]
     let shouldHaveBeenVaccinated: Bool?
     let shouldHaveToBeFleaFree: Bool?
-    let minimumAge: Int
-    let maximumAge: Int
+    let minimumAge: Int?
+    let maximumAge: Int?
     let description: String
     let address: String
-    let mobileMapLink: String
-    let cheapestLodgingPrice: Int
+    let websiteMapLink: String?
+    let cheapestLodgingPrice: Int?
     let images: [String]
+//    let startCheckInTime: Date
 }
 */
 /*

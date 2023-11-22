@@ -79,6 +79,20 @@ class SegmentedReviewViewController: UIViewController {
         reviewCollection.dataSource = self
         reviewCollection.delegate = self
         reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
+        
+        reviewCollection.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reviewCollection.topAnchor.constraint(equalTo: view.topAnchor),
+            reviewCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            reviewCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            reviewCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    func configureReviewCollectionViewOld(){
+        reviewCollection.dataSource = self
+        reviewCollection.delegate = self
+        reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
         reviewCollection.alwaysBounceVertical = true
         reviewCollection.sizeToFit()
 //        reviewCollection.backgroundColor = .customGray
@@ -88,7 +102,7 @@ class SegmentedReviewViewController: UIViewController {
 //        }
         
         
-        calculateCellHeights()
+//        calculateCellHeights()
         
         // Register your custom cell
         reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
@@ -97,8 +111,8 @@ class SegmentedReviewViewController: UIViewController {
         reviewCollection.dataSource = self
         reviewCollection.delegate = self
         reviewCollection.reloadData()
-        
     }
+    
     private func calculateCellHeights() {
         var items: [String] = ["1", "2", "3", "4", "5", "6"]
         for (index, item) in items.enumerated() {
@@ -167,7 +181,7 @@ extension SegmentedReviewViewController: UICollectionViewDelegate {
 extension SegmentedReviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("helaurr")
-        return 8
+        return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -177,11 +191,12 @@ extension SegmentedReviewViewController: UICollectionViewDataSource {
 //            cell.configure(with: string)
 //            cell.setUpConstraints()
             
-//            print("nanonano") // NANO NANO MANIS ASAM ASIN RAMAI RASANYA!
 //            print("\(String(describing: cell.reviewerName.text))")
             return cell
+        } else {
+            return UICollectionViewCell()
         }
-        fatalError("Unable to dequeue subclassed cell")
+//        fatalError("Unable to dequeue subclassed cell")
     }
 }
 

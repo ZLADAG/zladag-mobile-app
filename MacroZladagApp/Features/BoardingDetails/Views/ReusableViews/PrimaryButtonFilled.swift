@@ -16,7 +16,7 @@ class PrimaryButtonFilled: UIView {
 
     weak var delegate: PrimaryButtonFilledDelegate?
 
-    var btn: UIButton!
+    public var btn: UIButton!
     
     // MARK: Initialize Methods
     init(btnTitle: String) {
