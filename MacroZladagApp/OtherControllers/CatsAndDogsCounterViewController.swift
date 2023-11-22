@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol CatsAndDogsCounterViewControllerDelegate {
+    func saveButtonTapped()
+}
 class CatsAndDogsCounterViewController: UIViewController {
 
+    var delegate: CatsAndDogsCounterViewControllerDelegate?
+    
     var mainHeaderDelegate: MainHeaderCollectionReusableView?
     var controllerDelegate: SearchResultsViewController?
     var ubahControllerDelegate: UbahPencarianViewController?
@@ -406,5 +411,7 @@ class CatsAndDogsCounterViewController: UIViewController {
             
             dismiss(animated: true)
         }
+        
+        delegate?.saveButtonTapped()
     }
 }

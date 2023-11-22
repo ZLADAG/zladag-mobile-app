@@ -7,7 +7,8 @@
 
 import UIKit
 protocol HeaderDateInputCollectionViewCellDelegate {
-    func dateInputInputBtnTapped()
+    func dateInputBtnTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
+
     func updateDateLabelText(dateText: String)
 }
 class HeaderDateInputCollectionViewCell: UICollectionViewCell {
@@ -28,7 +29,7 @@ class HeaderDateInputCollectionViewCell: UICollectionViewCell {
     func setUpCell() {
         datePickerButton = HeaderInputButton(AppAccountManager.shared.calendarTextDetails, .date)
         datePickerButton.delegate = self
-        updateDateLabelText()
+        updateInfoLabel()
         addSubview(datePickerButton)
         NSLayoutConstraint.activate([
             datePickerButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
@@ -38,21 +39,27 @@ class HeaderDateInputCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func updateDateLabelText() {
-        let dateText = ""
-        delegate?.updateDateLabelText(dateText: dateText)
-        print("dateText: \(dateText)")
-        
-        datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
+    func updateInfoLabel() {
+        self.datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
     }
+   
     
 }
 
 extension HeaderDateInputCollectionViewCell: HeaderInputButtonDelegate {
-    func btnTapped(_ senderButtonType: HeaderInputButton.ButtonType) {
-        print("tapped")
-        delegate?.dateInputInputBtnTapped()
-//        datePickerButton.infoLabel.text = AppAccountManager.shared.calendarTextDetails
+    func btnTapped(_ senderButtonType: HeaderInputButton.ButtonType) {        
+        if let indexPath = findCellIndexPath() {
+            delegate?.dateInputBtnTapped(cell: self, atIndexPath: indexPath)
+        } else {
+            print("Unable to determine indexPath for the cell.")
+        }
+    }
+    
+    private func findCellIndexPath() -> IndexPath? {
+        guard let collectionView = superview as? UICollectionView else {
+            return nil
+        }
+        return collectionView.indexPath(for: self)
     }
 }
 

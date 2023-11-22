@@ -12,26 +12,44 @@ final class ReservationManager {
     private init() {}
 
     var reservationModel = ReservationViewModel()
-        
-    var defaultPrices : [Int] = []
-    var addOnServicePrices : [Int] = []
+      
+//    var selectedCatProfile : [] = []
+    var catDefaultPrices : [Int] = []
+    var catAddOnServicePrices : [Int] = []
+    
+    var dogDefaultPrices : [Int] = []
+    var dogAddOnServicePrices : [Int] = []
     
     var totalPets = 0
     var totalDefaultPrice = 0
     var totalAddOnServicePrice = 0
     var totalOrder = 0
     
-    func updateDefaultPrices(indexPath: IndexPath, price: Int){
-        updateTotalDefaultPrice(priceBefore: defaultPrices[indexPath.row], priceAfter: price)
-        updateTotalOrder(priceBefore: defaultPrices[indexPath.row], priceAfter: price)
-        defaultPrices[indexPath.row] = price
+    /// CAT
+    func updateCatDefaultPrices(indexPath: IndexPath, price: Int){
+        updateTotalDefaultPrice(priceBefore: catDefaultPrices[indexPath.row], priceAfter: price)
+        updateTotalOrder(priceBefore: catDefaultPrices[indexPath.row], priceAfter: price)
+        catDefaultPrices[indexPath.row] = price
     }
-    func updateAddOnServicePrices(indexPath: IndexPath, price: Int){
-        updateTotalAddOnServicePrice(priceBefore: addOnServicePrices[indexPath.row], priceAfter: price)
-        updateTotalOrder(priceBefore: addOnServicePrices[indexPath.row], priceAfter: price)
-        addOnServicePrices[indexPath.row] = price
+    func updateCatAddOnServicePrices(indexPath: IndexPath, price: Int){
+        updateTotalAddOnServicePrice(priceBefore: catAddOnServicePrices[indexPath.row], priceAfter: price)
+        updateTotalOrder(priceBefore: catAddOnServicePrices[indexPath.row], priceAfter: price)
+        catAddOnServicePrices[indexPath.row] = price
     }
     
+    /// DOG
+    func updateDogDefaultPrices(indexPath: IndexPath, price: Int){
+        updateTotalDefaultPrice(priceBefore: dogDefaultPrices[indexPath.row], priceAfter: price)
+        updateTotalOrder(priceBefore: dogDefaultPrices[indexPath.row], priceAfter: price)
+        catDefaultPrices[indexPath.row] = price
+    }
+    func updateDogAddOnServicePrices(indexPath: IndexPath, price: Int){
+        updateTotalAddOnServicePrice(priceBefore: dogAddOnServicePrices[indexPath.row], priceAfter: price)
+        updateTotalOrder(priceBefore: dogAddOnServicePrices[indexPath.row], priceAfter: price)
+        catAddOnServicePrices[indexPath.row] = price
+    }
+    
+    /// TOTAL ALL
     func updateTotalDefaultPrice(priceBefore: Int, priceAfter: Int) {
         totalDefaultPrice = totalDefaultPrice - priceBefore + priceAfter
         print("ini total defaultnyaa: \(totalDefaultPrice)")

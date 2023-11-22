@@ -11,6 +11,8 @@ class ReservationViewController: UIViewController {
         
     var collectionView: UICollectionView!
     
+    
+    
     var totalDefaultPrice = 0
     var totalAddOnServicePrice = 0
     var date = ""
@@ -18,7 +20,6 @@ class ReservationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        
     }
     
     func setupCollectionView() {
@@ -46,11 +47,11 @@ class ReservationViewController: UIViewController {
                 sectionLayout = NSCollectionLayoutSection(group: group)
             
                 let amount = AppAccountManager.shared.kucingCount
-                if ReservationManager.shared.defaultPrices.isEmpty {
-                    ReservationManager.shared.defaultPrices = Array(repeating: 0, count: amount)
+                if ReservationManager.shared.catDefaultPrices.isEmpty {
+                    ReservationManager.shared.catDefaultPrices = Array(repeating: 0, count: amount)
                 }
-                if ReservationManager.shared.addOnServicePrices.isEmpty {
-                    ReservationManager.shared.addOnServicePrices = Array(repeating: 0, count: amount)
+                if ReservationManager.shared.catAddOnServicePrices.isEmpty {
+                    ReservationManager.shared.catAddOnServicePrices = Array(repeating: 0, count: amount)
                 }
             /// Dog Orders
 //            case 2:
@@ -181,26 +182,37 @@ extension ReservationViewController: PetOrderCollectionViewCellDelegate {
         sheetVC.delegate = orderCell
         sheetVC.setType(type: orderCell.type)
         self.collectionView.reloadData()
-
-        self.present(sheetVC, animated: true)
+        
+        let navVc = UINavigationController(rootViewController: sheetVC)
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 10
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.75 * context.maximumDetentValue
+                })
+            ]
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        present(navVc, animated: true, completion: nil)
+        
     }
     
     func cageOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
         if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
+            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
             totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
             totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
             totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
-//            self.collectionView.reloadData()
         }
     }
     
     func serviceOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
         if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
-//            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
+            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
             totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
             totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
             totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
-//            self.collectionView.reloadData()
         }
     }
 }
@@ -218,16 +230,9 @@ extension ReservationViewController : TotalPriceSummaryCollectionViewCellDelegat
     
 }
 
-extension ReservationViewController: CustomDatePickerViewControllerDelegate {
-    func getDateLabel(completion: (() -> Void)?) {
-    }
-}
+// MARK: Header Date Input Cell
 extension ReservationViewController: HeaderDateInputCollectionViewCellDelegate {
-    func updateDateLabelText(dateText: String) {
-        print(dateText)
-    }
-    
-    func dateInputInputBtnTapped() {
+    func dateInputBtnTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
         let datePickerSheetVC = CustomDatePickerViewController()
         datePickerSheetVC.delegate = self
         datePickerSheetVC.modalPresentationStyle = .pageSheet
@@ -244,13 +249,26 @@ extension ReservationViewController: HeaderDateInputCollectionViewCellDelegate {
             sheet.largestUndimmedDetentIdentifier = .large
         }
         present(navVc, animated: true, completion: nil)
-//        delegate?.navigationController?.present(navVc, animated: true, completion: nil)
+    }
+    
+    func updateDateLabelText(dateText: String) {
+        print(dateText)
     }
 }
+extension ReservationViewController: CustomDatePickerViewControllerDelegate {
+    func datePickerSaveButtonTapped() {
+        if let datePickerCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? HeaderDateInputCollectionViewCell {
+            datePickerCell.updateInfoLabel()
+        }
+    }
+}
+
+// MARK: Header Pet Amount Input Cell
 extension ReservationViewController: HeaderPetAmountInputCollectionViewCellDelegate {
-    func petAmountInputBtnTapped() {
-        
+    
+    func petAmountInputBtnTapped(cell: UICollectionViewCell) {
         let petAmountSheetVC = CatsAndDogsCounterViewController()
+        petAmountSheetVC.delegate = self
         petAmountSheetVC.modalPresentationStyle = .pageSheet
 
         let navVc = UINavigationController(rootViewController: petAmountSheetVC)
@@ -265,7 +283,99 @@ extension ReservationViewController: HeaderPetAmountInputCollectionViewCellDeleg
             sheet.largestUndimmedDetentIdentifier = .large
         }
         present(navVc, animated: true, completion: nil)
-//        delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }
+}
+extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
+    func saveButtonTapped() {
+        if let petAmountCell = self.collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as? HeaderPetAmountInputCollectionViewCell {
+            
+            let newCatAmount = AppAccountManager.shared.kucingCount
+            let newDogAmount = AppAccountManager.shared.anjingCount
+            
+            let recentCatAmount = collectionView.numberOfItems(inSection: 1)
+            let recentDogAmount = collectionView.numberOfItems(inSection: 1)
+            
+            var catIndexPaths : [IndexPath] = []
+            
+            /// Print data source arrays before changes
+            print("Before Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
+            print("Before Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
+            
+            /// Update button info label
+            petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
+
+            /// Update collection view
+            if recentCatAmount > newCatAmount {
+                /// Delete kelebihan row
+                for i in (newCatAmount ..< recentCatAmount).reversed() {
+                    print("*i: \(i) -> start: \(newCatAmount), end: \(recentCatAmount)")
+                    catIndexPaths.append(IndexPath(row: i, section: 1))
+                    ReservationManager.shared.updateCatDefaultPrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+                    ReservationManager.shared.updateCatAddOnServicePrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+
+                    ReservationManager.shared.catDefaultPrices.removeLast()
+                    ReservationManager.shared.catAddOnServicePrices.removeLast()
+
+                    print(ReservationManager.shared.catAddOnServicePrices.count)
+                }
+                collectionView.deleteItems(at: catIndexPaths)
+                collectionView.reloadData()
+            } else if recentCatAmount < newCatAmount {
+                /// Tambah row yang kurang
+                for i in recentCatAmount ..< newCatAmount {
+                    catIndexPaths.append(IndexPath(row: i, section: 1))
+//                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+//                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+                    ReservationManager.shared.catDefaultPrices.append(0)
+                    ReservationManager.shared.catAddOnServicePrices.append(0)
+                    print(i)
+                }
+                // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
+                collectionView.insertItems(at: catIndexPaths)
+//                collectionView.reloadData()
+            }
+            
+            
+         
+            
+
+            /// Update collection view
+//            if recentCatAmount > newCatAmount {
+//                /// Delete excess rows
+//                let rangeToRemove = newCatAmount..<recentCatAmount
+//                catIndexPaths = rangeToRemove.map { IndexPath(row: $0, section: 1) }
+//
+//                collectionView.performBatchUpdates({
+//                    collectionView.deleteItems(at: catIndexPaths)
+//                    // Remove corresponding data from the array
+//                    ReservationManager.shared.defaultPrices.removeSubrange(rangeToRemove)
+//                    ReservationManager.shared.addOnServicePrices.removeSubrange(rangeToRemove)
+//                }, completion: nil)
+//            } else if recentCatAmount < newCatAmount {
+//                /// Add missing rows
+//                let rangeToAdd = recentCatAmount..<newCatAmount
+//                catIndexPaths = rangeToAdd.map { IndexPath(row: $0, section: 1) }
+//
+//                collectionView.performBatchUpdates({
+//                    collectionView.insertItems(at: catIndexPaths)
+//                    // Add corresponding data to the array
+//                    ReservationManager.shared.defaultPrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
+//                    ReservationManager.shared.addOnServicePrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
+//                }, completion: nil)
+//            }
+
+            /// Print data source arrays after changes
+            print("After Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
+            print("After Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
+
+            
+            
+            print(collectionView.numberOfItems(inSection: 1))
+            print("pet amount saved")
+            dismiss(animated: true)
+        }
+    }
+    
+    
 }
 

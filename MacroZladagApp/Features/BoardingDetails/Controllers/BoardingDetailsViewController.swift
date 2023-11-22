@@ -258,25 +258,7 @@ class BoardingDetailsViewController: UIViewController {
                 break
             case .failure(let error):
                 print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
-                let localResult = Utils.getOneBoardingDetails()!.data
-                self.viewModel = BoardingDetailsViewModel(
-                    name: localResult.name,
-                    distance: localResult.distance,
-                    address: localResult.address,
-                    slug: localResult.slug,
-                    description: localResult.description,
-                    boardingCategory: localResult.boardingCategory,
-                    subdistrictName: localResult.subdistrict,
-                    provinceName: localResult.province,
-//                    boardingCages: localResult.boardingCages,
-                    price: localResult.cheapestLodgingPrice,
-                    images: localResult.images,
-                    facilities: localResult.boardingFacilities,
-                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-                    minimumAge: localResult.minimumAge,
-                    maximumAge: localResult.maximumAge
-                )
+               
             }
             
             if success {
@@ -777,8 +759,13 @@ class BoardingDetailsViewController: UIViewController {
             
             navigationController?.present(navVc, animated: true, completion: nil)
         } else {
-//            let vc = ReservationViewController()
-//            navigationController?.pushViewController(vc, animated: true)
+            let vc = ReservationViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            
+//            APICaller.shared.getBoardingReservationDataBySlug(slug: slug) { result in
+//                print(result)
+//                print("ok")
+//            }
 
         }
     }

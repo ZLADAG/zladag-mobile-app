@@ -45,7 +45,7 @@ class RangeDatePickerViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        setUpComponents()
+        setUpComponents()
     }
     
     //MARK: Functions

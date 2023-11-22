@@ -7,7 +7,7 @@
 
 import UIKit
 protocol HeaderPetAmountInputCollectionViewCellDelegate {
-    func petAmountInputBtnTapped()
+    func petAmountInputBtnTapped(cell: UICollectionViewCell)
 }
 class HeaderPetAmountInputCollectionViewCell: UICollectionViewCell {
     static let identifier = "HeaderPetAmountInputCollectionViewCell"
@@ -46,7 +46,6 @@ class HeaderPetAmountInputCollectionViewCell: UICollectionViewCell {
 
 extension HeaderPetAmountInputCollectionViewCell: HeaderInputButtonDelegate {
     func btnTapped(_ senderButtonType: HeaderInputButton.ButtonType) {
-        print("tapped")
-        delegate?.petAmountInputBtnTapped()
+        delegate?.petAmountInputBtnTapped(cell: self)
     }
 }

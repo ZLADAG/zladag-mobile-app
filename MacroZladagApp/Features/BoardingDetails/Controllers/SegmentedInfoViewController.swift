@@ -170,8 +170,10 @@ class SegmentedInfoViewController: UIViewController {
             }
             
             // Add right items
-            for i in (centerIdx + 1)...(totFacility - 1) {
-                rightViewItems.append(allViewItems[i])
+            if totFacility > 1 {
+                for i in (centerIdx + 1)...(totFacility - 1) {
+                    rightViewItems.append(allViewItems[i])
+                }
             }
             
             // pop all items in allViewItems[]

@@ -128,6 +128,8 @@
 		8F167EC82B0A3AF900FDAAE9 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */; };
 		8F167ECA2B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */; };
 		8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */; };
+		8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */; };
+		8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */; };
 		8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */; };
 		8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */; };
 		8F23EDBF2AE410A400B25026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23EDBE2AE410A400B25026 /* User.swift */; };
@@ -319,6 +321,8 @@
 		8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPetAmountInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
+		8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReservationDataResponse.swift; sourceTree = "<group>"; };
+		8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReservationBody.swift; sourceTree = "<group>"; };
 		8F23ED622ADDF6EC00B25026 /* BoardingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingMapViewController.swift; sourceTree = "<group>"; };
 		8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COBAstickysegmentedbar.swift; sourceTree = "<group>"; };
 		8F23EDBE2AE410A400B25026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -794,6 +798,7 @@
 			children = (
 				6597C32D2B028E94008F6D0D /* Auth */,
 				8F23EDC22AE4141B00B25026 /* NonApiModel */,
+				8F167ECE2B0CB87E00FDAAE9 /* Reservation */,
 				65A05C952AFE321500C0BC93 /* PetCreation */,
 				8F9C2D832AF9F84D00D767CD /* Profile */,
 				8FFEC0722AEB3FA3005D790F /* AccountVerification */,
@@ -906,10 +911,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8F167ECD2B0B0FE500FDAAE9 /* Reservation */ = {
+		8F167ECE2B0CB87E00FDAAE9 /* Reservation */ = {
 			isa = PBXGroup;
 			children = (
+				8F23EDC32AE41CCF00B25026 /* Order.swift */,
 				8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */,
+				8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */,
+				8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -920,9 +928,7 @@
 				8F9C2D7C2AF932CA00D767CD /* UImodel */,
 				8F23EDBE2AE410A400B25026 /* User.swift */,
 				8F23EDC02AE410B000B25026 /* Pet.swift */,
-				8F23EDC32AE41CCF00B25026 /* Order.swift */,
 				8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */,
-				8F167ECD2B0B0FE500FDAAE9 /* Reservation */,
 			);
 			path = NonApiModel;
 			sourceTree = "<group>";
@@ -1342,6 +1348,7 @@
 				8F9C2D3D2AEEEEFA00D767CD /* OptionDivider.swift in Sources */,
 				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				6570AA222ADEA19E003DC5EB /* Service.swift in Sources */,
+				8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */,
 				6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */,
 				6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
@@ -1376,6 +1383,7 @@
 				8F9C2D8D2AF9FB9500D767CD /* ProfilePageManager.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				8FFEC0382AEA5EE5005D790F /* KategoriButton.swift in Sources */,
+				8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */,
 				8F9C2D992AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift in Sources */,
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
 				8FFEC0182AEA5C3D005D790F /* PrimaryButtonFilled.swift in Sources */,

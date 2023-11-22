@@ -62,7 +62,7 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
         
         cellContent = createStack(views: [], spacing: 16)
         
-        titleLabel = createLabel("Kucing 1")
+        titleLabel = createLabel("Pet 1")
         titleLabel.font = .boldSystemFont(ofSize: 16)
         cellContent.addArrangedSubview(titleLabel)
         
@@ -312,7 +312,7 @@ extension PetOrderCollectionViewCell: CageOptionDelegate {
             } else {
                 cagePrice = 0
             }
-            ReservationManager.shared.updateDefaultPrices(indexPath: indexPath, price: cagePrice)
+            ReservationManager.shared.updateCatDefaultPrices(indexPath: indexPath, price: cagePrice)
             delegate?.cageOptTapped(cell: self, atIndexPath: indexPath)
 
         } else {
@@ -331,7 +331,7 @@ extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
             } else if priceWithAmount.amount == 0 && addOnServicePrice > 0 {
                 addOnServicePrice = addOnServicePrice - priceWithAmount.price
             }
-            ReservationManager.shared.updateAddOnServicePrices(indexPath: indexPath, price: addOnServicePrice)
+            ReservationManager.shared.updateCatAddOnServicePrices(indexPath: indexPath, price: addOnServicePrice)
             delegate?.serviceOptTapped(cell: self, atIndexPath: indexPath)
 
         } else {

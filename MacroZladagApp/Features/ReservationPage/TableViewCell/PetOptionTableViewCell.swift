@@ -54,11 +54,11 @@ class PetOptionTableViewCell: UITableViewCell {
         if !profile.hasCompliedThePolicy {
             optDisabled()
         } else {
-            if profile.isSelected {
-                optSelected()
-            } else {
+//            if profile.isSelected {
+//                optSelected()
+//            } else {
                 optEnabled()
-            }
+//            }
         }
     }
     

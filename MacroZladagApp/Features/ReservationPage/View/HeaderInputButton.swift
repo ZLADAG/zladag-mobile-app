@@ -46,19 +46,16 @@ class HeaderInputButton: UIView {
         self.btnType = buttonType
         
         var titleLabel: UILabel!
-        var icon: UIImageView!
+        let icon = createIcon("edit-icon")
         
         switch buttonType {
         case .date:
             titleLabel = createTitleLabel("Tanggal")
-            icon = createIcon("calendar")
         case .petAmount:
             titleLabel = createTitleLabel("Anabul")
-            icon = createIcon("pawprint.fill")
         }
         
         infoLabel = createDefaultLabel("\(inputValue)")
-//        setInfoLabelText(inputValue)
         
         let stack = UIStackView(arrangedSubviews: [titleLabel, infoLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -131,7 +128,7 @@ class HeaderInputButton: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.image = UIImage(systemName: iconName)
+        imageView.image = UIImage(named: iconName)
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .customOrange
         imageView.clipsToBounds = true

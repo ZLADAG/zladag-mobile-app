@@ -39,7 +39,7 @@ final class APICaller {
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
         print("Slug: \(slug)")
-        getRequest(path: "/boardings/\(slug)") { result in
+        getRequest(path: "/boardings/\(slug)?latitude=37.785834&longitude=-122.406417") { result in
             completion(result)
         }
     }
@@ -68,6 +68,13 @@ final class APICaller {
         }
     }
     
+    public func getBoardingReservationDataBySlug(slug: String, completion: @escaping (Result<BoardingReservationDataResponse, Error>) -> Void) {
+        print("Slug: \(slug)")
+        getRequest(path: "/boardings/\(slug)/pets-cages-and-services", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
     public func postAskWhatsAppVerificationCode(sendPhoneCodeBody: SendPhoneCodeBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
         postRequest(
             path: "/send-whatsapp-verification-code",
@@ -84,6 +91,15 @@ final class APICaller {
             }
     }
     
+    public func postCreateOrder(createReservationBody: CreateReservationBody, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequest(
+            path: "/profile/orders/store",
+            usingToken: true,
+            body: createReservationBody) { result in
+                completion(result)
+            }
+    }
+
     public func getImage(path: String) -> String  {
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
@@ -106,7 +122,8 @@ final class APICaller {
         var request = URLRequest(url: apiURL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
+        print(AuthManager.shared.token)
+
         if usingToken {
             request.addValue(
 //                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
