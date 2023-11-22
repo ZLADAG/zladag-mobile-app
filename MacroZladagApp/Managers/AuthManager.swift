@@ -79,8 +79,7 @@ class AuthManager {
        
         let sendPhoneCode = SendPhoneCodeBody(phoneNumber: phoneNumber)
         
-        APICaller.shared.postAskWhatsAppVerificationCode(
-            sendPhoneCodeBody: sendPhoneCode) { result in
+        APICaller.shared.postAskWhatsAppVerificationCode(sendPhoneCodeBody: sendPhoneCode) { result in
                 switch result {
                 case .success(let response):
                     completion(true, response.verificationCode.description)

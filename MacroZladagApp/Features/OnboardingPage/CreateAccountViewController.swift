@@ -27,6 +27,17 @@ class CreateAccountViewController: UIViewController {
     
     private var allComponentStack: UIStackView!
     
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
+    let aView = UIView()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +49,21 @@ class CreateAccountViewController: UIViewController {
         nextButton.delegate = self
         phoneInputField.delegate = self
         switchOnboardPromptLB.delegate = self
+    }
+    
+    func setupCoretan() {
+        aView.backgroundColor = .clear
+        aView.layer.opacity = 0.5
+        
+        view.addSubview(aView)
+        aView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            aView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            aView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60),
+            aView.widthAnchor.constraint(equalToConstant: 350),
+            aView.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        
     }
     
     private func setUpComponents(){
@@ -79,6 +105,22 @@ class CreateAccountViewController: UIViewController {
         ])
     }
     
+    func setupOtpLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
+    
 }
 
 extension CreateAccountViewController: PhoneNumTextFieldDelegate {
@@ -97,31 +139,36 @@ extension CreateAccountViewController: PhoneNumTextFieldDelegate {
 
 extension CreateAccountViewController: PrimaryButtonFilledDelegate {
     func btnTapped() {
-        /// Perform background tasks: This code is not running on the main thread
-        DispatchQueue.global().async {
-            DispatchQueue.main.async { [self] in
-                
-                /// Validate: empty field, char between 10 - 13 without "62"
-                let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
-                guard let phoneNum else { print("phoneNum  = nil"); return }
-                
-                AuthManager.shared.doesExistPhoneNumber(num: "62\(String(describing: phoneNum))") { exists in
+        
+//        self.nextButton.btn.isEnabled = false
+        setupCoretan()
+        setupOtpLoadingScreen()
+        
+        /// Validate: empty field, char between 10 - 13 without "62"
+        let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
+        guard let phoneNum else { print("phoneNum  = nil"); return }
+        
+        AuthManager.shared.doesExistPhoneNumber(num: "62\(String(describing: phoneNum))") { exists in
+            
+            /// Update the UI or perform UI-related tasks: This code runs on the main thread
+            DispatchQueue.main.async {
+                if exists {
+                    self.phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
+                    self.phoneInputField.errorLabel.isHidden = false
                     
-                    /// Update the UI or perform UI-related tasks: This code runs on the main thread
-                    DispatchQueue.main.async { [self] in
-                        if exists {
-                            phoneInputField.errorLabel.text = "Nomor ini telah terdaftar. Gunakan nomor lain atau login dengan akun yang ada."
-                            phoneInputField.errorLabel.isHidden = false
-                        } else {
-                            phoneInputField.errorLabel.isHidden = true
-                            
-                            let otpVerificationVC = OtpVerificationViewController()
-                            otpVerificationVC.phoneNum = "\(String(describing: phoneNum))"
-                            
-                            self.navigationController?.pushViewController(otpVerificationVC, animated: true)
-                        }
-                    }
+                } else {
+                    self.phoneInputField.errorLabel.isHidden = true
+                    
+                    let otpVerificationVC = OtpVerificationViewController()
+                    otpVerificationVC.phoneNum = "\(String(describing: phoneNum))"
+                    
+                    self.navigationController?.pushViewController(otpVerificationVC, animated: true)
                 }
+                
+                self.spinner.hidesWhenStopped = true
+                self.spinner.stopAnimating()
+                self.aView.removeFromSuperview()
+//                self.nextButton.btn.isEnabled = true
             }
         }
     }

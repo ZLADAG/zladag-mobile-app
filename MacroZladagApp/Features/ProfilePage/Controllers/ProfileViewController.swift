@@ -27,32 +27,16 @@ class ProfileViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewDidLoad()
         
-        view.subviews.forEach { sbv in
-            sbv.removeFromSuperview()
-        }
-//        for sbv in view.subviews {
-//            sbv.removeFromSuperview()
-//        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        view.backgroundColor = .white
         
         setupLoadingScreen()
         
         APICaller.shared.getUserProfile { [weak self] result in
             
-            var success = false
-            
             switch result {
             case .success(let userProfileResponse):
-                success = true
                 self?.viewModel = UserProfileViewModel(
                     id: userProfileResponse.data.user.id,
                     name: userProfileResponse.data.user.name,
@@ -87,6 +71,62 @@ class ProfileViewController: UIViewController {
             }
         }
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+//        view.subviews.forEach { sbv in
+//            sbv.removeFromSuperview()
+//        }
+//        for sbv in view.subviews {
+//            sbv.removeFromSuperview()
+//        }
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        setupLoadingScreen()
+//        
+//        APICaller.shared.getUserProfile { [weak self] result in
+//            
+//            switch result {
+//            case .success(let userProfileResponse):
+//                success = true
+//                self?.viewModel = UserProfileViewModel(
+//                    id: userProfileResponse.data.user.id,
+//                    name: userProfileResponse.data.user.name,
+//                    image: userProfileResponse.data.user.image,
+//                    pets: userProfileResponse.data.pets.compactMap({ petDetail in
+//                        return PetDetailsViewModel(
+//                            id: petDetail.id,
+//                            name: petDetail.name,
+//                            petBreed: petDetail.petBreed,
+//                            age: petDetail.age,
+//                            image: petDetail.image
+//                        )
+//                    })
+//                )
+//                
+//                DispatchQueue.main.async {
+//                    self?.setupTableView()
+//                }
+//                break
+//            case .failure(let error):
+//                print("ERROR IN PROFILE VC\n", error)
+//                DispatchQueue.main.async {
+//                    self?.setupNotSignedInView()
+//                }
+//                break
+//            }
+//            
+//            DispatchQueue.main.async { [weak self] in
+//                self?.spinner.hidesWhenStopped = true
+//                self?.spinner.stopAnimating()
+//                self?.spinner.removeFromSuperview()
+//            }
+//        }
+//    }
     
 //    let tableViewRefreshControl: UIRefreshControl = {
 //        let a = UIRefreshControl()
@@ -161,7 +201,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setupNotSignedInView() {
-        let imageView = UIImageView(image: UIImage(named: "not-signed-in-image"))
+        let imageView = UIImageView(image: UIImage(named: "empty-state-image"))
         let mainLabel = UILabel()
         let subLabel = UILabel()
         
