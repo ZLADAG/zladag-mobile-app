@@ -22,12 +22,12 @@ struct BoardingDetails: Codable {
     var boardingCages: [BoardingCage]
     let shouldHaveBeenVaccinated: Bool?
     let shouldHaveToBeFleaFree: Bool?
-    let minimumAge: Int
-    let maximumAge: Int
+    let minimumAge: Int?
+    let maximumAge: Int?
     let description: String
     let address: String
-    let mobileMapLink: String
-    let cheapestLodgingPrice: Int
+    let websiteMapLink: String?
+    let cheapestLodgingPrice: Int?
     let images: [String]
 //    let startCheckInTime: Date
 }

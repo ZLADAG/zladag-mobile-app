@@ -249,37 +249,19 @@ class BoardingDetailsViewController: UIViewController {
                     subdistrictName: response.data.subdistrict,
                     provinceName: response.data.province,
                     boardingCages: response.data.boardingCages,
-                    price: response.data.cheapestLodgingPrice,
+                    price: response.data.cheapestLodgingPrice ?? 0,
                     images: response.data.images,
                     facilities: response.data.boardingFacilities,
                     shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
                     shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-                    minimumAge: response.data.minimumAge,
-                    maximumAge: response.data.maximumAge
+                    minimumAge: response.data.minimumAge ?? 0,
+                    maximumAge: response.data.maximumAge ?? 0
                 )
                 success = true
                 break
             case .failure(let error):
                 print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
-                let localResult = Utils.getOneBoardingDetails()!.data
-                self.viewModel = BoardingDetailsViewModel(
-                    name: localResult.name,
-                    distance: localResult.distance,
-                    address: localResult.address,
-                    slug: localResult.slug,
-                    description: localResult.description,
-                    boardingCategory: localResult.boardingCategory,
-                    subdistrictName: localResult.subdistrict,
-                    provinceName: localResult.province,
-                    boardingCages: localResult.boardingCages,
-                    price: localResult.cheapestLodgingPrice,
-                    images: localResult.images,
-                    facilities: localResult.boardingFacilities,
-                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-                    minimumAge: localResult.minimumAge,
-                    maximumAge: localResult.maximumAge
-                )
+                
             }
             
             if success {

@@ -223,9 +223,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 tempatBermainBoardings = model.data.petHotelsWithPlaygroundFacility
                 break
             case .failure(let error):
-                guard let homeResponse = Utils.getHome() else { print("ERROR WHEN READING JSON FILE"); return }
-                makanBoardings = homeResponse.data.petHotelsWithFoodFacility
-                tempatBermainBoardings = homeResponse.data.petHotelsWithFoodFacility
                 print("ERROR IN HOME PAGE", error.localizedDescription)
                 break
             }
@@ -259,8 +256,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 slug: boarding.slug,
                 subdistrictName: boarding.subdistrict,
                 provinceName: boarding.province,
-                price: boarding.cheapestLodgingPrice,
-                imageURLString: boarding.images[0]
+                price: boarding.cheapestLodgingPrice ?? 0,
+                imageURLString: !(boarding.images.isEmpty) ? boarding.images[0] : "Boarding/BGTMPRYEXMPL/BGTMPRYEXMPL_3.png"
             )
         })))
         
@@ -271,8 +268,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
                 slug: boarding.slug,
                 subdistrictName: boarding.subdistrict,
                 provinceName: boarding.province,
-                price: boarding.cheapestLodgingPrice,
-                imageURLString: boarding.images[0]
+                price: boarding.cheapestLodgingPrice ?? 0,
+                imageURLString: !(boarding.images.isEmpty) ? boarding.images[0] : "Boarding/BGTMPRYEXMPL/BGTMPRYEXMPL_3.png"
             )
         })))
         

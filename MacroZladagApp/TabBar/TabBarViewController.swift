@@ -107,7 +107,7 @@ class TabBarViewController: UITabBarController {
         nav1.navigationItem.titleView = titleView
         
         self.tabBar.tintColor = .customOrange
-        setViewControllers([nav2, nav1, nav3], animated: true)
-//        setViewControllers([nav1, nav2, nav3], animated: true)
+//        setViewControllers([nav2, nav1, nav3], animated: true)
+        setViewControllers([nav1, nav2, nav3], animated: true)
     }
 }

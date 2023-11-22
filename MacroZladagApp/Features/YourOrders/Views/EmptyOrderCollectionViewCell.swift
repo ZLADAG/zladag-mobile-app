@@ -37,7 +37,7 @@ class EmptyOrderCollectionViewCell: UICollectionViewCell {
         mainLabel.adjustsFontSizeToFitWidth = true
         mainLabel.sizeToFit()
         
-        subLabel.text = "Cari pet hotel untuk anabulmu"
+        subLabel.text = "Yuk cari penginapan untuk anabulmu"
         subLabel.textColor = .grey1
         subLabel.font = .systemFont(ofSize: 16, weight: .regular)
         subLabel.adjustsFontSizeToFitWidth = true
@@ -60,7 +60,7 @@ class EmptyOrderCollectionViewCell: UICollectionViewCell {
         subLabel.frame = CGRect(
             x: contentView.width / 2 - subLabel.width / 2,
             y: mainLabel.bottom + 4,
-            width: subLabel.height,
+            width: subLabel.width,
             height: subLabel.height
         )
     }

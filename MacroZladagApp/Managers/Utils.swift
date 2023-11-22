@@ -53,57 +53,57 @@ class Utils {
     }
     
     // MARK: API & JSON Utils
-    static func getHome() -> HomeBoardingResponse? {
-        do {
-          if let bundlePath = Bundle.main.path(forResource: "GetHome", ofType: "json"),
-          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-             if let json = try? JSONDecoder().decode(HomeBoardingResponse.self, from: jsonData) {
-                 return json
-             } else {
-                 print("Given JSON is not a valid dictionary object.")
-                 return nil
-             }
-          }
-       } catch {
-           print("file not found?", error)
-       }
-        return nil
-    }
-    
-    static func getSearch() -> SearchBoardingsResponse? {
-        do {
-          if let bundlePath = Bundle.main.path(forResource: "GetSearch", ofType: "json"),
-          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-             if let json = try? JSONDecoder().decode(SearchBoardingsResponse.self, from: jsonData) {
-                return json
-             } else {
-                 print("Given JSON is not a valid dictionary object.")
-                 return nil
-             }
-          }
-       } catch {
-           print("file not found?", error)
-           return nil
-       }
-        return nil
-    }
-    
-    static func getOneBoardingDetails() -> BoardingDetailsResponse? {
-        do {
-          if let bundlePath = Bundle.main.path(forResource: "GetOneBoardingDetails", ofType: "json"),
-          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-             if let json = try? JSONDecoder().decode(BoardingDetailsResponse.self, from: jsonData) {
-                return json
-             } else {
-                 print("Given JSON is not a valid dictionary object.")
-                 return nil
-             }
-          }
-       } catch {
-          print("file not found?", error)
-       }
-        return nil
-    }
+//    static func getHome() -> HomeBoardingResponse? {
+//        do {
+//          if let bundlePath = Bundle.main.path(forResource: "GetHome", ofType: "json"),
+//          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+//             if let json = try? JSONDecoder().decode(HomeBoardingResponse.self, from: jsonData) {
+//                 return json
+//             } else {
+//                 print("Given JSON is not a valid dictionary object.")
+//                 return nil
+//             }
+//          }
+//       } catch {
+//           print("file not found?", error)
+//       }
+//        return nil
+//    }
+//    
+//    static func getSearch() -> SearchBoardingsResponse? {
+//        do {
+//          if let bundlePath = Bundle.main.path(forResource: "GetSearch", ofType: "json"),
+//          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+//             if let json = try? JSONDecoder().decode(SearchBoardingsResponse.self, from: jsonData) {
+//                return json
+//             } else {
+//                 print("Given JSON is not a valid dictionary object.")
+//                 return nil
+//             }
+//          }
+//       } catch {
+//           print("file not found?", error)
+//           return nil
+//       }
+//        return nil
+//    }
+//    
+//    static func getOneBoardingDetails() -> BoardingDetailsResponse? {
+//        do {
+//          if let bundlePath = Bundle.main.path(forResource: "GetOneBoardingDetails", ofType: "json"),
+//          let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+//             if let json = try? JSONDecoder().decode(BoardingDetailsResponse.self, from: jsonData) {
+//                return json
+//             } else {
+//                 print("Given JSON is not a valid dictionary object.")
+//                 return nil
+//             }
+//          }
+//       } catch {
+//          print("file not found?", error)
+//       }
+//        return nil
+//    }
     
     /// Read JSON File
     static func getJsonData<T: Codable>(fileName: String, fileType: String, responseType: T.Type) -> T? {

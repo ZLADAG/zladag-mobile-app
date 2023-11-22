@@ -226,18 +226,6 @@ class UbahPencarianViewController: UIViewController {
 
                 break
             case .failure(let error):
-                self.searchControllerDelegate?.viewModels = Utils.getSearch()!.data.compactMap({ boarding in
-                    return SearchBoardingViewModel(
-                        slug: boarding.slug,
-                        name: boarding.name,
-                        distance: boarding.distance,
-                        subdistrictName: boarding.subdistrict,
-                        provinceName: boarding.province,
-                        price: boarding.cheapestLodgingPrice,
-                        imageURLStrings: boarding.images,
-                        facilities: boarding.boardingFacilities
-                    )
-                })
                 print(error.localizedDescription)
                 break
             }

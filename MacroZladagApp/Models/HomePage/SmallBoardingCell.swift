@@ -12,6 +12,6 @@ struct SmallBoardingCell: Codable {
     let name: String
     let subdistrict: String
     let province: String
-    let cheapestLodgingPrice: Int
+    let cheapestLodgingPrice: Int?
     let images: [String]
 }
