@@ -29,8 +29,9 @@ final class AppAccountManager {
     var calendarTextDetails: String = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "in")
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+        dateFormatter.dateStyle = .short
+        
+        return Utils.getFormattedDateShortedWithYear(date: Date())
     }()
     var selectedDay1: Day?
     var selectedDay2: Day?

@@ -228,6 +228,8 @@ class BoardingDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .textBlack
             
         view.backgroundColor = .white
         setupLoadingScreen()

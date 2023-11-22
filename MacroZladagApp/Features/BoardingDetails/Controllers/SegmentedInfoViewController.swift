@@ -496,6 +496,7 @@ class SegmentedInfoViewController: UIViewController {
         let icon =  UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.image = UIImage(named: img)
+        icon.tintColor = .customOrange
         icon.contentMode = .scaleAspectFit
         icon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 16).isActive = true

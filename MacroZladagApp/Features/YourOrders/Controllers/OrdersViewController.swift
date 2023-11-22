@@ -125,6 +125,9 @@ class OrdersViewController: UIViewController {
         collectionViewActiveColumn.isHidden = false
         collectionViewHistoryColumn.isHidden = true
         
+        collectionViewActiveColumn.showsVerticalScrollIndicator = false
+        collectionViewHistoryColumn.showsVerticalScrollIndicator = false
+        
         // collection view setups
         collectionViewActiveColumn.delegate = self
         collectionViewActiveColumn.dataSource = self

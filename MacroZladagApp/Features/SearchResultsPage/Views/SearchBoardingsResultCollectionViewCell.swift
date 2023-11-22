@@ -208,7 +208,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
                 
                 label.centerXAnchor.constraint(equalTo: aView.centerXAnchor).isActive = true
                 label.centerYAnchor.constraint(equalTo: aView.centerYAnchor).isActive = true
-                label.widthAnchor.constraint(equalToConstant: 74).isActive = true
+                label.widthAnchor.constraint(equalToConstant: 80).isActive = true
                 label.heightAnchor.constraint(equalToConstant: 23).isActive = true
                 
                 aView.layer.masksToBounds = true
@@ -217,17 +217,20 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
             }()
             
             hScrollView.addSubview(aView)
+            
 
             aView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
                 aView.topAnchor.constraint(equalTo: hScrollView.topAnchor),
-                aView.leadingAnchor.constraint(equalTo: hScrollView.leadingAnchor, constant: CGFloat((74 + 8) * z)),
-                aView.widthAnchor.constraint(equalToConstant: 74),
+                aView.leadingAnchor.constraint(equalTo: hScrollView.leadingAnchor, constant: CGFloat((85 + 8) * z)),
+                aView.widthAnchor.constraint(equalToConstant: 85),
                 aView.heightAnchor.constraint(equalToConstant: 23),
             ])
             z += 1
         }
+        hScrollView.layer.masksToBounds = true
+        hScrollView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {

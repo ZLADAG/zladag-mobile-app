@@ -119,7 +119,7 @@ class UbahPencarianViewController: UIViewController {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.4 * context.maximumDetentValue
+                    0.33 * context.maximumDetentValue
                 })
             ]
             sheet.prefersGrabberVisible = true

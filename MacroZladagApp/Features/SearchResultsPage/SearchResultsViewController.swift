@@ -208,6 +208,15 @@ class SearchResultsViewController: UIViewController {
         return button
     }()
     
+    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
     func setupCustomNavbar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -248,6 +257,7 @@ class SearchResultsViewController: UIViewController {
         
         configureCollectionView()
         setupCustomNavbar()
+        setupLoadingScreen()
     }
     
     override func viewDidLayoutSubviews() {
@@ -266,6 +276,22 @@ class SearchResultsViewController: UIViewController {
         
         view.addSubview(collectionView)
     }
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
 }
 
 extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
