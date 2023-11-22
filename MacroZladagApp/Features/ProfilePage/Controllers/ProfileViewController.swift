@@ -200,6 +200,8 @@ class ProfileViewController: UIViewController {
         ])
     }
     
+    // MARK: NOT SIGNED IN SETUPS
+    
     func setupNotSignedInView() {
         let imageView = UIImageView(image: UIImage(named: "empty-state-image"))
         let mainLabel = UILabel()

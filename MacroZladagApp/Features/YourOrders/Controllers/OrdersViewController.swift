@@ -66,7 +66,6 @@ class OrdersViewController: UIViewController {
             self?.spinner.hidesWhenStopped = true
             self?.spinner.stopAnimating()
         })
-//        setupEmptyStateView()
         
     }
     
@@ -195,6 +194,115 @@ class OrdersViewController: UIViewController {
         spinner.startAnimating()
     }
     
+    // MARK: NOT SIGNED IN SETUPS
+    
+    func setupNotSignedInView() {
+        let imageView = UIImageView(image: UIImage(named: "empty-state-image"))
+        let mainLabel = UILabel()
+        let subLabel = UILabel()
+        
+        view.addSubview(imageView)
+        view.addSubview(mainLabel)
+        view.addSubview(subLabel)
+        
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame.size = CGSize(width: 173, height: 173)
+        
+        mainLabel.text = "Kamu belum log in"
+        mainLabel.textColor = .textBlack
+        mainLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        mainLabel.sizeToFit()
+        
+        subLabel.text = "Yuk log in untuk akses fitur lengkap catnip"
+        subLabel.textColor = .customGrayForLabels
+        subLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        subLabel.sizeToFit()
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        subLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 112),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: imageView.width),
+            imageView.heightAnchor.constraint(equalToConstant: imageView.height),
+            
+            mainLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
+            mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainLabel.widthAnchor.constraint(equalToConstant: mainLabel.width),
+            mainLabel.heightAnchor.constraint(equalToConstant: mainLabel.height),
+            
+            subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 4),
+            subLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            subLabel.widthAnchor.constraint(equalToConstant: subLabel.width),
+            subLabel.heightAnchor.constraint(equalToConstant: subLabel.height),
+        ])
+        
+        let masukButton = UIButton()
+        let buatAkunLabel = UILabel()
+        let buatAkunButton = UIButton()
+        
+        view.addSubview(masukButton)
+        view.addSubview(buatAkunLabel)
+        view.addSubview(buatAkunButton)
+        
+        masukButton.setTitle("Masuk", for: .normal)
+        masukButton.setTitleColor(.white, for: .normal)
+        masukButton.backgroundColor = .customOrange
+        masukButton.layer.cornerRadius = 4
+        masukButton.layer.masksToBounds = true
+        
+        buatAkunLabel.text = "Belum punya akun?"
+        buatAkunLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        buatAkunLabel.textColor = .textBlack
+        buatAkunLabel.sizeToFit()
+        
+        buatAkunButton.backgroundColor = .clear
+        let label = UILabel()
+        label.text = "Buat akun"
+        label.textColor = .customOrange
+        label.font = buatAkunLabel.font
+        label.sizeToFit()
+        buatAkunButton.addSubview(label)
+        
+        masukButton.translatesAutoresizingMaskIntoConstraints = false
+        buatAkunLabel.translatesAutoresizingMaskIntoConstraints = false
+        buatAkunButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            masukButton.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 62),
+            masukButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            masukButton.widthAnchor.constraint(equalToConstant: 342),
+            masukButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            buatAkunLabel.topAnchor.constraint(equalTo: masukButton.bottomAnchor, constant: 8),
+            buatAkunLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -30),
+            buatAkunLabel.widthAnchor.constraint(equalToConstant: buatAkunLabel.width),
+            buatAkunLabel.heightAnchor.constraint(equalToConstant: buatAkunLabel.height),
+            
+            buatAkunButton.topAnchor.constraint(equalTo: buatAkunLabel.topAnchor),
+            buatAkunButton.leadingAnchor.constraint(equalTo: buatAkunLabel.trailingAnchor, constant: 2),
+            buatAkunButton.widthAnchor.constraint(equalToConstant: label.width),
+            buatAkunButton.heightAnchor.constraint(equalToConstant: label.height),
+        ])
+        
+        masukButton.addTarget(self, action: #selector(onClickMasukButton), for: .touchUpInside)
+        buatAkunButton.addTarget(self, action: #selector(onClickBuatAkunButton), for: .touchUpInside)
+    }
+    
+    @objc func onClickMasukButton() {
+        let signInVC = SignInViewController()
+        signInVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(signInVC, animated: true)
+    }
+    
+    @objc func onClickBuatAkunButton() {
+        let signUpVC = CreateAccountViewController()
+        signUpVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(signUpVC, animated: true)
+    }
+    
+    
     // MARK: @objc UIControl functions
     
     @objc func onChangeSegmentedControl(sender: UISegmentedControl) {
@@ -246,6 +354,9 @@ class OrdersViewController: UIViewController {
         group.enter()
         group.enter()
         
+        var success1 = false
+        var success2 = false
+        
         APICaller.shared.getProfileOrders(isActive: true) { result in
             switch result {
             case .success(let response):
@@ -264,8 +375,11 @@ class OrdersViewController: UIViewController {
                     self.collectionViewActiveColumn.reloadData()
                 }
                 group.leave()
+                success1 = true
                 break
             case .failure(let error):
+                success1 = false
+                group.leave()
                 print("ERROR WHEN FETCHING /profile/orders?active=true")
                 print("\(error)\n")
                 break
@@ -291,8 +405,11 @@ class OrdersViewController: UIViewController {
                     self.collectionViewHistoryColumn.reloadData()
                 }
                 group.leave()
+                success2 = true
                 break
             case .failure(let error):
+                success2 = false
+                group.leave()
                 print("ERROR WHEN FETCHING /profile/orders?active=false")
                 print("\(error)\n")
                 break
@@ -300,7 +417,14 @@ class OrdersViewController: UIViewController {
         }
         
         group.notify(queue: .main) {
-            completion?()
+            if (success1 || success2) {
+                completion?()
+            } else {
+                self.setupNotSignedInView()
+                self.spinner.hidesWhenStopped = true
+                self.spinner.stopAnimating()
+            }
+            
         }
     }
     
