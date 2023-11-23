@@ -165,8 +165,10 @@ class ReservationViewController: UIViewController {
         
         collectionView.register(HeaderDateInputCollectionViewCell.self, forCellWithReuseIdentifier: HeaderDateInputCollectionViewCell.identifier)
         collectionView.register(HeaderPetAmountInputCollectionViewCell.self, forCellWithReuseIdentifier: HeaderPetAmountInputCollectionViewCell.identifier)
+        
         collectionView.register(PetOrderCollectionViewCell.self, forCellWithReuseIdentifier: PetOrderCollectionViewCell.identifier)
-        collectionView.register(DogOrderCollectionViewCell.self, forCellWithReuseIdentifier: DogOrderCollectionViewCell.identifier)
+//        collectionView.register(DogOrderCollectionViewCell.self, forCellWithReuseIdentifier: DogOrderCollectionViewCell.identifier)
+        
         collectionView.register(TotalPriceSummaryCollectionViewCell.self, forCellWithReuseIdentifier: TotalPriceSummaryCollectionViewCell.identifier)
         
         collectionView.delegate = self
@@ -218,22 +220,18 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
             cell.backgroundColor = .white
-            
             cell.delegate = self
             cell.type = .cat
             cell.titleLabel.text = "Kucing \(indexPath.row + 1)"
             print("Kucing \(indexPath)")
             return cell
         case 2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DogOrderCollectionViewCell.identifier, for: indexPath) as! DogOrderCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
             cell.backgroundColor = .white
-
             cell.delegate = self
             cell.type = .dog
             cell.titleLabel.text = "Anjing \(indexPath.row + 1)"
-
             print("Anjing \(indexPath)")
-
             return cell
         case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPriceSummaryCollectionViewCell.identifier, for: indexPath) as! TotalPriceSummaryCollectionViewCell
@@ -408,135 +406,190 @@ extension ReservationViewController: HeaderPetAmountInputCollectionViewCellDeleg
 }
 extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
     func saveButtonTapped() {
-        if let petAmountCell = self.collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as? HeaderPetAmountInputCollectionViewCell {
-            
-            let newCatAmount = AppAccountManager.shared.kucingCount
-            let newDogAmount = AppAccountManager.shared.anjingCount
-            
-            let recentCatAmount = collectionView.numberOfItems(inSection: 1)
-            let recentDogAmount = collectionView.numberOfItems(inSection: 2)
-            
-            var catIndexPaths : [IndexPath] = []
-            var dogIndexPaths : [IndexPath] = []
-            
-            
-            /// Update button info label
-            petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
-
-            collectionView.performBatchUpdates({
-                print("Before Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
-                print("Before Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
-                
-                /// CAT - Update collection view
-                if recentCatAmount > newCatAmount {
-                    /// Delete kelebihan row
-                    for i in (newCatAmount ..< recentCatAmount).reversed() {
-                        print("*i: \(i) -> start: \(newCatAmount), end: \(recentCatAmount)")
-                        catIndexPaths.append(IndexPath(row: i, section: 1))
-                        ReservationManager.shared.updateCatDefaultPrices(indexPath: IndexPath(row: i, section: 1), price: 0)
-                        ReservationManager.shared.updateCatAddOnServicePrices(indexPath: IndexPath(row: i, section: 1), price: 0)
-                        
-                        ReservationManager.shared.catDefaultPrices.removeLast()
-                        ReservationManager.shared.catAddOnServicePrices.removeLast()
-                        
-                        print(ReservationManager.shared.catAddOnServicePrices.count)
-                    }
-                    collectionView.deleteItems(at: catIndexPaths)
-                } else if recentCatAmount < newCatAmount {
-                    /// Tambah row yang kurang
-                    for i in recentCatAmount ..< newCatAmount {
-                        catIndexPaths.append(IndexPath(row: i, section: 1))
-                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
-                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
-                        ReservationManager.shared.catDefaultPrices.append(0)
-                        ReservationManager.shared.catAddOnServicePrices.append(0)
-                        print(i)
-                    }
-                    
-                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
-                    collectionView.insertItems(at: catIndexPaths)
-                    //                collectionView.reloadData()
-                    
-                    /// Print data source arrays after changes
-                    print("After Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
-                    print("After Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
-                    
-                }
-            }, completion: { [self] finished in
-                
-                print("Before Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
-                print("Before Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
-
-                /// DOG - Update collection view
-                if recentDogAmount > newDogAmount {
-                    /// Delete kelebihan row
-                    for i in (newDogAmount ..< recentDogAmount).reversed() {
-                        print("*i: \(i) -> start: \(newDogAmount), end: \(recentDogAmount)")
-                        dogIndexPaths.append(IndexPath(row: i, section: 2))
-                        ReservationManager.shared.updateDogDefaultPrices(indexPath: IndexPath(row: i, section: 2), price: 0)
-                        ReservationManager.shared.updateDogAddOnServicePrices(indexPath: IndexPath(row: i, section: 2), price: 0)
-                        
-                        ReservationManager.shared.dogDefaultPrices.removeLast()
-                        ReservationManager.shared.dogAddOnServicePrices.removeLast()
-                        
-                        print(ReservationManager.shared.dogAddOnServicePrices.count)
-                    }
-                    collectionView.deleteItems(at: dogIndexPaths)
-                    collectionView.reloadData()
-                } else if recentDogAmount < newDogAmount {
-                    /// Tambah row yang kurang
-                    for i in recentDogAmount ..< newDogAmount {
-                        dogIndexPaths.append(IndexPath(row: i, section: 2))
-                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
-                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
-                        ReservationManager.shared.dogDefaultPrices.append(0)
-                        ReservationManager.shared.dogAddOnServicePrices.append(0)
-                        print(i)
-                    }
-                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
-                    collectionView.insertItems(at: dogIndexPaths)
-                    //                collectionView.reloadData()
-                }
-                
-                print("After Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
-                print("After Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
-                
-                
-                print("pet amount saved")
-                dismiss(animated: true)
-            })
-            
-            
-            
-
-            /// Update collection view
-//            if recentCatAmount > newCatAmount {
-//                /// Delete excess rows
-//                let rangeToRemove = newCatAmount..<recentCatAmount
-//                catIndexPaths = rangeToRemove.map { IndexPath(row: $0, section: 1) }
-//
-//                collectionView.performBatchUpdates({
-//                    collectionView.deleteItems(at: catIndexPaths)
-//                    // Remove corresponding data from the array
-//                    ReservationManager.shared.defaultPrices.removeSubrange(rangeToRemove)
-//                    ReservationManager.shared.addOnServicePrices.removeSubrange(rangeToRemove)
-//                }, completion: nil)
-//            } else if recentCatAmount < newCatAmount {
-//                /// Add missing rows
-//                let rangeToAdd = recentCatAmount..<newCatAmount
-//                catIndexPaths = rangeToAdd.map { IndexPath(row: $0, section: 1) }
-//
-//                collectionView.performBatchUpdates({
-//                    collectionView.insertItems(at: catIndexPaths)
-//                    // Add corresponding data to the array
-//                    ReservationManager.shared.defaultPrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
-//                    ReservationManager.shared.addOnServicePrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
-//                }, completion: nil)
-//            }
-
-           
+        guard let petAmountCell = self.collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as? HeaderPetAmountInputCollectionViewCell else {
+            return
         }
+
+        let newCatAmount = AppAccountManager.shared.kucingCount
+        let newDogAmount = AppAccountManager.shared.anjingCount
+
+        let recentCatAmount = collectionView.numberOfItems(inSection: 1)
+        let recentDogAmount = collectionView.numberOfItems(inSection: 2)
+
+        var catIndexPaths: [IndexPath] = []
+        var dogIndexPaths: [IndexPath] = []
+
+        petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
+
+        collectionView.performBatchUpdates({
+            // CAT Section Updates
+            if recentCatAmount > newCatAmount {
+                for i in (newCatAmount..<recentCatAmount).reversed() {
+                    catIndexPaths.append(IndexPath(row: i, section: 1))
+                    ReservationManager.shared.catDefaultPrices.removeLast()
+                    ReservationManager.shared.catAddOnServicePrices.removeLast()
+                }
+                collectionView.deleteItems(at: catIndexPaths)
+            } else if recentCatAmount < newCatAmount {
+                for i in recentCatAmount..<newCatAmount {
+                    catIndexPaths.append(IndexPath(row: i, section: 1))
+                    ReservationManager.shared.catDefaultPrices.append(0)
+                    ReservationManager.shared.catAddOnServicePrices.append(0)
+                }
+                collectionView.insertItems(at: catIndexPaths)
+            }
+
+            // DOG Section Updates
+            if recentDogAmount > newDogAmount {
+                for i in (newDogAmount..<recentDogAmount).reversed() {
+                    dogIndexPaths.append(IndexPath(row: i, section: 2))
+                    ReservationManager.shared.dogDefaultPrices.removeLast()
+                    ReservationManager.shared.dogAddOnServicePrices.removeLast()
+                }
+                collectionView.deleteItems(at: dogIndexPaths)
+            } else if recentDogAmount < newDogAmount {
+                for i in recentDogAmount..<newDogAmount {
+                    dogIndexPaths.append(IndexPath(row: i, section: 2))
+                    ReservationManager.shared.dogDefaultPrices.append(0)
+                    ReservationManager.shared.dogAddOnServicePrices.append(0)
+                }
+                collectionView.insertItems(at: dogIndexPaths)
+            }
+        }, completion: { [weak self] finished in
+            self?.dismiss(animated: true)
+        })
     }
+    
+//    func saveButtonTapped() {
+//        if let petAmountCell = self.collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as? HeaderPetAmountInputCollectionViewCell {
+//            
+//            let newCatAmount = AppAccountManager.shared.kucingCount
+//            let newDogAmount = AppAccountManager.shared.anjingCount
+//            
+//            let recentCatAmount = collectionView.numberOfItems(inSection: 1)
+//            let recentDogAmount = collectionView.numberOfItems(inSection: 2)
+//            
+//            var catIndexPaths : [IndexPath] = []
+//            var dogIndexPaths : [IndexPath] = []
+//            
+//            
+//            /// Update button info label
+//            petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
+//
+//            collectionView.performBatchUpdates({
+//                print("Before Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
+//                print("Before Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
+//                
+//                /// CAT - Update collection view
+//                if recentCatAmount > newCatAmount {
+//                    /// Delete kelebihan row
+//                    for i in (newCatAmount ..< recentCatAmount).reversed() {
+//                        print("*i: \(i) -> start: \(newCatAmount), end: \(recentCatAmount)")
+//                        catIndexPaths.append(IndexPath(row: i, section: 1))
+//                        ReservationManager.shared.updateCatDefaultPrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+//                        ReservationManager.shared.updateCatAddOnServicePrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+//                        
+//                        ReservationManager.shared.catDefaultPrices.removeLast()
+//                        ReservationManager.shared.catAddOnServicePrices.removeLast()
+//                        
+//                        print(ReservationManager.shared.catAddOnServicePrices.count)
+//                    }
+//                    collectionView.deleteItems(at: catIndexPaths)
+//                } else if recentCatAmount < newCatAmount {
+//                    /// Tambah row yang kurang
+//                    for i in recentCatAmount ..< newCatAmount {
+//                        catIndexPaths.append(IndexPath(row: i, section: 1))
+//                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+//                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+//                        ReservationManager.shared.catDefaultPrices.append(0)
+//                        ReservationManager.shared.catAddOnServicePrices.append(0)
+//                        print(i)
+//                    }
+//                    
+//                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
+//                    collectionView.insertItems(at: catIndexPaths)
+//                    //                collectionView.reloadData()
+//                    
+//                    /// Print data source arrays after changes
+//                    print("After Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
+//                    print("After Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
+//                    
+//                }
+//            }, completion: { [self] finished in
+//                
+//                print("Before Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
+//                print("Before Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
+//
+//                /// DOG - Update collection view
+//                if recentDogAmount > newDogAmount {
+//                    /// Delete kelebihan row
+//                    for i in (newDogAmount ..< recentDogAmount).reversed() {
+//                        print("*i: \(i) -> start: \(newDogAmount), end: \(recentDogAmount)")
+//                        dogIndexPaths.append(IndexPath(row: i, section: 2))
+//                        ReservationManager.shared.updateDogDefaultPrices(indexPath: IndexPath(row: i, section: 2), price: 0)
+//                        ReservationManager.shared.updateDogAddOnServicePrices(indexPath: IndexPath(row: i, section: 2), price: 0)
+//                        
+//                        ReservationManager.shared.dogDefaultPrices.removeLast()
+//                        ReservationManager.shared.dogAddOnServicePrices.removeLast()
+//                        
+//                        print(ReservationManager.shared.dogAddOnServicePrices.count)
+//                    }
+//                    collectionView.deleteItems(at: dogIndexPaths)
+//                    collectionView.reloadData()
+//                } else if recentDogAmount < newDogAmount {
+//                    /// Tambah row yang kurang
+//                    for i in recentDogAmount ..< newDogAmount {
+//                        dogIndexPaths.append(IndexPath(row: i, section: 2))
+//                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+//                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+//                        ReservationManager.shared.dogDefaultPrices.append(0)
+//                        ReservationManager.shared.dogAddOnServicePrices.append(0)
+//                        print(i)
+//                    }
+//                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
+//                    collectionView.insertItems(at: dogIndexPaths)
+//                    //                collectionView.reloadData()
+//                }
+//                
+//                print("After Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
+//                print("After Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
+//                
+//                
+//                print("pet amount saved")
+//                dismiss(animated: true)
+//            })
+//            
+//            
+//            
+//
+//            /// Update collection view
+////            if recentCatAmount > newCatAmount {
+////                /// Delete excess rows
+////                let rangeToRemove = newCatAmount..<recentCatAmount
+////                catIndexPaths = rangeToRemove.map { IndexPath(row: $0, section: 1) }
+////
+////                collectionView.performBatchUpdates({
+////                    collectionView.deleteItems(at: catIndexPaths)
+////                    // Remove corresponding data from the array
+////                    ReservationManager.shared.defaultPrices.removeSubrange(rangeToRemove)
+////                    ReservationManager.shared.addOnServicePrices.removeSubrange(rangeToRemove)
+////                }, completion: nil)
+////            } else if recentCatAmount < newCatAmount {
+////                /// Add missing rows
+////                let rangeToAdd = recentCatAmount..<newCatAmount
+////                catIndexPaths = rangeToAdd.map { IndexPath(row: $0, section: 1) }
+////
+////                collectionView.performBatchUpdates({
+////                    collectionView.insertItems(at: catIndexPaths)
+////                    // Add corresponding data to the array
+////                    ReservationManager.shared.defaultPrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
+////                    ReservationManager.shared.addOnServicePrices.append(contentsOf: Array(repeating: 0, count: newCatAmount - recentCatAmount))
+////                }, completion: nil)
+////            }
+//
+//           
+//        }
+//    }
 }
 
 
