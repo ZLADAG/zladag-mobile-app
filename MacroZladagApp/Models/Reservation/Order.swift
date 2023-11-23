@@ -6,9 +6,9 @@
 //
 
 import Foundation
-struct Order: Codable {
-    var petId: String
-    var note: String
-    var boardingCageId : [String]
-    var boardingServiceIds : [String]
-}
+//struct Order: Codable {
+//    var petId: String
+//    var note: String
+//    var boardingCageId : [String]
+//    var boardingServiceIds : [String]
+//}

@@ -487,7 +487,88 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
            
         }
     }
-    
-    
 }
 
+
+extension ReservationViewController {
+    func postRequest() {
+        
+//        guard let viewModel else { return }
+//        
+//        var fields = [[String]]()
+//        fields.append(["name", viewModel.name])
+//        fields.append(["age", viewModel.age.description])
+//        fields.append(["bodyMass", viewModel.bodyMass.description])
+//        fields.append(["bodyMass", viewModel.bodyMass.description])
+//        fields.append(["hasBeenSterilized", viewModel.hasBeenSterilized ? "1": "0"])
+//        fields.append(["hasBeenVaccinatedRoutinely", viewModel.hasBeenVaccinatedRoutinely ? "1": "0"])
+//        fields.append(["hasBeenFleaFreeRegularly", viewModel.hasBeenFleaFreeRegularly ? "1": "0"])
+//        fields.append(["historyOfIllness", viewModel.historyOfIllness])
+//        
+//        for facility in viewModel.boardingFacilities {
+//            fields.append(["boardingFacilities[]", facility])
+//        }
+//        
+//        if viewModel.petHabitIds.count != 0 {
+//            for petHabitId in viewModel.petHabitIds {
+//                fields.append(["petHabitIds[]", petHabitId])
+//            }
+//        } else {
+//            fields.append(["petHabitIds[]", "PT1781819477"])
+//        }
+//        
+//        fields.append(["petGender", viewModel.petGender])
+//        fields.append(["petBreedId", viewModel.petBreedId])
+//        
+////        for field in fields {
+////            print(field)
+////        }
+//        
+//        var multipart = MultipartRequest()
+//        
+//        for field in fields {
+//            multipart.add(key: field[0], value: field[1])
+//        }
+//
+//        if let image = viewModel.image {
+//            multipart.add(
+//                key: "image",
+//                fileName: "\(viewModel.name)_\(UUID().uuidString).png",
+//                fileMimeType: "image/png",
+//                fileData: image.pngData() ?? Data()
+//            )
+//        }
+//        
+//        let url = URL(string: APICaller.Constants.baseAPIURL + "/profile/pets/store")!
+//        
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue(
+//            "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+//            forHTTPHeaderField: "Authorization"
+//        )
+//        
+//        
+//        
+//        request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//        
+//        request.httpBody = multipart.httpBody
+//        
+//        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+//            guard let data = data, error == nil else {
+//                return
+//            }
+//            
+//            do {
+//                let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(result)
+//            } catch {
+//                print(error)
+//                print("ERROR WHEN POST PET PROFILE")
+//            }
+//        }
+//        
+//        task.resume()
+    }
+}
