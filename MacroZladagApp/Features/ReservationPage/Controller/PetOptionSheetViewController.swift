@@ -30,6 +30,7 @@ class PetOptionSheetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
         setupContent()

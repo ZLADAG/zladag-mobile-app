@@ -23,6 +23,8 @@ class PetOptionTableViewCell: UITableViewCell {
     func configure(profile: ReservationPetViewModel) {
         self.profile = profile
         
+        contentView.backgroundColor = .white
+        
         profileTag = ProfilePhotoWithTitle(profileType: .pet, img: "dummy-image", title: profile.petDetails.name, detailName: profile.petDetails.petBreed, age: Double(profile.petDetails.age))
         
         viewWrap.translatesAutoresizingMaskIntoConstraints = false

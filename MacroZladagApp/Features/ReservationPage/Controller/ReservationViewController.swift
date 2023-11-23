@@ -38,6 +38,18 @@ class ReservationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        
+        appearance.backgroundEffect = UIBlurEffect(style: .dark)
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
+        
+        
         setupLoadingScreen()
         APICaller.shared.getBoardingReservationDataBySlug(slug: self.slug) { result in
             var success = false
