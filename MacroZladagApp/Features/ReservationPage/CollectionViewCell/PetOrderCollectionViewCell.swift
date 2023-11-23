@@ -9,6 +9,7 @@ import UIKit
 
 protocol PetOrderCollectionViewCellDelegate {
     func petOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
+    func addPetOptTapped()
     func cageOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
     func serviceOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath)
 }
@@ -348,6 +349,10 @@ extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
 
 // MARK: PET OPTION SHEET
 extension PetOrderCollectionViewCell: PetOptionSheetViewControllerDelegate {
+    func addNewPetButtonTapped() {
+        delegate?.addPetOptTapped()
+    }
+    
     func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath) {
         
 //        print(cell)

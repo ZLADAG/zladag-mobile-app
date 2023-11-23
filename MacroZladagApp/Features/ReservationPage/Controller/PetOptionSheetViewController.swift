@@ -13,6 +13,7 @@ enum PetType: String {
 }
 
 protocol PetOptionSheetViewControllerDelegate {
+    func addNewPetButtonTapped()
     func petProfileItemTapped(cell: UITableViewCell, atIdxPath: IndexPath)
 }
 
@@ -41,10 +42,13 @@ class PetOptionSheetViewController: UIViewController {
         if type == .cat {
             compiledPets = ReservationManager.shared.reservationModel!.compiledCats
             uncompiledPets = ReservationManager.shared.reservationModel!.uncompiledCats
+            print(compiledPets)
+            print(uncompiledPets)
         } else {
             compiledPets = ReservationManager.shared.reservationModel!.compiledDogs
             uncompiledPets = ReservationManager.shared.reservationModel!.uncompiledDogs
-
+            print(compiledPets)
+            print(uncompiledPets)
         }
         
     }
@@ -136,7 +140,7 @@ class PetOptionSheetViewController: UIViewController {
                 self.addNewPetButton.backgroundColor = UIColor.clear
             }
         }
-        
+        delegate?.addNewPetButtonTapped()
         print("addPetButtonTapped")
     }
     

@@ -252,6 +252,13 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
 
 // MARK: Pet Order Cell
 extension ReservationViewController: PetOrderCollectionViewCellDelegate {
+    func addPetOptTapped() {
+        
+        let vc = TambahProfilAnabulViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
     func petOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
         let sheetVC = PetOptionSheetViewController()
         let orderCell = cell as! PetOrderCollectionViewCell
@@ -292,48 +299,6 @@ extension ReservationViewController: PetOrderCollectionViewCellDelegate {
             totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
         }
     }
-}
-extension ReservationViewController: DogOrderCollectionViewCellDelegate {
-    func dogOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
-        let sheetVC = PetOptionSheetViewController()
-        let orderCell = cell as! DogOrderCollectionViewCell
-        
-        sheetVC.delegate = orderCell
-        sheetVC.setType(type: orderCell.type)
-        self.collectionView.reloadData()
-        
-        let navVc = UINavigationController(rootViewController: sheetVC)
-        if let sheet = navVc.sheetPresentationController {
-            sheet.preferredCornerRadius = 10
-            sheet.detents = [
-                .custom(resolver: { context in
-                    0.75 * context.maximumDetentValue
-                })
-            ]
-            sheet.prefersGrabberVisible = true
-            sheet.largestUndimmedDetentIdentifier = .large
-        }
-        present(navVc, animated: true, completion: nil)
-    }
-    
-    func dogCageOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
-        if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
-            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
-            totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
-            totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
-            totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
-        }
-    }
-    
-    func dogServiceOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
-        if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
-            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
-            totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
-            totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
-            totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
-        }
-    }
-    
 }
 
 // MARK: Total Payment Cell
@@ -548,7 +513,7 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
 //                    }
 //                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
 //                    collectionView.insertItems(at: dogIndexPaths)
-//                    //                collectionView.reloadData()
+//                    //                collectionViewaddNewPetButtonTapped.reloadData()
 //                }
 //                
 //                print("After Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
