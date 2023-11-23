@@ -13,7 +13,7 @@ class PetOptionTableViewCell: UITableViewCell {
     
     var profileTag : ProfilePhotoWithTitle!
     var profile : ReservationPetViewModel!
-        
+    var warningInfoView : UIView!
     private var viewWrap = UIView()
     
     override func awakeFromNib() {
@@ -30,7 +30,28 @@ class PetOptionTableViewCell: UITableViewCell {
         viewWrap.layer.cornerRadius = 4.0
         viewWrap.layer.borderWidth = 1.0
         viewWrap.layer.borderColor = UIColor.customLightGray3.cgColor
+        
         configureOptionStatus(profile: self.profile)
+        
+        
+        let warningLabel = UILabel()
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.numberOfLines = 0
+        warningLabel.text = "Tidak memenuhi kriteria pet hotel."
+        
+        let icon = UIImageView()
+        icon.tintColor = .black
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.image = UIImage(systemName: "info.circle")?.withTintColor(.customLightGray3)
+        icon.tintColor = .customLightGray3
+        icon.contentMode = .scaleAspectFit
+        icon.clipsToBounds = true
+        
+        let warningStack = UIStackView(arrangedSubviews: [icon, warningLabel])
+        warningStack.translatesAutoresizingMaskIntoConstraints = false
+        warningStack.axis = .horizontal
+        warningStack.spacing = 8
+        
         
         addSubview(viewWrap)
         NSLayoutConstraint.activate([
@@ -50,7 +71,7 @@ class PetOptionTableViewCell: UITableViewCell {
     }
     
     func configureOptionStatus(profile: ReservationPetViewModel) {
-    
+
         if !profile.petDetails.hasCompliedThePolicy {
             optDisabled()
         } else {
@@ -60,7 +81,6 @@ class PetOptionTableViewCell: UITableViewCell {
     
     func updateSelectedProfileData(profile: ReservationPetViewModel) {
         self.profile = profile
-        configureOptionStatus(profile: profile)
         
         self.profileTag.updateImage(imageName: profile.petDetails.image)
         self.profileTag.updateNameTitleLabel(text: profile.petDetails.name)
@@ -70,9 +90,9 @@ class PetOptionTableViewCell: UITableViewCell {
     
     private func optDisabled() {
         self.isUserInteractionEnabled = false
-//        viewWrap.backgroundColor = UIColor.customLightGray3
+        viewWrap.backgroundColor = UIColor.customLightGray3
         viewWrap.layer.borderColor = UIColor.customLightGray3.cgColor
-        profileTag.layer.opacity = 0.3
+        profileTag.layer.opacity = 0.4
 
     }
     private func optEnabled() {
