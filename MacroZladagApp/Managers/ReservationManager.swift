@@ -32,6 +32,14 @@ final class ReservationManager {
     var totalAddOnServicePrice = 0
     var totalOrder = 0
     
+    var selectedCageId: String = ""
+    
+    var catSelectedServiceIds = [String]()
+    var dogSelectedServiceIds = [String]()
+    
+    var dogDetailOrders = [PetDetailsForOrder]()
+    var catDetailOrders = [PetDetailsForOrder]()
+    
     /// CAT
     func updateSelectedCat(indexPath: IndexPath, profile: ReservationPetViewModel?) {
         selectedCatProfiles[indexPath.row] = profile
@@ -74,4 +82,13 @@ final class ReservationManager {
         print("ini total order: \(totalOrder)")
     }
     
+    
+}
+
+struct CatCageId {
+    var id: String = ""
+}
+
+struct DogCageId {
+    var id: String = ""
 }

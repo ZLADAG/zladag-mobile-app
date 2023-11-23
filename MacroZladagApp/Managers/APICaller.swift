@@ -87,6 +87,15 @@ final class APICaller {
         }
     }
     
+    public func postPetOrder(postOrdersBody: PostOrdersBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
+        postRequest(
+            path: "/profile/orders/store",
+            usingToken: true,
+            body: postOrdersBody) { result in
+                completion(result)
+            }
+    }
+    
     public func postAskWhatsAppVerificationCode(sendPhoneCodeBody: SendPhoneCodeBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
         postRequest(
             path: "/send-whatsapp-verification-code",
@@ -181,15 +190,33 @@ final class APICaller {
         var req = URLRequest(url: URL(string: Constants.baseAPIURL + path)!)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
         
         if let body {
             print("\nUSING HTTP BODY")
             print(body)
             req.httpBody = try? JSONEncoder().encode(body)
+//            let body: [String: Any] = [
+//                "boarding": "pinkpetz",
+//                "checkInDate": "2023-12-22",
+//                "checkOutDate": "2023-12-23",
+//                "orders": [
+//                    [
+//                        "petId": "PT6522321364",
+//                        "note": "",
+//                        "boardingCageId": "BF5474689054",
+//                        "boardingServiceIds": ["BF3890412831", "BF3511921720", "BF2073565413"]
+//                    ]
+//                ]
+//            ]
+//            req.httpBody = try! JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
         }
         
         if usingToken {
-            req.setValue("", forHTTPHeaderField: "Authorization")
+            req.addValue(
+                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+                forHTTPHeaderField: "Authorization"
+            )
         }
         
         URLSession.shared.dataTask(with: req) { data, _, error in

@@ -190,6 +190,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        setupNavigationBar()
         self.collectionView.reloadData()
     }
     

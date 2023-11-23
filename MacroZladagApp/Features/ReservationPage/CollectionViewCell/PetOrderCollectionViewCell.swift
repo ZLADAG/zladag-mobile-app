@@ -16,6 +16,8 @@ protocol PetOrderCollectionViewCellDelegate {
 
 class PetOrderCollectionViewCell: UICollectionViewCell {
     
+    var indexPath: IndexPath?
+    
     var delegate:PetOrderCollectionViewCellDelegate?
     
     static let identifier = "CatOrderCollectionViewCell"
@@ -60,7 +62,6 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpCell() {
-        
         cellContent = createStack(views: [], spacing: 16)
         
         titleLabel = createLabel("Pet 1")
@@ -197,7 +198,7 @@ extension PetOrderCollectionViewCell {
         
         var idx = 0
         for cage in cages {
-            let option =  CageOption(name: cage.name, price: cage.price)
+            let option =  CageOption(name: cage.name, price: cage.price, cageId: cage.id)
             option.idx = idx
             idx += 1;
             option.delegate = self
@@ -220,7 +221,8 @@ extension PetOrderCollectionViewCell {
         let allServiceOpt = createStack(views: [], spacing: 16)
         var idx = 0
         for service in services {
-            let option = AddOnServiceOption(name: service.name, price: service.price)
+//            let option = AddOnServiceOption(name: service.name, price: service.price)
+            let option = AddOnServiceOption(name: service.id, price: service.price)
             option.idx = idx
             idx += 1;
             option.delegate = self
@@ -302,6 +304,7 @@ extension PetOrderCollectionViewCell {
 // MARK: RADIO BUTTON
 extension PetOrderCollectionViewCell: CageOptionDelegate {
     func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount) {
+        
         /// Appearance
         let endIndex = ReservationManager.shared.reservationModel.cages.count
         for i in 0..<endIndex {
@@ -320,10 +323,29 @@ extension PetOrderCollectionViewCell: CageOptionDelegate {
                 cagePrice = 0
             }
             ReservationManager.shared.updateCatDefaultPrices(indexPath: indexPath, price: cagePrice)
+            
             delegate?.cageOptTapped(cell: self, atIndexPath: indexPath)
 
         } else {
             print("Unable to determine indexPath for the cell.")
+        }
+        
+        if indexPath!.section == 1 {
+            ReservationManager.shared.catDetailOrders[indexPath!.row].boardingCageId = allCageOpt.compactMap({ cageOption in
+                if cageOption.isClicked {
+                    return cageOption.cageId
+                } else {
+                    return nil
+                }
+            }).first ?? ""
+        } else if indexPath!.section == 2 {
+            ReservationManager.shared.dogDetailOrders[indexPath!.row].boardingCageId = allCageOpt.compactMap({ cageOption in
+                if cageOption.isClicked {
+                    return cageOption.cageId
+                } else {
+                    return nil
+                }
+            }).first ?? ""
         }
     }
 }
@@ -340,7 +362,34 @@ extension PetOrderCollectionViewCell: AddOnServiceOptionDelegate {
             }
             ReservationManager.shared.updateCatAddOnServicePrices(indexPath: indexPath, price: addOnServicePrice)
             delegate?.serviceOptTapped(cell: self, atIndexPath: indexPath)
-
+            
+            let serviceId = ReservationManager.shared.reservationModel.services[idx].id
+            print("indexPath.section >>> ", self.indexPath!.section)
+            print(serviceId)
+            
+            if self.indexPath!.section == 1 {
+                if ReservationManager.shared.catSelectedServiceIds.contains(serviceId) {
+                    ReservationManager.shared.catSelectedServiceIds.removeAll { string in
+                        return string == serviceId
+                    }
+                } else {
+                    ReservationManager.shared.catSelectedServiceIds.append(serviceId)
+                }
+                
+                ReservationManager.shared.catDetailOrders[self.indexPath!.row].boardingServiceIds = ReservationManager.shared.catSelectedServiceIds
+            } else if self.indexPath!.section == 2 {
+                if ReservationManager.shared.dogSelectedServiceIds.contains(serviceId) {
+                    ReservationManager.shared.dogSelectedServiceIds.removeAll { string in
+                        return string == serviceId
+                    }
+                } else {
+                    ReservationManager.shared.dogSelectedServiceIds.append(serviceId)
+                }
+                
+                ReservationManager.shared.dogDetailOrders[self.indexPath!.row].boardingServiceIds = ReservationManager.shared.dogSelectedServiceIds
+            }
+            
+            
         } else {
             print("Unable to determine indexPath for the cell.")
         }

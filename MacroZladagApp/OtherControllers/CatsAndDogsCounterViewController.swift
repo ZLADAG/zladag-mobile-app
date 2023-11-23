@@ -280,7 +280,9 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     @objc func catIncrementButton() {
-        self.kucingCount += 1
+        if self.kucingCount < 1 {
+            self.kucingCount += 1            
+        }
         kucingCountLabel.text = self.kucingCount.description
         decrementKucingButton.imageView?.tintColor = .customOrange
         decrementKucingButton.imageView?.layer.opacity = 1.0
@@ -302,7 +304,9 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     @objc func dogIncrementButton() {
-        self.anjingCount += 1
+        if self.anjingCount < 1 {
+            self.anjingCount += 1
+        }
         anjingCountLabel.text = self.anjingCount.description
         decrementAnjingButton.imageView?.tintColor = .customOrange
         decrementAnjingButton.imageView?.layer.opacity = 1.0
@@ -334,6 +338,15 @@ class CatsAndDogsCounterViewController: UIViewController {
             
             dismiss(animated: true)
         }
+        
+        for i in 0..<AppAccountManager.shared.anjingCount {
+            ReservationManager.shared.dogDetailOrders.append(PetDetailsForOrder())
+        }
+        
+        for i in 0..<AppAccountManager.shared.kucingCount {
+            ReservationManager.shared.catDetailOrders.append(PetDetailsForOrder())
+        }
+        
         
         delegate?.saveButtonTapped()
     }

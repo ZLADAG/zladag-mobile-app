@@ -19,6 +19,7 @@ protocol PetOptionSheetViewControllerDelegate {
 
 class PetOptionSheetViewController: UIViewController {
     
+    var indexPath: IndexPath?
     var delegate : PetOptionSheetViewControllerDelegate?
     var addNewPetButton : UIButton!
     var tableView = UITableView()
@@ -198,7 +199,26 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
 //            print(cell.profile)
             
             compiledPets[indexPath.row].isSelected = true
-            ReservationManager.shared.reservationModel!.compiledCats[indexPath.row].isSelected = compiledPets[indexPath.row].isSelected
+            
+            if self.indexPath!.section == 1 {
+                ReservationManager.shared.reservationModel!.compiledCats[indexPath.row].isSelected = compiledPets[indexPath.row].isSelected
+                ReservationManager.shared.catDetailOrders[self.indexPath!.row].petId = ReservationManager.shared.reservationModel!.compiledDogs.compactMap({ petVm in
+                    if petVm.isSelected {
+                        return petVm.petDetails.id
+                    } else {
+                        return nil
+                    }
+                }).first ?? ""
+            } else if self.indexPath!.section == 2 {
+                ReservationManager.shared.reservationModel!.compiledDogs[indexPath.row].isSelected = compiledPets[indexPath.row].isSelected
+                ReservationManager.shared.dogDetailOrders[self.indexPath!.row].petId = ReservationManager.shared.reservationModel!.compiledDogs.compactMap({ petVm in
+                    if petVm.isSelected {
+                        return petVm.petDetails.id
+                    } else {
+                        return nil
+                    }
+                }).first ?? ""
+            }
             
             cell.profile.isSelected = !cell.profile.isSelected
             cell.updateSelectedProfileData(profile: cell.profile)
@@ -207,7 +227,7 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
             delegate?.petProfileItemTapped(cell: cell, atIdxPath: indexPath)
             
             print("tabel cell: \(indexPath)")
-                    
+            
             dismiss(animated: true)
         }
     }

@@ -40,16 +40,6 @@ class ReservationViewController: UIViewController {
         view.backgroundColor = .white
         overrideUserInterfaceStyle = .light
         
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        
-        appearance.backgroundEffect = UIBlurEffect(style: .dark)
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
-        
-        
         setupLoadingScreen()
         APICaller.shared.getBoardingReservationDataBySlug(slug: self.slug) { result in
             var success = false
@@ -94,6 +84,7 @@ class ReservationViewController: UIViewController {
             }
         }
     }
+    
     func setupLoadingScreen() {
         view.addSubview(spinner)
         
@@ -235,7 +226,8 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             cell.delegate = self
             cell.type = .cat
             cell.titleLabel.text = "Kucing \(indexPath.row + 1)"
-            print("Kucing \(indexPath)")
+            cell.indexPath = indexPath
+            print("Kucing \(cell.indexPath)")
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
@@ -243,7 +235,8 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             cell.delegate = self
             cell.type = .dog
             cell.titleLabel.text = "Anjing \(indexPath.row + 1)"
-            print("Anjing \(indexPath)")
+            cell.indexPath = indexPath
+            print("Anjing \(cell.indexPath)")
             return cell
         case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPriceSummaryCollectionViewCell.identifier, for: indexPath) as! TotalPriceSummaryCollectionViewCell
@@ -277,6 +270,7 @@ extension ReservationViewController: PetOrderCollectionViewCellDelegate {
         let sheetVC = PetOptionSheetViewController()
         let orderCell = cell as! PetOrderCollectionViewCell
         
+        sheetVC.indexPath = atIndexPath
         sheetVC.delegate = orderCell
         sheetVC.setType(type: orderCell.type)
         self.collectionView.reloadData()
@@ -321,6 +315,38 @@ extension ReservationViewController : TotalPriceSummaryCollectionViewCellDelegat
     func orderButtonTapped() {
         let successVC = ReservationSuccessPageViewController()
         successVC.upperViewController = self
+
+        var postOrdersBody = PostOrdersBody()
+        postOrdersBody.boarding = self.slug
+        postOrdersBody.checkInDate = "\(AppAccountManager.shared.selectedDay1?.components.year ?? 2023)-\(AppAccountManager.shared.selectedDay1?.components.month ?? 11)-\(AppAccountManager.shared.selectedDay1?.components.day ?? 24)"
+        postOrdersBody.checkOutDate = "\(AppAccountManager.shared.selectedDay2?.components.year ?? 2023)-\(AppAccountManager.shared.selectedDay2?.components.month ?? 11)-\(AppAccountManager.shared.selectedDay2?.components.day ?? 24)"
+        postOrdersBody.orders.append(contentsOf: ReservationManager.shared.catDetailOrders)
+        postOrdersBody.orders.append(contentsOf: ReservationManager.shared.dogDetailOrders)
+        
+        for i in 0..<postOrdersBody.orders.count {
+            if postOrdersBody.orders[i].petId == "" {
+                postOrdersBody.orders[i].petId = "PT6522321364"
+            }
+        }
+        
+        var postOrdersBody2 = PostOrdersBody()
+        postOrdersBody2.boarding = "pinkpetz"
+        postOrdersBody2.checkInDate = "2023-12-22"
+        postOrdersBody2.checkOutDate = "2023-12-23"
+        postOrdersBody2.orders = [PetDetailsForOrder(petId: "PT6522321364", note: "x", boardingCageId: "BF5474689054", boardingServiceIds: ["BF3890412831", "BF3511921720", "BF2073565413"])]
+        
+        APICaller.shared.postPetOrder(postOrdersBody: postOrdersBody) { result in
+            switch result {
+            case .success(let response):
+                print("\n\(response)")
+                break
+            case .failure(let error):
+                print("\nERROR WHEN POST PET ORDER\n\(error)")
+            }
+        }
+
+        print(postOrdersBody)
+        
         navigationController?.present(successVC,animated: true)
         
         // TODO: GANTI PAKE PUSH CONTROLLER KL UDA JD FLOWNYA
@@ -435,6 +461,10 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
                 }
                 collectionView.insertItems(at: dogIndexPaths)
             }
+            
+            print("\n\nINDEX PATHS!")
+            print(catIndexPaths)
+            print(dogIndexPaths)
         }, completion: { [weak self] finished in
             self?.dismiss(animated: true)
         })
@@ -576,82 +606,5 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
 extension ReservationViewController {
     func postRequest() {
         
-//        guard let viewModel else { return }
-//        
-//        var fields = [[String]]()
-//        fields.append(["name", viewModel.name])
-//        fields.append(["age", viewModel.age.description])
-//        fields.append(["bodyMass", viewModel.bodyMass.description])
-//        fields.append(["bodyMass", viewModel.bodyMass.description])
-//        fields.append(["hasBeenSterilized", viewModel.hasBeenSterilized ? "1": "0"])
-//        fields.append(["hasBeenVaccinatedRoutinely", viewModel.hasBeenVaccinatedRoutinely ? "1": "0"])
-//        fields.append(["hasBeenFleaFreeRegularly", viewModel.hasBeenFleaFreeRegularly ? "1": "0"])
-//        fields.append(["historyOfIllness", viewModel.historyOfIllness])
-//        
-//        for facility in viewModel.boardingFacilities {
-//            fields.append(["boardingFacilities[]", facility])
-//        }
-//        
-//        if viewModel.petHabitIds.count != 0 {
-//            for petHabitId in viewModel.petHabitIds {
-//                fields.append(["petHabitIds[]", petHabitId])
-//            }
-//        } else {
-//            fields.append(["petHabitIds[]", "PT1781819477"])
-//        }
-//        
-//        fields.append(["petGender", viewModel.petGender])
-//        fields.append(["petBreedId", viewModel.petBreedId])
-//        
-////        for field in fields {
-////            print(field)
-////        }
-//        
-//        var multipart = MultipartRequest()
-//        
-//        for field in fields {
-//            multipart.add(key: field[0], value: field[1])
-//        }
-//
-//        if let image = viewModel.image {
-//            multipart.add(
-//                key: "image",
-//                fileName: "\(viewModel.name)_\(UUID().uuidString).png",
-//                fileMimeType: "image/png",
-//                fileData: image.pngData() ?? Data()
-//            )
-//        }
-//        
-//        let url = URL(string: APICaller.Constants.baseAPIURL + "/profile/pets/store")!
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue(
-//            "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
-//            forHTTPHeaderField: "Authorization"
-//        )
-//        
-//        
-//        
-//        request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        
-//        request.httpBody = multipart.httpBody
-//        
-//        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            
-//            do {
-//                let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(result)
-//            } catch {
-//                print(error)
-//                print("ERROR WHEN POST PET PROFILE")
-//            }
-//        }
-//        
-//        task.resume()
     }
 }

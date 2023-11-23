@@ -19,20 +19,21 @@ class CageOption: UIView {
     var isClicked: Bool = false
     var pricePrefix = ""
     var priceWithAmount : PriceWithAmount = PriceWithAmount(price: 0, amount: 0)
-
+    
+    let name: String
+    let cageId: String
     
     // MARK: Initialize Methods
-    init(name: String, price: Int) {
+    init(name: String, price: Int, cageId: String) {
+        self.name = name
+        self.cageId = cageId
         super.init(frame: .zero)
+        
         setUpComponents(name, price)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError()
     }
     
     private func setUpComponents(_ name: String, _ price: Int) {
