@@ -134,7 +134,7 @@ class ReservationViewController: UIViewController {
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 sectionLayout = NSCollectionLayoutSection(group: group)
             
-                let amount = AppAccountManager.shared.kucingCount
+                let amount = AppAccountManager.shared.anjingCount
                 if ReservationManager.shared.dogDefaultPrices.isEmpty {
                     ReservationManager.shared.dogDefaultPrices = Array(repeating: 0, count: amount)
                 }
@@ -374,14 +374,13 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
             let recentDogAmount = collectionView.numberOfItems(inSection: 2)
             
             var catIndexPaths : [IndexPath] = []
-//            var dogIndexPaths : [IndexPath] = []
+            var dogIndexPaths : [IndexPath] = []
             
             
             /// Update button info label
             petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
 
             collectionView.performBatchUpdates({
-                /// Print data source arrays before changes
                 print("Before Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
                 print("Before Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
                 
@@ -393,70 +392,78 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
                         catIndexPaths.append(IndexPath(row: i, section: 1))
                         ReservationManager.shared.updateCatDefaultPrices(indexPath: IndexPath(row: i, section: 1), price: 0)
                         ReservationManager.shared.updateCatAddOnServicePrices(indexPath: IndexPath(row: i, section: 1), price: 0)
-
+                        
                         ReservationManager.shared.catDefaultPrices.removeLast()
                         ReservationManager.shared.catAddOnServicePrices.removeLast()
-
+                        
                         print(ReservationManager.shared.catAddOnServicePrices.count)
                     }
                     collectionView.deleteItems(at: catIndexPaths)
-                    collectionView.reloadData()
                 } else if recentCatAmount < newCatAmount {
                     /// Tambah row yang kurang
                     for i in recentCatAmount ..< newCatAmount {
                         catIndexPaths.append(IndexPath(row: i, section: 1))
-    //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
-    //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
                         ReservationManager.shared.catDefaultPrices.append(0)
                         ReservationManager.shared.catAddOnServicePrices.append(0)
                         print(i)
                     }
+                    
                     // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
                     collectionView.insertItems(at: catIndexPaths)
-    //                collectionView.reloadData()
+                    //                collectionView.reloadData()
                     
                     /// Print data source arrays after changes
                     print("After Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
                     print("After Update - addOnServicePrices: \(ReservationManager.shared.catAddOnServicePrices)")
-
+                    
                 }
-                }, completion: { [self] finished in
-                    /// DOG - Update collection view
-//                    if recentDogAmount > newDogAmount {
-//                        /// Delete kelebihan row
-//                        for i in (newDogAmount ..< recentDogAmount).reversed() {
-//                            print("*i: \(i) -> start: \(newDogAmount), end: \(recentDogAmount)")
-//                            dogIndexPaths.append(IndexPath(row: i, section: 2))
-//                            ReservationManager.shared.updateDogDefaultPrices(indexPath: IndexPath(row: i, section: 2), price: 0)
-//                            ReservationManager.shared.updateDogAddOnServicePrices(indexPath: IndexPath(row: i, section: 2), price: 0)
-//
-//                            ReservationManager.shared.dogDefaultPrices.removeLast()
-//                            ReservationManager.shared.dogAddOnServicePrices.removeLast()
-//
-//                            print(ReservationManager.shared.dogAddOnServicePrices.count)
-//                        }
-//                        collectionView.deleteItems(at: dogIndexPaths)
-//                        collectionView.reloadData()
-//                    } else if recentDogAmount < newDogAmount {
-//                        /// Tambah row yang kurang
-//                        for i in recentDogAmount ..< newDogAmount {
-//                            dogIndexPaths.append(IndexPath(row: i, section: 2))
-//        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
-//        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
-//                            ReservationManager.shared.dogDefaultPrices.append(0)
-//                            ReservationManager.shared.dogAddOnServicePrices.append(0)
-//                            print(i)
-//                        }
-//                        // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
-//                        collectionView.insertItems(at: dogIndexPaths)
-//        //                collectionView.reloadData()
-//                    }
-//
-                    print("pet amount saved")
-                    dismiss(animated: true)
-                })
+            }, completion: { [self] finished in
+                
+                print("Before Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
+                print("Before Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
+
+                /// DOG - Update collection view
+                if recentDogAmount > newDogAmount {
+                    /// Delete kelebihan row
+                    for i in (newDogAmount ..< recentDogAmount).reversed() {
+                        print("*i: \(i) -> start: \(newDogAmount), end: \(recentDogAmount)")
+                        dogIndexPaths.append(IndexPath(row: i, section: 2))
+                        ReservationManager.shared.updateDogDefaultPrices(indexPath: IndexPath(row: i, section: 2), price: 0)
+                        ReservationManager.shared.updateDogAddOnServicePrices(indexPath: IndexPath(row: i, section: 2), price: 0)
+                        
+                        ReservationManager.shared.dogDefaultPrices.removeLast()
+                        ReservationManager.shared.dogAddOnServicePrices.removeLast()
+                        
+                        print(ReservationManager.shared.dogAddOnServicePrices.count)
+                    }
+                    collectionView.deleteItems(at: dogIndexPaths)
+                    collectionView.reloadData()
+                } else if recentDogAmount < newDogAmount {
+                    /// Tambah row yang kurang
+                    for i in recentDogAmount ..< newDogAmount {
+                        dogIndexPaths.append(IndexPath(row: i, section: 2))
+                        //                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+                        //                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+                        ReservationManager.shared.dogDefaultPrices.append(0)
+                        ReservationManager.shared.dogAddOnServicePrices.append(0)
+                        print(i)
+                    }
+                    // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
+                    collectionView.insertItems(at: dogIndexPaths)
+                    //                collectionView.reloadData()
+                }
+                
+                print("After Update - defaultPrices: \(ReservationManager.shared.dogDefaultPrices)")
+                print("After Update - addOnServicePrices: \(ReservationManager.shared.dogAddOnServicePrices)")
+                
+                
+                print("pet amount saved")
+                dismiss(animated: true)
+            })
             
-        
+            
             
 
             /// Update collection view

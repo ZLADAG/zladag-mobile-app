@@ -45,12 +45,12 @@ final class ReservationManager {
     func updateDogDefaultPrices(indexPath: IndexPath, price: Int){
         updateTotalDefaultPrice(priceBefore: dogDefaultPrices[indexPath.row], priceAfter: price)
         updateTotalOrder(priceBefore: dogDefaultPrices[indexPath.row], priceAfter: price)
-        catDefaultPrices[indexPath.row] = price
+        dogDefaultPrices[indexPath.row] = price
     }
     func updateDogAddOnServicePrices(indexPath: IndexPath, price: Int){
         updateTotalAddOnServicePrice(priceBefore: dogAddOnServicePrices[indexPath.row], priceAfter: price)
         updateTotalOrder(priceBefore: dogAddOnServicePrices[indexPath.row], priceAfter: price)
-        catAddOnServicePrices[indexPath.row] = price
+        dogAddOnServicePrices[indexPath.row] = price
     }
     
     /// TOTAL ALL
