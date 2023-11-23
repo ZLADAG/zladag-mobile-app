@@ -55,8 +55,6 @@ class SpesiesButton: UIButton {
             iconImageView.widthAnchor.constraint(equalToConstant: iconImageView.width),
             iconImageView.heightAnchor.constraint(equalToConstant: iconImageView.height),
         ])
-        
-        
     }
     
     func setupLabel() {

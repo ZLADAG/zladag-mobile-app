@@ -110,7 +110,9 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         if optionType!.contains("apple") {
             print("go to SignInBy APPLE ViewController")
-            self.handleSignInWithApple()
+            print(">> SignInBy APPLE IS CURRENTLY DISABLED!")
+            
+//            self.handleSignInWithApple()
         }
         else if optionType!.contains("google") {
             print("go to SignInBy GOOGLE ViewController")
