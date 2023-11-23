@@ -661,8 +661,9 @@ class BoardingDetailsViewController: UIViewController {
         control.currentPageIndicatorTintColor = .white
         control.backgroundColor = .clear
         control.contentVerticalAlignment = .bottom
+        control.isUserInteractionEnabled = false
         
-        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
+//        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
         
         return control
     }

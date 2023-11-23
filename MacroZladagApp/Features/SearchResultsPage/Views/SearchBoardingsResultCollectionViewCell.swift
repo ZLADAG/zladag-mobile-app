@@ -194,6 +194,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         for facility in facilities[0..<Int(floor(CGFloat(Double(facilities.count) / 1.5)))] {
             let aView: UIView = {
                 let aView = UIView()
+                aView.backgroundColor = .facilityBlue
                 
                 let label = UILabel()
                 label.text = facility
@@ -323,73 +324,17 @@ extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UIC
     
     
     // DISARANKAN UTK DIMATIKAN!!!!!!!
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let viewModel else { return }
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//        
-//        let group = DispatchGroup()
-//        group.enter()
-//        
-////        let vc = BoardingDetailsViewController(group: group)
-////        let vc = BoardingDetailsViewController(group: group)
-//        let vc = BoardingDetailsViewController(slug: viewModel.slug)
-//        vc.hidesBottomBarWhenPushed = true
-//        vc.navigationItem.largeTitleDisplayMode = .always
-//        vc.navigationController?.navigationBar.prefersLargeTitles = true
-//        
-//        APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
-//            defer {
-//                group.leave()
-//            }
-//
-//            switch result {
-//            case .success(let response):
-//                vc.viewModel = BoardingDetailsViewModel(
-//                    name: response.data.name,
-//                    distance: response.data.distance,
-//                    address: response.data.address,
-//                    slug: response.data.slug,
-//                    description: response.data.description,
-//                    boardingCategory: response.data.boardingCategory,
-//                    subdistrictName: response.data.subdistrict,
-//                    provinceName: response.data.province,
-////                    boardingCages: response.data.boardingCages,
-//                    price: response.data.cheapestLodgingPrice,
-//                    images: response.data.images,
-//                    facilities: response.data.boardingFacilities,
-//                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
-//                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-//                    minimumAge: response.data.minimumAge,
-//                    maximumAge: response.data.maximumAge
-//                )
-//                break
-//            case .failure(let error):
-//                let localResult = Utils.getOneBoardingDetails()!.data
-//                vc.viewModel = BoardingDetailsViewModel(
-//                    name: localResult.name,
-//                    distance: localResult.distance,
-//                    address: localResult.address,
-//                    slug: localResult.slug,
-//                    description: localResult.description,
-//                    boardingCategory: localResult.boardingCategory,
-//                    subdistrictName: localResult.subdistrict,
-//                    provinceName: localResult.province,
-////                    boardingCages: localResult.boardingCages,
-//                    price: localResult.cheapestLodgingPrice,
-//                    images: localResult.images,
-//                    facilities: localResult.boardingFacilities,
-//                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-//                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-//                    minimumAge: localResult.minimumAge,
-//                    maximumAge: localResult.maximumAge
-//                )
-//                print(error.localizedDescription)
-//                break
-//            }
-//        }
-//        
-//        self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel else { return }
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let vc = BoardingDetailsViewController(slug: viewModel.slug)
+        vc.hidesBottomBarWhenPushed = true
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
+    }
     
     
 }

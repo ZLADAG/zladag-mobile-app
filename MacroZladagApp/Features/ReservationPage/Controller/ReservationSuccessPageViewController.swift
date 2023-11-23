@@ -8,6 +8,8 @@
 import UIKit
 
 class ReservationSuccessPageViewController: UIViewController {
+    
+    var upperViewController: ReservationViewController?
 
     var orderHistoryButton : PrimaryButtonFilled!
 
@@ -88,5 +90,7 @@ class ReservationSuccessPageViewController: UIViewController {
 extension ReservationSuccessPageViewController : PrimaryButtonFilledDelegate {
     func btnTapped() {
         print("ReservationSuccessPageViewController tapped")
+        dismiss(animated: true)
+        self.upperViewController?.navigationController?.popToRootViewController(animated: true)
     }
 }

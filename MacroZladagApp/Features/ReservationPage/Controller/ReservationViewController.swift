@@ -308,7 +308,8 @@ extension ReservationViewController : TotalPriceSummaryCollectionViewCellDelegat
     
     func orderButtonTapped() {
         let successVC = ReservationSuccessPageViewController()
-        present(successVC,animated: true)
+        successVC.upperViewController = self
+        navigationController?.present(successVC,animated: true)
         
         // TODO: GANTI PAKE PUSH CONTROLLER KL UDA JD FLOWNYA
 //        self.navigationController?.pushViewController(vc, animated: true)
