@@ -254,9 +254,11 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
 extension ReservationViewController: PetOrderCollectionViewCellDelegate {
     func addPetOptTapped() {
         
+       
+        self.dismiss(animated: true)
+
         let vc = TambahProfilAnabulViewController()
-        navigationController?.pushViewController(vc, animated: true)
-        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func petOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
