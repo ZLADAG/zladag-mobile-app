@@ -68,6 +68,13 @@ final class APICaller {
         }
     }
     
+    public func getBoardingReservationDataBySlug(slug: String, completion: @escaping (Result<BoardingReservationDataResponse, Error>) -> Void) {
+        print("Slug: \(slug)")
+        getRequest(path: "/boardings/\(slug)/pets-cages-and-services", usingToken: true) { result in
+            completion(result)
+        }
+    }
+    
     public func getProfileOrders(isActive: Bool, completion: @escaping (Result<OrdersResponse, Error>) -> Void) {
         getRequest(path: "/profile/orders?active=\(isActive.description)", usingToken: true) { result in
             completion(result)
@@ -96,7 +103,15 @@ final class APICaller {
             }
     }
     
-    
+    public func postCreateOrder(createReservationBody: CreateReservationBody, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequest(
+            path: "/profile/orders/store",
+            usingToken: true,
+            body: createReservationBody) { result in
+                completion(result)
+            }
+    }
+
     public func postFcmToken(firebaseCloudMessagingToken: FirebaseCloudMessagingToken, completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
         postRequest(
             path: "/set-token",
@@ -128,7 +143,8 @@ final class APICaller {
         var request = URLRequest(url: apiURL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
+        print(AuthManager.shared.token)
+
         if usingToken {
             request.addValue(
                 "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),

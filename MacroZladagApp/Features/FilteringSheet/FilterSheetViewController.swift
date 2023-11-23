@@ -666,6 +666,7 @@ class FilterSheetViewController: UIViewController {
             khususKucingSwitch.topAnchor.constraint(equalTo: divider4.bottomAnchor, constant: 24),
             khususKucingSwitch.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             khususKucingSwitch.widthAnchor.constraint(equalToConstant: 342),
+            khususKucingSwitch.widthAnchor.constraint(equalToConstant: 342),
             khususKucingSwitch.heightAnchor.constraint(equalToConstant: 31),
             
             khususAnjingSwitch.topAnchor.constraint(equalTo: khususKucingSwitch.bottomAnchor, constant: 24),

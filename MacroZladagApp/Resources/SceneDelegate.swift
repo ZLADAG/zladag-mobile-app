@@ -48,8 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              
              -  UI VIEW UNTUK NOT LOGGED IN STATE
              */
-        
-        
+
         self.window = window
         self.window?.makeKeyAndVisible()
     }

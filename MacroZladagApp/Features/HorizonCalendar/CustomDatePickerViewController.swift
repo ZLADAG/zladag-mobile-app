@@ -7,9 +7,15 @@
 
 import UIKit
 import HorizonCalendar
-
+protocol CustomDatePickerViewControllerDelegate {
+    func datePickerSaveButtonTapped()
+}
 class CustomDatePickerViewController: UIViewController {
 
+    var delegate: CustomDatePickerViewControllerDelegate?
+    
+    var headerDateInputCell: HeaderDateInputCollectionViewCell?
+    
     var mainView: MainHeaderCollectionReusableView?
     var controllerDelegate: SearchResultsViewController?
     var ubahControllerDelegate: UbahPencarianViewController?
@@ -372,6 +378,8 @@ class CustomDatePickerViewController: UIViewController {
         
 //        print(self.mainView?.minDate) // MARK: CATATAN
 //        print(self.mainView?.maxDate)
+        
+        delegate?.datePickerSaveButtonTapped()
         
         dismiss(animated: true)
     }

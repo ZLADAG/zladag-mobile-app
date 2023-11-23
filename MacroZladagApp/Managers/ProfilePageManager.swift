@@ -24,7 +24,7 @@ final class ProfilePageManager {
             PetProfile(id: "2", name: "Mengg", petBreed: "Garong", age: 1, image: "dummy-image"),
             PetProfile(id: "3", name: "Gukk", petBreed: "Husky", age: 0.5, image: "dummy-image"),
         ]
-        
+
         /*
          
          dummyPetDetails = [
