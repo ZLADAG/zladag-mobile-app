@@ -352,7 +352,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.separatorInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             }
             cell.configure(petDetails: viewModel.pets[indexPath.row])
-            print(">>", viewModel.pets[indexPath.row].petBreed)
+
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: TambahAnabulTableViewCell.identifier, for: indexPath) as! TambahAnabulTableViewCell
