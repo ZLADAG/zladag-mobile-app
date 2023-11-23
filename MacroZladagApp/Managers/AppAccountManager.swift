@@ -33,6 +33,7 @@ final class AppAccountManager {
         
         return Utils.getFormattedDateShortedWithYear(date: Date())
     }()
+    
     var selectedDay1: Day?
     var selectedDay2: Day?
     

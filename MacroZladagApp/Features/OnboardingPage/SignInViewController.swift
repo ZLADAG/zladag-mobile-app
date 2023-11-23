@@ -41,6 +41,9 @@ class SignInViewController: UIViewController {
         overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
+        
         setUpComponents()
         
         switchOnboardPromptLB.delegate = self
