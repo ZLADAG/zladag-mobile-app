@@ -159,13 +159,13 @@ final class APICaller {
             }
             
             do {
-                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(json)
-                
                 let result = try JSONDecoder().decode(T.self, from: data)
                 print("GET \(path)")
                 completion(Result.success(result))
             } catch {
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+                
                 print("error in GET \(path)\n", error.localizedDescription)
                 completion(Result.failure(error))
             }
@@ -199,12 +199,12 @@ final class APICaller {
             }
             
             do {
-                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(json)
-
                 let result = try JSONDecoder().decode(A.self, from: data)
                 completion(Result.success(result))
             } catch {
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+                
                 print("error when decoding in \(path):\n", error.localizedDescription)
                 completion(Result.failure(error))
             }

@@ -76,7 +76,7 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         scrollView.scrollsToTop = false
         
         /// Photo
-        let photoName = !(petProfile.image.isEmpty) ? petProfile.image : "dummy-image"
+        let photoName: String = getPhotoName()
         
         photo = createImage(photoName)
         let petBiodata = PetBiodataView(petProfile: petProfile)
@@ -143,11 +143,15 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        if !(imgName == "dummy-image") {
-            imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imgName)))
+        if imgName.contains("Assets.xcassets/") {
+            let defaultImgName: String = String(imgName.split(separator: "Assets.xcassets/").last ?? "dummy-image")
+            print("PROCEED TO DEFAULT IMAGE: \(defaultImgName)")
+            imageView.image = UIImage(named: defaultImgName)
         } else {
-            imageView.image = UIImage(named: imgName)
+            print("imgName path EXISTS! ->", imgName)
+            imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imgName)))
         }
+        
         imageView.contentMode = .scaleAspectFill
         
         imageView.clipsToBounds = true
@@ -190,6 +194,24 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
 
 
 extension ProfilePetListDetailsViewController {
+    
+    private func getPhotoName() -> String {
+        if let goodImage = petProfile.image {
+            print("good image:", goodImage)
+            return goodImage
+        } else {
+            // SWITCH: Dog || Cat
+            let petCategory = self.petProfile.petCategory
+            
+            if petCategory == "Dog" {
+                return "Assets.xcassets/default-dog-image"
+            } else if petCategory == "Cat" {
+                return "Assets.xcassets/default-cat-image"
+            } else {
+                return "Assets.xcassets/dummy-image"
+            }
+        }
+    }
    
     private func createPetInfo() -> UIView {
         /// Facility preference
@@ -276,7 +298,9 @@ extension ProfilePetListDetailsViewController {
     
     private func addPetHabitsCollection() {
         addChild(habitsCollection)
-        habitsCollection.habits = petProfile.petHabits
+        habitsCollection.habits = petProfile.petHabits.compactMap({ petHabit in
+            return petHabit.name
+        })
 
         habitsContent = UIView()
         habitsContent.addSubview(habitsCollection.view)

@@ -31,7 +31,7 @@ class PetBiodataView: UIView {
         self.backgroundColor = .white
         /// Name card
         let name = petProfile.name
-        let type = petProfile.petBreed
+        let type = petProfile.petBreed.name
         let gender = petProfile.petGender
         
         let nameCard = PetNameCard(name, type, gender)
@@ -41,13 +41,13 @@ class PetBiodataView: UIView {
         var healthRecords : [String] = []
         
         if petProfile.hasBeenVaccinatedRoutinely {
-            healthRecords.append("Sudah Vaksin")
+            healthRecords.append("Vaksin")
         }
         if petProfile.hasBeenSterilized {
-            healthRecords.append("Sudah Steril")
+            healthRecords.append("Steril")
         }
         if petProfile.hasBeenFleaFreeRegularly {
-            healthRecords.append("Sudah Kutu")
+            healthRecords.append("Bebas Kutu")
         }
         
         let healthStack = UIStackView()
