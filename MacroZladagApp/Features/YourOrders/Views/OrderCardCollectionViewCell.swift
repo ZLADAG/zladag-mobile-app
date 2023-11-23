@@ -46,8 +46,9 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         layer.masksToBounds = true
 
-//        setupHotelNameLabel(hotelName: viewModel.hotelName)
-        setupHotelNameLabel(hotelName: viewModel.id)
+//        setupHotelNameLabel(hotelName: viewModel.id) //  FOR DEBUGGING!
+        
+        setupHotelNameLabel(hotelName: viewModel.hotelName)
         setupDateLabel(startDate: viewModel.startDate, endDate: viewModel.endDate)
         setupPetNameLabel(petName: viewModel.petName)
         setupDividerView()

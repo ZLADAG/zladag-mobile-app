@@ -117,6 +117,7 @@ class TambahProfilAnabulViewController: UIViewController {
         
         title = "Tambah Profil Anabul"
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         
         setupScrollView()
         setupContentView()
@@ -913,19 +914,23 @@ class TambahProfilAnabulViewController: UIViewController {
                 SpesiesButton.unclick(kucingSpesiesButton)
             }
             
+            rasDropDownButtonIsClicked = true
+            kebiasaanDropDownButtonIsClicked = true
+            
             // HIT!
             fetchBreedsAndHabits(with: "dog")
             self.requiredFieldsAlert.append(.speciesIsNotSelected)
             
-            rasDropDownButtonIsClicked = false
-            kebiasaanDropDownButtonIsClicked = false
-            
             rasChevronImageView.image = UIImage(systemName: "chevron.down")
             chevronImageView.image = UIImage(systemName: "chevron.down")
             
-            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         } else {
+            
+            rasDropDownButtonIsClicked = false
+            kebiasaanDropDownButtonIsClicked = false
+            
             SpesiesButton.unclick(anjingSpesiesButton)
             
             // CLEAR!
@@ -954,19 +959,23 @@ class TambahProfilAnabulViewController: UIViewController {
                 SpesiesButton.unclick(anjingSpesiesButton)
             }
             
-            // HIT!
-            fetchBreedsAndHabits(with: "cat")
-            self.requiredFieldsAlert.append(.speciesIsNotSelected)
+            rasDropDownButtonIsClicked = true
+            kebiasaanDropDownButtonIsClicked = true
             
-            rasDropDownButtonIsClicked = false
-            kebiasaanDropDownButtonIsClicked = false
+            // HIT!
+            self.fetchBreedsAndHabits(with: "cat")
+            self.requiredFieldsAlert.append(.speciesIsNotSelected)
             
             rasChevronImageView.image = UIImage(systemName: "chevron.down")
             chevronImageView.image = UIImage(systemName: "chevron.down")
             
-            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         } else {
+            
+            rasDropDownButtonIsClicked = false
+            kebiasaanDropDownButtonIsClicked = false
+            
             SpesiesButton.unclick(kucingSpesiesButton)
             
             // CLEAR!
@@ -1237,6 +1246,8 @@ class TambahProfilAnabulViewController: UIViewController {
     
     // MARK: FETCH BREEDS AND HABITS DATA
     func fetchBreedsAndHabits(with species: String) {
+        var success = false
+        
         let group = DispatchGroup()
         group.enter()
         
@@ -1244,7 +1255,6 @@ class TambahProfilAnabulViewController: UIViewController {
             defer {
                 group.leave()
             }
-            
             switch result {
             case .success(let response):
                 self.petBreeds = response.data.petBreeds.compactMap({ petBreed in
@@ -1262,6 +1272,9 @@ class TambahProfilAnabulViewController: UIViewController {
                         name: petHabit.name
                     )
                 })
+                
+                success = true
+                
                 break
             case .failure(_):
                 print("ERROR IN TAMBAH ANABUL VC")
@@ -1275,6 +1288,52 @@ class TambahProfilAnabulViewController: UIViewController {
             
             self.rasTableViewHeightAnchor.constant = 0
             self.kebiasaanTableViewHeightAnchor.constant = 0
+            
+            if success {
+                print(">> YEAHHH")
+                print(self.rasDropDownButtonIsClicked)
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3) {
+                        if self.rasDropDownButtonIsClicked {
+                            self.rasDropDownTableView.isHidden = false
+                            
+                            //                self.kebiasaanTableViewHeightAnchor.constant = (11 * 34)
+                            self.rasTableViewHeightAnchor.constant = CGFloat(self.petBreeds.count * 34)
+                        } else {
+                            self.rasTableViewHeightAnchor.constant = 0
+                        }
+                        
+                        self.view.layoutIfNeeded()
+                    } completion: { isDone in
+                        if isDone {
+                            if !self.rasDropDownButtonIsClicked { // IF NOT CLICKED
+                                self.rasDropDownTableView.isHidden = true
+                                self.rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                            }
+                        }
+                    }
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        if self.kebiasaanDropDownButtonIsClicked {
+                            self.kebiasaanDropDownTableView.isHidden = false
+                            
+                            //                self.kebiasaanTableViewHeightAnchor.constant = (11 * 34)
+                            self.kebiasaanTableViewHeightAnchor.constant = CGFloat(self.petHabits.count * 34)
+                        } else {
+                            self.kebiasaanTableViewHeightAnchor.constant = 0
+                        }
+                        
+                        self.view.layoutIfNeeded()
+                    } completion: { isDone in
+                        if isDone {
+                            if !self.kebiasaanDropDownButtonIsClicked { // IF NOT CLICKED
+                                self.kebiasaanDropDownTableView.isHidden = true
+                                self.kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     

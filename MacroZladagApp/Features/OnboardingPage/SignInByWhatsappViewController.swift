@@ -31,6 +31,8 @@ class SignInByWhatsappViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
         
         setUpComponents()
         

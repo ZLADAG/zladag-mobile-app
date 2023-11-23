@@ -38,6 +38,7 @@ class NamaAnabulTextView: UIView {
         
         textField.backgroundColor = .clear
         textField.placeholder = "Nama anabul kamu?"
+        textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textField.centerXAnchor.constraint(equalTo: centerXAnchor),

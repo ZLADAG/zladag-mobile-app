@@ -8,21 +8,8 @@
 import UIKit
 
 /*
- celine:
- 
- homeVC
- models/smallcell
- */
-
-/*
- dummy account:
-
- "id": "UR9875071824"
- "signMethod": "phoneNumber",
- "name": "danielxyz",
- "phoneNumber": "6212341231210",
- "email": null
-
+ balikin token AuthManager
+ balikin scenedelegate
  */
 
 /*
