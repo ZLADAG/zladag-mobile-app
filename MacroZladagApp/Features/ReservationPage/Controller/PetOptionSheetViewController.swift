@@ -19,7 +19,6 @@ protocol PetOptionSheetViewControllerDelegate {
 
 class PetOptionSheetViewController: UIViewController {
     
-    
     var delegate : PetOptionSheetViewControllerDelegate?
     var addNewPetButton : UIButton!
     var tableView = UITableView()
@@ -149,21 +148,48 @@ class PetOptionSheetViewController: UIViewController {
 
 // MARK: Table View
 extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-        if self.type == .cat {
-            return ReservationManager.shared.reservationModel!.compiledCats.count
-        } else {
-            return ReservationManager.shared.reservationModel!.compiledCats.count
+        switch section {
+        case 0:
+            if self.type == .cat {
+                return ReservationManager.shared.reservationModel!.compiledCats.count
+            } else {
+                return ReservationManager.shared.reservationModel!.compiledCats.count
+            }
+        case 1:
+            if self.type == .cat {
+                return ReservationManager.shared.reservationModel!.uncompiledCats.count
+            } else {
+                return ReservationManager.shared.reservationModel!.uncompiledDogs.count
+            }
+        default:
+            return 0
         }
+       
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
-        cell.profile = compiledPets[indexPath.row]
-        cell.configure(profile: compiledPets[indexPath.row])
-        cell.selectionStyle = .none
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
+            cell.profile = compiledPets[indexPath.row]
+            cell.configure(profile: compiledPets[indexPath.row])
+            cell.selectionStyle = .none
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
+            cell.profile = uncompiledPets[indexPath.row]
+            cell.configure(profile: uncompiledPets[indexPath.row])
+            cell.selectionStyle = .none
+            return cell
+        default:
+            return UITableViewCell()
+        }
+       
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
