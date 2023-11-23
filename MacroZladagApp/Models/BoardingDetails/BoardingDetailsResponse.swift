@@ -8,7 +8,7 @@
 import Foundation
 
 
-/*
+
 struct BoardingDetailsResponse: Codable {
     let data: BoardingDetails
 }
@@ -32,7 +32,7 @@ struct BoardingDetails: Codable {
     let images: [String]
 //    let startCheckInTime: Date
 }
-*/
+
 /*
 [
     BoardingCage(name: "S", length: 35, width: 60),
@@ -42,7 +42,7 @@ struct BoardingDetails: Codable {
  */
 
 
-
+/*
 struct BoardingDetailsResponse: Codable {
     let data: BoardingDetails
 }
@@ -85,5 +85,5 @@ struct BoardingDetails: Codable {
 
     let images: [String]
 }
-
+*/
 

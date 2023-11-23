@@ -51,18 +51,14 @@ class PetOptionTableViewCell: UITableViewCell {
     
     func configureOptionStatus(profile: ReservationPetViewModel) {
     
-        if !profile.hasCompliedThePolicy {
+        if !profile.petDetails.hasCompliedThePolicy {
             optDisabled()
         } else {
-//            if profile.isSelected {
-//                optSelected()
-//            } else {
-                optEnabled()
-//            }
+            optEnabled()
         }
     }
     
-    func updateSelectedProfileData(profile: ReservationPetViewModel) {        
+    func updateSelectedProfileData(profile: ReservationPetViewModel) {
         self.profile = profile
         configureOptionStatus(profile: profile)
         

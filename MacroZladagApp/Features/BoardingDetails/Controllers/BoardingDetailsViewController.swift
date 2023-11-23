@@ -230,7 +230,6 @@ class BoardingDetailsViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .textBlack
-            
         view.backgroundColor = .white
         setupLoadingScreen()
 
@@ -273,6 +272,7 @@ class BoardingDetailsViewController: UIViewController {
                     self.navigationController?.navigationBar.tintColor = .customOrange
                     self.navigationController?.navigationBar.barStyle = .default
                     
+                    self.navigationController?.navigationBar.backgroundColor = .clear
                     self.navigationController?.navigationBar.isTranslucent = true
                     
                     // Create the button
@@ -763,13 +763,8 @@ class BoardingDetailsViewController: UIViewController {
             
             navigationController?.present(navVc, animated: true, completion: nil)
         } else {
-            let vc = ReservationViewController()
+            let vc = ReservationViewController(slug: slug)
             navigationController?.pushViewController(vc, animated: true)
-            
-//            APICaller.shared.getBoardingReservationDataBySlug(slug: slug) { result in
-//                print(result)
-//                print("ok")
-//            }
 
         }
     }

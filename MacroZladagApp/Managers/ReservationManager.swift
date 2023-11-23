@@ -11,8 +11,12 @@ final class ReservationManager {
    
     private init() {}
 
-    var reservationModel = ReservationViewModel()
-      
+    var reservationModel : ReservationViewModel!
+    var compliedCats: [ReservationPetViewModel] = []
+    var compliedDogs: [ReservationPetViewModel] = []
+    var uncompliedCats: [ReservationPetViewModel] = []
+    var uncompliedDogs: [ReservationPetViewModel] = []
+    
 //    var selectedCatProfile : [] = []
     var catDefaultPrices : [Int] = []
     var catAddOnServicePrices : [Int] = []

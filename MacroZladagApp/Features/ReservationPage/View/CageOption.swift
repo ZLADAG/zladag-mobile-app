@@ -93,10 +93,7 @@ class CageOption: UIView {
 
         if self.isClicked {
             activateButton()
-        } else {
-            deactivateButton()
         }
-//        delegate?.radioButtonTapped(idx: self.idx)
         
         /// send index data value
         delegate?.radioButtonTapped(idx: self.idx, priceWithAmount: self.priceWithAmount)

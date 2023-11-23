@@ -13,7 +13,7 @@ struct BoardingReservationDataResponse: Codable {
 struct ReservationDetails: Codable {
     var boarding: ReservationBoardingInfo
     var pets: ReservationPets
-    var boardingCage: [ReservationCageInfo]
+    var boardingCages: [ReservationCageInfo]
     var boardingServices: [ReservationServiceInfo]
 }
 

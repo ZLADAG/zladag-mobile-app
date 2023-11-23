@@ -24,7 +24,8 @@ class PetOptionSheetViewController: UIViewController {
     var tableView = UITableView()
 
     private var type: PetType!
-    private var pets : [ReservationPetViewModel] = []
+    private var compiledPets : [ReservationPetViewModel] = []
+    private var uncompiledPets : [ReservationPetViewModel] = []
     private var selectedPet : ReservationPetViewModel?
     
     override func viewDidLoad() {
@@ -38,9 +39,12 @@ class PetOptionSheetViewController: UIViewController {
         self.type = type
         
         if type == .cat {
-            pets = ReservationManager.shared.reservationModel.cats
+            compiledPets = ReservationManager.shared.reservationModel!.compiledCats
+            uncompiledPets = ReservationManager.shared.reservationModel!.uncompiledCats
         } else {
-            pets = ReservationManager.shared.reservationModel.dogs
+            compiledPets = ReservationManager.shared.reservationModel!.compiledDogs
+            uncompiledPets = ReservationManager.shared.reservationModel!.uncompiledDogs
+
         }
         
     }
@@ -144,16 +148,16 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
         if self.type == .cat {
-            return ReservationManager.shared.reservationModel.cats.count
+            return ReservationManager.shared.reservationModel!.compiledCats.count
         } else {
-            return ReservationManager.shared.reservationModel.dogs.count
+            return ReservationManager.shared.reservationModel!.compiledCats.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PetOptionTableViewCell.identifier, for: indexPath) as! PetOptionTableViewCell
-        cell.profile = pets[indexPath.row]
-        cell.configure(profile: pets[indexPath.row])
+        cell.profile = compiledPets[indexPath.row]
+        cell.configure(profile: compiledPets[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
@@ -162,8 +166,8 @@ extension PetOptionSheetViewController: UITableViewDelegate, UITableViewDataSour
         if let cell = tableView.cellForRow(at: indexPath) as? PetOptionTableViewCell {
 //            print(cell.profile)
             
-            pets[indexPath.row].isSelected = true
-            ReservationManager.shared.reservationModel.cats[indexPath.row].isSelected = pets[indexPath.row].isSelected
+            compiledPets[indexPath.row].isSelected = true
+            ReservationManager.shared.reservationModel!.compiledCats[indexPath.row].isSelected = compiledPets[indexPath.row].isSelected
             
             cell.profile.isSelected = !cell.profile.isSelected
             cell.updateSelectedProfileData(profile: cell.profile)

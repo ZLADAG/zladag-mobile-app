@@ -11,17 +11,89 @@ class ReservationViewController: UIViewController {
         
     var collectionView: UICollectionView!
     
-    
-    
     var totalDefaultPrice = 0
     var totalAddOnServicePrice = 0
     var date = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCollectionView()
+    var slug: String
+
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
+    init(slug: String) {
+        self.slug = slug
+        super.init(nibName: nil, bundle: nil)
+        print(slug)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setupLoadingScreen()
+        APICaller.shared.getBoardingReservationDataBySlug(slug: self.slug) { result in
+            var success = false
+            switch result {
+            case .success(let response):
+                print(response.data)
+                print("ok")
+                ReservationManager.shared.reservationModel = ReservationViewModel(
+                    slug: response.data.boarding.slug,
+                    name: response.data.boarding.name,
+                    cats: response.data.pets.cats,
+                    dogs: response.data.pets.dogs,
+                    cages: response.data.boardingCages,
+                    services: response.data.boardingServices)
+                
+                success = true
+                break
+            case .failure(let error):
+                print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
+            }
+            
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    
+                    self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+                    self.navigationItem.title = "\(ReservationManager.shared.reservationModel!.name)"
+                    
+                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+
+                    self.navigationController?.navigationBar.tintColor = .customOrange
+                    self.navigationController?.navigationBar.barStyle = .default
+                    
+                    self.navigationController?.navigationBar.isTranslucent = true
+                    
+                   
+                    self.setupCollectionView()
+                    
+                    self.spinner.stopAnimating()
+                    self.spinner.hidesWhenStopped = true
+                    self.spinner.isHidden = true
+                })
+            }
+        }
+    }
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.frame = CGRect(
+            x: view.frame.midX - 25,
+            y: view.frame.midY - 25,
+            width: 50,
+            height: 50
+        )
+        
+        spinner.startAnimating()
+    }
     func setupCollectionView() {
         
         let layout = UICollectionViewCompositionalLayout { (sectionIdx, environment) -> NSCollectionLayoutSection? in
@@ -42,7 +114,7 @@ class ReservationViewController: UIViewController {
             case 1:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(600))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(700))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 sectionLayout = NSCollectionLayoutSection(group: group)
             
@@ -53,16 +125,25 @@ class ReservationViewController: UIViewController {
                 if ReservationManager.shared.catAddOnServicePrices.isEmpty {
                     ReservationManager.shared.catAddOnServicePrices = Array(repeating: 0, count: amount)
                 }
+                
             /// Dog Orders
-//            case 2:
-//                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(600))
-//                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-//                sectionLayout = NSCollectionLayoutSection(group: group)
+            case 2:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(700))
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                sectionLayout = NSCollectionLayoutSection(group: group)
+            
+                let amount = AppAccountManager.shared.kucingCount
+                if ReservationManager.shared.dogDefaultPrices.isEmpty {
+                    ReservationManager.shared.dogDefaultPrices = Array(repeating: 0, count: amount)
+                }
+                if ReservationManager.shared.dogAddOnServicePrices.isEmpty {
+                    ReservationManager.shared.dogAddOnServicePrices = Array(repeating: 0, count: amount)
+                }
               
             /// TotalPrice
-            case 2:
+            case 3:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
@@ -99,7 +180,7 @@ class ReservationViewController: UIViewController {
 
 extension ReservationViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 4
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -107,10 +188,9 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             return 2
         case 1:
             return AppAccountManager.shared.kucingCount
-//        case 2:
-////            return 0
-//            return AppAccountManager.shared.anjingCount
         case 2:
+            return AppAccountManager.shared.anjingCount
+        case 3:
             return 1
         default:
             return 0
@@ -139,24 +219,22 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             cell.backgroundColor = .white
             
             cell.delegate = self
-            
             cell.type = .cat
             cell.titleLabel.text = "Kucing \(indexPath.row + 1)"
             print("Kucing \(indexPath)")
             return cell
-//        case 2:
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
-//            cell.backgroundColor = .white
-//
-//            cell.delegate = self
-//
-//            cell.type = .dog
-//            cell.titleLabel.text = "Anjing \(indexPath.row + 1)"
-//
-//            print("Anjing \(indexPath)")
-//
-//            return cell
         case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
+            cell.backgroundColor = .white
+
+            cell.delegate = self
+            cell.type = .dog
+            cell.titleLabel.text = "Anjing \(indexPath.row + 1)"
+            
+            print("Anjing \(indexPath)")
+
+            return cell
+        case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPriceSummaryCollectionViewCell.identifier, for: indexPath) as! TotalPriceSummaryCollectionViewCell
 
             cell.backgroundColor = .white
@@ -296,6 +374,7 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
             let recentDogAmount = collectionView.numberOfItems(inSection: 1)
             
             var catIndexPaths : [IndexPath] = []
+            var dogIndexPaths : [IndexPath] = []
             
             /// Print data source arrays before changes
             print("Before Update - defaultPrices: \(ReservationManager.shared.catDefaultPrices)")
@@ -304,7 +383,7 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
             /// Update button info label
             petAmountCell.updateInfoLabel(cats: newCatAmount, dogs: newDogAmount)
 
-            /// Update collection view
+            /// CAT - Update collection view
             if recentCatAmount > newCatAmount {
                 /// Delete kelebihan row
                 for i in (newCatAmount ..< recentCatAmount).reversed() {
@@ -332,6 +411,37 @@ extension ReservationViewController: CatsAndDogsCounterViewControllerDelegate {
                 }
                 // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
                 collectionView.insertItems(at: catIndexPaths)
+//                collectionView.reloadData()
+            }
+            
+            /// DOG - Update collection view
+            if recentDogAmount > newDogAmount {
+                /// Delete kelebihan row
+                for i in (newDogAmount ..< recentDogAmount).reversed() {
+                    print("*i: \(i) -> start: \(newDogAmount), end: \(recentDogAmount)")
+                    dogIndexPaths.append(IndexPath(row: i, section: 1))
+                    ReservationManager.shared.updateDogDefaultPrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+                    ReservationManager.shared.updateDogAddOnServicePrices(indexPath: IndexPath(row: i, section: 1), price: 0)
+
+                    ReservationManager.shared.dogDefaultPrices.removeLast()
+                    ReservationManager.shared.dogAddOnServicePrices.removeLast()
+
+                    print(ReservationManager.shared.dogAddOnServicePrices.count)
+                }
+                collectionView.deleteItems(at: dogIndexPaths)
+                collectionView.reloadData()
+            } else if recentDogAmount < newDogAmount {
+                /// Tambah row yang kurang
+                for i in recentDogAmount ..< newDogAmount {
+                    dogIndexPaths.append(IndexPath(row: i, section: 1))
+//                    ReservationManager.shared.defaultPrices.insert(0, at: i)
+//                    ReservationManager.shared.addOnServicePrices.insert(0, at: i)
+                    ReservationManager.shared.dogDefaultPrices.append(0)
+                    ReservationManager.shared.dogAddOnServicePrices.append(0)
+                    print(i)
+                }
+                // TODO: Kenapa kl action yg atas sync sm yg baru ditambah?
+                collectionView.insertItems(at: dogIndexPaths)
 //                collectionView.reloadData()
             }
             

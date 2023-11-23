@@ -32,7 +32,7 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     var petOptDefaultContent : UIStackView!
     var petOptProfileContent : UIStackView!
     
-    var cageOptTitleLabel : UILabel!
+    var cageOptTitleLabel : NecessarryFieldLabel!
     var allCageOpt : [CageOption]!
     var addOnOptTitleLabel : UILabel!
     
@@ -179,20 +179,31 @@ extension PetOrderCollectionViewCell {
     }
     
     private func setCageOption() {
-        cageOptTitleLabel = createLabel("Kandang (per malam)")
+        cageOptTitleLabel = NecessarryFieldLabel(textValue: "Kandang")
         cageOptTitleLabel.font = .boldSystemFont(ofSize: 14)
         
-        let smallCage = CageOption(name: "Kandang Kecil", price: 30000)
-        smallCage.idx = 0
+        let cages = ReservationManager.shared.reservationModel!.cages
         
-        let largeCage = CageOption(name: "Kandang Besar", price: 20000)
-        largeCage.idx = 1
+//        let smallCage = CageOption(name: "Kandang Kecil", price: 30000)
+//        smallCage.idx = 0
+//
+//        let largeCage = CageOption(name: "Kandang Besar", price: 20000)
+//        largeCage.idx = 1
+//
+//        smallCage.delegate = self
+//        largeCage.delegate = self
+        allCageOpt = []
         
-        smallCage.delegate = self
-        largeCage.delegate = self
-        allCageOpt = [smallCage, largeCage]
+        var idx = 0
+        for cage in cages {
+            let option =  CageOption(name: cage.name, price: cage.price)
+            option.idx = idx
+            idx += 1;
+            option.delegate = self
+            allCageOpt.append(option)
+        }
         
-        let allCageOptStack = createStack(views: [smallCage, largeCage], spacing: 16)
+        let allCageOptStack = createStack(views: allCageOpt, spacing: 16)
         let content = createStack(views: [cageOptTitleLabel, allCageOptStack], spacing: 7)
         
         cellContent.addArrangedSubview(content)
@@ -204,7 +215,7 @@ extension PetOrderCollectionViewCell {
         addOnOptTitleLabel = createLabel("Add-on Service")
         addOnOptTitleLabel.font = .boldSystemFont(ofSize: 14)
 //        let services = ["Grooming","Pick Up", "Pet Food"]
-        let services = ReservationManager.shared.reservationModel.services
+        let services = ReservationManager.shared.reservationModel!.services
         let allServiceOpt = createStack(views: [], spacing: 16)
         var idx = 0
         for service in services {
@@ -291,17 +302,12 @@ extension PetOrderCollectionViewCell {
 extension PetOrderCollectionViewCell: CageOptionDelegate {
     func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount) {
         /// Appearance
-        switch idx {
-        case 0:
-            allCageOpt[1].isClicked = false
-            allCageOpt[1].deactivateButton()
-            
-        case 1:
-            allCageOpt[0].isClicked = false
-            allCageOpt[0].deactivateButton()
-            
-        default:
-            print("invalid idx cage button")
+        let endIndex = ReservationManager.shared.reservationModel.cages.count
+        for i in 0..<endIndex {
+            if i != idx {
+                allCageOpt[i].isClicked = false
+                allCageOpt[i].deactivateButton()
+            }
         }
         
         /// Price Calculation

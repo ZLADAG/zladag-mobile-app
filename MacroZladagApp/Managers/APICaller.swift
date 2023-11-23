@@ -39,7 +39,7 @@ final class APICaller {
     
     public func getBoardingBySlug(slug: String, completion: @escaping (Result<BoardingDetailsResponse, Error>) -> Void) {
         print("Slug: \(slug)")
-        getRequest(path: "/boardings/\(slug)?latitude=37.785834&longitude=-122.406417") { result in
+        getRequest(path: "/boardings/\(slug)") { result in
             completion(result)
         }
     }
