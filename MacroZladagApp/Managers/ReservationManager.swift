@@ -17,7 +17,10 @@ final class ReservationManager {
     var uncompliedCats: [ReservationPetViewModel] = []
     var uncompliedDogs: [ReservationPetViewModel] = []
     
-//    var selectedCatProfile : [] = []
+    var selectedCatProfiles : [ReservationPetViewModel?] = []
+    var selectedDogProfiles : [ReservationPetViewModel?] = []
+//    var selectedCatIndexPath : [] = []
+    
     var catDefaultPrices : [Int] = []
     var catAddOnServicePrices : [Int] = []
     
@@ -30,6 +33,9 @@ final class ReservationManager {
     var totalOrder = 0
     
     /// CAT
+    func updateSelectedCat(indexPath: IndexPath, profile: ReservationPetViewModel?) {
+        selectedCatProfiles[indexPath.row] = profile
+    }
     func updateCatDefaultPrices(indexPath: IndexPath, price: Int){
         updateTotalDefaultPrice(priceBefore: catDefaultPrices[indexPath.row], priceAfter: price)
         updateTotalOrder(priceBefore: catDefaultPrices[indexPath.row], priceAfter: price)
