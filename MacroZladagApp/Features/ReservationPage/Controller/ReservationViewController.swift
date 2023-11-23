@@ -133,7 +133,7 @@ class ReservationViewController: UIViewController {
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(700))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 sectionLayout = NSCollectionLayoutSection(group: group)
-            
+
                 let amount = AppAccountManager.shared.anjingCount
                 if ReservationManager.shared.dogDefaultPrices.isEmpty {
                     ReservationManager.shared.dogDefaultPrices = Array(repeating: 0, count: amount)
@@ -166,6 +166,7 @@ class ReservationViewController: UIViewController {
         collectionView.register(HeaderDateInputCollectionViewCell.self, forCellWithReuseIdentifier: HeaderDateInputCollectionViewCell.identifier)
         collectionView.register(HeaderPetAmountInputCollectionViewCell.self, forCellWithReuseIdentifier: HeaderPetAmountInputCollectionViewCell.identifier)
         collectionView.register(PetOrderCollectionViewCell.self, forCellWithReuseIdentifier: PetOrderCollectionViewCell.identifier)
+        collectionView.register(DogOrderCollectionViewCell.self, forCellWithReuseIdentifier: DogOrderCollectionViewCell.identifier)
         collectionView.register(TotalPriceSummaryCollectionViewCell.self, forCellWithReuseIdentifier: TotalPriceSummaryCollectionViewCell.identifier)
         
         collectionView.delegate = self
@@ -224,13 +225,13 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             print("Kucing \(indexPath)")
             return cell
         case 2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetOrderCollectionViewCell.identifier, for: indexPath) as! PetOrderCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DogOrderCollectionViewCell.identifier, for: indexPath) as! DogOrderCollectionViewCell
             cell.backgroundColor = .white
 
             cell.delegate = self
             cell.type = .dog
             cell.titleLabel.text = "Anjing \(indexPath.row + 1)"
-            
+
             print("Anjing \(indexPath)")
 
             return cell
@@ -293,6 +294,48 @@ extension ReservationViewController: PetOrderCollectionViewCellDelegate {
             totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
         }
     }
+}
+extension ReservationViewController: DogOrderCollectionViewCellDelegate {
+    func dogOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
+        let sheetVC = PetOptionSheetViewController()
+        let orderCell = cell as! DogOrderCollectionViewCell
+        
+        sheetVC.delegate = orderCell
+        sheetVC.setType(type: orderCell.type)
+        self.collectionView.reloadData()
+        
+        let navVc = UINavigationController(rootViewController: sheetVC)
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 10
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.75 * context.maximumDetentValue
+                })
+            ]
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        present(navVc, animated: true, completion: nil)
+    }
+    
+    func dogCageOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
+        if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
+            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
+            totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
+            totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
+            totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
+        }
+    }
+    
+    func dogServiceOptTapped(cell: UICollectionViewCell, atIndexPath: IndexPath) {
+        if let totalPriceCell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 2)) as? TotalPriceSummaryCollectionViewCell {
+            totalPriceCell.updatePetAmountLabel(amount: ReservationManager.shared.totalPets)
+            totalPriceCell.updateDefaultPriceLabel(price: ReservationManager.shared.totalDefaultPrice)
+            totalPriceCell.updateAddOnServicePriceLabel(price: ReservationManager.shared.totalAddOnServicePrice)
+            totalPriceCell.updateTotalPriceLabel(price: ReservationManager.shared.totalOrder)
+        }
+    }
+    
 }
 
 // MARK: Total Payment Cell
