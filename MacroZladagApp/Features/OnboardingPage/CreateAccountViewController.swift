@@ -44,6 +44,9 @@ class CreateAccountViewController: UIViewController {
         overrideUserInterfaceStyle  = .light
         view.backgroundColor = .white
         
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
+        
         setUpComponents()
         
         nextButton.delegate = self
