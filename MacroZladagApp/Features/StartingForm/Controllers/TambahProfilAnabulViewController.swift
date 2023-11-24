@@ -1264,7 +1264,6 @@ class TambahProfilAnabulViewController: UIViewController {
         
         if self.view.frame.origin.y == 0 {
             self.view.frame.origin.y -= keyboardFrame.height
-            self.profileImageViewButtonTopAnchor.constant = 260
         }
         
     }
@@ -1278,7 +1277,6 @@ class TambahProfilAnabulViewController: UIViewController {
         
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y += keyboardFrame.height
-            self.profileImageViewButtonTopAnchor.constant = 24
         }
     }
 

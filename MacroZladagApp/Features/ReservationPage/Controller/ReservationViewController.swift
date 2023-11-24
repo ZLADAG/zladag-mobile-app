@@ -329,12 +329,6 @@ extension ReservationViewController : TotalPriceSummaryCollectionViewCellDelegat
             }
         }
         
-        var postOrdersBody2 = PostOrdersBody()
-        postOrdersBody2.boarding = "pinkpetz"
-        postOrdersBody2.checkInDate = "2023-12-22"
-        postOrdersBody2.checkOutDate = "2023-12-23"
-        postOrdersBody2.orders = [PetDetailsForOrder(petId: "PT6522321364", note: "x", boardingCageId: "BF5474689054", boardingServiceIds: ["BF3890412831", "BF3511921720", "BF2073565413"])]
-        
         APICaller.shared.postPetOrder(postOrdersBody: postOrdersBody) { result in
             switch result {
             case .success(let response):
