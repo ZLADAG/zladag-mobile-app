@@ -37,6 +37,7 @@ class TambahProfilAnabulViewController: UIViewController {
     
     let profileImageViewButton = ProfileImageViewButton()
     let locationIconView = IconView(iconName: "location-icon-white")
+    var profileImageViewButtonTopAnchor = NSLayoutConstraint()
     
     let informasiPetSectionLabel = SectionLabel(for: "Informasi Pet")
     let preferensiPetSectionLabel = SectionLabel(for: "Preferensi Pet")
@@ -118,6 +119,9 @@ class TambahProfilAnabulViewController: UIViewController {
         title = "Tambah Profil Anabul"
         view.backgroundColor = .white
         overrideUserInterfaceStyle = .light
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupScrollView()
         setupContentView()
@@ -220,8 +224,10 @@ class TambahProfilAnabulViewController: UIViewController {
         profileImageViewButton.layer.masksToBounds = true
         
         profileImageViewButton.translatesAutoresizingMaskIntoConstraints = false
+        self.profileImageViewButtonTopAnchor = profileImageViewButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24)
+        profileImageViewButtonTopAnchor.isActive = true
+        
         NSLayoutConstraint.activate([
-            profileImageViewButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
             profileImageViewButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             profileImageViewButton.widthAnchor.constraint(equalToConstant: 96),
             profileImageViewButton.heightAnchor.constraint(equalToConstant: 96),
@@ -477,8 +483,29 @@ class TambahProfilAnabulViewController: UIViewController {
         ])
     }
     
+    @objc func doneButtonActionUsia() {
+        self.usiaTextView.textField.resignFirstResponder()
+    }
+    
+    @objc func doneButtonActionBerat() {
+        self.beratTextView.textField.resignFirstResponder()
+    }
+    
     func setupBeratTextView() {
         scrollView.addSubview(beratTextView)
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionBerat))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        beratTextView.textField.inputAccessoryView = doneToolbar
         
         beratTextView.tambahProfilAnabulViewController = self
 
@@ -494,6 +521,19 @@ class TambahProfilAnabulViewController: UIViewController {
     
     func setupUsiaTextView() {
         scrollView.addSubview(usiaTextView)
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionUsia))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        usiaTextView.textField.inputAccessoryView = doneToolbar
         
         usiaTextView.tambahProfilAnabulViewController = self
 
@@ -713,6 +753,10 @@ class TambahProfilAnabulViewController: UIViewController {
         ])
     }
     
+    @objc func doneButtonActionRiwayatPenyakit() {
+        self.riwayatPenyakitTextView.resignFirstResponder()
+    }
+    
     func setupRiwayatPenyakitTextView() {
         scrollView.addSubview(riwayatPenyakitContainerView)
         scrollView.addSubview(riwayatPenyakitTextView)
@@ -720,6 +764,18 @@ class TambahProfilAnabulViewController: UIViewController {
         riwayatPenyakitTextView.delegate = self
         riwayatPenyakitContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onClickRiwayatPenyakitContainerView)))
         
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionRiwayatPenyakit))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        riwayatPenyakitTextView.inputAccessoryView = doneToolbar
         
         riwayatPenyakitContainerView.backgroundColor = .customGrayForInputFields
         riwayatPenyakitContainerView.layer.cornerRadius = 8
@@ -1187,11 +1243,43 @@ class TambahProfilAnabulViewController: UIViewController {
         
         viewModel.image = profileImageViewButton.profileImageView.image
         
+        self.usiaTextView.textField.resignFirstResponder()
+        self.beratTextView.textField.resignFirstResponder()
+        
         let vc = AnabulTersimpanViewController()
         vc.viewModel = self.viewModel
         
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+    
+    // MARK: Keyboard Notification Center
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= keyboardFrame.height
+            self.profileImageViewButtonTopAnchor.constant = 260
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y += keyboardFrame.height
+            self.profileImageViewButtonTopAnchor.constant = 24
+        }
     }
 
     

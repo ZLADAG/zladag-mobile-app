@@ -221,8 +221,8 @@ extension PetOrderCollectionViewCell {
         let allServiceOpt = createStack(views: [], spacing: 16)
         var idx = 0
         for service in services {
-//            let option = AddOnServiceOption(name: service.name, price: service.price)
-            let option = AddOnServiceOption(name: service.id, price: service.price)
+            let option = AddOnServiceOption(name: service.name, price: service.price)
+//            let option = AddOnServiceOption(name: service.id, price: service.price)
             option.idx = idx
             idx += 1;
             option.delegate = self
@@ -236,6 +236,10 @@ extension PetOrderCollectionViewCell {
         
     }
     
+    @objc func doneButtonAction() {
+        self.messageTextField.resignFirstResponder()
+    }
+    
     private func setMessage() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.addGestureRecognizer(tapGesture)
@@ -244,6 +248,21 @@ extension PetOrderCollectionViewCell {
         messageTitleLabel.font = .boldSystemFont(ofSize: 14)
         
         messageTextField = UITextView()
+        messageTextField.returnKeyType = .done
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        messageTextField.inputAccessoryView = doneToolbar
+        
         messageTextField.translatesAutoresizingMaskIntoConstraints = false
         messageTextField.isScrollEnabled = false
         messageTextField.isEditable = true
