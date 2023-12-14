@@ -16,39 +16,6 @@ class SearchResultsViewController: UIViewController {
     
     var isLoading: Bool = false
     
-    let navbarLocationLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Dekat Saya"
-        label.textColor = .textBlack
-        label.font = .systemFont(ofSize: 14, weight: .bold)
-        return label
-    }()
-    
-    let navbarDetailsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1 Okt 2023, 1 Malam, 1 Kucing"
-        label.textColor = .customGrayForIcons
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        return label
-    }()
-    
-    let navbarUbahButton: UIButton = {
-        let button = UIButton()
-        
-        let label = UILabel()
-        label.text = "Ubah"
-        label.textColor = .customOrange
-        label.font = .systemFont(ofSize: 12, weight: .bold)
-        
-        button.setTitle("Ubah", for: .normal)
-        button.setTitleColor(.customOrange, for: .normal)
-        button.backgroundColor = .orangeWithOpacity
-        button.layer.cornerRadius = 4
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
     public var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIdx, _ in

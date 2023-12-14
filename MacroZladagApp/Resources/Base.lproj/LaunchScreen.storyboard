@@ -20,10 +20,10 @@
                                 <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="wMq-bl-1G9">
-                                        <rect key="frame" x="129.66666666666666" y="306" width="116" height="116"/>
+                                        <rect key="frame" x="81.666666666666686" y="329.66666666666669" width="212" height="69"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="116" id="NQG-ro-QUW"/>
-                                            <constraint firstAttribute="height" constant="116" id="ilO-0g-Dbc"/>
+                                            <constraint firstAttribute="width" constant="212" id="NQG-ro-QUW"/>
+                                            <constraint firstAttribute="height" constant="69" id="ilO-0g-Dbc"/>
                                         </constraints>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                     </imageView>
@@ -51,6 +51,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="app-icon" width="116" height="116"/>
+        <image name="app-icon" width="212" height="69"/>
     </resources>
 </document>

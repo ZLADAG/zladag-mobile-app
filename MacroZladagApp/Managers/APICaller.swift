@@ -25,6 +25,8 @@ final class APICaller {
         case jsonSerializationFailed
     }
     
+    // MARK: GET
+    
     public func getBoardings(completion: @escaping (Result<HomeBoardingResponse, Error>) -> Void) {
         getRequest(path: "/home") { result in
             completion(result)
@@ -86,6 +88,17 @@ final class APICaller {
             completion(result)
         }
     }
+    
+    public func getGooglePlaceIDGeocodingResult(placeID: String, completion: @escaping (Result<GooglePlaceIDGeocodingResponse, Error>) -> Void) {
+        getRequestThirdParties(
+            urlString: "https://maps.googleapis.com/maps/api/geocode/json?place_id=\(placeID)&key=\(LocationManager.googleMapsAPIKey)",
+            completion: { result in
+                completion(result)
+            })
+        
+    }
+    
+    // MARK: POST
     
     public func postPetOrder(postOrdersBody: PostOrdersBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
         postRequest(
@@ -152,7 +165,6 @@ final class APICaller {
         var request = URLRequest(url: apiURL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        print(AuthManager.shared.token)
 
         if usingToken {
             request.addValue(
@@ -176,6 +188,36 @@ final class APICaller {
                 print(json)
                 
                 print("error in GET \(path)\n", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }.resume()
+    }
+    
+    func getRequestThirdParties<T: Codable>(
+        urlString: String,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        
+        guard let apiURL = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                print("GET \(urlString)")
+                completion(Result.success(result))
+            } catch {
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+                
+                print("error in GET \(urlString)\n", error.localizedDescription)
                 completion(Result.failure(error))
             }
         }.resume()

@@ -89,10 +89,11 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         setupFrames()
         
         searchButton.addTarget(self, action: #selector(goToSearchResultsViewController), for: .touchUpInside)
+            
+        locationFieldView.addTarget(self, action: #selector(onClickLocationButton), for: .touchUpInside)
+        dateFieldView.addTarget(self, action: #selector(onClickDatePickerButton), for: .touchUpInside)
+        numberOfCatsAndDogsButton.addTarget(self, action: #selector(onClickCatsAndDogsButton), for: .touchUpInside)
         
-        dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
-        
-        numberOfCatsAndDogsButton.addTarget(self, action: #selector(presentCatsAndDogSheet), for: .touchUpInside)
     }
     
     func setupFrames() {
@@ -154,7 +155,7 @@ extension MainHeaderCollectionReusableView {
         self.kucingCount = AppAccountManager.shared.kucingCount
         
         guard (self.anjingCount > 0 || self.kucingCount > 0) else {
-            self.presentCatsAndDogSheet()
+            self.onClickCatsAndDogsButton()
             return
         }
         
@@ -193,10 +194,14 @@ extension MainHeaderCollectionReusableView {
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
+        params += "&latitude=\(AppAccountManager.shared.chosenLocationCoordinate?.latitude ?? 99)&longitude=\(AppAccountManager.shared.chosenLocationCoordinate?.longitude ?? 99)"
+        
         navbarDetails = "\(dateFieldView.thisLabel.text!)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
         
         vc.detailsLabel.text = navbarDetails
         vc.detailsValue = navbarDetails
+        
+        vc.locationLabel.text = AppAccountManager.shared.chosenLocationName
         
         let group = DispatchGroup()
         group.enter()
@@ -237,7 +242,29 @@ extension MainHeaderCollectionReusableView {
         }
     }
     
-    @objc func presentCatsAndDogSheet() {
+    @objc func onClickLocationButton() {
+        let vc = SearchLocationViewController()
+        vc.mainView = self
+        
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 16
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.99 * context.maximumDetentValue
+                })
+            ]
+            
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        self.delegate?.navigationController?.present(navVc, animated: true)
+    }
+    
+    @objc func onClickCatsAndDogsButton() {
         let vc  = CatsAndDogsCounterViewController()
         vc.mainHeaderDelegate = self
         vc.kucingCount = self.kucingCount
@@ -262,7 +289,7 @@ extension MainHeaderCollectionReusableView {
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }
     
-    @objc func presentDatePickerSheet() {
+    @objc func onClickDatePickerButton() {
         let vc = CustomDatePickerViewController()
         vc.mainView = self
         

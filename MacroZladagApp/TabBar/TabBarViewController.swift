@@ -51,6 +51,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func configureTabBar() {
+//        let vc1 = SearchLocationViewController()
         let vc1 = HomeViewController()
         let vc2 = OrdersViewController()
         let vc3 = ProfileViewController()

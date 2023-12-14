@@ -34,6 +34,7 @@ class UbahPencarianViewController: UIViewController {
         numberOfCatsAndDogsButton.catLabel.text = self.kucingCount?.description
         numberOfCatsAndDogsButton.dogLabel.text = self.anjingCount?.description
         
+        locationFieldView.addTarget(self, action: #selector(onClickLocationButton), for: .touchUpInside)
         dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
         numberOfCatsAndDogsButton.addTarget(self, action: #selector(presentCatsAndDogSheet), for: .touchUpInside)
         searchButton.addTarget(self, action: #selector(updateSearch), for: .touchUpInside)
@@ -103,6 +104,28 @@ class UbahPencarianViewController: UIViewController {
     
     @objc func closeSheet() {
         dismiss(animated: true)
+    }
+    
+    @objc func onClickLocationButton() {
+        let vc = SearchLocationViewController()
+        vc.ubahViewController = self
+        
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 16
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.99 * context.maximumDetentValue
+                })
+            ]
+            
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        self.navigationController?.present(navVc, animated: true)
     }
     
     @objc func presentCatsAndDogSheet() {
@@ -199,8 +222,9 @@ class UbahPencarianViewController: UIViewController {
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
+        params += "&latitude=\(AppAccountManager.shared.chosenLocationCoordinate?.latitude ?? 99)&longitude=\(AppAccountManager.shared.chosenLocationCoordinate?.longitude ?? 99)"
+        
         self.searchControllerDelegate?.detailsLabel.text = "\(AppAccountManager.shared.calendarTextDetails)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
-//        self.searchControllerDelegate?.detailsValue = self.searchControllerDelegate!.detailsLabel.text!
         
         let group = DispatchGroup()
         group.enter()

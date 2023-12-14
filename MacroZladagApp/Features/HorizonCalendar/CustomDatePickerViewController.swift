@@ -142,11 +142,10 @@ class CustomDatePickerViewController: UIViewController {
     private func makeContent() -> CalendarViewContent {
         let calendar = Calendar.current
 
-        let startDate = calendar.date(from: DateComponents(year: 2023, month: 11, day: 01))!
+        let startDate = calendar.date(from: DateComponents(year: 2023, month: 12, day: 01))!
         let endDate = calendar.date(from: DateComponents(year: 2024, month: 12, day: 31))!
 
         var dateRangeToHighlight = Date.now...Date.now
-        
         
         if self.selectedDay1 != nil && self.selectedDay2 != nil {
             let lowerDate = calendar.date(from: self.selectedDay1!.components)!
