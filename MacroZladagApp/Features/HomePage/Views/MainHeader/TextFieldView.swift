@@ -55,9 +55,9 @@ class TextFieldView: UIButton {
         }
         
         if hasMapIcon == nil { // UTK CALENDAR!
-            
             self.thisLabel.text = AppAccountManager.shared.calendarTextDetails
-            
+        } else {
+            self.thisLabel.text = AppAccountManager.shared.chosenLocationName 
         }
     }
     

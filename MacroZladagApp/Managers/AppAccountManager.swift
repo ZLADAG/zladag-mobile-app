@@ -38,7 +38,7 @@ final class AppAccountManager {
     var selectedDay2: Day?
     
     var chosenLocationCoordinate: LocationCoordinate?
-    var chosenLocationName: String?
+    var chosenLocationName: String? = "Dekat Saya"
     
 }
 
