@@ -30,7 +30,11 @@ struct BoardingDetails: Codable {
     let websiteMapLink: String?
     let cheapestLodgingPrice: Int?
     let images: [String]
-//    let startCheckInTime: Date
+    
+    let startCheckInTime: String
+    let endCheckInTime: String
+    let startCheckOutTime: String
+    let endCheckOutTime: String
 }
 
 /*

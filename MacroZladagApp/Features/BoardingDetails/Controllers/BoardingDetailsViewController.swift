@@ -266,7 +266,11 @@ class BoardingDetailsViewController: UIViewController {
                     shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
                     shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
                     minimumAge: response.data.minimumAge ?? 0,
-                    maximumAge: response.data.maximumAge ?? 0
+                    maximumAge: response.data.maximumAge ?? 0,
+                    startCheckInTime: response.data.startCheckInTime,
+                    endCheckInTime: response.data.endCheckInTime,
+                    startCheckOutTime: response.data.startCheckOutTime,
+                    endCheckOutTime: response.data.endCheckOutTime
                 )
                 success = true
                 break

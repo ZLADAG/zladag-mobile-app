@@ -27,10 +27,10 @@ struct BoardingDetailsViewModel {
     let minimumAge: Int
     let maximumAge: Int
     
-    let startCheckInTime: String = "99"
-    let endCheckInTime: String = "99"
-    let startCheckOutTime: String = "99"
-    let endCheckOutTime: String = "99"
+    let startCheckInTime: String
+    let endCheckInTime: String
+    let startCheckOutTime: String
+    let endCheckOutTime: String
     
     init(
         name: String,
@@ -48,7 +48,11 @@ struct BoardingDetailsViewModel {
         shouldHaveBeenVaccinated: Bool?,
         shouldHaveToBeFleaFree: Bool?,
         minimumAge: Int,
-        maximumAge: Int
+        maximumAge: Int,
+        startCheckInTime: String,
+        endCheckInTime: String,
+        startCheckOutTime: String,
+        endCheckOutTime: String
     ) {
         self.name = name
         self.distance = Utils.getStringDistanceFormatted(distance)
@@ -69,17 +73,22 @@ struct BoardingDetailsViewModel {
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)
+        
+        // CHECKIN & CHECKOUT DATE
+        self.startCheckInTime = Self.getCusomizedString(dateString: startCheckInTime)
+        self.endCheckInTime = Self.getCusomizedString(dateString: endCheckInTime)
+        self.startCheckOutTime = Self.getCusomizedString(dateString: startCheckOutTime)
+        self.endCheckOutTime = Self.getCusomizedString(dateString: endCheckOutTime)
     }
     
-//    mutating func setupDates() {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//        
-//        self.startCheckInTime = dateFormatter.string(from: self.created_at)
-//        self.endCheckInTime = dateFormatter.string(from: self.updated_at)
-//        
-//        self.startCheckOutTime = dateFormatter.string(from: self.created_at)
-//        self.endCheckOutTime = dateFormatter.string(from: self.updated_at)
-//    }
+    private static func getCusomizedString(dateString: String) -> String {
+        let replacedDate: String = dateString.replacing(":", with: ".")
+        
+        let start = replacedDate.startIndex
+        let end = replacedDate.endIndex
+        let offsetEndBy3 = replacedDate.index(end, offsetBy: -3)
+        
+        return String(replacedDate[start...offsetEndBy3])
+    }
     
 }
