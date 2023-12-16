@@ -27,6 +27,7 @@ class LocationManager: NSObject {
         super.init()
         manager = CLLocationManager()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     public func requestPermission() {

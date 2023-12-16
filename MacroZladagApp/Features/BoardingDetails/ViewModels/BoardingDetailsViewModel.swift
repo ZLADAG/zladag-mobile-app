@@ -9,7 +9,7 @@ import Foundation
 
 struct BoardingDetailsViewModel {
     let name: String
-    let distance: Double
+    let distance: String
     let address: String
     let slug: String
     let description: String
@@ -51,7 +51,7 @@ struct BoardingDetailsViewModel {
         maximumAge: Int
     ) {
         self.name = name
-        self.distance = distance
+        self.distance = Utils.getStringDistanceFormatted(distance)
         self.address = address
         self.slug = slug
         self.description = description

@@ -8,6 +8,6 @@
 import Foundation
 
 struct LocationCoordinate {
-    var latitude: Double
-    var longitude: Double
+    var latitude: Double? = nil
+    var longitude: Double? = nil
 }

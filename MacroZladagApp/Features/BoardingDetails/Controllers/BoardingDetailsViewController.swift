@@ -23,6 +23,7 @@ class BoardingDetailsViewController: UIViewController {
         self.slug = slug
         super.init(nibName: nil, bundle: nil)
         print(slug)
+        
         self.infoSegment.mainVc = self
     }
     
@@ -232,8 +233,17 @@ class BoardingDetailsViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .textBlack
         view.backgroundColor = .white
         setupLoadingScreen()
+        
+        var locationCoordinate = LocationCoordinate()
+        
+        if let chosenLocationCoordinate = AppAccountManager.shared.chosenLocationCoordinate {
+            locationCoordinate = LocationCoordinate(
+                latitude: chosenLocationCoordinate.latitude,
+                longitude: chosenLocationCoordinate.longitude
+            )
+        }
 
-        APICaller.shared.getBoardingBySlug(slug: self.slug) { result in
+        APICaller.shared.getBoardingBySlug(slug: self.slug, coordinate: locationCoordinate) { result in
             var success = false
             switch result {
             case .success(let response):
@@ -265,6 +275,7 @@ class BoardingDetailsViewController: UIViewController {
             }
             
             if success {
+                print("DISTANCE >>", self.viewModel?.distance)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                     
                     self.navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -603,7 +614,7 @@ class BoardingDetailsViewController: UIViewController {
         let tag = viewModel?.boardingCategory ?? "NO TAG"
         let title = viewModel?.name ?? "NO TITLE"
         
-        let locDistance = 1.5
+        let locDistance = viewModel?.distance ?? "0"
         let locSubdistict = viewModel?.subdistrictName ?? "NO SUB-DISTR"
         let locProvince = viewModel?.provinceName ?? "NO SUB-PROV"
         
