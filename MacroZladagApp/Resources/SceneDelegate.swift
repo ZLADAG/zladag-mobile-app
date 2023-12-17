@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window.rootViewController = TabBarViewController()
         
-//        let navVc = UINavigationController(rootViewController: CustomSheetViewController())
+//        let navVc = UINavigationController(rootViewController: ReservationViewController())
 //        window.rootViewController = navVc
         
         // TODO:

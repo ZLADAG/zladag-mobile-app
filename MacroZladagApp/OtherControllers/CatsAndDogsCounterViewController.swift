@@ -7,16 +7,13 @@
 
 import UIKit
 
-protocol CatsAndDogsCounterViewControllerDelegate {
-    func saveButtonTapped()
-}
 class CatsAndDogsCounterViewController: UIViewController {
 
-    var delegate: CatsAndDogsCounterViewControllerDelegate?
-    
-    var mainHeaderDelegate: MainHeaderCollectionReusableView?
-    var controllerDelegate: SearchResultsViewController?
-    var ubahControllerDelegate: UbahPencarianViewController?
+    weak var homeViewController: HomeViewController?
+    weak var reservationController: ReservationViewController?
+    weak var mainHeaderDelegate: MainHeaderCollectionReusableView?
+    weak var controllerDelegate: SearchResultsViewController?
+    weak var ubahControllerDelegate: UbahPencarianViewController?
     
     let kucingLabel: UILabel = {
         let label = UILabel()
@@ -225,7 +222,6 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     func setupButtons() {
-        print("OKE")
         let anjingCount = Int(anjingCountLabel.text ?? "0")!
         let kucingCount = Int(kucingCountLabel.text ?? "0")!
         
@@ -261,7 +257,7 @@ class CatsAndDogsCounterViewController: UIViewController {
     @objc func closeSheet() {
         mainHeaderDelegate?.delegate?.dismiss(animated: true)
         
-        if let controllerDelegate {
+        if controllerDelegate != nil {
             dismiss(animated: true)
         }
     }
@@ -275,19 +271,14 @@ class CatsAndDogsCounterViewController: UIViewController {
         if kucingCount == 0 {
             decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
-        
-//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func catIncrementButton() {
-        if self.kucingCount < 1 {
-            self.kucingCount += 1            
-        }
+        self.kucingCount += 1
+        
         kucingCountLabel.text = self.kucingCount.description
         decrementKucingButton.imageView?.tintColor = .customOrange
         decrementKucingButton.imageView?.layer.opacity = 1.0
-        
-//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func dogDecrementButton() {
@@ -299,19 +290,14 @@ class CatsAndDogsCounterViewController: UIViewController {
         if anjingCount == 0 {
             decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
-        
-//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func dogIncrementButton() {
-        if self.anjingCount < 1 {
-            self.anjingCount += 1
-        }
+        self.anjingCount += 1
+        
         anjingCountLabel.text = self.anjingCount.description
         decrementAnjingButton.imageView?.tintColor = .customOrange
         decrementAnjingButton.imageView?.layer.opacity = 1.0
-        
-//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func saveData() {
@@ -339,15 +325,45 @@ class CatsAndDogsCounterViewController: UIViewController {
             dismiss(animated: true)
         }
         
-        for i in 0..<AppAccountManager.shared.anjingCount {
-            ReservationManager.shared.dogDetailOrders.append(PetDetailsForOrder())
+        if let homeViewController {
+            let homeHeaderView = homeViewController.view.viewWithTag(451) as! MainHeaderCollectionReusableView
+            
+            homeHeaderView.numberOfCatsAndDogsButton.catLabel.text =  AppAccountManager.shared.kucingCount.description
+            homeHeaderView.numberOfCatsAndDogsButton.dogLabel.text =  AppAccountManager.shared.anjingCount.description
+            
+            homeViewController.navigationController?.dismiss(animated: true)
         }
         
-        for i in 0..<AppAccountManager.shared.kucingCount {
-            ReservationManager.shared.catDetailOrders.append(PetDetailsForOrder())
+        if let reservationController {
+            if (self.kucingCount == 0) && (self.anjingCount == 0) {
+                let alert = UIAlertController(title: "Please set the amount of your dogs and cats!", message: "", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let anabulCell = reservationController.view.viewWithTag(462) as! AnabulReservationCollectionViewCell
+                anabulCell.mainLabel.text = "\(AppAccountManager.shared.kucingCount.description) Kucing \(AppAccountManager.shared.anjingCount.description) Anjing"
+                
+                // REFILL ANABUL ARRAY
+                reservationController.anabulArray.removeAll()
+                
+                if AppAccountManager.shared.kucingCount > 0 {
+                    for i in 1...AppAccountManager.shared.kucingCount {
+                        reservationController.anabulArray.append("Kucing \(i)")
+                    }
+                }
+                
+                if AppAccountManager.shared.anjingCount > 0 {
+                    for i in 1...AppAccountManager.shared.anjingCount {
+                        reservationController.anabulArray.append("Anjing \(i)")
+                    }
+                }
+                
+                // RELOAD CELL
+                reservationController.collectionView.reloadData()
+                
+                reservationController.navigationController?.dismiss(animated: true)
+            }
         }
         
-        
-        delegate?.saveButtonTapped()
     }
 }

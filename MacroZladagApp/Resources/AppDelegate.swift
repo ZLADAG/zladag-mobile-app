@@ -5,6 +5,15 @@
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
 //
 
+/*
+ 
+ UIVIEW TAGS:
+ 451: MainHeaderCollectionReusableView
+ 461: TanggalReservationCollectionViewCell
+ 462: AnabulReservationCollectionViewCell
+ 
+ */
+
 import UIKit
 import Firebase
 import FirebaseMessaging

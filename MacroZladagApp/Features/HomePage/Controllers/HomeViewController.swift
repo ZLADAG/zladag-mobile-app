@@ -340,6 +340,30 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         spinner.startAnimating()
     }
     
+    func presentCatsAndDogsSheet() {
+        let vc  = CatsAndDogsCounterViewController()
+        vc.homeViewController = self
+        vc.kucingCount = AppAccountManager.shared.kucingCount
+        vc.anjingCount = AppAccountManager.shared.anjingCount
+        
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        vc.modalPresentationStyle = .pageSheet
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 10
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.33 * context.maximumDetentValue
+                })
+            ]
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        
+        self.navigationController?.present(navVc, animated: true, completion: nil)
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -392,23 +416,32 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
+            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+                self.presentCatsAndDogsSheet()
+            } else {
+                let viewModel = viewModels[indexPath.row]
+                let vc = BoardingDetailsViewController(slug: viewModel.slug)
+                vc.hidesBottomBarWhenPushed = true
+                vc.navigationItem.largeTitleDisplayMode = .always
+                vc.navigationController?.navigationBar.prefersLargeTitles = true
+                
+                navigationController?.pushViewController(vc, animated: true)
+            }
             
-            let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(slug: viewModel.slug)
-            vc.hidesBottomBarWhenPushed = true
-            vc.navigationItem.largeTitleDisplayMode = .always
-            vc.navigationController?.navigationBar.prefersLargeTitles = true
-            
-            self.navigationController?.pushViewController(vc, animated: true)
             break
         case .sectionTempatBermain(viewModels: let viewModels):
-            let viewModel = viewModels[indexPath.row]
-            let vc = BoardingDetailsViewController(slug: viewModel.slug)
-            vc.hidesBottomBarWhenPushed = true
-            vc.navigationItem.largeTitleDisplayMode = .always
-            vc.navigationController?.navigationBar.prefersLargeTitles = true
+            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+                self.presentCatsAndDogsSheet()
+            } else {
+                let viewModel = viewModels[indexPath.row]
+                let vc = BoardingDetailsViewController(slug: viewModel.slug)
+                vc.hidesBottomBarWhenPushed = true
+                vc.navigationItem.largeTitleDisplayMode = .always
+                vc.navigationController?.navigationBar.prefersLargeTitles = true
+                
+                navigationController?.pushViewController(vc, animated: true)
+            }
             
-            self.navigationController?.pushViewController(vc, animated: true)
             break
         }
     }
@@ -419,6 +452,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch section {
         case 0:
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderCollectionReusableView.identifier, for: indexPath) as? MainHeaderCollectionReusableView else { return UICollectionReusableView() }
+            header.tag = 451
             header.delegate = self
             header.numberOfCatsAndDogsButton.catLabel.text = AppAccountManager.shared.kucingCount.description
             header.numberOfCatsAndDogsButton.dogLabel.text = AppAccountManager.shared.anjingCount.description

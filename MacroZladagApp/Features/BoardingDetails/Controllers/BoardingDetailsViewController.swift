@@ -247,9 +247,6 @@ class BoardingDetailsViewController: UIViewController {
             var success = false
             switch result {
             case .success(let response):
-                print("QWERTY\n")
-                print(response.data)
-                print()
                 self.viewModel = BoardingDetailsViewModel(
                     name: response.data.name,
                     distance: response.data.distance,
@@ -272,6 +269,7 @@ class BoardingDetailsViewController: UIViewController {
                     startCheckOutTime: response.data.startCheckOutTime,
                     endCheckOutTime: response.data.endCheckOutTime
                 )
+                
                 success = true
                 break
             case .failure(let error):
@@ -279,7 +277,6 @@ class BoardingDetailsViewController: UIViewController {
             }
             
             if success {
-                print("DISTANCE >>", self.viewModel?.distance)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                     
                     self.navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -779,7 +776,7 @@ class BoardingDetailsViewController: UIViewController {
             
             navigationController?.present(navVc, animated: true, completion: nil)
         } else {
-            let vc = ReservationViewController(slug: slug)
+            let vc = ReservationViewController(slug: self.slug, petBoardingName: self.viewModel?.name ?? "Unidentified")
             navigationController?.pushViewController(vc, animated: true)
 
         }
