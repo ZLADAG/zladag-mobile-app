@@ -345,18 +345,8 @@ class CatsAndDogsCounterViewController: UIViewController {
                 
                 // REFILL ANABUL ARRAY
                 reservationController.anabulArray.removeAll()
-                
-                if AppAccountManager.shared.kucingCount > 0 {
-                    for i in 1...AppAccountManager.shared.kucingCount {
-                        reservationController.anabulArray.append("Kucing \(i)")
-                    }
-                }
-                
-                if AppAccountManager.shared.anjingCount > 0 {
-                    for i in 1...AppAccountManager.shared.anjingCount {
-                        reservationController.anabulArray.append("Anjing \(i)")
-                    }
-                }
+                reservationController.setupAnabulArray()
+                reservationController.setupAnabulData()
                 
                 // RELOAD CELL
                 reservationController.collectionView.reloadData()

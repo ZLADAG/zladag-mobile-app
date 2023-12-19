@@ -19,14 +19,6 @@ class AnabulReservationCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .white
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        titleLabel.text = nil
-        mainLabel.text = nil
-        iconImageView.image = nil
-    }
-    
     public func configure() {
         titleLabel.text = "Anabul"
         mainLabel.text = "\(AppAccountManager.shared.kucingCount) Kucing \(AppAccountManager.shared.anjingCount) Anjing"
@@ -78,6 +70,14 @@ class AnabulReservationCollectionViewCell: UICollectionViewCell {
             width: 16,
             height: 16
         )
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        mainLabel.text = nil
+        iconImageView.image = nil
     }
     
     required init(coder: NSCoder) {

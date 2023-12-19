@@ -13,19 +13,28 @@ class ReservationViewController: UIViewController {
     let petBoardingName: String
 //    var kucingAmount = AppAccountManager.shared.kucingCount
 //    var anjingAmount = AppAccountManager.shared.anjingCount
+    
     public var anabulArray = [String]()
+    
+    var viewModel = ReservationPageViewModel()
+    var boardingReservationDataResponse: BoardingReservationDataResponse?
+    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
     
     init(slug: String, petBoardingName: String) {
         self.slug = slug
         self.petBoardingName = petBoardingName
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout {
-            sectionIdx,
-            _ in
+        let layout = UICollectionViewCompositionalLayout { sectionIdx, _ in
             
             if sectionIdx == 0 {
                 let cellWidth: CGFloat = (self.view.width * 0.5) - 32
@@ -96,11 +105,37 @@ class ReservationViewController: UIViewController {
 //        print("\nDATE1: \(AppAccountManager.shared.selectedDay1!.components)")
 //        print("DATE2: \(AppAccountManager.shared.selectedDay2!.components)")
 //        print("\(AppAccountManager.shared.anjingCount) ANJING, \(AppAccountManager.shared.kucingCount) KUCING")
-        setupAnabulArray()
-        setupCollectionView()
+        
+        self.setupAnabulArray()
+        
+        fetchData { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                strongSelf.configureViews()
+            }
+        }
     }
     
-    private func setupAnabulArray() {
+    private func configureViews() {
+        self.spinner.stopAnimating()
+        self.setupAnabulData()
+        self.setupCollectionView()
+        
+//        var z  = 0
+//        for cell in self.viewModel.anabulCells {
+//            print("z = \(z)")
+//            for cage in cell.cages {
+//                print(cage.name)
+//                print(cage.priceString)
+//                print(cage.isTapped)
+//                print()
+//            }
+//            z += 1
+//        }
+    }
+    
+    public func setupAnabulArray() {
         if AppAccountManager.shared.kucingCount > 0 {
             for i in 1...AppAccountManager.shared.kucingCount {
                 self.anabulArray.append("Kucing \(i)")
@@ -111,6 +146,20 @@ class ReservationViewController: UIViewController {
             for i in 1...AppAccountManager.shared.anjingCount {
                 self.anabulArray.append("Anjing \(i)")
             }
+        }
+    }
+    
+    public func setupAnabulData() {
+        guard let response = boardingReservationDataResponse else { return }
+        
+        self.viewModel.anabulCells = self.anabulArray.compactMap({ string in
+            return ReservationCellViewModel()
+        })
+        
+        for cell in self.viewModel.anabulCells {
+            cell.cages = response.data.boardingCages.compactMap({ cageInfo in
+                return ReservationCageDetails(id: cageInfo.id, name: cageInfo.name, price: cageInfo.price)
+            })
         }
     }
     
@@ -137,7 +186,6 @@ class ReservationViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
     
     func onClickCatsAndDogsButton() {
         let vc  = CatsAndDogsCounterViewController()
@@ -183,6 +231,45 @@ class ReservationViewController: UIViewController {
         navigationController?.present(navVc, animated: true, completion: nil)
     }
     
+    
+    private func fetchData(completion: @escaping () -> ()) {
+        setupLoadingScreen()
+        
+        
+        APICaller.shared.getBoardingReservationDataBySlug(slug: self.slug) { result in
+            switch result {
+            case .success(let response):
+                self.boardingReservationDataResponse = response
+                
+                
+                completion()
+                
+                break
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
+    }
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        spinner.hidesWhenStopped = true
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
+
+    
     required init(coder: NSCoder) {
         fatalError()
     }
@@ -190,7 +277,7 @@ class ReservationViewController: UIViewController {
 }
 
 extension ReservationViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+        
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 2
@@ -214,7 +301,10 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             }
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReservationCollectionViewCell.identifier, for: indexPath) as! ReservationCollectionViewCell
-            cell.configure(title: self.anabulArray[indexPath.row])
+            cell.configure(
+                title: self.anabulArray[indexPath.row],
+                viewModelCell: self.viewModel.anabulCells[indexPath.row]
+            )
             return cell
         }
     }

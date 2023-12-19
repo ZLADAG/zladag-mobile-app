@@ -11,22 +11,19 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     static let identifier = "ReservationCollectionViewCell"
     
     let titleLabel = UILabel()
+    var buttons = [UIButton]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .green
+        contentView.backgroundColor = .cyan
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        titleLabel.text = nil
-    }
-    
-    public func configure(title: String) {
+    public func configure(title: String, viewModelCell: ReservationCellViewModel) {
         titleLabel.text = title
         
         setupTitleLabel()
+        
+        setupKandangButtons(cages: viewModelCell.cages)
     }
     
     private func setupTitleLabel() {
@@ -42,6 +39,47 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             width: titleLabel.width,
             height: titleLabel.height
         )
+    }
+    
+    private func setupKandangButtons(cages: [ReservationCageDetails]) {
+        for _ in cages {
+            let button = UIButton()
+            button.backgroundColor = [UIColor.red, UIColor.blue, UIColor.green].randomElement()
+            
+            self.buttons.append(button)
+        }
+        
+        for i in 0..<buttons.count {
+            contentView.addSubview(buttons[i])
+            
+            if i == 0 {
+                buttons[i].frame = CGRect(
+                    x: 5,
+                    y: titleLabel.bottom + 10,
+                    width: 300,
+                    height: 50
+                )
+            } else {
+                buttons[i].frame = CGRect(
+                    x: 5,
+                    y: buttons[i - 1].bottom + 25,
+                    width: 300,
+                    height: 50
+                )
+            }
+            
+            
+            
+        }
+        
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        self.buttons = []
     }
     
     required init(coder: NSCoder) {
