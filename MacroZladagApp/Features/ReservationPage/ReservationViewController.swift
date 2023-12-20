@@ -61,8 +61,30 @@ class ReservationViewController: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 10, trailing: 0)
                 return section
-            } else {
+            } else if sectionIdx == 1 {
                 let cellHeight: CGFloat = 529
+                let verticalPadding: CGFloat = 12
+                
+                let item = NSCollectionLayoutItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(cellHeight + verticalPadding)
+                    )
+                )
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: verticalPadding, trailing: 0)
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(cellHeight + verticalPadding)
+                    ),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                return section
+            } else {
+                let cellHeight: CGFloat = 188 + 400
                 let verticalPadding: CGFloat = 12
                 
                 let item = NSCollectionLayoutItem(
@@ -182,12 +204,15 @@ class ReservationViewController: UIViewController {
         // CARD CELL
         collectionView.register(ReservationCollectionViewCell.self, forCellWithReuseIdentifier: ReservationCollectionViewCell.identifier)
         
+        // TOTAL PEMESANAN CELL (LOWEST SECTION)
+        collectionView.register(TotalPemesananCollectionViewCell.self, forCellWithReuseIdentifier: TotalPemesananCollectionViewCell.identifier)
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 44 + 50),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 400),
         ])
     }
     
@@ -285,8 +310,10 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 2
-        } else {
+        } else if section == 1 {
             return self.anabulArray.count
+        } else {
+            return 1
         }
     }
 
@@ -303,7 +330,7 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.configure()
                 return cell
             }
-        } else {
+        } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReservationCollectionViewCell.identifier, for: indexPath) as! ReservationCollectionViewCell
             cell.reservationViewController = self
             
@@ -312,11 +339,15 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
                 cellViewModel: self.viewModel.anabulCells[indexPath.row]
             )
             return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPemesananCollectionViewCell.identifier, for: indexPath) as! TotalPemesananCollectionViewCell
+            cell.configure(cellsViewModel: self.viewModel.anabulCells)
+            return cell
         }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
