@@ -160,6 +160,10 @@ class ReservationViewController: UIViewController {
             cell.cages = response.data.boardingCages.compactMap({ cageInfo in
                 return ReservationCageDetails(id: cageInfo.id, name: cageInfo.name, price: cageInfo.price)
             })
+            
+            cell.services = response.data.boardingServices.compactMap({ serviceInfo in
+                return ReservationServiceDetails(id: serviceInfo.id, name: serviceInfo.name, price: serviceInfo.price)
+            })
         }
     }
     
@@ -301,9 +305,11 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             }
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReservationCollectionViewCell.identifier, for: indexPath) as! ReservationCollectionViewCell
+            cell.reservationViewController = self
+            
             cell.configure(
                 title: self.anabulArray[indexPath.row],
-                viewModelCell: self.viewModel.anabulCells[indexPath.row]
+                cellViewModel: self.viewModel.anabulCells[indexPath.row]
             )
             return cell
         }

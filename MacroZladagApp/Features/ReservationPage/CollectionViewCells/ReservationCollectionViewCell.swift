@@ -10,20 +10,28 @@ import UIKit
 class ReservationCollectionViewCell: UICollectionViewCell {
     static let identifier = "ReservationCollectionViewCell"
     
+    weak var viewModelCell: ReservationCellViewModel?
+    weak var reservationViewController: ReservationViewController?
+    
     let titleLabel = UILabel()
     var buttons = [UIButton]()
+    var checkBoxes = [UIButton]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .cyan
+        contentView.backgroundColor = .white
     }
     
-    public func configure(title: String, viewModelCell: ReservationCellViewModel) {
+    public func configure(title: String, cellViewModel: ReservationCellViewModel) {
         titleLabel.text = title
         
-        setupTitleLabel()
+        self.viewModelCell = cellViewModel
         
-        setupKandangButtons(cages: viewModelCell.cages)
+        guard let viewModelCell else { return }
+        
+        setupTitleLabel()
+        setupCageButtons(cages: viewModelCell.cages)
+        setupServiceCheckBoxes(services: viewModelCell.services)
     }
     
     private func setupTitleLabel() {
@@ -41,38 +49,180 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         )
     }
     
-    private func setupKandangButtons(cages: [ReservationCageDetails]) {
+    private func setupCageButtons(cages: [ReservationCageDetails]) {
         for _ in cages {
             let button = UIButton()
-            button.backgroundColor = [UIColor.red, UIColor.blue, UIColor.green].randomElement()
+            button.backgroundColor = .white
             
             self.buttons.append(button)
         }
         
-        for i in 0..<buttons.count {
+        for i in 0..<cages.count {
+            // SETUP BUTTON (RADIO)
             contentView.addSubview(buttons[i])
+            buttons[i].addTarget(self, action: #selector(onClickCageRadioButton), for: .touchUpInside)
+            buttons[i].layer.name = cages[i].id
             
-            if i == 0 {
-                buttons[i].frame = CGRect(
-                    x: 5,
-                    y: titleLabel.bottom + 10,
-                    width: 300,
-                    height: 50
-                )
-            } else {
-                buttons[i].frame = CGRect(
-                    x: 5,
-                    y: buttons[i - 1].bottom + 25,
-                    width: 300,
-                    height: 50
-                )
-            }
+            buttons[i].frame = CGRect(
+                x: 24,
+                y: (i == 0 ? titleLabel.bottom + 0 : buttons[i - 1].bottom + 2),
+                width: contentView.width - (24 * 2),
+                height: 20 + 14
+            )
             
+            // SETUP RADIO ICON
             
+            let radioImageView = UIImageView()
+            buttons[i].addSubview(radioImageView)
             
+            radioImageView.image = UIImage(named: "reservation-radiobutton-icon")
+            radioImageView.contentMode = .scaleAspectFill
+            
+            radioImageView.tintColor = cages[i].isTapped ? .customOrange : .clear
+            radioImageView.layer.cornerRadius = CGFloat(20.0 / 2.0)
+            radioImageView.layer.borderColor = UIColor.grey6.cgColor
+            radioImageView.layer.borderWidth = cages[i].isTapped ? 0 : 1
+            
+            radioImageView.frame = CGRect(
+                x: 0,
+                y: (buttons[i].height / 2) - 10,
+                width: 20,
+                height: 20
+            )
+            
+            // SETUP CAGE LABEL
+            let cageLabel = UILabel()
+            buttons[i].addSubview(cageLabel)
+            
+            cageLabel.text = cages[i].name
+            cageLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            cageLabel.textColor = .textBlack
+            cageLabel.sizeToFit()
+            cageLabel.frame = CGRect(
+                x: radioImageView.right + 16,
+                y: (buttons[i].height / 2) - (cageLabel.height / 2),
+                width: cageLabel.width,
+                height: cageLabel.height
+            )
+            
+            // SETUP PRICE LABEL
+            let cagePriceLabel = UILabel()
+            buttons[i].addSubview(cagePriceLabel)
+            cagePriceLabel.text = cages[i].priceString
+            cagePriceLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            cagePriceLabel.textColor = .textBlack
+            cagePriceLabel.textAlignment = .left
+            cagePriceLabel.sizeToFit()
+            cagePriceLabel.frame = CGRect(
+                x: buttons[i].width - cagePriceLabel.width,
+                y: (buttons[i].height / 2) - (cagePriceLabel.height / 2),
+                width: cagePriceLabel.width,
+                height: cagePriceLabel.height
+            )
+        }
+    }
+    
+    private func setupServiceCheckBoxes(services: [ReservationServiceDetails]) {
+        // DIVIDER
+        let divider2 = UIView()
+        divider2.backgroundColor = .grey3
+        contentView.addSubview(divider2)
+        divider2.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 30, width: contentView.width - (24 * 2), height: 1)
+        
+        for _ in services {
+            let button = UIButton()
+            button.backgroundColor = .white
+            
+            self.checkBoxes.append(button)
         }
         
+        for i in 0..<services.count {
+            // SETUP BUTTON (CHECKBOX)
+            contentView.addSubview(checkBoxes[i])
+            checkBoxes[i].addTarget(self, action: #selector(onClickServiceCheckBoxButton), for: .touchUpInside)
+            checkBoxes[i].layer.name = services[i].id
+            
+            checkBoxes[i].frame = CGRect(
+                x: 24,
+                y: (i == 0 ? divider2.bottom + 50 : checkBoxes[i - 1].bottom + 2),
+                width: contentView.width - (24 * 2),
+                height: 20 + 14
+            )
+            
+            // SETUP CHECKBOX ICON
+            
+            let checkboxImageView = UIImageView()
+            checkBoxes[i].addSubview(checkboxImageView)
+            
+            checkboxImageView.image = services[i].isTapped ? UIImage(named: "reservation-checkbox-icon") : UIImage(named: "unselect-checkbox-icon")
+            checkboxImageView.contentMode = .scaleAspectFill
+            
+            checkboxImageView.frame = CGRect(
+                x: 0,
+                y: (checkBoxes[i].height / 2) - 10,
+                width: 20,
+                height: 20
+            )
+            
+            // SETUP SERVICE LABEL
+            let serviceLabel = UILabel()
+            checkBoxes[i].addSubview(serviceLabel)
+            
+            serviceLabel.text = services[i].name
+            serviceLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            serviceLabel.textColor = .textBlack
+            serviceLabel.sizeToFit()
+            serviceLabel.frame = CGRect(
+                x: checkboxImageView.right + 16,
+                y: (checkBoxes[i].height / 2) - (serviceLabel.height / 2),
+                width: serviceLabel.width,
+                height: serviceLabel.height
+            )
+            
+            // SETUP PRICE LABEL
+            let cagePriceLabel = UILabel()
+            checkBoxes[i].addSubview(cagePriceLabel)
+            cagePriceLabel.text = services[i].priceString
+            cagePriceLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            cagePriceLabel.textColor = .textBlack
+            cagePriceLabel.textAlignment = .left
+            cagePriceLabel.sizeToFit()
+            cagePriceLabel.frame = CGRect(
+                x: checkBoxes[i].width - cagePriceLabel.width,
+                y: (checkBoxes[i].height / 2) - (cagePriceLabel.height / 2),
+                width: cagePriceLabel.width,
+                height: cagePriceLabel.height
+            )
+        }
         
+    }
+    
+    @objc func onClickCageRadioButton(button: UIButton) {
+        guard let viewModelCell else { return }
+        // print("cageId:", button.layer.name ?? "NO-LAYER-NAME")
+        
+        for cage in viewModelCell.cages {
+            if cage.id == (button.layer.name ?? "NO-LAYER-NAME") {
+                cage.isTapped = !cage.isTapped
+            } else {
+                cage.isTapped = false
+            }
+        }
+        
+        reservationViewController?.collectionView.reloadData()
+    }
+    
+    @objc func onClickServiceCheckBoxButton(button: UIButton) {
+        guard let viewModelCell else { return }
+        // print("serviceId:", button.layer.name ?? "NO-LAYER-NAME")
+        
+        for service in viewModelCell.services {
+            if service.id == (button.layer.name ?? "NO-LAYER-NAME") {
+                service.isTapped = !service.isTapped
+            }
+        }
+        
+        reservationViewController?.collectionView.reloadData()
     }
     
     override func prepareForReuse() {
@@ -80,6 +230,8 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = nil
         self.buttons = []
+        self.checkBoxes = []
+
     }
     
     required init(coder: NSCoder) {

@@ -18,6 +18,7 @@
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
 		65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */; };
 		6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */; };
+		65313F952B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */; };
 		653858302B23BFA6006F4796 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */; };
 		6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
@@ -254,6 +255,7 @@
 		65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroZladagApp.entitlements; sourceTree = "<group>"; };
 		65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTambahAnabulViewController.swift; sourceTree = "<group>"; };
+		65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPemesananCollectionViewCell.swift; sourceTree = "<group>"; };
 		6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahPencarianViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */,
 				65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */,
 				65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */,
+				65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -1552,6 +1555,7 @@
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65A05C672AFD9AD500C0BC93 /* SmallLoginSheetViewController.swift in Sources */,
 				8F167EB62B0658A900FDAAE9 /* PriceWithAmount.swift in Sources */,
+				65313F952B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift in Sources */,
 				65181A342B318F6A004469A8 /* ReservationPageViewModel.swift in Sources */,
 				65A05C912AFE30D400C0BC93 /* LanjutWelcomingViewController.swift in Sources */,
 				65A05C8D2AFE30D400C0BC93 /* CoretanTextAreaViewController.swift in Sources */,
