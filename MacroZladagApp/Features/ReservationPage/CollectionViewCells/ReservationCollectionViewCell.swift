@@ -13,14 +13,23 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     weak var viewModelCell: ReservationCellViewModel?
     weak var reservationViewController: ReservationViewController?
     
-    let titleLabel = UILabel()
     var buttons = [UIButton]()
     var checkBoxes = [UIButton]()
+    
+    // MARK: SECTION LABELS
+    let titleLabel = UILabel()
+    var pilihProfilLabel = UILabel()
+    var kandangLabel = UILabel()
+    var addOnServiceLabel = UILabel()
+    var tulisPesanLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
+
     }
+    
+    // MARK: UI SETUPS
     
     public func configure(title: String, cellViewModel: ReservationCellViewModel) {
         titleLabel.text = title
@@ -30,12 +39,16 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         guard let viewModelCell else { return }
         
         setupTitleLabel()
+        setupPilihProfilLabel()
+        setupKandangLabel()
         setupCageButtons(cages: viewModelCell.cages)
+        setupAddonServiceLabel()
         setupServiceCheckBoxes(services: viewModelCell.services)
+        setupTulisPesanLabel()
     }
-    
+
     private func setupTitleLabel() {
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         
         titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         titleLabel.textColor = .textBlack
@@ -47,6 +60,23 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             width: titleLabel.width,
             height: titleLabel.height
         )
+    }
+    
+    private func setupPilihProfilLabel() {
+        pilihProfilLabel = self.getNecessaryLabel(string: "Pilih Profil")
+        contentView.addSubview(pilihProfilLabel)
+        
+        pilihProfilLabel.frame = CGRect(x: 24, y: titleLabel.bottom + 16, width: pilihProfilLabel.width, height: pilihProfilLabel.height)
+    }
+    
+    private func setupKandangLabel() {
+        let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 100, width: contentView.width - (24 * 2), height: 1)
+        
+        kandangLabel = self.getNecessaryLabel(string: "Kandang")
+        contentView.addSubview(kandangLabel)
+        
+        kandangLabel.frame = CGRect(x: 24, y: divider.bottom + 16, width: kandangLabel.width, height: kandangLabel.height)
     }
     
     private func setupCageButtons(cages: [ReservationCageDetails]) {
@@ -65,7 +95,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             
             buttons[i].frame = CGRect(
                 x: 24,
-                y: (i == 0 ? titleLabel.bottom + 0 : buttons[i - 1].bottom + 2),
+                y: (i == 0 ? kandangLabel.bottom + 0 : buttons[i - 1].bottom + 2),
                 width: contentView.width - (24 * 2),
                 height: 20 + 14
             )
@@ -122,13 +152,17 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func setupServiceCheckBoxes(services: [ReservationServiceDetails]) {
-        // DIVIDER
-        let divider2 = UIView()
-        divider2.backgroundColor = .grey3
-        contentView.addSubview(divider2)
-        divider2.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 30, width: contentView.width - (24 * 2), height: 1)
+    private func setupAddonServiceLabel() {
+        let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 30, width: contentView.width - (24 * 2), height: 1)
         
+        addOnServiceLabel = self.getNecessaryLabel(string: "Add-on Service", necessary: false)
+        contentView.addSubview(addOnServiceLabel)
+        
+        addOnServiceLabel.frame = CGRect(x: 24, y: divider.bottom + 16, width: addOnServiceLabel.width, height: addOnServiceLabel.height)
+    }
+    
+    private func setupServiceCheckBoxes(services: [ReservationServiceDetails]) {
         for _ in services {
             let button = UIButton()
             button.backgroundColor = .white
@@ -144,7 +178,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             
             checkBoxes[i].frame = CGRect(
                 x: 24,
-                y: (i == 0 ? divider2.bottom + 50 : checkBoxes[i - 1].bottom + 2),
+                y: (i == 0 ? addOnServiceLabel.bottom + 0 : checkBoxes[i - 1].bottom + 2),
                 width: contentView.width - (24 * 2),
                 height: 20 + 14
             )
@@ -194,8 +228,24 @@ class ReservationCollectionViewCell: UICollectionViewCell {
                 height: cagePriceLabel.height
             )
         }
+    }
+    
+    private func setupTulisPesanLabel() {
+        let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.frame = CGRect(x: 24, y: checkBoxes[checkBoxes.count - 1].bottom + 9, width: contentView.width - (24 * 2), height: 1)
+        
+        tulisPesanLabel = self.getNecessaryLabel(string: "Tulis Pesan", necessary: false)
+        contentView.addSubview(tulisPesanLabel)
+        
+        tulisPesanLabel.frame = CGRect(x: 24, y: divider.bottom + 16, width: tulisPesanLabel.width, height: tulisPesanLabel.height)
+    }
+    
+    private func setupTextView() {
         
     }
+    
+    
+    // MARK: Misc.
     
     @objc func onClickCageRadioButton(button: UIButton) {
         guard let viewModelCell else { return }
@@ -225,12 +275,46 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         reservationViewController?.collectionView.reloadData()
     }
     
+    private func getNecessaryLabel(string: String, necessary: Bool = true) -> UILabel {
+        let label = UILabel()
+        
+        let firstAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium),
+            .foregroundColor: UIColor.textBlack.cgColor
+        ]
+        var secondAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .regular)
+        ]
+        
+        if necessary {
+            secondAttributes[NSAttributedString.Key.foregroundColor] = UIColor.textRed.cgColor
+        } else {
+            secondAttributes[NSAttributedString.Key.foregroundColor] = UIColor.clear.cgColor
+        }
+        
+        let firstString = NSMutableAttributedString(string: string, attributes: firstAttributes)
+        let secondString = NSAttributedString(string: "*", attributes: secondAttributes)
+        
+        firstString.append(secondString)
+        
+        label.backgroundColor = .clear
+        label.attributedText = firstString
+        label.sizeToFit()
+        
+        return label
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         titleLabel.text = nil
         self.buttons = []
         self.checkBoxes = []
+        
+        pilihProfilLabel.text = nil
+        kandangLabel.text = nil
+        addOnServiceLabel.text = nil
+        tulisPesanLabel.text = nil
 
     }
     

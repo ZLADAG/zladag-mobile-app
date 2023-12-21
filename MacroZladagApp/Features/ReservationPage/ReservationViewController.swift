@@ -62,7 +62,11 @@ class ReservationViewController: UIViewController {
                 section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 10, trailing: 0)
                 return section
             } else if sectionIdx == 1 {
-                let cellHeight: CGFloat = 529
+                let cagesCount: Int = self.viewModel.anabulCells[0].cages.count
+                let servicesCount: Int = self.viewModel.anabulCells[0].services.count
+                
+//                let cellHeight: CGFloat = CGFloat(140) + CGFloat((cagesCount + servicesCount) * 34)
+                let cellHeight: CGFloat = CGFloat(210 + 80 + 60) + CGFloat((cagesCount + servicesCount) * 34) // 20 + (7*2)
                 let verticalPadding: CGFloat = 12
                 
                 let item = NSCollectionLayoutItem(

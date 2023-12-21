@@ -68,7 +68,6 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         let totalReservationLabel = self.getCustomUILabel(text: "Total Pemesanan", size: 14, weight: .medium, color: .textBlack)
         let totalReservationPriceLabel = self.getCustomUILabel(text: Utils.getStringRpCurrencyFormatted(((self.cagesPrice ?? 123) + (self.addOnServicesPrice ?? 123))), size: 16, weight: .bold, color: .grey1)
         
-        
         contentView.addSubview(totalCagesLabel)
         contentView.addSubview(totalCagesPriceLabel)
         contentView.addSubview(totalServicesLabel)
@@ -84,11 +83,10 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         let divider1 = UIView(); contentView.addSubview(divider1); divider1.backgroundColor = .grey3
         let divider2 = UIView(); contentView.addSubview(divider2); divider2.backgroundColor = .grey3
         
-        
         totalCagesLabel.frame = CGRect(x: 24, y: 26, width: totalCagesLabel.width, height: totalCagesLabel.height)
-        
+
         totalCagesPriceLabel.frame = CGRect(x: contentView.width - totalCagesPriceLabel.width - 24, y: 26, width: totalCagesPriceLabel.width, height: totalCagesPriceLabel.height)
-        
+
         totalServicesLabel.frame = CGRect(x: 24, y: totalCagesLabel.bottom + 8, width: totalServicesLabel.width, height: totalServicesLabel.height)
 
         totalServicesPriceLabel.frame = CGRect(x: contentView.width - totalServicesPriceLabel.width - 24, y: totalCagesLabel.bottom + 8, width: totalServicesPriceLabel.width, height: totalServicesPriceLabel.height)
@@ -102,7 +100,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         divider2.frame = CGRect(x: 24, y: totalReservationLabel.bottom + 12, width: contentView.width - (24 * 2), height: 1)
 
         pesanButton.frame = CGRect(x: 24, y: divider2.bottom + 12, width: contentView.width - (24 * 2), height: 44)
-        
+
         
         pesanButton.addTarget(self, action: #selector(onClickPesanSekarangButton), for: .touchUpInside)
     }

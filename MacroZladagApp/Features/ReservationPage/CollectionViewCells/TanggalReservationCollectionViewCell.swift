@@ -17,6 +17,8 @@ class TanggalReservationCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 4
+        contentView.layer.masksToBounds = true
     }
     
     override func prepareForReuse() {

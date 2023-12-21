@@ -107,4 +107,9 @@ class Utils {
         return date?.addingTimeInterval(7 * 3600)
     }
     
+    static func generateRandomString() -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        return String((0..<[8, 10, 15].randomElement()!).map{ _ in letters.randomElement()! })
+    }
+    
 }
