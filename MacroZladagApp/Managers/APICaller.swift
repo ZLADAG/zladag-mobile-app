@@ -13,7 +13,8 @@ final class APICaller {
     private init() {}
     
     struct Constants {
-        static let baseAPIURL = "https://zladag-catnip-services.as.r.appspot.com/api"
+//        static let baseAPIURL = "https://zladag-catnip-services.as.r.appspot.com/api"
+        static let baseAPIURL = "https://modern-heading-408022.as.r.appspot.com/api"
         static let baseAPIURLLocal = "http://localhost:8080/api"
     }
     
