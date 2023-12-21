@@ -54,7 +54,7 @@ class SignInViewController: UIViewController {
     
     private func setUpComponents(){
         
-        let divider = OptionDivider()
+//        let divider = OptionDivider()
         /// set up sign in options stack
 //        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, divider, whatsappSignInBtn])
         signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, whatsappSignInBtn])

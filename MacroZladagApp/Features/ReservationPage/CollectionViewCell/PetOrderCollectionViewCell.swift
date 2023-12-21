@@ -28,6 +28,9 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     var selectedPetProfile: ProfilePhotoWithTitle?
     var selectedPetProfileIndexPath: IndexPath?
     
+    //COBA IMPLEMENT CLASS DELEGATE
+//    var cageImp = CageImplementatio()
+    
     var titleLabel : UILabel!
     
     var petOptTitleLabel : NecessarryFieldLabel!
@@ -62,6 +65,9 @@ class PetOrderCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpCell() {
+        //COBA IMPLEMENT CLASS DELEGATE
+//        allCageOpt[0].delegate = cageImp.self
+        
         cellContent = createStack(views: [], spacing: 16)
         
         titleLabel = createLabel("Pet 1")
@@ -319,6 +325,13 @@ extension PetOrderCollectionViewCell {
         }
     }
 }
+
+//COBA IMPLEMENT CLASS DELEGATE
+//class CageImplementatio: CageOptionDelegate {
+//    func radioButtonTapped(idx: Int, priceWithAmount: PriceWithAmount) {
+//        // print
+//    }
+//}
 
 // MARK: RADIO BUTTON
 extension PetOrderCollectionViewCell: CageOptionDelegate {
