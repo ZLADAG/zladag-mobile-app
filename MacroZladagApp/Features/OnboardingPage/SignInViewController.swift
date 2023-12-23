@@ -47,17 +47,21 @@ class SignInViewController: UIViewController {
         setUpComponents()
         
         switchOnboardPromptLB.delegate = self
-        appleSignInBtn.delegate = self
-        googleSignInBtn.delegate = self
         whatsappSignInBtn.delegate = self
+        
+        // MARK: Temporary disabled
+//        appleSignInBtn.delegate = self
+//        googleSignInBtn.delegate = self
     }
     
     private func setUpComponents(){
         
 //        let divider = OptionDivider()
+        
+        // MARK: Google & Apple sign in is temporary disabled
         /// set up sign in options stack
 //        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, divider, whatsappSignInBtn])
-        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, whatsappSignInBtn])
+        signInOptionStack = UIStackView(arrangedSubviews: [whatsappSignInBtn])
         signInOptionStack.translatesAutoresizingMaskIntoConstraints = false
         signInOptionStack.axis  = NSLayoutConstraint.Axis.vertical
         signInOptionStack.distribution  = UIStackView.Distribution.fill
