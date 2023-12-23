@@ -18,6 +18,8 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     var checkBoxes = [UIButton]()
     let textView = ReservationTextView()
     
+    var pilihAnabulButton = UIButton()
+    
     // MARK: SECTION LABELS
     let titleLabel = UILabel()
     var pilihProfilLabel = UILabel()
@@ -42,6 +44,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         setupTitleLabel()
         setupPilihProfilLabel()
+        setupPilihAnabulButton()
         setupKandangLabel()
         setupCageButtons(cages: viewModelCell.cages)
         setupAddonServiceLabel()
@@ -72,9 +75,51 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         pilihProfilLabel.frame = CGRect(x: 24, y: titleLabel.bottom + 16, width: pilihProfilLabel.width, height: pilihProfilLabel.height)
     }
     
+    private func setupPilihAnabulButton() {
+        guard let viewModelCell else { print("viewModelCell IS NIL"); return }
+        
+        addSubview(pilihAnabulButton)
+        
+        pilihAnabulButton.layer.cornerRadius = 4
+        pilihAnabulButton.layer.masksToBounds = true
+        pilihAnabulButton.layer.borderWidth = 1
+        pilihAnabulButton.layer.borderColor = UIColor.grey3.cgColor
+        
+        pilihAnabulButton.backgroundColor = .clear
+        
+        pilihAnabulButton.addTarget(self, action: #selector(onClickPilihAnabulButton), for: .touchUpInside)
+        
+        
+        if let chosenAnabul = viewModelCell.chosenAnabul {
+            pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 64)
+        } else {
+            pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 44)
+            
+            let label = UILabel()
+            label.text = "Pilih Profil Anabul"
+            label.font = .systemFont(ofSize: 16, weight: .bold)
+            label.textColor = .textBlack
+            label.sizeToFit()
+            
+            let plusIcon = UIImageView(image: UIImage(named: "plus-icon"))
+            plusIcon.tintColor = .textBlack
+            plusIcon.contentMode = .scaleAspectFill
+            plusIcon.frame.size = CGSize(width: 20, height: 20)
+            
+            pilihAnabulButton.addSubview(label)
+            pilihAnabulButton.addSubview(plusIcon)
+            
+            label.frame = CGRect(x: 16, y: (pilihAnabulButton.height / 2) - (label.height / 2), width: label.width, height: label.height)
+            plusIcon.frame = CGRect(x: pilihAnabulButton.width - plusIcon.width - 18, y: (pilihAnabulButton.height / 2) - (label.height / 2), width: plusIcon.width, height: plusIcon.height)
+        }
+        
+        
+        
+    }
+    
     private func setupKandangLabel() {
         let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
-        divider.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 100, width: contentView.width - (24 * 2), height: 1)
+        divider.frame = CGRect(x: 24, y: pilihAnabulButton.bottom + 16, width: contentView.width - (24 * 2), height: 1)
         
         kandangLabel = self.getNecessaryLabel(string: "Kandang")
         contentView.addSubview(kandangLabel)
@@ -260,6 +305,33 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     // MARK: Misc.
     
+    @objc func onClickPilihAnabulButton() {
+        guard let reservationViewController else { return }
+        
+        let vc = PilihAnabulViewController(
+            usersCats: reservationViewController.viewModel.usersCats,
+            usersDogs: reservationViewController.viewModel.usersDogs
+        )
+        vc.reservationViewController = reservationViewController
+        
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 16
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.66 * context.maximumDetentValue
+                })
+            ]
+            
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        self.reservationViewController?.navigationController?.present(navVc, animated: true)
+    }
+    
     @objc func onClickCageRadioButton(button: UIButton) {
         guard let viewModelCell else { return }
         // print("cageId:", button.layer.name ?? "NO-LAYER-NAME")
@@ -328,7 +400,13 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         kandangLabel.text = nil
         addOnServiceLabel.text = nil
         tulisPesanLabel.text = nil
+        
+        for view in pilihAnabulButton.subviews {
+            view.removeFromSuperview()
+        }
 
+
+        
     }
     
     required init(coder: NSCoder) {

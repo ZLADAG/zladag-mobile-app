@@ -35,7 +35,6 @@ class ReservationViewController: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout { sectionIdx, _ in
-            
             if sectionIdx == 0 {
                 let cellWidth: CGFloat = (self.view.width * 0.5) - 32
                 let cellHeight: CGFloat = 62
@@ -65,7 +64,7 @@ class ReservationViewController: UIViewController {
                 let cagesCount: Int = self.viewModel.anabulCells[0].cages.count
                 let servicesCount: Int = self.viewModel.anabulCells[0].services.count
                 
-                let cellHeight: CGFloat = CGFloat(210 + 80 + 60 + 90) + CGFloat((cagesCount + servicesCount) * 34) // 20 + (7*2)
+                let cellHeight: CGFloat = CGFloat(412) + CGFloat((cagesCount + servicesCount) * 34) // 20 + (7*2)
                 let verticalPadding: CGFloat = 12
                 
                 let item = NSCollectionLayoutItem(
@@ -164,14 +163,35 @@ class ReservationViewController: UIViewController {
                 self.anabulArray.append("Anjing \(i)")
             }
         }
-        
     }
     
     public func setupAnabulData() { // step 2
         guard let response = boardingReservationDataResponse else { return }
         
-        self.viewModel.anabulCells = self.anabulArray.compactMap({ anabul in
-            return ReservationCellViewModel(anabul: anabul)
+        self.viewModel.anabulCells = self.anabulArray.compactMap({ nthAnabul in
+            return ReservationCellViewModel(nthAnabul: nthAnabul) // Kucing 0
+        })
+        
+        self.viewModel.usersCats = response.data.pets.cats.compactMap({ cat in
+            return UsersPet(
+                id: cat.id,
+                name: cat.name,
+                petBreed: cat.petBreed,
+                age: cat.age,
+                image: cat.image,
+                hasCompliedThePolicy: cat.hasCompliedThePolicy
+            )
+        })
+        
+        self.viewModel.usersDogs = response.data.pets.dogs.compactMap({ dog in
+            return UsersPet(
+                id: dog.id,
+                name: dog.name,
+                petBreed: dog.petBreed,
+                age: dog.age,
+                image: dog.image,
+                hasCompliedThePolicy: dog.hasCompliedThePolicy
+            )
         })
         
         for cell in self.viewModel.anabulCells {
@@ -327,8 +347,8 @@ class ReservationViewController: UIViewController {
     
 }
 
-extension ReservationViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-        
+extension ReservationViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 2
@@ -338,7 +358,7 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             return 1
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
@@ -363,9 +383,7 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
             cell.textView.tag = 500 + indexPath.row
             
             if indexPath.row == (self.anabulArray.count - 1) {
-                print(indexPath.row)
-                print(self.anabulArray.count)
-                self.lastTextView = cell.viewWithTag(500 + indexPath.row) as! ReservationTextView
+                self.lastTextView = cell.viewWithTag(500 + indexPath.row) as? ReservationTextView
             }
             
             return cell

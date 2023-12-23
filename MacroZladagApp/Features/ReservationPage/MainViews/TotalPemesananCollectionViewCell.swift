@@ -127,7 +127,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         var z = 0
         for cell in self.cellsViewModel {
             print("\n==================================")
-            print(cell.anabul) // Anjing 0
+            print(cell.nthAnabul) // Anjing 0, Kucing 0, ...
             
             print("\nCage:")
             for cage in cell.cages {

@@ -19,10 +19,11 @@
 		65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */; };
 		6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */; };
 		65313F952B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */; };
-		65364C0E2B34053400037E9D /* CoretanTextfieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C0D2B34053400037E9D /* CoretanTextfieldViewController.swift */; };
-		65364C102B3407C900037E9D /* CoretanTextfieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C0F2B3407C900037E9D /* CoretanTextfieldCollectionViewCell.swift */; };
 		65364C122B340CEC00037E9D /* ReservationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C112B340CEC00037E9D /* ReservationTextView.swift */; };
-		65364C142B3434AE00037E9D /* ReservationTextViewEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C132B3434AE00037E9D /* ReservationTextViewEnum.swift */; };
+		65364C162B36DFD600037E9D /* PilihAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */; };
+		65364C1C2B376EC200037E9D /* AnabulTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */; };
+		65364C1E2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */; };
+		65364C202B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */; };
 		653858302B23BFA6006F4796 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */; };
 		6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
@@ -260,10 +261,11 @@
 		65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTambahAnabulViewController.swift; sourceTree = "<group>"; };
 		65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPemesananCollectionViewCell.swift; sourceTree = "<group>"; };
-		65364C0D2B34053400037E9D /* CoretanTextfieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTextfieldViewController.swift; sourceTree = "<group>"; };
-		65364C0F2B3407C900037E9D /* CoretanTextfieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTextfieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		65364C112B340CEC00037E9D /* ReservationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTextView.swift; sourceTree = "<group>"; };
-		65364C132B3434AE00037E9D /* ReservationTextViewEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTextViewEnum.swift; sourceTree = "<group>"; };
+		65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilihAnabulViewController.swift; sourceTree = "<group>"; };
+		65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTableViewCell.swift; sourceTree = "<group>"; };
+		65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTerpilihTableViewCell.swift; sourceTree = "<group>"; };
+		65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTidakMemenuhiTableViewCell.swift; sourceTree = "<group>"; };
 		6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahPencarianViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
@@ -519,22 +521,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		65181A282B2E3EC6004469A8 /* CollectionViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */,
-				65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */,
-				65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */,
-				65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */,
-			);
-			path = CollectionViewCells;
-			sourceTree = "<group>";
-		};
 		65181A322B318D0F004469A8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				65181A332B318F69004469A8 /* ReservationPageViewModel.swift */,
-				65364C132B3434AE00037E9D /* ReservationTextViewEnum.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -679,6 +669,29 @@
 				65303FC22AE86E6A00EF5E17 /* BoardingDetails */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		65364C172B36E45B00037E9D /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				65364C112B340CEC00037E9D /* ReservationTextView.swift */,
+				65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */,
+				65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */,
+				65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */,
+				65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */,
+			);
+			path = MainViews;
+			sourceTree = "<group>";
+		};
+		65364C192B376E9D00037E9D /* PilihAnabul Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */,
+				65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */,
+				65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */,
+				65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */,
+			);
+			path = "PilihAnabul Sheet";
 			sourceTree = "<group>";
 		};
 		6538582E2B23BF95006F4796 /* SearchLocation */ = {
@@ -1234,12 +1247,10 @@
 		8F9C2D8E2AFA454A00D767CD /* ReservationPage */ = {
 			isa = PBXGroup;
 			children = (
+				65364C192B376E9D00037E9D /* PilihAnabul Sheet */,
+				65364C172B36E45B00037E9D /* MainViews */,
 				65181A322B318D0F004469A8 /* ViewModels */,
-				65181A282B2E3EC6004469A8 /* CollectionViewCells */,
 				65181A262B2E3E1B004469A8 /* ReservationViewController.swift */,
-				65364C0D2B34053400037E9D /* CoretanTextfieldViewController.swift */,
-				65364C0F2B3407C900037E9D /* CoretanTextfieldCollectionViewCell.swift */,
-				65364C112B340CEC00037E9D /* ReservationTextView.swift */,
 			);
 			path = ReservationPage;
 			sourceTree = "<group>";
@@ -1489,6 +1500,7 @@
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
 				65A05C992AFE321600C0BC93 /* PetBreedRadioButton.swift in Sources */,
 				6570AA472ADFD8AD003DC5EB /* HomeCellViewModel.swift in Sources */,
+				65364C202B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift in Sources */,
 				65A05C4F2AFB7E2800C0BC93 /* PetNameCard.swift in Sources */,
 				65A05C412AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift in Sources */,
 				8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */,
@@ -1561,7 +1573,6 @@
 				6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */,
 				8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */,
 				65A05C602AFC0FF500C0BC93 /* CustomDatePickerViewController.swift in Sources */,
-				65364C142B3434AE00037E9D /* ReservationTextViewEnum.swift in Sources */,
 				6597C3B42B0BB96C008F6D0D /* OrderDetailsSheetViewController.swift in Sources */,
 				8FFEC0202AEA5D16005D790F /* OnboardHeader.swift in Sources */,
 				65C40CCE2ACAA796004D986C /* AppDelegate.swift in Sources */,
@@ -1586,12 +1597,13 @@
 				6570AA222ADEA19E003DC5EB /* Service.swift in Sources */,
 				65364C122B340CEC00037E9D /* ReservationTextView.swift in Sources */,
 				8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */,
-				65364C0E2B34053400037E9D /* CoretanTextfieldViewController.swift in Sources */,
+				65364C162B36DFD600037E9D /* PilihAnabulViewController.swift in Sources */,
 				6597C3622B08D682008F6D0D /* OrdersResponse.swift in Sources */,
 				6597C3662B092353008F6D0D /* EmptyOrderCollectionViewCell.swift in Sources */,
 				6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */,
 				6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
+				65364C1C2B376EC200037E9D /* AnabulTableViewCell.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65A05C9D2AFE323700C0BC93 /* MultipartRequest.swift in Sources */,
 				658486D82B2A2F2F006132CF /* EmptyAutocompleteResultTableViewCell.swift in Sources */,
@@ -1609,6 +1621,7 @@
 				6570AA532ADFEE53003DC5EB /* BoardingDetailsResponse.swift in Sources */,
 				6570AA552ADFF06C003DC5EB /* BoardingCage.swift in Sources */,
 				8F9C2D722AF8927900D767CD /* ProfilePetTableViewCell.swift in Sources */,
+				65364C1E2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				8FFEC01A2AEA5C8E005D790F /* PhoneNumTextField.swift in Sources */,
 				65A05C892AFE30D400C0BC93 /* UserNameTextView.swift in Sources */,
@@ -1642,7 +1655,6 @@
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				8FFEC0472AEA6257005D790F /* SignInViewController.swift in Sources */,
 				8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */,
-				65364C102B3407C900037E9D /* CoretanTextfieldCollectionViewCell.swift in Sources */,
 				658486D12B2855C2006132CF /* LocationManager.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
 				8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */,

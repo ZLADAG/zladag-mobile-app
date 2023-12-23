@@ -120,7 +120,7 @@ class OrderDetailsSheetViewController: UIViewController {
             self.subLabelString = "Sampai jumpa di perjalanan berikutnya!"
             break
         case "Gagal":
-            self.subLabelString = "Sampai jumpa di perjalanan berikutnyag!"
+            self.subLabelString = "Sampai jumpa di perjalanan berikutnyag!" // g
             break
         default:
             self.subLabelString = "Pet hotel akan segera mengkonfirmasi pesananmu"

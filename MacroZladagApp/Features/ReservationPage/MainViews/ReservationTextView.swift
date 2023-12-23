@@ -19,7 +19,7 @@ class ReservationTextView: UITextView {
         returnKeyType = .default
         autocorrectionType = .no
         
-        addDoneButtonOnKeyboard()
+        self.addDoneButtonOnKeyboard()
     }
     
     func addDoneButtonOnKeyboard() {

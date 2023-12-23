@@ -9,6 +9,9 @@ import Foundation
 
 class ReservationPageViewModel {
     var anabulCells = [ReservationCellViewModel]()
+    
+    var usersCats = [UsersPet]()
+    var usersDogs = [UsersPet]()
 }
 
 class ReservationCellViewModel {
@@ -16,11 +19,40 @@ class ReservationCellViewModel {
     var services = [ReservationServiceDetails]()
     var pesan: String = ""
     
-    let anabul: String
+    let nthAnabul: String
+    var chosenAnabul: ChosenAnabul?
     
-    init(anabul: String) {
-        self.anabul = anabul
+    init(nthAnabul: String) {
+        self.nthAnabul = nthAnabul
     }
+}
+
+class UsersPet {
+    let id: String
+    let name: String
+    let petBreed: String
+    let age: Int
+    let image: String?
+    let hasCompliedThePolicy: Bool
+    
+//    var isChosen: Bool = false
+    var isChosen: Bool = [true, false].randomElement()!
+    
+    init(id: String, name: String, petBreed: String, age: Int, image: String?, hasCompliedThePolicy: Bool) {
+        self.id = id
+        self.name = name
+        self.petBreed = petBreed
+        self.age = age
+        self.image = image
+        self.hasCompliedThePolicy = hasCompliedThePolicy
+    }
+}
+
+struct ChosenAnabul {
+    let imageString: String?
+    let petName: String
+    let petBreed: String
+    let age: Int
 }
 
 class ReservationCageDetails {
