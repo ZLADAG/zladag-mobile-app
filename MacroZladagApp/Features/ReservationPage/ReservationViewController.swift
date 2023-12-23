@@ -11,8 +11,6 @@ class ReservationViewController: UIViewController {
     
     let slug: String
     let petBoardingName: String
-//    var kucingAmount = AppAccountManager.shared.kucingCount
-//    var anjingAmount = AppAccountManager.shared.anjingCount
     
     public var anabulArray = [String]()
     
@@ -26,6 +24,8 @@ class ReservationViewController: UIViewController {
         spinner.backgroundColor = .clear
         return spinner
     }()
+    
+    var lastTextView: ReservationTextView?
     
     init(slug: String, petBoardingName: String) {
         self.slug = slug
@@ -65,8 +65,7 @@ class ReservationViewController: UIViewController {
                 let cagesCount: Int = self.viewModel.anabulCells[0].cages.count
                 let servicesCount: Int = self.viewModel.anabulCells[0].services.count
                 
-//                let cellHeight: CGFloat = CGFloat(140) + CGFloat((cagesCount + servicesCount) * 34)
-                let cellHeight: CGFloat = CGFloat(210 + 80 + 60) + CGFloat((cagesCount + servicesCount) * 34) // 20 + (7*2)
+                let cellHeight: CGFloat = CGFloat(210 + 80 + 60 + 90) + CGFloat((cagesCount + servicesCount) * 34) // 20 + (7*2)
                 let verticalPadding: CGFloat = 12
                 
                 let item = NSCollectionLayoutItem(
@@ -128,11 +127,14 @@ class ReservationViewController: UIViewController {
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .textBlack
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
 //        print("\nDATE1: \(AppAccountManager.shared.selectedDay1!.components)")
 //        print("DATE2: \(AppAccountManager.shared.selectedDay2!.components)")
 //        print("\(AppAccountManager.shared.anjingCount) ANJING, \(AppAccountManager.shared.kucingCount) KUCING")
         
-        self.setupAnabulArray()
+        self.setupAnabulArray() // step 1
         
         fetchData { [weak self] in
             guard let strongSelf = self else { return }
@@ -145,23 +147,12 @@ class ReservationViewController: UIViewController {
     
     private func configureViews() {
         self.spinner.stopAnimating()
-        self.setupAnabulData()
-        self.setupCollectionView()
         
-//        var z  = 0
-//        for cell in self.viewModel.anabulCells {
-//            print("z = \(z)")
-//            for cage in cell.cages {
-//                print(cage.name)
-//                print(cage.priceString)
-//                print(cage.isTapped)
-//                print()
-//            }
-//            z += 1
-//        }
+        self.setupAnabulData() // step 2
+        self.setupCollectionView()
     }
     
-    public func setupAnabulArray() {
+    public func setupAnabulArray() { // step 1
         if AppAccountManager.shared.kucingCount > 0 {
             for i in 1...AppAccountManager.shared.kucingCount {
                 self.anabulArray.append("Kucing \(i)")
@@ -173,13 +164,14 @@ class ReservationViewController: UIViewController {
                 self.anabulArray.append("Anjing \(i)")
             }
         }
+        
     }
     
-    public func setupAnabulData() {
+    public func setupAnabulData() { // step 2
         guard let response = boardingReservationDataResponse else { return }
         
-        self.viewModel.anabulCells = self.anabulArray.compactMap({ string in
-            return ReservationCellViewModel()
+        self.viewModel.anabulCells = self.anabulArray.compactMap({ anabul in
+            return ReservationCellViewModel(anabul: anabul)
         })
         
         for cell in self.viewModel.anabulCells {
@@ -268,18 +260,16 @@ class ReservationViewController: UIViewController {
     private func fetchData(completion: @escaping () -> ()) {
         setupLoadingScreen()
         
-        
         APICaller.shared.getBoardingReservationDataBySlug(slug: self.slug) { result in
             switch result {
             case .success(let response):
                 self.boardingReservationDataResponse = response
                 
-                
                 completion()
                 
                 break
             case .failure(let error):
-                print(error)
+                print("ERROR WHEN getBoardingReservationDataBySlug:", error)
                 break
             }
         }
@@ -301,6 +291,34 @@ class ReservationViewController: UIViewController {
         spinner.startAnimating()
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y == 0 {
+            if let lastTextView {
+                if lastTextView.isFirstResponder {
+                    self.view.frame.origin.y -= keyboardFrame.height
+                }
+            }
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y += keyboardFrame.height
+        }
+    }
 
     
     required init(coder: NSCoder) {
@@ -342,6 +360,14 @@ extension ReservationViewController: UICollectionViewDelegate, UICollectionViewD
                 title: self.anabulArray[indexPath.row],
                 cellViewModel: self.viewModel.anabulCells[indexPath.row]
             )
+            cell.textView.tag = 500 + indexPath.row
+            
+            if indexPath.row == (self.anabulArray.count - 1) {
+                print(indexPath.row)
+                print(self.anabulArray.count)
+                self.lastTextView = cell.viewWithTag(500 + indexPath.row) as! ReservationTextView
+            }
+            
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPemesananCollectionViewCell.identifier, for: indexPath) as! TotalPemesananCollectionViewCell

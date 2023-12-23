@@ -6,11 +6,15 @@
 //
 
 /*
+ MARK: == IMPORTANT ==
  
  UIVIEW TAGS:
- 451: MainHeaderCollectionReusableView
- 461: TanggalReservationCollectionViewCell
- 462: AnabulReservationCollectionViewCell
+ 451 -> MainHeaderCollectionReusableView
+ 461 -> TanggalReservationCollectionViewCell
+ 462 -> AnabulReservationCollectionViewCell
+ 
+ 500 + i -> ReservationTextView; i = indexPath.row
+
  
  */
 

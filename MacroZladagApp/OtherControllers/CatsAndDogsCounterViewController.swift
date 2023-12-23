@@ -337,7 +337,7 @@ class CatsAndDogsCounterViewController: UIViewController {
         if let reservationController {
             if (self.kucingCount == 0) && (self.anjingCount == 0) {
                 let alert = UIAlertController(title: "Please set the amount of your dogs and cats!", message: "", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK!", style: .default, handler: nil))
                 self.present(alert, animated: true)
             } else {
                 let anabulCell = reservationController.view.viewWithTag(462) as! AnabulReservationCollectionViewCell
@@ -345,8 +345,8 @@ class CatsAndDogsCounterViewController: UIViewController {
                 
                 // REFILL ANABUL ARRAY
                 reservationController.anabulArray.removeAll()
-                reservationController.setupAnabulArray()
-                reservationController.setupAnabulData()
+                reservationController.setupAnabulArray() // step 1
+                reservationController.setupAnabulData() // step 2
                 
                 // RELOAD CELL
                 reservationController.collectionView.reloadData()

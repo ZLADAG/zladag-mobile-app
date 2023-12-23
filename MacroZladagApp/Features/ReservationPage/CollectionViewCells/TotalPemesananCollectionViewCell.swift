@@ -11,11 +11,10 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TotalPemesananCollectionViewCell"
     
+    var cellsViewModel = [ReservationCellViewModel]()
     var anabulsCount: Int?
     var cagesPrice: Int?
     var addOnServicesPrice: Int?
-    
-//    let totalCagesPriceLabel = UILabel()
     
     var pesanButton: UIButton? = UIButton()
     
@@ -25,6 +24,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(cellsViewModel: [ReservationCellViewModel]) {
+        self.cellsViewModel = cellsViewModel
         self.anabulsCount = cellsViewModel.count
         
         var cagesPriceTemp: Int = 0
@@ -52,6 +52,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
 //        print(">>", addOnServicesPrice)
         
         self.setupViews()
+//        setupButton(cellsViewModel: cellsViewModel)
     }
     
     public func setupViews() {
@@ -120,8 +121,32 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         return label
     }
     
+    
+    
     @objc func onClickPesanSekarangButton() {
-        print("onClickPesanSekarangButton")
+        var z = 0
+        for cell in self.cellsViewModel {
+            print("\n==================================")
+            print(cell.anabul) // Anjing 0
+            
+            print("\nCage:")
+            for cage in cell.cages {
+                if cage.isTapped {
+                    print("\(cage.name) - \(cage.id)")
+                }
+            }
+            
+            print("\nService:")
+            for service in cell.services {
+                if service.isTapped {
+                    print("\(service.name) - \(service.id)")
+                }
+            }
+            
+            print("\nPesan:")
+            print(cell.pesan)
+            
+        }
     }
     
     override func prepareForReuse() {

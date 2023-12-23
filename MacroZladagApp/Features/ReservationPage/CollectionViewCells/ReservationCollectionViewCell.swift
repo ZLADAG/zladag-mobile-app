@@ -8,6 +8,7 @@
 import UIKit
 
 class ReservationCollectionViewCell: UICollectionViewCell {
+    
     static let identifier = "ReservationCollectionViewCell"
     
     weak var viewModelCell: ReservationCellViewModel?
@@ -15,6 +16,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     var buttons = [UIButton]()
     var checkBoxes = [UIButton]()
+    let textView = ReservationTextView()
     
     // MARK: SECTION LABELS
     let titleLabel = UILabel()
@@ -45,6 +47,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         setupAddonServiceLabel()
         setupServiceCheckBoxes(services: viewModelCell.services)
         setupTulisPesanLabel()
+        setupTextView()
     }
 
     private func setupTitleLabel() {
@@ -241,7 +244,17 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupTextView() {
+        contentView.addSubview(textView)
         
+        textView.delegate = self
+        textView.text = self.viewModelCell!.pesan
+        
+        textView.frame = CGRect(
+            x: 24,
+            y: tulisPesanLabel.bottom + 7,
+            width: contentView.width - (2 * 24),
+            height: 61
+        )
     }
     
     
@@ -320,6 +333,22 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     required init(coder: NSCoder) {
         fatalError()
+    }
+    
+}
+
+extension ReservationCollectionViewCell: UITextViewDelegate {
+   
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("textView.tag \(textView.tag) DidBeginEditing")
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let textViewRow: Int = textView.tag - 500
+        
+        reservationViewController?.viewModel.anabulCells[textViewRow].pesan = textView.text
+        reservationViewController?.collectionView.reloadData()
     }
     
 }

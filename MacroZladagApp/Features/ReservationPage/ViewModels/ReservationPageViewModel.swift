@@ -14,6 +14,13 @@ class ReservationPageViewModel {
 class ReservationCellViewModel {
     var cages = [ReservationCageDetails]()
     var services = [ReservationServiceDetails]()
+    var pesan: String = ""
+    
+    let anabul: String
+    
+    init(anabul: String) {
+        self.anabul = anabul
+    }
 }
 
 class ReservationCageDetails {
