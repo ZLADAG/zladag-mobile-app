@@ -35,8 +35,7 @@ class UsersPet {
     let image: String?
     let hasCompliedThePolicy: Bool
     
-//    var isChosen: Bool = false
-    var isChosen: Bool = [true, false].randomElement()!
+    var isChosen: Bool = false
     
     init(id: String, name: String, petBreed: String, age: Int, image: String?, hasCompliedThePolicy: Bool) {
         self.id = id
@@ -49,6 +48,7 @@ class UsersPet {
 }
 
 struct ChosenAnabul {
+    let id: String
     let imageString: String?
     let petName: String
     let petBreed: String

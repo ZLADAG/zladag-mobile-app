@@ -80,6 +80,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         addSubview(pilihAnabulButton)
         
+        pilihAnabulButton.layer.name = viewModelCell.nthAnabul
         pilihAnabulButton.layer.cornerRadius = 4
         pilihAnabulButton.layer.masksToBounds = true
         pilihAnabulButton.layer.borderWidth = 1
@@ -91,6 +92,8 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         
         if let chosenAnabul = viewModelCell.chosenAnabul {
+            print("CHOSEN ANABUL EXISTS")
+            pilihAnabulButton.backgroundColor = .magenta
             pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 64)
         } else {
             pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 44)
@@ -202,7 +205,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     private func setupAddonServiceLabel() {
         let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
-        divider.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 30, width: contentView.width - (24 * 2), height: 1)
+        divider.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 9, width: contentView.width - (24 * 2), height: 1)
         
         addOnServiceLabel = self.getNecessaryLabel(string: "Add-on Service", necessary: false)
         contentView.addSubview(addOnServiceLabel)
@@ -305,12 +308,13 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     // MARK: Misc.
     
-    @objc func onClickPilihAnabulButton() {
+    @objc func onClickPilihAnabulButton(button: UIButton) {
         guard let reservationViewController else { return }
         
         let vc = PilihAnabulViewController(
             usersCats: reservationViewController.viewModel.usersCats,
-            usersDogs: reservationViewController.viewModel.usersDogs
+            usersDogs: reservationViewController.viewModel.usersDogs,
+            anabulType: button.layer.name ?? "Kucing"
         )
         vc.reservationViewController = reservationViewController
         
@@ -392,10 +396,17 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        titleLabel.text = nil
+        for button in buttons {
+            button.removeFromSuperview()
+        }
         self.buttons = []
+        
+        for checkBox in checkBoxes {
+            checkBox.removeFromSuperview()
+        }
         self.checkBoxes = []
         
+        titleLabel.text = nil
         pilihProfilLabel.text = nil
         kandangLabel.text = nil
         addOnServiceLabel.text = nil
@@ -404,9 +415,6 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         for view in pilihAnabulButton.subviews {
             view.removeFromSuperview()
         }
-
-
-        
     }
     
     required init(coder: NSCoder) {

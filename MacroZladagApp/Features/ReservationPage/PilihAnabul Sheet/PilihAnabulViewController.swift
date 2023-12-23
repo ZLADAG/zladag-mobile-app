@@ -9,17 +9,25 @@ import UIKit
 
 class PilihAnabulViewController: UIViewController {
     
+    // INIT
     let usersCats: [UsersPet]
     let usersDogs: [UsersPet]
+    let anabulType: String
     
     weak var reservationViewController: ReservationViewController?
     
+    var availablePets = [UsersPet]()
+    var chosenPets = [UsersPet]()
+    var notComplyingPets = [UsersPet]()
+    
+    
+    // UI COMPONENTS
     let tableView = UITableView()
     
-    init(usersCats: [UsersPet], usersDogs: [UsersPet]) {
+    init(usersCats: [UsersPet], usersDogs: [UsersPet], anabulType: String) {
         self.usersCats = usersCats
         self.usersDogs = usersDogs
-            
+        self.anabulType = anabulType
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,9 +36,62 @@ class PilihAnabulViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         overrideUserInterfaceStyle = .light
-
+        
+        setupPetsData()
         setupNavBar()
         setupTableView()
+    }
+    
+    private func setupPetsData() {
+        if anabulType.contains("Kucing") {
+            self.availablePets = self.usersCats.compactMap({ usersCat in
+                if (usersCat.hasCompliedThePolicy) && (!usersCat.isChosen) {
+                    return usersCat
+                } else {
+                    return nil
+                }
+            })
+            
+            self.chosenPets = self.usersCats.compactMap({ usersCat in
+                if (usersCat.hasCompliedThePolicy) && (usersCat.isChosen) {
+                    return usersCat
+                } else {
+                    return nil
+                }
+            })
+            
+            self.notComplyingPets = self.usersCats.compactMap({ usersCat in
+                if !usersCat.hasCompliedThePolicy {
+                    return usersCat
+                } else {
+                    return nil
+                }
+            })
+        } else { // Anjing
+            self.availablePets = self.usersDogs.compactMap({ usersDog in
+                if (usersDog.hasCompliedThePolicy) && (!usersDog.isChosen) {
+                    return usersDog
+                } else {
+                    return nil
+                }
+            })
+            
+            self.chosenPets = self.usersDogs.compactMap({ usersDog in
+                if (usersDog.hasCompliedThePolicy) && (usersDog.isChosen) {
+                    return usersDog
+                } else {
+                    return nil
+                }
+            })
+            
+            self.notComplyingPets = self.usersDogs.compactMap({ usersDog in
+                if !usersDog.hasCompliedThePolicy {
+                    return usersDog
+                } else {
+                    return nil
+                }
+            })
+        }
     }
 
     private func setupTableView() {
@@ -105,24 +166,132 @@ class PilihAnabulViewController: UIViewController {
 extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let section = indexPath.section
+        
+        switch section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTableViewCell.identifier, for: indexPath) as! AnabulTableViewCell
+            cell.configure(with: self.availablePets[indexPath.row].id)
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTerpilihTableViewCell.identifier, for: indexPath) as! AnabulTerpilihTableViewCell
+            cell.configure(with: self.chosenPets[indexPath.row].id)
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTidakMemenuhiTableViewCell.identifier, for: indexPath) as! AnabulTidakMemenuhiTableViewCell
+            cell.configure(with: self.notComplyingPets[indexPath.row].id)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
         
+        switch section {
+        case 0:
+            guard let reservationViewController else { print("reservationViewController IS NIL"); return }
+            let chosenPetId: String = self.availablePets[indexPath.row].id
+            
+            if self.anabulType.contains("Kucing") {
+                for cat in reservationViewController.viewModel.usersCats {
+                    if cat.id == chosenPetId {
+                        cat.isChosen = !cat.isChosen
+                        
+                        for anabulCell in reservationViewController.viewModel.anabulCells {
+                            if anabulCell.nthAnabul == self.anabulType {
+                                if let chosenAnabul = anabulCell.chosenAnabul {
+                                    reservationViewController.viewModel.usersCats.forEach { cat in
+                                        if cat.id == chosenAnabul.id {
+                                            cat.isChosen = !cat.isChosen
+                                        }
+                                    }
+                                    
+                                    anabulCell.chosenAnabul = ChosenAnabul(
+                                        id: cat.id,
+                                        imageString: cat.image,
+                                        petName: cat.name,
+                                        petBreed: cat.petBreed,
+                                        age: cat.age
+                                    )
+                                } else {
+                                    anabulCell.chosenAnabul = ChosenAnabul(
+                                        id: cat.id,
+                                        imageString: cat.image,
+                                        petName: cat.name,
+                                        petBreed: cat.petBreed,
+                                        age: cat.age
+                                    )
+                                }
+                                
+                                break
+                            }
+                        }
+                        
+                        break
+                    }
+                }
+            } else { // Anjing
+                for dog in reservationViewController.viewModel.usersDogs {
+                    if dog.id == chosenPetId {
+                        dog.isChosen = !dog.isChosen
+                        
+                        for anabulCell in reservationViewController.viewModel.anabulCells {
+                            if anabulCell.nthAnabul == self.anabulType {
+                                if let chosenAnabul = anabulCell.chosenAnabul {
+                                    reservationViewController.viewModel.usersDogs.forEach { dog in
+                                        if dog.id == chosenAnabul.id {
+                                            dog.isChosen = !dog.isChosen
+                                        }
+                                    }
+                                    
+                                    anabulCell.chosenAnabul = ChosenAnabul(
+                                        id: dog.id,
+                                        imageString: dog.image,
+                                        petName: dog.name,
+                                        petBreed: dog.petBreed,
+                                        age: dog.age
+                                    )
+                                } else {
+                                    anabulCell.chosenAnabul = ChosenAnabul(
+                                        id: dog.id,
+                                        imageString: dog.image,
+                                        petName: dog.name,
+                                        petBreed: dog.petBreed,
+                                        age: dog.age
+                                    )
+                                }
+                                
+                                break
+                            }
+                        }
+                        
+                        break
+                    }
+                }
+            }
+            
+            reservationViewController.collectionView.reloadData()
+            dismiss(animated: true)
+        case 1:
+            print(self.chosenPets[indexPath.row].id)
+        default:
+            print(self.notComplyingPets[indexPath.row].id)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        switch section {
+        case 0:
+            return self.availablePets.count
+        case 1:
+            return self.chosenPets.count
+        default:
+            return self.notComplyingPets.count
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
-    
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //
-    //
-    //    }
     
 }
