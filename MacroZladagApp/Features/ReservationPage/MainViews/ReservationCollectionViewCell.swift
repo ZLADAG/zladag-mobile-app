@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ReservationCollectionViewCell: UICollectionViewCell {
     
@@ -90,11 +91,46 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         pilihAnabulButton.addTarget(self, action: #selector(onClickPilihAnabulButton), for: .touchUpInside)
         
-        
         if let chosenAnabul = viewModelCell.chosenAnabul {
-            print("CHOSEN ANABUL EXISTS")
-            pilihAnabulButton.backgroundColor = .magenta
+            
+            let imageView = UIImageView()
+            let petLabel = UILabel()
+            let petDescriptionLabel = UILabel()
+            
+            pilihAnabulButton.addSubview(imageView)
+            pilihAnabulButton.addSubview(petLabel)
+            pilihAnabulButton.addSubview(petDescriptionLabel)
+            
+            if let imageString = chosenAnabul.imageString {
+                imageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageString)))
+            } else {
+                if chosenAnabul.petBreed.contains("Kucing") {
+                    imageView.image = UIImage(named: "default-cat-image")
+                } else {
+                    imageView.image = UIImage(named: "default-dog-image")
+                }
+            }
+            
+            imageView.frame.size = CGSize(width: 48, height: 48)
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.cornerRadius = CGFloat(imageView.width / 2)
+            imageView.layer.masksToBounds = true
+            
+            petLabel.text = chosenAnabul.petName
+            petLabel.textColor = .textBlack
+            petLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+            petLabel.sizeToFit()
+            
+            petDescriptionLabel.text = "\(chosenAnabul.petBreed) · \(chosenAnabul.age) tahun"
+            petDescriptionLabel.textColor = .grey1
+            petDescriptionLabel.font = .systemFont(ofSize: 14, weight: .medium)
+            petDescriptionLabel.sizeToFit()
+            
             pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 64)
+            
+            imageView.frame = CGRect(x: 16, y: (pilihAnabulButton.height / 2) - (imageView.height / 2), width: imageView.width, height: imageView.height)
+            petLabel.frame = CGRect(x: imageView.right + 12, y: 10, width: petLabel.width, height: petLabel.height)
+            petDescriptionLabel.frame = CGRect(x: petLabel.left, y: petLabel.bottom + 6, width: petDescriptionLabel.width, height: petDescriptionLabel.height)
         } else {
             pilihAnabulButton.frame = CGRect(x: 24, y: pilihProfilLabel.bottom + 16, width: contentView.width - (24 * 2), height: 44)
             
@@ -115,13 +151,11 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             label.frame = CGRect(x: 16, y: (pilihAnabulButton.height / 2) - (label.height / 2), width: label.width, height: label.height)
             plusIcon.frame = CGRect(x: pilihAnabulButton.width - plusIcon.width - 18, y: (pilihAnabulButton.height / 2) - (label.height / 2), width: plusIcon.width, height: plusIcon.height)
         }
-        
-        
-        
     }
     
     private func setupKandangLabel() {
         let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.layer.name = "divider-1"
         divider.frame = CGRect(x: 24, y: pilihAnabulButton.bottom + 16, width: contentView.width - (24 * 2), height: 1)
         
         kandangLabel = self.getNecessaryLabel(string: "Kandang")
@@ -414,6 +448,12 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         
         for view in pilihAnabulButton.subviews {
             view.removeFromSuperview()
+        }
+        
+        for view in contentView.subviews {
+            if let name = view.layer.name, name == "divider-1" {
+                view.removeFromSuperview()
+            }
         }
     }
     

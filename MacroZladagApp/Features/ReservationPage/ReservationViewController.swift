@@ -339,7 +339,6 @@ class ReservationViewController: UIViewController {
             self.view.frame.origin.y += keyboardFrame.height
         }
     }
-
     
     required init(coder: NSCoder) {
         fatalError()
