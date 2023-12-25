@@ -121,7 +121,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
             petLabel.font = .systemFont(ofSize: 16, weight: .semibold)
             petLabel.sizeToFit()
             
-            petDescriptionLabel.text = "\(chosenAnabul.petBreed) · \(chosenAnabul.age) tahun"
+            petDescriptionLabel.text = "\(chosenAnabul.petBreed)  ·  \(chosenAnabul.age) tahun"
             petDescriptionLabel.textColor = .grey1
             petDescriptionLabel.font = .systemFont(ofSize: 14, weight: .medium)
             petDescriptionLabel.sizeToFit()

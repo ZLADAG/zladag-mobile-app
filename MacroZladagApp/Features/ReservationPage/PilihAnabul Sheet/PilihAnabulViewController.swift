@@ -34,7 +34,7 @@ class PilihAnabulViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         overrideUserInterfaceStyle = .light
         
         setupPetsData()
@@ -97,12 +97,24 @@ class PilihAnabulViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(tableView)
         
+        tableView.backgroundColor = .white
+        
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        if ((self.availablePets.count == 0) && (self.notComplyingPets.count == 0) && (self.chosenPets.count == 0)) {
+            tableView.isScrollEnabled = false
+        } else {
+            tableView.isScrollEnabled = true
+        }
         
         tableView.register(AnabulTableViewCell.self, forCellReuseIdentifier: AnabulTableViewCell.identifier)
         tableView.register(AnabulTerpilihTableViewCell.self, forCellReuseIdentifier: AnabulTerpilihTableViewCell.identifier)
         tableView.register(AnabulTidakMemenuhiTableViewCell.self, forCellReuseIdentifier: AnabulTidakMemenuhiTableViewCell.identifier)
+        tableView.register(HeaderAnabulTidakMemenuhiTableViewCell.self, forCellReuseIdentifier: HeaderAnabulTidakMemenuhiTableViewCell.identifier)
+        tableView.register(EmptyAnabulsTableViewCell.self, forCellReuseIdentifier: EmptyAnabulsTableViewCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -170,17 +182,30 @@ extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource 
         
         switch section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTableViewCell.identifier, for: indexPath) as! AnabulTableViewCell
-            cell.configure(with: self.availablePets[indexPath.row].id)
-            return cell
+            if ((self.availablePets.count == 0) && (self.notComplyingPets.count == 0) && (self.chosenPets.count == 0)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyAnabulsTableViewCell.identifier, for: indexPath)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTableViewCell.identifier, for: indexPath) as! AnabulTableViewCell
+                cell.configure(with: self.availablePets[indexPath.row])
+                return cell
+            }
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTerpilihTableViewCell.identifier, for: indexPath) as! AnabulTerpilihTableViewCell
-            cell.configure(with: self.chosenPets[indexPath.row].id)
+            cell.configure(with: self.chosenPets[indexPath.row])
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTidakMemenuhiTableViewCell.identifier, for: indexPath) as! AnabulTidakMemenuhiTableViewCell
-            cell.configure(with: self.notComplyingPets[indexPath.row].id)
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: HeaderAnabulTidakMemenuhiTableViewCell.identifier, for: indexPath) as! HeaderAnabulTidakMemenuhiTableViewCell
+                if !(self.notComplyingPets.count > 0) {
+                    cell.contentView.layer.opacity = 0.0
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: AnabulTidakMemenuhiTableViewCell.identifier, for: indexPath) as! AnabulTidakMemenuhiTableViewCell
+                cell.configure(with: self.notComplyingPets[indexPath.row - 1])
+                return cell
+            }
         }
     }
     
@@ -189,7 +214,14 @@ extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource 
         
         switch section {
         case 0:
-            guard let reservationViewController else { print("reservationViewController IS NIL"); return }
+            guard 
+                let reservationViewController,
+                (self.availablePets.count > 0)
+            else {
+                print("reservationViewController IS NIL")
+                return
+            }
+            
             let chosenPetId: String = self.availablePets[indexPath.row].id
             
             if self.anabulType.contains("Kucing") {
@@ -206,21 +238,9 @@ extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource 
                                         }
                                     }
                                     
-                                    anabulCell.chosenAnabul = ChosenAnabul(
-                                        id: cat.id,
-                                        imageString: cat.image,
-                                        petName: cat.name,
-                                        petBreed: cat.petBreed,
-                                        age: cat.age
-                                    )
+                                    anabulCell.chosenAnabul = ChosenAnabul(id: cat.id,imageString: cat.image,petName: cat.name,petBreed: cat.petBreed,age: cat.age)
                                 } else {
-                                    anabulCell.chosenAnabul = ChosenAnabul(
-                                        id: cat.id,
-                                        imageString: cat.image,
-                                        petName: cat.name,
-                                        petBreed: cat.petBreed,
-                                        age: cat.age
-                                    )
+                                    anabulCell.chosenAnabul = ChosenAnabul(id: cat.id,imageString: cat.image,petName: cat.name,petBreed: cat.petBreed,age: cat.age)
                                 }
                                 
                                 break
@@ -244,23 +264,11 @@ extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource 
                                         }
                                     }
                                     
-                                    anabulCell.chosenAnabul = ChosenAnabul(
-                                        id: dog.id,
-                                        imageString: dog.image,
-                                        petName: dog.name,
-                                        petBreed: dog.petBreed,
-                                        age: dog.age
-                                    )
+                                    anabulCell.chosenAnabul = ChosenAnabul(id: dog.id,imageString: dog.image,petName: dog.name,petBreed: dog.petBreed,age: dog.age)
                                 } else {
-                                    anabulCell.chosenAnabul = ChosenAnabul(
-                                        id: dog.id,
-                                        imageString: dog.image,
-                                        petName: dog.name,
-                                        petBreed: dog.petBreed,
-                                        age: dog.age
-                                    )
+                                    anabulCell.chosenAnabul = ChosenAnabul(id: dog.id,imageString: dog.image,petName: dog.name,petBreed: dog.petBreed,age: dog.age)
                                 }
-                                
+
                                 break
                             }
                         }
@@ -272,26 +280,62 @@ extension PilihAnabulViewController: UITableViewDelegate, UITableViewDataSource 
             
             reservationViewController.collectionView.reloadData()
             dismiss(animated: true)
-        case 1:
-            print(self.chosenPets[indexPath.row].id)
         default:
-            print(self.notComplyingPets[indexPath.row].id)
+            break
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return self.availablePets.count
+            if ((self.availablePets.count == 0) && (self.notComplyingPets.count == 0) && (self.chosenPets.count == 0)) {
+                return 1
+            } else {
+                return self.availablePets.count
+            }
         case 1:
             return self.chosenPets.count
         default:
-            return self.notComplyingPets.count
+            return self.notComplyingPets.count + 1 // +1 cell for the header!
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        if ((self.availablePets.count == 0) && (self.notComplyingPets.count == 0) && (self.chosenPets.count == 0)) {
+            return 1
+        } else {
+            return 3
+        }
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if ((self.availablePets.count == 0) && (self.notComplyingPets.count == 0) && (self.chosenPets.count == 0)) {
+            return 480
+        } else {
+            let section: Int = indexPath.section
+            
+            let headerHeight: CGFloat = 50 // 68 - 18
+            let firstTypeHeight: CGFloat = 82 // 64 + 18
+            let secondTypeHeight: CGFloat = 116 // 64 + 34 + 18 
+            
+            if section == 0 {
+                return firstTypeHeight
+            } else if section == 1 {
+                return secondTypeHeight
+            } else {
+                if indexPath.row == 0 {
+                    return headerHeight
+                } else {
+                    return secondTypeHeight
+                }
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
     
 }

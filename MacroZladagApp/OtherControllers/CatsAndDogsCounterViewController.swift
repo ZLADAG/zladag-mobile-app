@@ -255,11 +255,11 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     @objc func closeSheet() {
-        mainHeaderDelegate?.delegate?.dismiss(animated: true)
-        
         if controllerDelegate != nil {
             dismiss(animated: true)
         }
+        
+        dismiss(animated: true)
     }
     
     @objc func catDecrementButton() {
