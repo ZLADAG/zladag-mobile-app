@@ -8,11 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2275722668A0FA2F9740DD11 /* Pods_MacroZladagApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */; };
+		65181A272B2E3E1B004469A8 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A262B2E3E1B004469A8 /* ReservationViewController.swift */; };
+		65181A2D2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */; };
+		65181A2F2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */; };
+		65181A312B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */; };
+		65181A342B318F6A004469A8 /* ReservationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A332B318F69004469A8 /* ReservationPageViewModel.swift */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
 		65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */; };
 		6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */; };
+		65313F952B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */; };
+		65364C122B340CEC00037E9D /* ReservationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C112B340CEC00037E9D /* ReservationTextView.swift */; };
+		65364C162B36DFD600037E9D /* PilihAnabulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */; };
+		65364C1C2B376EC200037E9D /* AnabulTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */; };
+		65364C1E2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */; };
+		65364C202B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */; };
+		6537D5A52B3A1B14002FD150 /* HeaderAnabulTidakMemenuhiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537D5A42B3A1B14002FD150 /* HeaderAnabulTidakMemenuhiTableViewCell.swift */; };
+		6537D5A72B3A1EE5002FD150 /* EmptyAnabulsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537D5A62B3A1EE5002FD150 /* EmptyAnabulsTableViewCell.swift */; };
 		653858302B23BFA6006F4796 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */; };
 		6553A6842AE6ECDA00C63D4F /* UbahPencarianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */; };
 		655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B017A2AD9F6DC0016FC81 /* FilterParams.swift */; };
@@ -175,12 +188,7 @@
 		65EC8BE32AE27D9500CDD359 /* GetOneBoardingDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */; };
 		65EC8BE42AE27D9500CDD359 /* GetSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE12AE27D9500CDD359 /* GetSearch.json */; };
 		8F167EB62B0658A900FDAAE9 /* PriceWithAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */; };
-		8F167EB82B06763D00FDAAE9 /* TotalPriceSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EB72B06763D00FDAAE9 /* TotalPriceSummaryCollectionViewCell.swift */; };
-		8F167EBA2B070B1500FDAAE9 /* ReservationSuccessPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EB92B070B1500FDAAE9 /* ReservationSuccessPageViewController.swift */; };
-		8F167EC42B08D35100FDAAE9 /* CatOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC32B08D35100FDAAE9 /* CatOrderCollectionViewCell.swift */; };
-		8F167EC62B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC52B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift */; };
 		8F167EC82B0A3AF900FDAAE9 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */; };
-		8F167ECA2B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */; };
 		8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */; };
 		8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */; };
 		8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */; };
@@ -209,16 +217,6 @@
 		8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */; };
 		8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8A2AF9FAB300D767CD /* Habit.swift */; };
 		8F9C2D8D2AF9FB9500D767CD /* ProfilePageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */; };
-		8F9C2D912AFA457A00D767CD /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D902AFA457A00D767CD /* ReservationViewController.swift */; };
-		8F9C2D942AFA9AFE00D767CD /* HeaderInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D932AFA9AFE00D767CD /* HeaderInputButton.swift */; };
-		8F9C2D962AFB77FF00D767CD /* RangeDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D952AFB77FF00D767CD /* RangeDatePickerViewController.swift */; };
-		8F9C2D992AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D982AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift */; };
-		8F9C2D9B2AFBD64000D767CD /* DogOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D9A2AFBD64000D767CD /* DogOrderCollectionViewCell.swift */; };
-		8F9C2D9D2AFC590200D767CD /* CageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D9C2AFC590200D767CD /* CageOption.swift */; };
-		8F9C2D9F2AFC591A00D767CD /* AddOnServiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D9E2AFC591A00D767CD /* AddOnServiceOption.swift */; };
-		8F9C2DA12AFC593800D767CD /* MessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2DA02AFC593800D767CD /* MessageInput.swift */; };
-		8F9C2DA32AFCBA5900D767CD /* PetOptionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2DA22AFCBA5900D767CD /* PetOptionSheetViewController.swift */; };
-		8F9C2DA62AFCC6F000D767CD /* PetOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2DA52AFCC6F000D767CD /* PetOptionTableViewCell.swift */; };
 		8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */; };
 		8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */; };
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
@@ -253,12 +251,25 @@
 
 /* Begin PBXFileReference section */
 		347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroZladagApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65181A262B2E3E1B004469A8 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
+		65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationCollectionViewCell.swift; sourceTree = "<group>"; };
+		65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanggalReservationCollectionViewCell.swift; sourceTree = "<group>"; };
+		65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulReservationCollectionViewCell.swift; sourceTree = "<group>"; };
+		65181A332B318F69004469A8 /* ReservationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationPageViewModel.swift; sourceTree = "<group>"; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		65303FC92AE9072B00EF5E17 /* MacroZladagApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacroZladagApp.entitlements; sourceTree = "<group>"; };
 		65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetDuaViewController.swift; sourceTree = "<group>"; };
 		653040092AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretanTambahAnabulViewController.swift; sourceTree = "<group>"; };
+		65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPemesananCollectionViewCell.swift; sourceTree = "<group>"; };
+		65364C112B340CEC00037E9D /* ReservationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTextView.swift; sourceTree = "<group>"; };
+		65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilihAnabulViewController.swift; sourceTree = "<group>"; };
+		65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTableViewCell.swift; sourceTree = "<group>"; };
+		65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTerpilihTableViewCell.swift; sourceTree = "<group>"; };
+		65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulTidakMemenuhiTableViewCell.swift; sourceTree = "<group>"; };
+		6537D5A42B3A1B14002FD150 /* HeaderAnabulTidakMemenuhiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderAnabulTidakMemenuhiTableViewCell.swift; sourceTree = "<group>"; };
+		6537D5A62B3A1EE5002FD150 /* EmptyAnabulsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAnabulsTableViewCell.swift; sourceTree = "<group>"; };
 		6538582F2B23BFA6006F4796 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		6553A6832AE6ECDA00C63D4F /* UbahPencarianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahPencarianViewController.swift; sourceTree = "<group>"; };
 		655B017A2AD9F6DC0016FC81 /* FilterParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParams.swift; sourceTree = "<group>"; };
@@ -390,12 +401,7 @@
 		65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetOneBoardingDetails.json; sourceTree = "<group>"; };
 		65EC8BE12AE27D9500CDD359 /* GetSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetSearch.json; sourceTree = "<group>"; };
 		8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceWithAmount.swift; sourceTree = "<group>"; };
-		8F167EB72B06763D00FDAAE9 /* TotalPriceSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F167EB92B070B1500FDAAE9 /* ReservationSuccessPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationSuccessPageViewController.swift; sourceTree = "<group>"; };
-		8F167EC32B08D35100FDAAE9 /* CatOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatOrderCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F167EC52B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetOrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
-		8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPetAmountInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
 		8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReservationDataResponse.swift; sourceTree = "<group>"; };
 		8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReservationBody.swift; sourceTree = "<group>"; };
@@ -427,16 +433,6 @@
 		8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileDetailsResponse.swift; sourceTree = "<group>"; };
 		8F9C2D8A2AF9FAB300D767CD /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageManager.swift; sourceTree = "<group>"; };
-		8F9C2D902AFA457A00D767CD /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
-		8F9C2D932AFA9AFE00D767CD /* HeaderInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderInputButton.swift; sourceTree = "<group>"; };
-		8F9C2D952AFB77FF00D767CD /* RangeDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDatePickerViewController.swift; sourceTree = "<group>"; };
-		8F9C2D982AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderDateInputCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F9C2D9A2AFBD64000D767CD /* DogOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogOrderCollectionViewCell.swift; sourceTree = "<group>"; };
-		8F9C2D9C2AFC590200D767CD /* CageOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CageOption.swift; sourceTree = "<group>"; };
-		8F9C2D9E2AFC591A00D767CD /* AddOnServiceOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOnServiceOption.swift; sourceTree = "<group>"; };
-		8F9C2DA02AFC593800D767CD /* MessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInput.swift; sourceTree = "<group>"; };
-		8F9C2DA22AFCBA5900D767CD /* PetOptionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetOptionSheetViewController.swift; sourceTree = "<group>"; };
-		8F9C2DA52AFCC6F000D767CD /* PetOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetOptionTableViewCell.swift; sourceTree = "<group>"; };
 		8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPSegmentedInfoViewController.swift; sourceTree = "<group>"; };
 		8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewViewController.swift; sourceTree = "<group>"; };
 		8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -527,6 +523,14 @@
 				347FF2B2596BDA8510B85CFA /* Pods_MacroZladagApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65181A322B318D0F004469A8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				65181A332B318F69004469A8 /* ReservationPageViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		65257B712ADD3D1600C6290C /* Recovered References */ = {
@@ -669,6 +673,31 @@
 				65303FC22AE86E6A00EF5E17 /* BoardingDetails */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		65364C172B36E45B00037E9D /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				65364C112B340CEC00037E9D /* ReservationTextView.swift */,
+				65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */,
+				65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */,
+				65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */,
+				65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */,
+			);
+			path = MainViews;
+			sourceTree = "<group>";
+		};
+		65364C192B376E9D00037E9D /* PilihAnabul Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				65364C152B36DFD600037E9D /* PilihAnabulViewController.swift */,
+				65364C1B2B376EC200037E9D /* AnabulTableViewCell.swift */,
+				65364C1D2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift */,
+				65364C1F2B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift */,
+				6537D5A42B3A1B14002FD150 /* HeaderAnabulTidakMemenuhiTableViewCell.swift */,
+				6537D5A62B3A1EE5002FD150 /* EmptyAnabulsTableViewCell.swift */,
+			);
+			path = "PilihAnabul Sheet";
 			sourceTree = "<group>";
 		};
 		6538582E2B23BF95006F4796 /* SearchLocation */ = {
@@ -1224,55 +1253,12 @@
 		8F9C2D8E2AFA454A00D767CD /* ReservationPage */ = {
 			isa = PBXGroup;
 			children = (
-				8F9C2DA42AFCC5A300D767CD /* TableViewCell */,
-				8F9C2D972AFBD5B500D767CD /* CollectionViewCell */,
-				8F9C2D922AFA9AE100D767CD /* View */,
-				8F9C2D8F2AFA455E00D767CD /* Controller */,
+				65364C192B376E9D00037E9D /* PilihAnabul Sheet */,
+				65364C172B36E45B00037E9D /* MainViews */,
+				65181A322B318D0F004469A8 /* ViewModels */,
+				65181A262B2E3E1B004469A8 /* ReservationViewController.swift */,
 			);
 			path = ReservationPage;
-			sourceTree = "<group>";
-		};
-		8F9C2D8F2AFA455E00D767CD /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				8F9C2D902AFA457A00D767CD /* ReservationViewController.swift */,
-				8F167EB92B070B1500FDAAE9 /* ReservationSuccessPageViewController.swift */,
-				8F9C2D952AFB77FF00D767CD /* RangeDatePickerViewController.swift */,
-				8F9C2DA22AFCBA5900D767CD /* PetOptionSheetViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		8F9C2D922AFA9AE100D767CD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				8F9C2D932AFA9AFE00D767CD /* HeaderInputButton.swift */,
-				8F9C2D9C2AFC590200D767CD /* CageOption.swift */,
-				8F9C2D9E2AFC591A00D767CD /* AddOnServiceOption.swift */,
-				8F9C2DA02AFC593800D767CD /* MessageInput.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		8F9C2D972AFBD5B500D767CD /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				8F9C2D982AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift */,
-				8F167EC92B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift */,
-				8F9C2D9A2AFBD64000D767CD /* DogOrderCollectionViewCell.swift */,
-				8F167EC32B08D35100FDAAE9 /* CatOrderCollectionViewCell.swift */,
-				8F167EC52B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift */,
-				8F167EB72B06763D00FDAAE9 /* TotalPriceSummaryCollectionViewCell.swift */,
-			);
-			path = CollectionViewCell;
-			sourceTree = "<group>";
-		};
-		8F9C2DA42AFCC5A300D767CD /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				8F9C2DA52AFCC6F000D767CD /* PetOptionTableViewCell.swift */,
-			);
-			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		8FFEC0162AEA5B63005D790F /* ReusableViews */ = {
@@ -1505,6 +1491,7 @@
 				65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */,
 				65A05C8E2AFE30D400C0BC93 /* RasDropDownTableViewCell.swift in Sources */,
 				65A05C9B2AFE321600C0BC93 /* BreedsAndHabitsResponse.swift in Sources */,
+				65181A272B2E3E1B004469A8 /* ReservationViewController.swift in Sources */,
 				8FFEC09A2AEE75BD005D790F /* SignInResponse.swift in Sources */,
 				8F9C2D7B2AF92F2B00D767CD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				6570AA202ADE9FDB003DC5EB /* BoardingPolicy.swift in Sources */,
@@ -1519,6 +1506,7 @@
 				65C40D0F2ACD7A22004D986C /* BoardingDetailsViewController.swift in Sources */,
 				65A05C992AFE321600C0BC93 /* PetBreedRadioButton.swift in Sources */,
 				6570AA472ADFD8AD003DC5EB /* HomeCellViewModel.swift in Sources */,
+				65364C202B376EE400037E9D /* AnabulTidakMemenuhiTableViewCell.swift in Sources */,
 				65A05C4F2AFB7E2800C0BC93 /* PetNameCard.swift in Sources */,
 				65A05C412AFB7D9400C0BC93 /* PetFacilityPrefCollectionViewCell.swift in Sources */,
 				8F9C2D802AF946B300D767CD /* ExtensionCollectionViewLayout.swift in Sources */,
@@ -1540,7 +1528,6 @@
 				65C40D092ACCAE53004D986C /* Subdistrict.swift in Sources */,
 				8FCD93E42ADD33FA004BB490 /* Facility.swift in Sources */,
 				8FFEC0922AEDBB35005D790F /* VerificationCodeResponse.swift in Sources */,
-				8F9C2DA62AFCC6F000D767CD /* PetOptionTableViewCell.swift in Sources */,
 				65A05C872AFE30D400C0BC93 /* JenisKelaminButton.swift in Sources */,
 				65A05C812AFE30D400C0BC93 /* PetCreationViewModel.swift in Sources */,
 				6584BBBF2ADBDB910023D546 /* CobaTextFieldViewController.swift in Sources */,
@@ -1556,6 +1543,7 @@
 				8FFEC0372AEA5EE5005D790F /* KekhususanSwitch.swift in Sources */,
 				8FFEC03F2AEA61B6005D790F /* CreateAccountViewController.swift in Sources */,
 				8FFEC03C2AEA5EE5005D790F /* SectionViews.swift in Sources */,
+				65181A312B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift in Sources */,
 				65A05C822AFE30D400C0BC93 /* SectionLabel.swift in Sources */,
 				65A05C8B2AFE30D400C0BC93 /* CoretanDoubleTableViewViewController.swift in Sources */,
 				6597C3682B093C9D008F6D0D /* OrderDetailsResponse.swift in Sources */,
@@ -1569,9 +1557,7 @@
 				8F23EDBF2AE410A400B25026 /* User.swift in Sources */,
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
 				6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */,
-				8F9C2D9D2AFC590200D767CD /* CageOption.swift in Sources */,
 				8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */,
-				8F9C2DA32AFCBA5900D767CD /* PetOptionSheetViewController.swift in Sources */,
 				65DC1D142AD2B398005D8288 /* PromoCollectionView.swift in Sources */,
 				65B274A42AFAEF5B0030A0F5 /* TambahAnabulTableViewCell.swift in Sources */,
 				65C40CE32ACAC035004D986C /* ExtensionUIView.swift in Sources */,
@@ -1585,7 +1571,6 @@
 				65A05C922AFE30D400C0BC93 /* TambahProfilAnabulViewController.swift in Sources */,
 				65A05C4E2AFB7E2800C0BC93 /* ProfileArrowMenu.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
-				8F9C2DA12AFC593800D767CD /* MessageInput.swift in Sources */,
 				65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */,
 				6597C3642B08D9C4008F6D0D /* OrdersViewModel.swift in Sources */,
 				8F23EDC12AE410B000B25026 /* Pet.swift in Sources */,
@@ -1600,6 +1585,8 @@
 				65C40D332ACDD3ED004D986C /* CoretanViewController.swift in Sources */,
 				65A05C672AFD9AD500C0BC93 /* SmallLoginSheetViewController.swift in Sources */,
 				8F167EB62B0658A900FDAAE9 /* PriceWithAmount.swift in Sources */,
+				65313F952B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift in Sources */,
+				65181A342B318F6A004469A8 /* ReservationPageViewModel.swift in Sources */,
 				65A05C912AFE30D400C0BC93 /* LanjutWelcomingViewController.swift in Sources */,
 				65A05C8D2AFE30D400C0BC93 /* CoretanTextAreaViewController.swift in Sources */,
 				65A05C512AFB7E2800C0BC93 /* GenderTag.swift in Sources */,
@@ -1614,15 +1601,17 @@
 				8F9C2D3D2AEEEEFA00D767CD /* OptionDivider.swift in Sources */,
 				65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */,
 				6570AA222ADEA19E003DC5EB /* Service.swift in Sources */,
+				65364C122B340CEC00037E9D /* ReservationTextView.swift in Sources */,
 				8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */,
+				65364C162B36DFD600037E9D /* PilihAnabulViewController.swift in Sources */,
 				6597C3622B08D682008F6D0D /* OrdersResponse.swift in Sources */,
 				6597C3662B092353008F6D0D /* EmptyOrderCollectionViewCell.swift in Sources */,
 				6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */,
 				6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
+				65364C1C2B376EC200037E9D /* AnabulTableViewCell.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65A05C9D2AFE323700C0BC93 /* MultipartRequest.swift in Sources */,
-				8F167ECA2B0A423C00FDAAE9 /* HeaderPetAmountInputCollectionViewCell.swift in Sources */,
 				658486D82B2A2F2F006132CF /* EmptyAutocompleteResultTableViewCell.swift in Sources */,
 				65A05C572AFB800900C0BC93 /* IconView.swift in Sources */,
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
@@ -1638,18 +1627,19 @@
 				6570AA532ADFEE53003DC5EB /* BoardingDetailsResponse.swift in Sources */,
 				6570AA552ADFF06C003DC5EB /* BoardingCage.swift in Sources */,
 				8F9C2D722AF8927900D767CD /* ProfilePetTableViewCell.swift in Sources */,
+				65364C1E2B376ED200037E9D /* AnabulTerpilihTableViewCell.swift in Sources */,
 				65C40CF82ACAC735004D986C /* BoardingsResponse.swift in Sources */,
 				8FFEC01A2AEA5C8E005D790F /* PhoneNumTextField.swift in Sources */,
 				65A05C892AFE30D400C0BC93 /* UserNameTextView.swift in Sources */,
 				6597C3582B05559E008F6D0D /* OrderCardCollectionViewCell.swift in Sources */,
 				655B017B2AD9F6DC0016FC81 /* FilterParams.swift in Sources */,
+				6537D5A52B3A1B14002FD150 /* HeaderAnabulTidakMemenuhiTableViewCell.swift in Sources */,
 				8FFEC0412AEA61DF005D790F /* OnboardingFormViewController.swift in Sources */,
 				65A05C862AFE30D400C0BC93 /* NecessarryFieldLabel.swift in Sources */,
 				6570AA432ADFD662003DC5EB /* SmallBoardingCell.swift in Sources */,
 				65C40CD02ACAA796004D986C /* SceneDelegate.swift in Sources */,
 				8F9C2D432AF0019E00D767CD /* SignInPhoneBody.swift in Sources */,
 				8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */,
-				8F167EC42B08D35100FDAAE9 /* CatOrderCollectionViewCell.swift in Sources */,
 				658486DB2B2A54D8006132CF /* GooglePlaceIDGeocodingResponse.swift in Sources */,
 				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
@@ -1657,15 +1647,14 @@
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
 				8FFEC0382AEA5EE5005D790F /* KategoriButton.swift in Sources */,
 				8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */,
-				8F9C2D992AFBD5F100D767CD /* HeaderDateInputCollectionViewCell.swift in Sources */,
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,
 				8FFEC0182AEA5C3D005D790F /* PrimaryButtonFilled.swift in Sources */,
 				6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */,
 				65C40CF62ACAC2D6004D986C /* SearchResultsViewController.swift in Sources */,
 				8FFEC01E2AEA5CF2005D790F /* OtpTextField.swift in Sources */,
 				65C40CEE2ACAC19E004D986C /* TabBarViewController.swift in Sources */,
-				8F9C2D962AFB77FF00D767CD /* RangeDatePickerViewController.swift in Sources */,
 				65B1DED22AEFAFB60018722A /* AuthResponse.swift in Sources */,
+				65181A2F2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift in Sources */,
 				65A05C462AFB7E1A00C0BC93 /* ProfileIconLabel.swift in Sources */,
 				65A05C932AFE30D400C0BC93 /* AnabulTersimpanViewController.swift in Sources */,
 				65DC1D0D2AD2AE79005D8288 /* SearchContainerView.swift in Sources */,
@@ -1673,19 +1662,18 @@
 				65303FCF2AE92B2D00EF5E17 /* SheetDuaViewController.swift in Sources */,
 				8FFEC0472AEA6257005D790F /* SignInViewController.swift in Sources */,
 				8FFEC0962AEE7133005D790F /* ErrorResponse.swift in Sources */,
-				8F167EC62B08DA8D00FDAAE9 /* PetOrderCollectionViewCell.swift in Sources */,
 				658486D12B2855C2006132CF /* LocationManager.swift in Sources */,
 				6570AA4E2ADFE326003DC5EB /* MediumBoardingCell.swift in Sources */,
-				8F9C2D912AFA457A00D767CD /* ReservationViewController.swift in Sources */,
 				8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */,
 				65A05C842AFE30D400C0BC93 /* RequirementCheckboxButton.swift in Sources */,
+				6537D5A72B3A1EE5002FD150 /* EmptyAnabulsTableViewCell.swift in Sources */,
 				8F9C2D852AF9F88C00D767CD /* UserProfileResponse.swift in Sources */,
 				65A05C3E2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift in Sources */,
 				65A05C8F2AFE30D400C0BC93 /* KebiasaanDropDownTableViewCell.swift in Sources */,
 				65A05C832AFE30D400C0BC93 /* SpesiesButton.swift in Sources */,
+				65181A2D2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift in Sources */,
 				6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */,
 				65B274A22AFAC6780030A0F5 /* MyPetTableViewCell.swift in Sources */,
-				8F167EB82B06763D00FDAAE9 /* TotalPriceSummaryCollectionViewCell.swift in Sources */,
 				65A05C902AFE30D400C0BC93 /* FasilitasButton.swift in Sources */,
 				65C40CE62ACAC0AC004D986C /* APICaller.swift in Sources */,
 				6570AA592AE04EB4003DC5EB /* Utils.swift in Sources */,
@@ -1694,16 +1682,12 @@
 				8FFEC09E2AEEBC2E005D790F /* SignUpResponse.swift in Sources */,
 				6597C3B22B0BB562008F6D0D /* CoretanOrderDetailsVC.swift in Sources */,
 				65A05C422AFB7D9400C0BC93 /* PetHabitsCollectionViewCell.swift in Sources */,
-				8F9C2D9F2AFC591A00D767CD /* AddOnServiceOption.swift in Sources */,
 				65C40CF22ACAC298004D986C /* OrdersViewController.swift in Sources */,
 				65C40CF22ACAC298004D986C /* OrdersViewController.swift in Sources */,
 				8FFEC0712AEB0A76005D790F /* MyConstants.swift in Sources */,
-				8F9C2D9B2AFBD64000D767CD /* DogOrderCollectionViewCell.swift in Sources */,
-				8F167EBA2B070B1500FDAAE9 /* ReservationSuccessPageViewController.swift in Sources */,
 				65A05C852AFE30D400C0BC93 /* NamaAnabulTextView.swift in Sources */,
 				6570AA4C2ADFE28B003DC5EB /* SearchBoardingsResponse.swift in Sources */,
 				8F9C2D472AF0024B00D767CD /* SendPhoneCodeBody.swift in Sources */,
-				8F9C2D942AFA9AFE00D767CD /* HeaderInputButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1851,8 +1835,8 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Izinkan aplikasi mengetahui lokasi anda untuk pencarian Pet Hotel";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1882,8 +1866,8 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Izinkan aplikasi mengetahui lokasi anda untuk pencarian Pet Hotel";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -5,6 +5,19 @@
 //  Created by Daniel Bernard Sahala Simamora on 02/10/23.
 //
 
+/*
+ MARK: == IMPORTANT ==
+ 
+ UIVIEW TAGS:
+ 451 -> MainHeaderCollectionReusableView
+ 461 -> TanggalReservationCollectionViewCell
+ 462 -> AnabulReservationCollectionViewCell
+ 
+ 500 + i -> ReservationTextView; i = indexPath.row
+
+ 
+ */
+
 import UIKit
 import Firebase
 import FirebaseMessaging
@@ -21,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // PUSH NOTIFICATIONS
 //        setupUserNotifications(application: application)
+        
+        
         
         GMSPlacesClient.provideAPIKey(LocationManager.googleMapsAPIKey)
         

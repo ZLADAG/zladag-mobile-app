@@ -29,7 +29,10 @@ extension UIColor {
 
     static let customLightGray242 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
     static let grey1 = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
+    static let grey2 = UIColor(red: 197/255, green: 197/255, blue: 197/255, alpha: 255/255)
     static let grey3 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+    static let grey6 = UIColor(red: 209/255, green: 209/255, blue: 214/255, alpha: 255/255)
+    static let anabulSudahDipilih = UIColor(red: 213/255, green: 255/255, blue: 203/255, alpha: 255/255)
     
     static let customGrayForLabels = UIColor(red: 171/255, green: 171/255, blue: 171/255, alpha: 255/255)
     static let customGrayForCheckboxBorder = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)

@@ -9,7 +9,7 @@ import UIKit
 
 class NecessarryFieldLabel: UILabel {
     
-    let textValue: String
+    var textValue: String
     
     init(textValue: String) {
         self.textValue = textValue

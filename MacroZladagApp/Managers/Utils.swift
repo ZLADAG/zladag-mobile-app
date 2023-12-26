@@ -70,6 +70,14 @@ class Utils {
         return nil
     }
     
+    static func getFormattedDateInNumbers(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd" // 22 November 2023,  4 December 2023
+
+        return dateFormatter.string(from: date)
+    }
+    
     static func getFormattedDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
@@ -105,6 +113,11 @@ class Utils {
         let date = dateFormatter.date(from: dateString)
         
         return date?.addingTimeInterval(7 * 3600)
+    }
+    
+    static func generateRandomString() -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        return String((0..<[8, 10, 15].randomElement()!).map{ _ in letters.randomElement()! })
     }
     
 }

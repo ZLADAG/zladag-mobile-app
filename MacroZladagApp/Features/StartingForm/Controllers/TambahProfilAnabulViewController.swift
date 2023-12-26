@@ -1149,7 +1149,11 @@ class TambahProfilAnabulViewController: UIViewController {
     }
     
     @objc func onClickSimpanButton() {
-        riwayatPenyakitTextView.resignFirstResponder()
+        if self.namaAnabulTextField.isFirstResponder {
+            namaAnabulTextField.resignFirstResponder()
+        } else if riwayatPenyakitTextView.isFirstResponder {
+            riwayatPenyakitTextView.resignFirstResponder()
+        }
         
         // NAMA
         // >extension
@@ -1263,7 +1267,9 @@ class TambahProfilAnabulViewController: UIViewController {
         let keyboardFrame = keyboardSize.cgRectValue
         
         if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= keyboardFrame.height
+            if self.riwayatPenyakitTextView.isFirstResponder {
+                self.view.frame.origin.y -= keyboardFrame.height
+            }
         }
         
     }
