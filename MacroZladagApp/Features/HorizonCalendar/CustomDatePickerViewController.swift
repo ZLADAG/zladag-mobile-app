@@ -179,8 +179,10 @@ class CustomDatePickerViewController: UIViewController {
                             invariantViewProperties.textColor = .textBlack
                             invariantViewProperties.backgroundColor = .customLightGray.withAlphaComponent(0.2)
                             self.selectedDay1 = day
+                            AppAccountManager.shared.selectedDay1 = day
                         } else if dayTemp == (todayComps.day! + 1) && monthTemp == todayComps.month && yearTemp == todayComps.year {
                             self.selectedDay2 = day
+                            AppAccountManager.shared.selectedDay2 = day
                         }
                         
                     }
@@ -462,14 +464,15 @@ class CustomDatePickerViewController: UIViewController {
         AppAccountManager.shared.selectedDay2 = self.selectedDay2
         
         AppAccountManager.shared.calendarDidLaunchOnce = true
-        dismiss(animated: true)
         
         if let reservationController {
             let tanggalCell = reservationController.view.viewWithTag(461) as! TanggalReservationCollectionViewCell
-            tanggalCell.mainLabel.text = "\(AppAccountManager.shared.kucingCount.description) Kucing \(AppAccountManager.shared.anjingCount.description) Anjing"
+            tanggalCell.mainLabel.text = AppAccountManager.shared.calendarTextDetails
             
-            reservationController.navigationController?.dismiss(animated: true)
+//            reservationController.navigationController?.dismiss(animated: true)
         }
+        dismiss(animated: true)
+
     }
     
     @objc func onClickCloseButton() {

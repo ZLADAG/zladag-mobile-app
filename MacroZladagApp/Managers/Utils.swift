@@ -70,6 +70,14 @@ class Utils {
         return nil
     }
     
+    static func getFormattedDateInNumbers(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd" // 22 November 2023,  4 December 2023
+
+        return dateFormatter.string(from: date)
+    }
+    
     static func getFormattedDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current

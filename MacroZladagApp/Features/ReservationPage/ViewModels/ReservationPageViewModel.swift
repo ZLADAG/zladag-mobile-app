@@ -47,7 +47,7 @@ class UsersPet {
     }
 }
 
-struct ChosenAnabul {
+struct ChosenAnabul: Equatable {
     let id: String
     let imageString: String?
     let petName: String

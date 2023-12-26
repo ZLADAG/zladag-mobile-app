@@ -239,6 +239,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     private func setupAddonServiceLabel() {
         let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.layer.name = "divider-2"
         divider.frame = CGRect(x: 24, y: buttons[buttons.count - 1].bottom + 9, width: contentView.width - (24 * 2), height: 1)
         
         addOnServiceLabel = self.getNecessaryLabel(string: "Add-on Service", necessary: false)
@@ -317,6 +318,7 @@ class ReservationCollectionViewCell: UICollectionViewCell {
     
     private func setupTulisPesanLabel() {
         let divider = UIView(); divider.backgroundColor = .grey3; contentView.addSubview(divider)
+        divider.layer.name = "divider-3"
         divider.frame = CGRect(x: 24, y: checkBoxes[checkBoxes.count - 1].bottom + 9, width: contentView.width - (24 * 2), height: 1)
         
         tulisPesanLabel = self.getNecessaryLabel(string: "Tulis Pesan", necessary: false)
@@ -451,8 +453,10 @@ class ReservationCollectionViewCell: UICollectionViewCell {
         }
         
         for view in contentView.subviews {
-            if let name = view.layer.name, name == "divider-1" {
-                view.removeFromSuperview()
+            if let name = view.layer.name {
+                if name.contains("divider") {
+                    view.removeFromSuperview()
+                }
             }
         }
     }

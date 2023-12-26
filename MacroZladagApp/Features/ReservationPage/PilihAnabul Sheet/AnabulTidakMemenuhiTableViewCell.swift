@@ -80,7 +80,7 @@ class AnabulTidakMemenuhiTableViewCell: UITableViewCell {
         petDescriptionLabel.sizeToFit()
         
         layerView.backgroundColor = .grey3
-        layerView.layer.opacity = 0.6
+        layerView.layer.opacity = 0.4
         
         infoIconImageView.tintColor = .grey2
         infoIconImageView.contentMode = .scaleAspectFit

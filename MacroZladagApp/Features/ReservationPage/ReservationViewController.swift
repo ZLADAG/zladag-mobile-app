@@ -388,7 +388,8 @@ extension ReservationViewController: UICollectionViewDelegateFlowLayout, UIColle
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TotalPemesananCollectionViewCell.identifier, for: indexPath) as! TotalPemesananCollectionViewCell
-            cell.configure(cellsViewModel: self.viewModel.anabulCells)
+            cell.reservationController = self
+            cell.configure(boardingSlug: self.slug, cellsViewModel: self.viewModel.anabulCells)
             return cell
         }
     }

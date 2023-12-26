@@ -38,6 +38,9 @@ final class AppAccountManager {
         return "\(Utils.getFormattedDateShorted(date: Date())) - \(Utils.getFormattedDateShortedWithYear(date: Date().addingTimeInterval(24 * 3600)))"
     }()
     
+    var dateString1: String = Utils.getFormattedDateInNumbers(date: Date())
+    var dateString2: String = Utils.getFormattedDateInNumbers(date: Date().addingTimeInterval(24 * 3600))
+    
     var selectedDay1: Day?
     var selectedDay2: Day?
     

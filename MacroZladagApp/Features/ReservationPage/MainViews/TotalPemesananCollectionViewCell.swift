@@ -6,24 +6,29 @@
 //
 
 import UIKit
+import HorizonCalendar
 
 class TotalPemesananCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TotalPemesananCollectionViewCell"
     
+    weak var reservationController: ReservationViewController?
+    
+    var boardingSlug: String = ""
     var cellsViewModel = [ReservationCellViewModel]()
     var anabulsCount: Int?
     var cagesPrice: Int?
     var addOnServicesPrice: Int?
     
-    var pesanButton: UIButton? = UIButton()
+    let pesanButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
     }
     
-    public func configure(cellsViewModel: [ReservationCellViewModel]) {
+    public func configure(boardingSlug: String, cellsViewModel: [ReservationCellViewModel]) {
+        self.boardingSlug = boardingSlug
         self.cellsViewModel = cellsViewModel
         self.anabulsCount = cellsViewModel.count
         
@@ -56,9 +61,6 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
     }
     
     public func setupViews() {
-        pesanButton = UIButton()
-        
-        guard let pesanButton else { return }
         
         let totalCagesLabel = self.getCustomUILabel(text: "Total Harga Penginapan (\(self.anabulsCount ?? 123) anabul)", size: 14, weight: .medium, color: .grey1)
         let totalCagesPriceLabel = self.getCustomUILabel(text: Utils.getStringRpCurrencyFormatted(self.cagesPrice ?? 123), size: 14, weight: .medium, color: .textBlack)
@@ -77,9 +79,17 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(totalReservationPriceLabel)
         contentView.addSubview(pesanButton)
 
-        pesanButton.backgroundColor = .red
+        pesanButton.backgroundColor = .customOrange
         pesanButton.layer.cornerRadius = 4
         pesanButton.layer.masksToBounds = true
+        
+        let buttonLabel = UILabel()
+        buttonLabel.text = "Pesan Sekarang"
+        buttonLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        buttonLabel.textColor = .white
+        buttonLabel.sizeToFit()
+        
+        pesanButton.addSubview(buttonLabel)
         
         let divider1 = UIView(); contentView.addSubview(divider1); divider1.backgroundColor = .grey3
         let divider2 = UIView(); contentView.addSubview(divider2); divider2.backgroundColor = .grey3
@@ -101,6 +111,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         divider2.frame = CGRect(x: 24, y: totalReservationLabel.bottom + 12, width: contentView.width - (24 * 2), height: 1)
 
         pesanButton.frame = CGRect(x: 24, y: divider2.bottom + 12, width: contentView.width - (24 * 2), height: 44)
+        buttonLabel.frame = CGRect(x: (pesanButton.width / 2) - (buttonLabel.width / 2), y: (pesanButton.height / 2) - (buttonLabel.height / 2), width: buttonLabel.width, height: buttonLabel.height)
 
         
         pesanButton.addTarget(self, action: #selector(onClickPesanSekarangButton), for: .touchUpInside)
@@ -124,27 +135,87 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
     
     
     @objc func onClickPesanSekarangButton() {
-        var z = 0
-        for cell in self.cellsViewModel {
-            print("\n==================================")
-            print(cell.nthAnabul) // Anjing 0, Kucing 0, ...
+        let chosenAnabuls: [ChosenAnabul]  = self.cellsViewModel.compactMap { cell in
+            return cell.chosenAnabul
+        }
+        
+        guard (chosenAnabuls.count > 0) else {
+            let alert = UIAlertController(title: "Please set your Anabul to minimum of 1 form!", message: "", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.reservationController?.present(alert, animated: true)
             
-            print("\nCage:")
+            return
+        }
+        
+        var globalCageIsTapped = false
+        for cell in self.cellsViewModel {
+            for chosenAnabul in chosenAnabuls {
+                if cell.chosenAnabul == chosenAnabul {
+                    
+                    var cageIsTapped = false
+                    for cage in cell.cages {
+                        if cage.isTapped {
+                            cageIsTapped = true
+                            break
+                        }
+                    }
+                    
+                    globalCageIsTapped = cageIsTapped
+                }
+            }
+        }
+        
+        guard globalCageIsTapped else {
+            let alert = UIAlertController(title: "You haven't chosen all your Anabuls' Cages!", message: "", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.reservationController?.present(alert, animated: true)
+            
+            return
+        }
+        
+        var dateString1 = ""
+        var dateString2 = ""
+        
+        if
+            let horizonDay1 = AppAccountManager.shared.selectedDay1,
+            let horizonDay2 = AppAccountManager.shared.selectedDay2
+        {
+            dateString1 = "\(horizonDay1.month.year)-\(horizonDay1.month.month)-\(horizonDay1.day)"
+            dateString2 = "\(horizonDay2.month.year)-\(horizonDay2.month.month)-\(horizonDay2.day)"
+        } else {
+            dateString1 = AppAccountManager.shared.dateString1
+            dateString2 = AppAccountManager.shared.dateString2
+        }
+
+        print("\nboarding: \(self.boardingSlug)")
+        print("checkInDate: \(dateString1)")
+        print("checkOutDate: \(dateString2)")
+        print("orders: ")
+        for cell in self.cellsViewModel {
+            var boardingCageId = ""
+            
             for cage in cell.cages {
                 if cage.isTapped {
-                    print("\(cage.name) - \(cage.id)")
+                    boardingCageId = cage.id
+                    break
                 }
             }
             
-            print("\nService:")
+            
+            var boardingServiceIds = [String]()
             for service in cell.services {
                 if service.isTapped {
-                    print("\(service.name) - \(service.id)")
+                    boardingServiceIds.append(service.id)
                 }
             }
             
-            print("\nPesan:")
-            print(cell.pesan)
+            if let chosenAnabul = cell.chosenAnabul {
+                print("\tpetId: \(chosenAnabul.id) - \(chosenAnabul.petName)")
+                print("\tboardingCageId:", boardingCageId)
+                print("\tboardingServiceIds: \(boardingServiceIds.description)")
+                print("\tnote: \(cell.pesan)")
+                print()
+            }
             
         }
     }
@@ -152,7 +223,7 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        pesanButton = nil
+        pesanButton.removeFromSuperview()
         
         // reset all UILabel's text
         for view in contentView.subviews {

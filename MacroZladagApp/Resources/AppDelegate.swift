@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // PUSH NOTIFICATIONS
 //        setupUserNotifications(application: application)
         
+        
+        
         GMSPlacesClient.provideAPIKey(LocationManager.googleMapsAPIKey)
         
         let window = UIWindow(frame: UIScreen.main.bounds)
