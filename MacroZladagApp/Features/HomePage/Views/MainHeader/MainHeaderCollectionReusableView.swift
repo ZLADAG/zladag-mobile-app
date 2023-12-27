@@ -144,11 +144,10 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         promoView.frame = CGRect(x: 0, y: lowerView.frame.maxY, width: frame.width, height: 36)
         
     }
-    
 }
 
 extension MainHeaderCollectionReusableView {
-    @objc func goToSearchResultsViewController() {
+    @objc public func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
 
         self.anjingCount = AppAccountManager.shared.anjingCount
@@ -194,7 +193,12 @@ extension MainHeaderCollectionReusableView {
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
-        params += "&latitude=\(AppAccountManager.shared.chosenLocationCoordinate?.latitude ?? 99)&longitude=\(AppAccountManager.shared.chosenLocationCoordinate?.longitude ?? 99)"
+        if
+            let latitude = AppAccountManager.shared.chosenLocationCoordinate?.latitude,
+            let longitude = AppAccountManager.shared.chosenLocationCoordinate?.longitude
+        {
+            params += "&latitude=\(latitude)&longitude=\(longitude)"
+        }
         
         navbarDetails = "\(dateFieldView.thisLabel.text!)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
         
@@ -288,6 +292,7 @@ extension MainHeaderCollectionReusableView {
         
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }
+    
     
     @objc func onClickDatePickerButton() {
         let vc = CustomDatePickerViewController()
