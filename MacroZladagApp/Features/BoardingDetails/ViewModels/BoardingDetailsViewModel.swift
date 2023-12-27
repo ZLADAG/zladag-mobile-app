@@ -26,6 +26,8 @@ struct BoardingDetailsViewModel {
     let shouldHaveToBeFleaFree: Bool
     let minimumAge: Int
     let maximumAge: Int
+    let latitude: Double
+    let longitude: Double
     
     let startCheckInTime: String
     let endCheckInTime: String
@@ -52,7 +54,9 @@ struct BoardingDetailsViewModel {
         startCheckInTime: String,
         endCheckInTime: String,
         startCheckOutTime: String,
-        endCheckOutTime: String
+        endCheckOutTime: String,
+        latitude: String,
+        longitude: String
     ) {
         self.name = name
         self.distance = Utils.getStringDistanceFormatted(distance)
@@ -70,6 +74,8 @@ struct BoardingDetailsViewModel {
         self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree ?? false
         self.minimumAge = minimumAge
         self.maximumAge = maximumAge
+        self.latitude = Double(latitude) ?? 0
+        self.longitude = Double(longitude) ?? 0
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)

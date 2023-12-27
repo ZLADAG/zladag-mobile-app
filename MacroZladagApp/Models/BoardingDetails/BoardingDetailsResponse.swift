@@ -30,6 +30,8 @@ struct BoardingDetails: Codable {
     let websiteMapLink: String?
     let cheapestLodgingPrice: Int?
     let images: [String]
+    let latitude: String
+    let longitude: String
     
     let startCheckInTime: String
     let endCheckInTime: String

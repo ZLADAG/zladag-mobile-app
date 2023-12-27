@@ -17,18 +17,29 @@ struct MapViewAttributes {
 
 class BoardingMapViewController: UIViewController, MKMapViewDelegate {
     
+    let name: String
+    let lat: Double
+    let long: Double
+    
     var mapView : MKMapView!
     
     /// u/ passing data
     var mapViewAttr = MapViewAttributes()
     
+    init(name: String, lat: Double, long: Double) {
+        self.name = name
+        self.lat = lat
+        self.long = long
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //init mapview attributes
-        mapViewAttr.annotationTitle = "Apple Developer Academy (Place Name)"
-        mapViewAttr.latitude =  -6.301966049661171
-        mapViewAttr.longitude = 106.65301280644293
+        mapViewAttr.annotationTitle = self.name
+        mapViewAttr.latitude =  self.lat
+        mapViewAttr.longitude = self.long
         
         //Initialize the map
         createMapView()
@@ -204,5 +215,9 @@ class BoardingMapViewController: UIViewController, MKMapViewDelegate {
     @objc func mapViewTapped(_ sender: UITapGestureRecognizer) {
         presentOpenMapUrlAlert("Open Google Maps", "You will be directed to google maps")
         
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError()
     }
 }
