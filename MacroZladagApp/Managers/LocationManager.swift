@@ -10,6 +10,8 @@ import CoreLocation
 
 class LocationManager: NSObject {
     
+    static let googleMapsAPIKey = "AIzaSyA-0v7f2242uzGcsH6Bx6G2ehgkbjIFdE4"
+    
     enum CustomAuthorizationStatus {
         case notDetermied
         case denied
@@ -18,7 +20,7 @@ class LocationManager: NSObject {
     
     static let shared = LocationManager()
     var manager: CLLocationManager!
-    static let googleMapsAPIKey = "AIzaSyA-0v7f2242uzGcsH6Bx6G2ehgkbjIFdE4"
+    
     var completion: ((CustomAuthorizationStatus) -> ())?
     var customAuthorizationStatus: CustomAuthorizationStatus = .notDetermied
     var userLocation: CLLocation?

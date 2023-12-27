@@ -285,15 +285,18 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 spinner.stopAnimating()                
                 aView.removeFromSuperview()
+                
+                self.presentSuccessSheet()
             }
         }
     }
     
-    private func postData() {
-        
+    private func presentSuccessSheet() {
+        let vc = PesananTersimpanViewController()
+        vc.modalPresentationStyle = .fullScreen
+
+        self.reservationController?.present(vc, animated: true)
     }
-    
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()

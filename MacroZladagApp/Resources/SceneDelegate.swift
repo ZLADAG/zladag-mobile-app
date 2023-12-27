@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window.rootViewController = TabBarViewController()
         
-//        let navVc = UINavigationController(rootViewController: CoretanTextfieldViewController())
+//        let navVc = UINavigationController(rootViewController: PesananTersimpanViewController())
 //        window.rootViewController = navVc
         
         // TODO:

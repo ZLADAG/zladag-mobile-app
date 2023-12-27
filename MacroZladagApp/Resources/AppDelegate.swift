@@ -33,9 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // PUSH NOTIFICATIONS
-//        setupUserNotifications(application: application)
-        
-        
+        // setupUserNotifications(application: application)
         
         GMSPlacesClient.provideAPIKey(LocationManager.googleMapsAPIKey)
         
@@ -80,10 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MESSAGING DELEGATE
         
         Messaging.messaging().delegate = self
-        
-        
-//        self.sendBasicNotification(timeInterval: 5)
-        
     }
     
 }
@@ -99,6 +93,7 @@ extension AppDelegate: MessagingDelegate {
             object: nil,
             userInfo: dataDict
         )
+        
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
         

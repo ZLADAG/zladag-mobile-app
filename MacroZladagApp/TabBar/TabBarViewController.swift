@@ -45,13 +45,11 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         overrideUserInterfaceStyle = .light
         configureTabBar()
     }
     
     func configureTabBar() {
-//        let vc1 = SearchLocationViewController()
         let vc1 = HomeViewController()
         let vc2 = OrdersViewController()
         let vc3 = ProfileViewController()
@@ -59,28 +57,15 @@ class TabBarViewController: UITabBarController {
         vc1.title = ""
         vc2.title = ""
         vc3.title = ""
-//
-//        vc1.navigationItem.largeTitleDisplayMode = .always
-//        vc2.navigationItem.largeTitleDisplayMode = .always
-//        vc3.navigationItem.largeTitleDisplayMode = .always
-//        
+        
         let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)
         let nav3 = UINavigationController(rootViewController: vc3)
-        
         
         nav1.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "tabbar-home-icon"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(named: "tabbar-yourorders-icon"), tag: 2)
         nav3.tabBarItem = UITabBarItem(title: "Your Pet", image: UIImage(named: "tabbar-account-icon"), tag: 3)
         
-//        nav1.navigationBar.prefersLargeTitles = true
-//        nav2.navigationBar.prefersLargeTitles = true
-//        nav3.navigationBar.prefersLargeTitles = true
-        
-//        nav1.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
-//        nav1.navigationController?.navigationBar.shadowImage = UIImage()
-//        nav1.navigationController?.navigationBar.isTranslucent = true
-//        nav1.navigationController?.view.backgroundColor = .clear
         
         let titleView: UIView = {
             let view = UIView()
@@ -91,24 +76,15 @@ class TabBarViewController: UITabBarController {
         titleView.addSubview(navbarLocationLabel)
         titleView.addSubview(navbarDetailsLabel)
         
-//        titleView.translatesAutoresizingMaskIntoConstraints = false
-//        navbarLocationLabel.translatesAutoresizingMaskIntoConstraints = false
-//        navbarDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            titleView.topAnchor
-//        ])
-        
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         navbarLocationLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
         navbarDetailsLabel.frame = CGRect(x: 0, y: navbarLocationLabel.bottom, width: 100, height: 20)
         
-//        navigationController?.navigationItem.titleView = titleView
         nav1.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .done, target: nil, action: nil)
         nav1.navigationItem.titleView = titleView
         
         self.tabBar.tintColor = .customOrange
-//        setViewControllers([nav2, nav1, nav3], animated: true)
+
         setViewControllers([nav1, nav2, nav3], animated: true)
     }
 }
