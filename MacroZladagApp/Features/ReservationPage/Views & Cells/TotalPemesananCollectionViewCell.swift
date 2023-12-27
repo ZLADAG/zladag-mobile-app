@@ -192,10 +192,12 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
         print("\nboarding: \(self.boardingSlug)")
         print("checkInDate: \(dateString1)")
         print("checkOutDate: \(dateString2)")
+        
         print("orders: ")
+        var postProfileOrders = [PostProfileOrder]()
+        
         for cell in self.cellsViewModel {
             var boardingCageId = ""
-            
             for cage in cell.cages {
                 if cage.isTapped {
                     boardingCageId = cage.id
@@ -212,6 +214,13 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
             }
             
             if let chosenAnabul = cell.chosenAnabul {
+                let postProfileOrder = PostProfileOrder(
+                    petId: chosenAnabul.id,
+                    note: cell.pesan,
+                    boardingCageId: boardingCageId,
+                    boardingServiceIds: boardingServiceIds
+                )
+                postProfileOrders.append(postProfileOrder)
                 print("\tpetId: \(chosenAnabul.id) - \(chosenAnabul.petName)")
                 print("\tboardingCageId:", boardingCageId)
                 print("\tboardingServiceIds: \(boardingServiceIds.description)")
@@ -220,7 +229,71 @@ class TotalPemesananCollectionViewCell: UICollectionViewCell {
             }
             
         }
+        
+        // SETUP LOADING SCREEN
+        
+        let aView = UIView()
+        aView.backgroundColor = .white
+        aView.layer.opacity = 0.6
+        
+        let spinner: UIActivityIndicatorView = {
+            let spinner = UIActivityIndicatorView()
+            spinner.style = .large
+            spinner.color = .customOrange
+            spinner.backgroundColor = .clear
+            return spinner
+        }()
+        
+        aView.addSubview(spinner)
+        self.reservationController?.view.addSubview(aView)
+        
+        let superView: UIView = self.reservationController!.view
+        
+        aView.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            aView.topAnchor.constraint(equalTo: superView.topAnchor),
+            aView.leadingAnchor.constraint(equalTo: superView.leadingAnchor),
+            aView.trailingAnchor.constraint(equalTo: superView.trailingAnchor),
+            aView.bottomAnchor.constraint(equalTo: superView.bottomAnchor),
+            
+            spinner.centerXAnchor.constraint(equalTo: aView.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: aView.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+        spinner.hidesWhenStopped = true
+            
+            
+        let postProfileOrdersBody = PostProfileOrdersBody(
+            boarding: self.boardingSlug,
+            checkInDate: dateString1,
+            checkOutDate: dateString2,
+            orders: postProfileOrders
+        )
+        
+        APICaller.shared.postPetOrder(postOrdersBody: postProfileOrdersBody) { result in
+            switch result {
+            case .success(let response):
+                print(response.success)
+            case .failure(let error):
+                print("ERROR WHEN POST postPetOrder: \(error)")
+            }
+            
+            DispatchQueue.main.async {
+                spinner.stopAnimating()                
+                aView.removeFromSuperview()
+            }
+        }
     }
+    
+    private func postData() {
+        
+    }
+    
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

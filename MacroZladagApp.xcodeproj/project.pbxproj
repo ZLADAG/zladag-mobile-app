@@ -13,6 +13,8 @@
 		65181A2F2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */; };
 		65181A312B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */; };
 		65181A342B318F6A004469A8 /* ReservationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65181A332B318F69004469A8 /* ReservationPageViewModel.swift */; };
+		651DA29B2B3C281A001FF145 /* PostProfileOrdersBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29A2B3C281A001FF145 /* PostProfileOrdersBody.swift */; };
+		651DA29D2B3C2821001FF145 /* PostProfileOrdersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
@@ -183,12 +185,10 @@
 		65DC1D1D2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */; };
 		65DC1D1F2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */; };
 		65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */; };
-		65E979082B0FE56800AE008D /* PostOrdersBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E979072B0FE56800AE008D /* PostOrdersBody.swift */; };
 		65EC8BE22AE27D9500CDD359 /* GetHome.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BDF2AE27D9500CDD359 /* GetHome.json */; };
 		65EC8BE32AE27D9500CDD359 /* GetOneBoardingDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */; };
 		65EC8BE42AE27D9500CDD359 /* GetSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 65EC8BE12AE27D9500CDD359 /* GetSearch.json */; };
 		8F167EB62B0658A900FDAAE9 /* PriceWithAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */; };
-		8F167EC82B0A3AF900FDAAE9 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */; };
 		8F167ECC2B0B0FC500FDAAE9 /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */; };
 		8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */; };
 		8F167ED22B0D63C000FDAAE9 /* CreateReservationBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */; };
@@ -216,7 +216,6 @@
 		8F9C2D872AF9F89600D767CD /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D862AF9F89600D767CD /* PetProfile.swift */; };
 		8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */; };
 		8F9C2D8B2AF9FAB300D767CD /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8A2AF9FAB300D767CD /* Habit.swift */; };
-		8F9C2D8D2AF9FB9500D767CD /* ProfilePageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */; };
 		8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */; };
 		8FCD93E02ADA868E004BB490 /* SegmentedReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */; };
 		8FCD93E22ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */; };
@@ -256,6 +255,8 @@
 		65181A2E2B2F8E4C004469A8 /* TanggalReservationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanggalReservationCollectionViewCell.swift; sourceTree = "<group>"; };
 		65181A302B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnabulReservationCollectionViewCell.swift; sourceTree = "<group>"; };
 		65181A332B318F69004469A8 /* ReservationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationPageViewModel.swift; sourceTree = "<group>"; };
+		651DA29A2B3C281A001FF145 /* PostProfileOrdersBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileOrdersBody.swift; sourceTree = "<group>"; };
+		651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileOrdersResponse.swift; sourceTree = "<group>"; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -396,12 +397,10 @@
 		65DC1D1C2AD33A4F005D8288 /* SectionOneHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOneHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D1E2AD34274005D8288 /* SectionTwoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTwoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		65DC1D202AD34A85005D8288 /* CatsAndDogsCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsAndDogsCounterViewController.swift; sourceTree = "<group>"; };
-		65E979072B0FE56800AE008D /* PostOrdersBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOrdersBody.swift; sourceTree = "<group>"; };
 		65EC8BDF2AE27D9500CDD359 /* GetHome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetHome.json; sourceTree = "<group>"; };
 		65EC8BE02AE27D9500CDD359 /* GetOneBoardingDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetOneBoardingDetails.json; sourceTree = "<group>"; };
 		65EC8BE12AE27D9500CDD359 /* GetSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetSearch.json; sourceTree = "<group>"; };
 		8F167EB52B0658A900FDAAE9 /* PriceWithAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceWithAmount.swift; sourceTree = "<group>"; };
-		8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		8F167ECB2B0B0FC500FDAAE9 /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
 		8F167ECF2B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReservationDataResponse.swift; sourceTree = "<group>"; };
 		8F167ED12B0D63C000FDAAE9 /* CreateReservationBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReservationBody.swift; sourceTree = "<group>"; };
@@ -432,7 +431,6 @@
 		8F9C2D862AF9F89600D767CD /* PetProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
 		8F9C2D882AF9F8A400D767CD /* PetProfileDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileDetailsResponse.swift; sourceTree = "<group>"; };
 		8F9C2D8A2AF9FAB300D767CD /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
-		8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageManager.swift; sourceTree = "<group>"; };
 		8FCD93DD2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMPSegmentedInfoViewController.swift; sourceTree = "<group>"; };
 		8FCD93DF2ADA868E004BB490 /* SegmentedReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedReviewViewController.swift; sourceTree = "<group>"; };
 		8FCD93E12ADAC8C3004BB490 /* BoardingReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingReviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -531,6 +529,15 @@
 				65181A332B318F69004469A8 /* ReservationPageViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		651DA2992B3C27F8001FF145 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				651DA29A2B3C281A001FF145 /* PostProfileOrdersBody.swift */,
+				651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		65257B712ADD3D1600C6290C /* Recovered References */ = {
@@ -675,7 +682,7 @@
 			path = Features;
 			sourceTree = "<group>";
 		};
-		65364C172B36E45B00037E9D /* MainViews */ = {
+		65364C172B36E45B00037E9D /* Views & Cells */ = {
 			isa = PBXGroup;
 			children = (
 				65364C112B340CEC00037E9D /* ReservationTextView.swift */,
@@ -684,7 +691,7 @@
 				65181A2C2B2E3F2B004469A8 /* ReservationCollectionViewCell.swift */,
 				65313F942B32B3B7009C29A7 /* TotalPemesananCollectionViewCell.swift */,
 			);
-			path = MainViews;
+			path = "Views & Cells";
 			sourceTree = "<group>";
 		};
 		65364C192B376E9D00037E9D /* PilihAnabul Sheet */ = {
@@ -847,7 +854,6 @@
 			isa = PBXGroup;
 			children = (
 				6597C3AF2B0B6EE2008F6D0D /* FirebaseCloudMessagingToken.swift */,
-				65E979072B0FE56800AE008D /* PostOrdersBody.swift */,
 			);
 			path = PostRequests;
 			sourceTree = "<group>";
@@ -1009,8 +1015,6 @@
 				8FFEC0752AEB6A81005D790F /* AppAccountManager.swift */,
 				65A05C9C2AFE323700C0BC93 /* MultipartRequest.swift */,
 				658486D02B2855C2006132CF /* LocationManager.swift */,
-				8F9C2D8C2AF9FB9500D767CD /* ProfilePageManager.swift */,
-				8F167EC72B0A3AF900FDAAE9 /* ReservationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1253,8 +1257,9 @@
 		8F9C2D8E2AFA454A00D767CD /* ReservationPage */ = {
 			isa = PBXGroup;
 			children = (
+				651DA2992B3C27F8001FF145 /* Models */,
 				65364C192B376E9D00037E9D /* PilihAnabul Sheet */,
-				65364C172B36E45B00037E9D /* MainViews */,
+				65364C172B36E45B00037E9D /* Views & Cells */,
 				65181A322B318D0F004469A8 /* ViewModels */,
 				65181A262B2E3E1B004469A8 /* ReservationViewController.swift */,
 			);
@@ -1514,7 +1519,6 @@
 				65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */,
 				6597C36A2B09438F008F6D0D /* OrderDetailsByIdViewModel.swift in Sources */,
 				8F9C2D892AF9F8A400D767CD /* PetProfileDetailsResponse.swift in Sources */,
-				65E979082B0FE56800AE008D /* PostOrdersBody.swift in Sources */,
 				8FFEC0762AEB6A81005D790F /* AppAccountManager.swift in Sources */,
 				65A05C9A2AFE321600C0BC93 /* PetHabitCheckBox.swift in Sources */,
 				65C40CF02ACAC291004D986C /* HomeViewController.swift in Sources */,
@@ -1545,6 +1549,7 @@
 				8FFEC03C2AEA5EE5005D790F /* SectionViews.swift in Sources */,
 				65181A312B2F8E94004469A8 /* AnabulReservationCollectionViewCell.swift in Sources */,
 				65A05C822AFE30D400C0BC93 /* SectionLabel.swift in Sources */,
+				651DA29D2B3C2821001FF145 /* PostProfileOrdersResponse.swift in Sources */,
 				65A05C8B2AFE30D400C0BC93 /* CoretanDoubleTableViewViewController.swift in Sources */,
 				6597C3682B093C9D008F6D0D /* OrderDetailsResponse.swift in Sources */,
 				8FFEC0392AEA5EE5005D790F /* UrutkanFilterButton.swift in Sources */,
@@ -1567,7 +1572,6 @@
 				8FCD93DE2ADA6B26004BB490 /* TEMPSegmentedInfoViewController.swift in Sources */,
 				8FFEC0742AEB4002005D790F /* SearchAccByPhoneResponse.swift in Sources */,
 				6570AA502ADFE7D1003DC5EB /* SearchBoardingViewModel.swift in Sources */,
-				8F167EC82B0A3AF900FDAAE9 /* ReservationManager.swift in Sources */,
 				65A05C922AFE30D400C0BC93 /* TambahProfilAnabulViewController.swift in Sources */,
 				65A05C4E2AFB7E2800C0BC93 /* ProfileArrowMenu.swift in Sources */,
 				65C40D032ACCA9E5004D986C /* BoardingCategory.swift in Sources */,
@@ -1643,8 +1647,8 @@
 				658486DB2B2A54D8006132CF /* GooglePlaceIDGeocodingResponse.swift in Sources */,
 				8F23ED632ADDF6EC00B25026 /* BoardingMapViewController.swift in Sources */,
 				65DC1D082AD2ADBC005D8288 /* MainHeaderCollectionReusableView.swift in Sources */,
-				8F9C2D8D2AF9FB9500D767CD /* ProfilePageManager.swift in Sources */,
 				65C40D112ACDC182004D986C /* ErrorPageViewController.swift in Sources */,
+				651DA29B2B3C281A001FF145 /* PostProfileOrdersBody.swift in Sources */,
 				8FFEC0382AEA5EE5005D790F /* KategoriButton.swift in Sources */,
 				8F167ED02B0CB88600FDAAE9 /* BoardingReservationDataResponse.swift in Sources */,
 				8F23ED6D2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift in Sources */,

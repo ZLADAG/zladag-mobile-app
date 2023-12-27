@@ -108,7 +108,7 @@ final class APICaller {
     
     // MARK: POST
     
-    public func postPetOrder(postOrdersBody: PostOrdersBody, completion: @escaping (Result<VerificationCodeResponse, Error>) -> Void) {
+    public func postPetOrder(postOrdersBody: PostProfileOrdersBody, completion: @escaping (Result<PostProfileOrdersResponse, Error>) -> Void) {
         postRequest(
             path: "/profile/orders/store",
             usingToken: true,
@@ -244,22 +244,7 @@ final class APICaller {
         
         if let body {
             print("\nUSING HTTP BODY")
-            print(body)
             req.httpBody = try? JSONEncoder().encode(body)
-//            let body: [String: Any] = [
-//                "boarding": "pinkpetz",
-//                "checkInDate": "2023-12-22",
-//                "checkOutDate": "2023-12-23",
-//                "orders": [
-//                    [
-//                        "petId": "PT6522321364",
-//                        "note": "",
-//                        "boardingCageId": "BF5474689054",
-//                        "boardingServiceIds": ["BF3890412831", "BF3511921720", "BF2073565413"]
-//                    ]
-//                ]
-//            ]
-//            req.httpBody = try! JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
         }
         
         if usingToken {
