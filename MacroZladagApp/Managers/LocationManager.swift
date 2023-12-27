@@ -18,7 +18,7 @@ class LocationManager: NSObject {
     
     static let shared = LocationManager()
     var manager: CLLocationManager!
-    static let googleMapsAPIKey = "AIzaSyCQDBAxzCmbdbHs4y1mTxH5FkI4pNuRZ0U"
+    static let googleMapsAPIKey = "AIzaSyA-0v7f2242uzGcsH6Bx6G2ehgkbjIFdE4"
     var completion: ((CustomAuthorizationStatus) -> ())?
     var customAuthorizationStatus: CustomAuthorizationStatus = .notDetermied
     var userLocation: CLLocation?
