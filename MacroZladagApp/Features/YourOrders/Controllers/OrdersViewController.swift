@@ -91,15 +91,17 @@ class OrdersViewController: UIViewController {
         self.segmentedControlYConstraint = segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         segmentedControlYConstraint.isActive = true
         
-        DispatchQueue.main.async {
-            // TODO: MISTIS!
-            // ????????
-            self.segmentedControl.subviews[0].isHidden = true
-            self.segmentedControl.subviews[1].isHidden = true
-            self.segmentedControl.subviews[2].isHidden = true
-            self.segmentedControl.subviews[3].isHidden = false
-            self.segmentedControl.subviews[4].isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            for view in self.segmentedControl.subviews {
+                let viewDesc: String = view.description
+                
+                if !(viewDesc.contains("UISegment")) {
+                    view.isHidden = true
+                }
+            }
         }
+        
+        
     }
     
     func setupUnderlineView() {
@@ -353,14 +355,18 @@ class OrdersViewController: UIViewController {
     
     func fetchData(completion: (() -> ())? = nil) {
         
+        var success1 = false
+        var success2 = false
+        
         let group = DispatchGroup()
         group.enter()
         group.enter()
         
-        var success1 = false
-        var success2 = false
-        
         APICaller.shared.getProfileOrders(isActive: true) { result in
+            defer {
+                group.leave()
+            }
+            
             switch result {
             case .success(let response):
                 self.activeColumnViewModels = response.data.compactMap({ orderDetails in
@@ -374,15 +380,12 @@ class OrdersViewController: UIViewController {
                     )
                 })
                 
-                DispatchQueue.main.async {
-                    self.collectionViewActiveColumn.reloadData()
-                }
-                group.leave()
                 success1 = true
+                
+                
                 break
             case .failure(let error):
                 success1 = false
-                group.leave()
                 print("ERROR WHEN FETCHING /profile/orders?active=true")
                 print("\(error)\n")
                 break
@@ -390,7 +393,9 @@ class OrdersViewController: UIViewController {
         }
         
         APICaller.shared.getProfileOrders(isActive: false) { result in
-            
+            defer {
+                group.leave()
+            }
             switch result {
             case .success(let response):
                 self.historyColumnViewModels = response.data.compactMap({ orderDetails in
@@ -404,15 +409,10 @@ class OrdersViewController: UIViewController {
                     )
                 })
                 
-                DispatchQueue.main.async {
-                    self.collectionViewHistoryColumn.reloadData()
-                }
-                group.leave()
                 success2 = true
                 break
             case .failure(let error):
                 success2 = false
-                group.leave()
                 print("ERROR WHEN FETCHING /profile/orders?active=false")
                 print("\(error)\n")
                 break
@@ -420,7 +420,13 @@ class OrdersViewController: UIViewController {
         }
         
         group.notify(queue: .main) {
-            if (success1 || success2) {
+            if (success1 && success2) {
+                
+                DispatchQueue.main.async {
+                    self.collectionViewHistoryColumn.reloadData()
+                    self.collectionViewActiveColumn.reloadData()
+                }
+                
                 completion?()
             } else {
                 self.setupNotSignedInView()
@@ -530,3 +536,57 @@ extension OrdersViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
 }
+
+// MARK: MISTIS (2)
+
+// ????????
+// self.segmentedControl.subviews[0].isHidden = true
+// self.segmentedControl.subviews[1].isHidden = true
+// self.segmentedControl.subviews[2].isHidden = true
+// self.segmentedControl.subviews[3].isHidden = false
+// self.segmentedControl.subviews[4].isHidden = false
+
+/*
+
+    <
+    UIImageView: 0x12f82de00;
+    frame = (0 0; 194 41);
+    hidden = YES;
+    opaque = NO;
+    userInteractionEnabled = NO;
+    layer = <CALayer: 0x600003f5dd60>
+    >
+
+    <
+    UIImageView: 0x12f82ece0;
+    frame = (195 0; 195 41);
+    hidden = YES;
+    opaque = NO;
+    userInteractionEnabled = NO;
+    layer = <CALayer: 0x600003f5f3a0>
+    >
+
+    <
+    UIImageView: 0x12ed206d0;
+    frame = (-3 -3; 200 47);
+    hidden = YES;
+    opaque = NO;
+    userInteractionEnabled = NO;
+    layer = <CALayer: 0x600003f4f340>
+    >
+
+    <
+    UISegment: 0x12f82dff0;
+    frame = (195 0; 195 41);
+    opaque = NO;
+    layer = <CALayer: 0x600003f5e320>
+    >
+
+    <
+    UISegment: 0x12f82cfe0;
+    frame = (0 0; 194 41);
+    opaque = NO;
+    layer = <CALayer: 0x600003f5c6a0>
+    >
+
+ */

@@ -37,7 +37,7 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         pawIconImageView.image = nil
         petNameLabel.text = nil
         dividerView.frame = .zero
-        orderLabelView = nil
+        orderLabelView?.removeFromSuperview()
         rightChevronImageView.image = nil
     }
     
@@ -89,7 +89,12 @@ class OrderCardCollectionViewCell: UICollectionViewCell {
         hotelNameLabel.font = .systemFont(ofSize: 16, weight: .bold)
         hotelNameLabel.textColor = .textBlack
         
-        hotelNameLabel.frame = CGRect(x: 16, y: 16, width: hotelNameLabel.width, height: hotelNameLabel.height)
+        hotelNameLabel.frame = CGRect(
+            x: 16,
+            y: 16,
+            width: 290,
+            height: hotelNameLabel.height
+        )
     }
     
     private func setupDateLabel(startDate: Date, endDate: Date) {
