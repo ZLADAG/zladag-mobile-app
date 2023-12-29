@@ -61,7 +61,7 @@ class SignInViewController: UIViewController {
         // MARK: Google & Apple sign in is temporary disabled
         /// set up sign in options stack
 //        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, divider, whatsappSignInBtn])
-        signInOptionStack = UIStackView(arrangedSubviews: [whatsappSignInBtn])
+        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, whatsappSignInBtn])
         signInOptionStack.translatesAutoresizingMaskIntoConstraints = false
         signInOptionStack.axis  = NSLayoutConstraint.Axis.vertical
         signInOptionStack.distribution  = UIStackView.Distribution.fill

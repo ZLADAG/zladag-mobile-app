@@ -31,8 +31,14 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
+        self.spinner.removeFromSuperview()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupLoadingScreen()
         
         APICaller.shared.getUserProfile { [weak self] result in

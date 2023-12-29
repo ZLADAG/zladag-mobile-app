@@ -88,13 +88,14 @@ class UserProfileTableViewCell: UITableViewCell {
     func setupProfileNameLabel() {
         addSubview(profileNameLabel)
         
+        profileNameLabel.backgroundColor = .clear
         profileNameLabel.sizeToFit()
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             profileNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
             profileNameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
-            profileNameLabel.widthAnchor.constraint(equalToConstant: profileNameLabel.width),
+            profileNameLabel.widthAnchor.constraint(equalToConstant: contentView.width),
             profileNameLabel.heightAnchor.constraint(equalToConstant: profileNameLabel.height),
         ])
         

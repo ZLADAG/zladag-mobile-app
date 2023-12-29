@@ -8,6 +8,20 @@
 import UIKit
 import AuthenticationServices
 
+/*
+ credentials.user   --SELALU ADA, TIDAK NIL--   ->   000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
+ credentials.email                              ->   Optional("daniel.simamora2000@gmail.com")
+ credentials.fullName?.givenName                ->   Optional("Daniel")
+ credentials.fullName?.familyName               ->   Optional("Simamora")
+ 
+ // hide email
+ 000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
+ Optional("bwtt88d4v4@privaterelay.appleid.com")
+ Optional("Daniel")
+ Optional("Simamora")
+ 
+ */
+
 class WelcomeViewController: UIViewController {
 
     let appleButton: UIButton = {
@@ -28,9 +42,6 @@ class WelcomeViewController: UIViewController {
         )
         return button
     }()
-    
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,21 +133,3 @@ extension WelcomeViewController: ASAuthorizationControllerPresentationContextPro
         return view.window!
     }
 }
-
-/*
- print(credentials.user)                  ->   000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
- print(credentials.email)                 ->   Optional("daniel.simamora2000@gmail.com")
- print(credentials.fullName?.givenName)   ->   Optional("Daniel")
- print(credentials.fullName?.familyName)  ->   Optional("Simamora")
- 
- // hide email
- 000071.7e0f25de9a8b46ab955a13d82ac028ef.0730
- Optional("bwtt88d4v4@privaterelay.appleid.com")
- Optional("Daniel")
- Optional("Simamora")
- 
- 
- 
- 
- 
- */

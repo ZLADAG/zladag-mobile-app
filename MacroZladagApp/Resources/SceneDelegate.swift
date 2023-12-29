@@ -7,17 +7,6 @@
 
 import UIKit
 
-/*
- balikin token AuthManager
- balikin scenedelegate
- */
-
-/*
- // TODO: (LAGI)
-    update UI tambahanabulviewcontroller
-    keyboard layout!
- */
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -32,22 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window.rootViewController = TabBarViewController()
         
-//        let navVc = UINavigationController(rootViewController: PesananTersimpanViewController())
+//        let navVc = UINavigationController(rootViewController: WelcomeViewController())
 //        window.rootViewController = navVc
-        
-        // TODO:
-            /*
-             - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
-             - coba simpan phoneNumber di userdefaults
-             - log out coba dibuat, tinggal hapus value UserDefaults. (UserDefaults.standard.removeObject(forKey: "")
-             - nanti sign in lagi
-             
-             - sekarang utk appleId, cek dulu phoneNumber di userdefaults
-             - jika tidak ada, gaboleh sign in, harus create account, krn butuh phoneNumber
-             - jika ada, langsung simpan email
-             
-             -  UI VIEW UNTUK NOT LOGGED IN STATE
-             */
 
         self.window = window
         self.window?.makeKeyAndVisible()
