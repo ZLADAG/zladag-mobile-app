@@ -81,9 +81,10 @@ class ProfilePetListDetailsViewController: UIViewController,  UIScrollViewDelega
         photo = createImage(photoName)
         let petBiodata = PetBiodataView(petProfile: petProfile)
         let petInfo = createPetInfo()
-        editProfile = addEditProfile()
+//        editProfile = addEditProfile()
         
-        contentStack = UIStackView(arrangedSubviews: [petBiodata, petInfo, editProfile])
+//        contentStack = UIStackView(arrangedSubviews: [petBiodata, petInfo, editProfile])
+        contentStack = UIStackView(arrangedSubviews: [petBiodata, petInfo])
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.axis = .vertical
         contentStack.alignment = .fill

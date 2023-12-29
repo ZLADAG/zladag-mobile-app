@@ -14,7 +14,7 @@ class IconView: UIView {
     lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: iconName)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -32,7 +32,7 @@ class IconView: UIView {
     
     func configureIconImageView() {
         addSubview(iconImageView)
-        iconImageView.frame.size = CGSize(width: 16, height: 16)
+        iconImageView.frame.size = CGSize(width: 28, height: 28)
         iconImageView.frame = CGRect(
             x: frame.midX - iconImageView.frame.width / 2,
             y: frame.midY - iconImageView.frame.height / 2,

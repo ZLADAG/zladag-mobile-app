@@ -17,6 +17,7 @@
 		651DA29D2B3C2821001FF145 /* PostProfileOrdersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */; };
 		651DA29F2B3CC548001FF145 /* PesananTersimpanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29E2B3CC548001FF145 /* PesananTersimpanViewController.swift */; };
 		651DA2A12B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA2A02B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift */; };
+		651DA2A32B3D6B8D001FF145 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
@@ -260,6 +261,7 @@
 		651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileOrdersResponse.swift; sourceTree = "<group>"; };
 		651DA29E2B3CC548001FF145 /* PesananTersimpanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PesananTersimpanViewController.swift; sourceTree = "<group>"; };
 		651DA2A02B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LihatLainnyaCollectionViewCell.swift; sourceTree = "<group>"; };
+		651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -1186,6 +1188,7 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */,
+				651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */,
 				65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */,
 				65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */,
 				65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */,
@@ -1623,6 +1626,7 @@
 				65A05C572AFB800900C0BC93 /* IconView.swift in Sources */,
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
 				6597C35F2B083D19008F6D0D /* OrderDetailsViewModel.swift in Sources */,
+				651DA2A32B3D6B8D001FF145 /* ProfileSettingsViewController.swift in Sources */,
 				65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */,
 				653858302B23BFA6006F4796 /* SearchLocationViewController.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* ExtensionUIColor.swift in Sources */,

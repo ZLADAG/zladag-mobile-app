@@ -71,7 +71,7 @@ class UserProfileTableViewCell: UITableViewCell {
         profileImageView.layer.cornerRadius = profileImageView.width / 2
         profileImageView.layer.masksToBounds = true
         profileImageView.layer.borderWidth = 2
-        profileImageView.layer.borderColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1.0).cgColor
+        profileImageView.layer.borderColor = UIColor.grey3.cgColor
         
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         

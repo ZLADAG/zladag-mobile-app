@@ -9,9 +9,9 @@ import Foundation
 
 public struct MultipartRequest {
     
-    public let boundary: String
-    
     private let separator: String = "\r\n"
+    
+    public let boundary: String
     private var data: Data
 
     public init(boundary: String = UUID().uuidString) {
