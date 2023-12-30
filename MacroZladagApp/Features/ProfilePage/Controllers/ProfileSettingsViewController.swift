@@ -260,7 +260,7 @@ class ProfileSettingsViewController: UIViewController {
     
     // MARK: MISC
     
-    private func fetchData() {
+    private func fetchData(completion: @escaping () -> ()) {
         var multipart = MultipartRequest()
         
         let profileName: String = textField.text!
@@ -289,7 +289,7 @@ class ProfileSettingsViewController: UIViewController {
         
         request.httpBody = multipart.httpBody
         
-        URLSession.shared.dataTask(with: request) { data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 return
             }
@@ -301,24 +301,11 @@ class ProfileSettingsViewController: UIViewController {
                 print(error)
                 print("ERROR WHEN POST /profile/update")
             }
-            
-            defer {
-                DispatchQueue.main.async {
-                    self.loadingScreenView.removeFromSuperview()
-                    
-                    self.rightBarButtonLabel.text = "Edit"
-                    self.rightBarButtonLabel.textColor = .textBlack
-                    self.rightBarButtonLabel.sizeToFit()
-                    
-                    self.leftBarButtonImageView.image = UIImage(named: "left-chevron")
-                    self.leftBarButtonImageView.frame.size = CGSize(width: 28, height: 28)
-                    
-                    self.rightBarButton.isUserInteractionEnabled = true
-                }
-            }
-        }.resume()
+        }
         
+        task.resume()
         
+        completion()
     }
     
     func presentCameraImagePickerVC() {
@@ -420,9 +407,19 @@ class ProfileSettingsViewController: UIViewController {
             textField.becomeFirstResponder()
         } else {
             self.setupLoadingScreen()
-            rightBarButton.isUserInteractionEnabled = false
-            
-            fetchData()
+            fetchData(completion: {
+                DispatchQueue.main.async {
+                    self.loadingScreenView.removeFromSuperview()
+                    
+                    self.rightBarButtonLabel.text = "Edit"
+                    self.rightBarButtonLabel.textColor = .textBlack
+                    self.rightBarButtonLabel.sizeToFit()
+                    
+                    self.leftBarButtonImageView.image = UIImage(named: "left-chevron")
+                    self.leftBarButtonImageView.frame.size = CGSize(width: 28, height: 28)
+                    
+                }
+            })
         }
         
         button.isSelected = !button.isSelected

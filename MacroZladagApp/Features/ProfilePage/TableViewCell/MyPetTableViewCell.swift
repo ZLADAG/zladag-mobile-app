@@ -14,16 +14,25 @@ class MyPetTableViewCell: UITableViewCell {
     
     let petImageView = UIImageView() // if nil: cat-icon || dog-icon
     let nameLabel = UILabel()
+    var subDetailLabel = UIStackView()
     var breedLabel = UILabel()
-    
+    var ageLabel = UILabel()
     var imageName: String? = nil
     var petBreed = ""
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
         
+        // Configure the view for the selected state
         selectionStyle = .none
         backgroundColor = .white
+        
     }
     
     func configure(petDetails: PetDetailsViewModel) {
@@ -41,10 +50,10 @@ class MyPetTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        breedLabel.frame = .zero
+        ageLabel.frame = .zero
+        subDetailLabel.frame = .zero
         petImageView.image = nil
-        nameLabel.text = nil
-        breedLabel.text = nil
-        
     }
     
     func setupPetImageView() {
@@ -52,12 +61,35 @@ class MyPetTableViewCell: UITableViewCell {
         
         if let imageName, !imageName.isEmpty {
             petImageView.sd_setImage(with: URL(string: APICaller.shared.getImage(path: imageName)))
-        } else {
-            if self.petBreed.lowercased().contains("kucing") {
-                petImageView.image = UIImage(named: "default-cat-image")
-            } else {
-                petImageView.image = UIImage(named: "default-dog-image")
+            
+            for sbv in petImageView.subviews {
+                if let name = sbv.layer.name {
+                    if name == "emptyIconView" {
+                        sbv.removeFromSuperview()
+                    }
+                }
             }
+        } else {
+            let emptyIconView = UIImageView()
+            emptyIconView.layer.name = "emptyIconView"
+            
+            if self.petBreed.lowercased().contains("cat") {
+                emptyIconView.image = UIImage(named: "cat-icon")
+            } else if self.petBreed.lowercased().contains("dog") {
+                emptyIconView.image = UIImage(named: "dog-icon")
+            }
+            
+            emptyIconView.contentMode = .scaleAspectFill
+            emptyIconView.tintColor = .customLightGray
+            
+            petImageView.backgroundColor = .customLightGray3
+            petImageView.addSubview(emptyIconView)
+            emptyIconView.frame = CGRect(
+                x: 24 - (17),
+                y: 24 - (17),
+                width: 34,
+                height: 34
+            )
         }
         
         petImageView.frame.size = CGSize(width: 48, height: 48)
@@ -72,23 +104,25 @@ class MyPetTableViewCell: UITableViewCell {
     func setupNameLabel() {
         addSubview(nameLabel)
         
-        nameLabel.backgroundColor = .clear
         nameLabel.sizeToFit()
         nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         nameLabel.textColor = .textBlack
         
-        nameLabel.frame = CGRect(x: petImageView.right + 12, y: petImageView.top + 2, width: contentView.width, height: nameLabel.height)
+        nameLabel.adjustsFontSizeToFitWidth = true
+        
+        nameLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: petImageView.top + 2)
+//        nameLabel.frame = CGRect(x: petImageView.right + 12, y: petImageView.top + 2, width: nameLabel.width, height: nameLabel.height)
+        
     }
     
     func setupBreedLabel() {
         addSubview(breedLabel)
         
+        breedLabel.sizeToFit()
         breedLabel.font = .systemFont(ofSize: 14, weight: .medium)
         breedLabel.textColor = .customLightGray
-        breedLabel.sizeToFit()
         
-//        breedLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: nameLabel.bottom + 4)
-        breedLabel.frame = CGRect(x: petImageView.right + 12, y: nameLabel.bottom + 4, width: contentView.width, height: breedLabel.height)
+        breedLabel.frame.origin = CGPoint(x: petImageView.right + 12, y: nameLabel.bottom + 4)
     }
 
 }
