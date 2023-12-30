@@ -18,19 +18,27 @@ class ProfileViewController: UIViewController {
     let tableView = UITableView()
     var viewModel = UserProfileViewModel()
     
-    let spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.style = .large
-        spinner.color = .customOrange
-        spinner.backgroundColor = .clear
-        return spinner
+    let loadingScreenView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.opacity = 0.6
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
+        self.loadingScreenView.isHidden = true
+        self.loadingScreenView.removeFromSuperview()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupLoadingScreen()
         
         APICaller.shared.getUserProfile { [weak self] result in
@@ -65,74 +73,12 @@ class ProfileViewController: UIViewController {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.spinner.hidesWhenStopped = true
-                self?.spinner.stopAnimating()
-                self?.spinner.removeFromSuperview()
+                self?.loadingScreenView.removeFromSuperview()
+                self?.tableView.reloadData()
             }
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-//        view.subviews.forEach { sbv in
-//            sbv.removeFromSuperview()
-//        }
-//        for sbv in view.subviews {
-//            sbv.removeFromSuperview()
-//        }
-    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//        setupLoadingScreen()
-//        
-//        APICaller.shared.getUserProfile { [weak self] result in
-//            
-//            switch result {
-//            case .success(let userProfileResponse):
-//                success = true
-//                self?.viewModel = UserProfileViewModel(
-//                    id: userProfileResponse.data.user.id,
-//                    name: userProfileResponse.data.user.name,
-//                    image: userProfileResponse.data.user.image,
-//                    pets: userProfileResponse.data.pets.compactMap({ petDetail in
-//                        return PetDetailsViewModel(
-//                            id: petDetail.id,
-//                            name: petDetail.name,
-//                            petBreed: petDetail.petBreed,
-//                            age: petDetail.age,
-//                            image: petDetail.image
-//                        )
-//                    })
-//                )
-//                
-//                DispatchQueue.main.async {
-//                    self?.setupTableView()
-//                }
-//                break
-//            case .failure(let error):
-//                print("ERROR IN PROFILE VC\n", error)
-//                DispatchQueue.main.async {
-//                    self?.setupNotSignedInView()
-//                }
-//                break
-//            }
-//            
-//            DispatchQueue.main.async { [weak self] in
-//                self?.spinner.hidesWhenStopped = true
-//                self?.spinner.stopAnimating()
-//                self?.spinner.removeFromSuperview()
-//            }
-//        }
-//    }
-    
-//    let tableViewRefreshControl: UIRefreshControl = {
-//        let a = UIRefreshControl()
-//        
-//        return a
-//    }()
     
     let tableViewRefreshControl = UIRefreshControl()
     
@@ -141,11 +87,8 @@ class ProfileViewController: UIViewController {
         
         APICaller.shared.getUserProfile { [weak self] result in
             
-            var success = false
-            
             switch result {
             case .success(let userProfileResponse):
-                success = true
                 self?.viewModel = UserProfileViewModel(
                     id: userProfileResponse.data.user.id,
                     name: userProfileResponse.data.user.name,
@@ -193,7 +136,7 @@ class ProfileViewController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: -44), // navigationController?.navigationBar.height == 44
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -309,17 +252,30 @@ class ProfileViewController: UIViewController {
     }
     
     func setupLoadingScreen() {
-        view.addSubview(spinner)
+        view.addSubview(loadingScreenView)
         
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        
+        loadingScreenView.addSubview(spinner)
+        
+        loadingScreenView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
+            loadingScreenView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingScreenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingScreenView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             spinner.widthAnchor.constraint(equalToConstant: 50),
             spinner.heightAnchor.constraint(equalToConstant: 50),
         ])
         
+        spinner.hidesWhenStopped = true
         spinner.startAnimating()
     }
 
@@ -395,8 +351,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
         if indexPath.section == 1 {
             let petDetailVC = ProfilePetListDetailsViewController(petId: viewModel.pets[indexPath.row].id)
-            self.navigationController?.pushViewController(petDetailVC, animated: true)            
+            self.navigationController?.pushViewController(petDetailVC, animated: true)
+        } else if indexPath.section == 0 {
+            let vc = ProfileSettingsViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(scrollView.contentOffset)
     }
 }
 

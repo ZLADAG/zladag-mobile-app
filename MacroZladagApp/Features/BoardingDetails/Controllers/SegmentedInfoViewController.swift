@@ -38,7 +38,7 @@ class SegmentedInfoViewController: UIViewController {
     var aboutContentStack: UIStackView!
     
     // Location content
-    var locationMapView = BoardingMapViewController()
+    var locationMapView: BoardingMapViewController?
     var locationContentStack: UIStackView!
     
     var facilityInfoStack: UIStackView!
@@ -49,7 +49,6 @@ class SegmentedInfoViewController: UIViewController {
 
     var infoDetailsStack: UIStackView!
     
-    // CERITANYA LOADING ANJAAYYYZZ
     let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.style = .large
@@ -61,18 +60,15 @@ class SegmentedInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.mainVc?.group.notify(queue: .main) {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//                self.spinner.hidesWhenStopped = true
-//                self.spinner.stopAnimating()
-//                self.spinner.removeFromSuperview()
-//                
-//                self.setUpComponents()
-//                self.setUpConstraint()
-//            })
-//        }
-//        
-//        setupLoadingScreen()
+        if
+            let name = self.mainVc?.viewModel?.name,
+            let lat = self.mainVc?.viewModel?.latitude,
+            let long = self.mainVc?.viewModel?.longitude
+        {
+            self.locationMapView = BoardingMapViewController(name: name, lat: lat, long: long)
+        } else {
+            self.locationMapView = BoardingMapViewController(name: "Pet Hotel", lat: -6.301966049661171, long: 106.65301280644293)
+        }
         
         self.setUpComponents()
         self.setUpConstraint()
@@ -339,7 +335,7 @@ class SegmentedInfoViewController: UIViewController {
         // Set Content - location address
         let label = createLocationLabel("\(mainVcViewModel.address), \(mainVcViewModel.provinceName)")
         
-        locationInfoStack = UIStackView(arrangedSubviews: [locationMapView.view, label])
+        locationInfoStack = UIStackView(arrangedSubviews: [locationMapView!.view, label])
         locationInfoStack.translatesAutoresizingMaskIntoConstraints = false
         locationInfoStack.axis  = NSLayoutConstraint.Axis.vertical
         locationInfoStack.distribution  = UIStackView.Distribution.fill

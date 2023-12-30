@@ -297,7 +297,9 @@ class BoardingDetailsViewController: UIViewController {
                     startCheckInTime: response.data.startCheckInTime,
                     endCheckInTime: response.data.endCheckInTime,
                     startCheckOutTime: response.data.startCheckOutTime,
-                    endCheckOutTime: response.data.endCheckOutTime
+                    endCheckOutTime: response.data.endCheckOutTime,
+                    latitude: response.data.latitude,
+                    longitude: response.data.longitude
                 )
                 
                 success = true

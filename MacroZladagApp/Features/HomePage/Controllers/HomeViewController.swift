@@ -287,23 +287,16 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         collectionView.dataSource = self
         collectionView.backgroundColor = .green
         
+        // REGISTER REUSABLEVIEW
         collectionView.register(
             MainHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: MainHeaderCollectionReusableView.identifier
         )
         collectionView.register(
-            PromoCollectionViewCell.self,
-            forCellWithReuseIdentifier: PromoCollectionViewCell.identifier
-        )
-        collectionView.register(
             SectionOneHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionOneHeaderCollectionReusableView.identifier
-        )
-        collectionView.register(
-            SmallBoardingsCollectionViewCell.self,
-            forCellWithReuseIdentifier: SmallBoardingsCollectionViewCell.identifier
         )
         collectionView.register(
             SectionTwoHeaderCollectionReusableView.self,
@@ -315,8 +308,22 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "header"
         )
+        
+        // REGISTER CELL
+        collectionView.register(
+            PromoCollectionViewCell.self,
+            forCellWithReuseIdentifier: PromoCollectionViewCell.identifier
+        )
+        collectionView.register(
+            SmallBoardingsCollectionViewCell.self,
+            forCellWithReuseIdentifier: SmallBoardingsCollectionViewCell.identifier
+        )
+        collectionView.register(
+            LihatLainnyaCollectionViewCell.self,
+            forCellWithReuseIdentifier: LihatLainnyaCollectionViewCell.identifier
+        )
+        
     }
-    
     
     func setupLoadingScreen() {
         view.addSubview(hugeView)
@@ -364,6 +371,101 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController?.present(navVc, animated: true, completion: nil)
     }
     
+    func goToSearchViewController() {
+        let vc = SearchResultsViewController()
+
+        let anjingCount = AppAccountManager.shared.anjingCount
+        let kucingCount = AppAccountManager.shared.kucingCount
+        
+        var navbarDetails = String()
+        var petCategories = [String]()
+        if anjingCount > 0 {
+            vc.anjingCount = anjingCount
+            petCategories.append("dog")
+        }
+
+        if kucingCount > 0 {
+            vc.kucingCount = kucingCount
+            petCategories.append("cat")
+        }
+        
+        var params: String = ""
+        if petCategories.count == 1 {
+            if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+            
+            if petCategories[0] == "dog" {
+                navbarDetails += "\(anjingCount) Anjing"
+            } else if petCategories[0] == "cat" {
+                navbarDetails += "\(kucingCount) Kucing"
+            }
+        } else if petCategories.count == 2 {
+            if let queryParam = "boardingPetCategories[]=\(petCategories[0])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+            
+            if let queryParam = "&boardingPetCategories[]=\(petCategories[1])".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                params += queryParam
+            }
+            
+            navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
+        }
+        
+        if
+            let latitude = AppAccountManager.shared.chosenLocationCoordinate?.latitude,
+            let longitude = AppAccountManager.shared.chosenLocationCoordinate?.longitude 
+        {
+            params += "&latitude=\(latitude)&longitude=\(longitude)"
+        }
+            
+        
+        navbarDetails = "\(AppAccountManager.shared.calendarTextDetails)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
+        
+        vc.detailsLabel.text = navbarDetails
+        vc.detailsValue = navbarDetails
+        
+        vc.locationLabel.text = AppAccountManager.shared.chosenLocationName
+        
+        let group = DispatchGroup()
+        group.enter()
+        APICaller.shared.getBoardingsSearch(params: params) { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let response):
+                vc.viewModels = response.data.compactMap { boarding in
+                    return SearchBoardingViewModel(
+                        slug: boarding.slug,
+                        name: boarding.name,
+                        distance: boarding.distance,
+                        subdistrictName: boarding.subdistrict,
+                        provinceName: boarding.province,
+                        price: boarding.cheapestLodgingPrice,
+                        imageURLStrings: boarding.images,
+                        facilities: boarding.boardingFacilities
+                    )
+                }
+
+                break
+            case .failure(let error):
+                print(error.localizedDescription)
+                break
+            }
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+        group.notify(queue: .main) {
+            
+            vc.collectionView.reloadData()
+            
+            vc.spinner.hidesWhenStopped = true
+            vc.spinner.stopAnimating()
+        }
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -375,9 +477,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: let strings):
             return strings.count
         case .sectionMakan(viewModels: let viewModels):
-            return viewModels.count
+            return viewModels.count + 1
         case .sectionTempatBermain(viewModels: let viewModels):
-            return viewModels.count
+            return viewModels.count + 1
         }
     }
     
@@ -394,17 +496,25 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(with: string)
             return cell
         case .sectionMakan(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
-            let viewModel = viewModels[indexPath.row]
-            
-            cell.configure(with: viewModel)
-            
-            return cell
+            if indexPath.row == viewModels.count {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LihatLainnyaCollectionViewCell.identifier, for: indexPath) as? LihatLainnyaCollectionViewCell else { return UICollectionViewCell() }
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
+                let viewModel = viewModels[indexPath.row]
+                cell.configure(with: viewModel)
+                return cell
+            }
         case .sectionTempatBermain(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
-            let viewModel = viewModels[indexPath.row]
-            cell.configure(with: viewModel)
-            return cell
+            if indexPath.row == viewModels.count {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LihatLainnyaCollectionViewCell.identifier, for: indexPath) as? LihatLainnyaCollectionViewCell else { return UICollectionViewCell() }
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallBoardingsCollectionViewCell.identifier, for: indexPath) as? SmallBoardingsCollectionViewCell else { return UICollectionViewCell() }
+                let viewModel = viewModels[indexPath.row]
+                cell.configure(with: viewModel)
+                return cell
+            }
         }
     }
     
@@ -419,13 +529,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
                 self.presentCatsAndDogsSheet()
             } else {
-                let viewModel = viewModels[indexPath.row]
-                let vc = BoardingDetailsViewController(slug: viewModel.slug)
-                vc.hidesBottomBarWhenPushed = true
-                vc.navigationItem.largeTitleDisplayMode = .always
-                vc.navigationController?.navigationBar.prefersLargeTitles = true
-                
-                navigationController?.pushViewController(vc, animated: true)
+                if indexPath.row != viewModels.count {
+                    let viewModel = viewModels[indexPath.row]
+                    let vc = BoardingDetailsViewController(slug: viewModel.slug)
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.navigationItem.largeTitleDisplayMode = .always
+                    vc.navigationController?.navigationBar.prefersLargeTitles = true
+                    
+                    navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    self.goToSearchViewController()
+                }
             }
             
             break
@@ -433,13 +547,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
                 self.presentCatsAndDogsSheet()
             } else {
-                let viewModel = viewModels[indexPath.row]
-                let vc = BoardingDetailsViewController(slug: viewModel.slug)
-                vc.hidesBottomBarWhenPushed = true
-                vc.navigationItem.largeTitleDisplayMode = .always
-                vc.navigationController?.navigationBar.prefersLargeTitles = true
-                
-                navigationController?.pushViewController(vc, animated: true)
+                if indexPath.row != viewModels.count {
+                    let viewModel = viewModels[indexPath.row]
+                    let vc = BoardingDetailsViewController(slug: viewModel.slug)
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.navigationItem.largeTitleDisplayMode = .always
+                    vc.navigationController?.navigationBar.prefersLargeTitles = true
+                    
+                    navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    self.goToSearchViewController()
+                }
             }
             
             break

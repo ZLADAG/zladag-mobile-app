@@ -36,7 +36,7 @@ class TambahProfilAnabulViewController: UIViewController {
     var contentViewBottomAnchor = NSLayoutConstraint()
     
     let profileImageViewButton = ProfileImageViewButton()
-    let locationIconView = IconView(iconName: "location-icon-white")
+    let locationIconView = IconView(iconName: "edit-icon")
     var profileImageViewButtonTopAnchor = NSLayoutConstraint()
     
     let informasiPetSectionLabel = SectionLabel(for: "Informasi Pet")
@@ -74,9 +74,6 @@ class TambahProfilAnabulViewController: UIViewController {
     let beratTextView = BeratUsiaTextView(for: "berat")
     let usiaTextView = BeratUsiaTextView(for: "usia")
     
-    // TODO: berat & usia TextView di set keyboard numpad, dan decimal formatting, dan keyboard frame?
-    
-    // TODO: TANYA KENAPA VIEW DI BUTTON GABISA DICLICK
     let sudahSterilCheckboxButton = RequirementCheckboxButton(name: "Sudah steril", apiParam: "hasBeenSterilized")
     let rutinMenggunakanObatKutuCheckboxButton = RequirementCheckboxButton(name: "Rutin menggunakan obat kutu", apiParam: "hasBeenFleaFreeRegularly")
     let rutinVaksinasiCheckboxButton = RequirementCheckboxButton(name: "Rutin vaksinasi", apiParam: "hasBeenVaccinatedRoutinely")
@@ -716,7 +713,6 @@ class TambahProfilAnabulViewController: UIViewController {
     }
     
     func setupKebiasaanDropDownTableView() {
-        // TODO: KAK, TERNYATA INI BISA VIEW.ADDSUBVIEW ATAU SCROLLVIEW.ADDSUBVIEW SAMA AJA YAA???? :/
         scrollView.addSubview(kebiasaanDropDownTableView)
         
         kebiasaanDropDownTableView.separatorStyle = .none
@@ -1002,7 +998,6 @@ class TambahProfilAnabulViewController: UIViewController {
             self.kebiasaanTableViewHeightAnchor.constant = 0
         }
         
-        // TODO: KAK INI BEST PRACTICE NYA GIMANA YA 🙏
         shouldDisableSimpanButton()
     }
     
@@ -1504,27 +1499,10 @@ extension TambahProfilAnabulViewController: UITableViewDelegate, UITableViewData
             tableView.reloadData()
             shouldDisableSimpanButton()
         }
-        
-        
-        
-
-        
-        // TODO: KAK, INI BEST PRACTICE NYA GIMANA YA, AKU JADINYA TOGGLE LEWAT MODELS, AWAL NGIRANYA BISA BIKIN ARRAY CELL CELL NYA PAKE DOWN CASTING
-//        let cells = kebiasaanDropDownTableView.subviews.compactMap { subview in
-//            if let subview = subview as? KebiasaanDropDownTableViewCell {
-//                return subview
-//            } else {
-//                return nil
-//            }
-//        }
-        
-        // TODO: KAK, INI SETELAH RELOAD DATA, CONSTRAINT NYA DIA KAYAKNYA NUMPUK
-        // JADINYA LAYOUTING KU GANTI PAKAI YANG frame = CGRect()
-        // tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 34 // HARD CODE 34
+        return 34
     }
 }
 

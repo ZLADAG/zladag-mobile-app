@@ -129,9 +129,6 @@ class ReservationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-//        print("\nDATE1: \(AppAccountManager.shared.selectedDay1!.components)")
-//        print("DATE2: \(AppAccountManager.shared.selectedDay2!.components)")
-//        print("\(AppAccountManager.shared.anjingCount) ANJING, \(AppAccountManager.shared.kucingCount) KUCING")
         
         self.setupAnabulArray() // step 1
         

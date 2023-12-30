@@ -16,6 +16,8 @@
 		651DA29B2B3C281A001FF145 /* PostProfileOrdersBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29A2B3C281A001FF145 /* PostProfileOrdersBody.swift */; };
 		651DA29D2B3C2821001FF145 /* PostProfileOrdersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */; };
 		651DA29F2B3CC548001FF145 /* PesananTersimpanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA29E2B3CC548001FF145 /* PesananTersimpanViewController.swift */; };
+		651DA2A12B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA2A02B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift */; };
+		651DA2A32B3D6B8D001FF145 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */; };
 		65257B732ADD3E2800C6290C /* HomeBoardingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */; };
 		65303FC62AE905A400EF5E17 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC52AE905A400EF5E17 /* AuthManager.swift */; };
 		65303FC82AE9070500EF5E17 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */; };
@@ -35,7 +37,6 @@
 		6563A4652AD48B5A0058A130 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */; };
 		6563A4682AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */; };
 		6563A46A2AD49EB20058A130 /* FilterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */; };
-		6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A46C2AD53CF90058A130 /* CobaViewController.swift */; };
 		6563A47A2AD700500058A130 /* MencobaSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563A4792AD700500058A130 /* MencobaSheetViewController.swift */; };
 		6570AA1A2ADE8980003DC5EB /* BoardingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA192ADE8980003DC5EB /* BoardingImage.swift */; };
 		6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570AA1B2ADE946F003DC5EB /* ServiceCategory.swift */; };
@@ -260,6 +261,8 @@
 		651DA29A2B3C281A001FF145 /* PostProfileOrdersBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileOrdersBody.swift; sourceTree = "<group>"; };
 		651DA29C2B3C2821001FF145 /* PostProfileOrdersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProfileOrdersResponse.swift; sourceTree = "<group>"; };
 		651DA29E2B3CC548001FF145 /* PesananTersimpanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PesananTersimpanViewController.swift; sourceTree = "<group>"; };
+		651DA2A02B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LihatLainnyaCollectionViewCell.swift; sourceTree = "<group>"; };
+		651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		65257B722ADD3E2800C6290C /* HomeBoardingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardingResponse.swift; sourceTree = "<group>"; };
 		65303FC52AE905A400EF5E17 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		65303FC72AE9070500EF5E17 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -280,7 +283,6 @@
 		6563A4642AD48B5A0058A130 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		6563A4672AD494200058A130 /* SearchResultHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		6563A4692AD49EB20058A130 /* FilterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetViewController.swift; sourceTree = "<group>"; };
-		6563A46C2AD53CF90058A130 /* CobaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CobaViewController.swift; sourceTree = "<group>"; };
 		6563A4792AD700500058A130 /* MencobaSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MencobaSheetViewController.swift; sourceTree = "<group>"; };
 		6570AA192ADE8980003DC5EB /* BoardingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingImage.swift; sourceTree = "<group>"; };
 		6570AA1B2ADE946F003DC5EB /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
@@ -583,6 +585,7 @@
 				65DC1D132AD2B398005D8288 /* PromoCollectionView.swift */,
 				65DC1D162AD2B678005D8288 /* PromoCollectionViewCell.swift */,
 				65C40D002ACAD1D1004D986C /* SmallBoardingsCollectionViewCell.swift */,
+				651DA2A02B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift */,
 				65DC1D092AD2AE1E005D8288 /* MainHeader */,
 				65DC1D1A2AD3381E005D8288 /* SectionOne */,
 				65DC1D1B2AD3382F005D8288 /* SectionTwo */,
@@ -725,7 +728,6 @@
 			children = (
 				65303FCE2AE92B2D00EF5E17 /* SheetDuaViewController.swift */,
 				8F23ED6C2ADF8B2C00B25026 /* COBAstickysegmentedbar.swift */,
-				6563A46C2AD53CF90058A130 /* CobaViewController.swift */,
 				6563A4792AD700500058A130 /* MencobaSheetViewController.swift */,
 				6584BBBE2ADBDB910023D546 /* CobaTextFieldViewController.swift */,
 				65C40D322ACDD3ED004D986C /* CoretanViewController.swift */,
@@ -1189,6 +1191,7 @@
 			isa = PBXGroup;
 			children = (
 				8F9C2D492AF09D0000D767CD /* ProfileViewController.swift */,
+				651DA2A22B3D6B8D001FF145 /* ProfileSettingsViewController.swift */,
 				65A05C3B2AFB7D7B00C0BC93 /* ProfilePetListDetailsViewController.swift */,
 				65A05C3A2AFB7D7B00C0BC93 /* PetFacilityPrefCollectionViewController.swift */,
 				65A05C392AFB7D7A00C0BC93 /* PetHabitsCollectionViewController.swift */,
@@ -1563,7 +1566,6 @@
 				8FFEC0432AEA6202005D790F /* OtpVerificationViewController.swift in Sources */,
 				658486D52B2A2AA6006132CF /* AutocompleteResultTableViewCell.swift in Sources */,
 				65DC1D0F2AD2AEA9005D8288 /* TextFieldView.swift in Sources */,
-				6563A46D2AD53CF90058A130 /* CobaViewController.swift in Sources */,
 				65B2749E2AFA488A0030A0F5 /* UserProfileViewModel.swift in Sources */,
 				8F23EDBF2AE410A400B25026 /* User.swift in Sources */,
 				65DC1D212AD34A85005D8288 /* CatsAndDogsCounterViewController.swift in Sources */,
@@ -1619,6 +1621,7 @@
 				6530400A2AE9826100EF5E17 /* CoretanTambahAnabulViewController.swift in Sources */,
 				6570AA1C2ADE946F003DC5EB /* ServiceCategory.swift in Sources */,
 				65DC1D112AD2AF2D005D8288 /* NumberOfCatsAndDogsButton.swift in Sources */,
+				651DA2A12B3CCE34001FF145 /* LihatLainnyaCollectionViewCell.swift in Sources */,
 				65364C1C2B376EC200037E9D /* AnabulTableViewCell.swift in Sources */,
 				65DC1D0B2AD2AE5F005D8288 /* MainHeaderContainerView.swift in Sources */,
 				65A05C9D2AFE323700C0BC93 /* MultipartRequest.swift in Sources */,
@@ -1626,6 +1629,7 @@
 				65A05C572AFB800900C0BC93 /* IconView.swift in Sources */,
 				8F9ADD9C2AD7CF9A0082E19B /* SegmentedInfoView.swift in Sources */,
 				6597C35F2B083D19008F6D0D /* OrderDetailsViewModel.swift in Sources */,
+				651DA2A32B3D6B8D001FF145 /* ProfileSettingsViewController.swift in Sources */,
 				65A05C3C2AFB7D7B00C0BC93 /* PetHabitsCollectionViewController.swift in Sources */,
 				653858302B23BFA6006F4796 /* SearchLocationViewController.swift in Sources */,
 				65C40D352ACDDD6B004D986C /* ExtensionUIColor.swift in Sources */,
