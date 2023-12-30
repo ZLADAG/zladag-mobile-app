@@ -31,6 +31,29 @@ class BoardingDetailsViewController: UIViewController {
         fatalError()
     }
     
+    // LEFT BAR BUTTON ACTS AS BACK BUTTON
+    let leftBarButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        
+        let backImageView = UIImageView(image: UIImage(named: "rounded-barbackbutton"))
+        backImageView.contentMode = .scaleAspectFit
+        backImageView.frame.size = CGSize(width: 32, height: 32)
+        
+        button.addSubview(backImageView)
+        
+        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        
+        backImageView.frame = CGRect(
+            x: (button.frame.width - backImageView.width) / 2,
+            y: (button.frame.height - backImageView.height) / 2,
+            width: backImageView.width,
+            height: backImageView.height
+        )
+        
+        return button
+    }()
+    
     // Content Scroll View
     var scrollview: UIScrollView = {
         let scrollView = UIScrollView()
@@ -227,11 +250,18 @@ class BoardingDetailsViewController: UIViewController {
         return spinner
     }()
     
+    let statusBarView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .textBlack
         view.backgroundColor = .white
+        
+        // Custom back button
+        self.leftBarButton.addTarget(self, action: #selector(self.onClickBackBarButton), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.leftBarButton)
+        
         setupLoadingScreen()
         
         var locationCoordinate = LocationCoordinate()
@@ -288,12 +318,15 @@ class BoardingDetailsViewController: UIViewController {
                     
                     self.navigationController?.navigationBar.backgroundColor = .clear
                     self.navigationController?.navigationBar.isTranslucent = true
-                    
+                    self.setupStatusBarView()
+
                     // Create the button
                     let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(self.shareButtonTapped))
                     
+                   
+                    //MARK: TEMPORARY
                     // Add the button to the right side of the navigation bar
-                    self.navigationItem.rightBarButtonItem = shareButton
+//                    self.navigationItem.rightBarButtonItem = shareButton
                     
                     
                     // View Settings
@@ -361,6 +394,19 @@ class BoardingDetailsViewController: UIViewController {
 //
 //        print("contentAboveHeight - REVIEW: \(contentAboveHeight)")
         
+    }
+    
+    func setupStatusBarView() {
+        view.addSubview(statusBarView)
+        statusBarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statusBarView.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            statusBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            statusBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+        statusBarView.backgroundColor = .white
+//        statusBarView.isHidden = true
     }
     
     func setupConstraints() {
@@ -538,19 +584,41 @@ class BoardingDetailsViewController: UIViewController {
            let threshold: CGFloat = contentAboveHeight - 40
     
 //           print("height:\(contentAboveHeight)")
-   
-           if yOffset > threshold {
-               // Stick the segmented view under the navigation bar
-               //            segmentedBarTopConstraint.constant = yOffset - threshold
-               scrollview.topAnchor.constraint(equalTo: view.bottomAnchor, constant: yOffset - threshold).isActive = true
-               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
-           } else {
-               // Keep the segmented view at its original position
-               //            segmentedBarTopConstraint.constant = 0
-               scrollview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
-           }
-       }
+        
+        if yOffset > threshold {
+            // Stick the segmented view under the navigation bar
+            //            segmentedBarTopConstraint.constant = yOffset - threshold
+            scrollview.topAnchor.constraint(equalTo: view.bottomAnchor, constant: yOffset - threshold).isActive = true
+            //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
+        } else {
+            // Keep the segmented view at its original position
+            //            segmentedBarTopConstraint.constant = 0
+            scrollview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
+        }
+        
+        // MARK: Customize Navigation Bar
+        if yOffset > 0 {
+            UIView.animate(withDuration: 0.5) {
+                
+                // Scrolled down
+                self.navigationController?.navigationBar.backgroundColor = .white
+                
+                self.navigationItem.title = "\(self.viewModel?.name ?? "NO TITLE")"
+                self.view.addSubview(self.statusBarView)
+                self.statusBarView.backgroundColor = .white
+            }
+        } else {
+            UIView.animate(withDuration: 0.1) {
+                
+                self.navigationController?.navigationBar.backgroundColor = .clear
+                
+                self.navigationItem.title = ""
+                self.view.addSubview(self.statusBarView)
+                self.statusBarView.backgroundColor = .clear
+            }
+        }
+    }
     
     
     /// Change position of the underline
@@ -785,6 +853,11 @@ class BoardingDetailsViewController: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
 
         }
+    }
+    
+    @objc func onClickBackBarButton() {
+        self.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func photosPageControlValueChanged(_ sender: UIPageControl) {
