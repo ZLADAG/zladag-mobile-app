@@ -362,6 +362,9 @@ class BoardingDetailsViewController: UIViewController {
         super.viewDidLayoutSubviews()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.backgroundColor = .clear
+    }
     //MARK: Functions
     
     func addInfoSegmentView() {

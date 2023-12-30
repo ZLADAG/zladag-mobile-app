@@ -20,7 +20,7 @@ class KebiasaanDropDownTableViewCell: UITableViewCell {
     static let identifier = "DropDownTableViewCell"
     
     let label = UILabel()
-    let checkBoxView = UIView()
+    let checkBoxView = UIImageView()
     
     public var isCheckBoxSelected: Bool = false
     public var petHabit: PetHabitCheckBox? = nil
@@ -35,10 +35,11 @@ class KebiasaanDropDownTableViewCell: UITableViewCell {
         self.petHabit = petHabit
         label.text = "\(petHabit.name)"
         
+        checkBoxView.contentMode = .scaleAspectFit
         if let petHabit = self.petHabit {
-            checkBoxView.backgroundColor = petHabit.isSelected ? .customBlueForLabels : .clear
+            checkBoxView.image = petHabit.isSelected ? UIImage(named: "reservation-checkbox-icon") : UIImage(named: "checkbox-icon-unselected")
         } else {
-            checkBoxView.backgroundColor = .clear
+            checkBoxView.image = UIImage(named: "checkbox-icon-unselected")
         }
     }
 
@@ -49,18 +50,13 @@ class KebiasaanDropDownTableViewCell: UITableViewCell {
         
         // CHECKBOX
         contentView.addSubview(checkBoxView)
-        
         if let petHabit = self.petHabit {
-            if petHabit.isSelected {
-                checkBoxView.backgroundColor = petHabit.isSelected ? .customBlueForLabels : .clear
-            }
+            checkBoxView.image = petHabit.isSelected ? UIImage(named: "reservation-checkbox-icon") : UIImage(named: "checkbox-icon-unselected")
         } else {
-            checkBoxView.backgroundColor = .clear
+            checkBoxView.image = UIImage(named: "checkbox-icon-unselected")
         }
         
         checkBoxView.layer.cornerRadius = 2
-        checkBoxView.layer.borderColor = UIColor.customGrayForCheckboxBorder.cgColor
-        checkBoxView.layer.borderWidth = 1
         checkBoxView.frame.size = CGSize(width: 24, height: 24)
 
         // LABEL
