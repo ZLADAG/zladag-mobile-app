@@ -248,7 +248,10 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         
         nameLabel.frame = CGRect(x: leading, y: hScrollView.bottom + 10, width: contentView.width - 95, height: 19)
         
-        starImageView.frame = CGRect(x: nameLabel.right, y: hScrollView.bottom + 11, width: 16, height: 16)
+        //MARK: TEMPORARY
+//        starImageView.frame = CGRect(x: nameLabel.right, y: hScrollView.bottom + 11, width: 16, height: 16)
+        starImageView.frame = CGRect(x: nameLabel.right + 40, y: hScrollView.bottom + 11, width: 16, height: 16)
+        
         ratingLabel.frame = CGRect(x: starImageView.right + 5, y: hScrollView.bottom + 11, width: contentView.width, height: 16)
         
         locationImageView.frame = CGRect(x: leading, y: nameLabel.bottom + 5, width: 16, height: 16)
@@ -295,10 +298,13 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
             
         ]
         
-        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
-        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        // MARK: TEMPORARY
+//        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
+//        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        let firstString = NSMutableAttributedString(string: "-", attributes: firstAttributes)
+        let secondString = NSAttributedString(string: "", attributes: secondAttributes)
         
-        firstString.append(secondString)
+//        firstString.append(secondString)
         
         return firstString
     }

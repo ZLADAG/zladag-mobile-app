@@ -458,7 +458,6 @@ class BoardingDetailsViewController: UIViewController {
             reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            reviewSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
     }
     
@@ -684,8 +683,12 @@ class BoardingDetailsViewController: UIViewController {
     private func createRateReviewStack(_ iconName: String, _ ratingNum: Double, _ reviewerNum: Int) -> UIStackView {
         
         ratingIcon = createRatingIcon(iconName)
-        ratingNumLabel = createRateNumLabel("\(ratingNum)")
-        reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
+        
+        // MARK: TEMPORARY
+//        ratingNumLabel = createRateNumLabel("\(ratingNum)")
+//        reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
+        ratingNumLabel = createRateNumLabel("-")
+        reviewerNumLabel = createGrayLabel("")
         
 //        ratingIcon.frame.size = CGSize(width: 16, height: 16)
 //        ratingIcon.translatesAutoresizingMaskIntoConstraints = false

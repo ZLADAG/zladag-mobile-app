@@ -155,8 +155,11 @@ class SmallBoardingsCollectionViewCell: UICollectionViewCell {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular)
         ]
         
-        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
-        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        // MARK: TEMPORARY
+//        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
+//        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        let firstString = NSMutableAttributedString(string: "-", attributes: firstAttributes)
+        let secondString = NSAttributedString(string: "", attributes: secondAttributes)
         
         firstString.append(secondString)
         
