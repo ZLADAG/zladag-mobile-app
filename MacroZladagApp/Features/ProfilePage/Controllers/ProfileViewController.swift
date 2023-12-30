@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        self.loadingScreenView.isHidden = true
         self.loadingScreenView.removeFromSuperview()
     }
     
