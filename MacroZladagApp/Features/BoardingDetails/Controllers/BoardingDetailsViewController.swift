@@ -288,10 +288,9 @@ class BoardingDetailsViewController: UIViewController {
                     self.navigationController?.navigationBar.isTranslucent = true
                     
                     // Create the button
-                    let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(self.shareButtonTapped))
-                    
-                    // Add the button to the right side of the navigation bar
-                    self.navigationItem.rightBarButtonItem = shareButton
+                    //MARK: TEMPORARY
+//                    let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(self.shareButtonTapped))
+//                    self.navigationItem.rightBarButtonItem = shareButton
                     
                     
                     // View Settings
@@ -592,6 +591,7 @@ class BoardingDetailsViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    private func openUrl(_ urlAddress: String) {
     private func openUrl(_ urlAddress: String) {
         if let url = URL(string: urlAddress) {
             if UIApplication.shared.canOpenURL(url) {
