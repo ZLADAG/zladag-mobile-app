@@ -194,6 +194,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         for facility in facilities[0..<Int(floor(CGFloat(Double(facilities.count) / 1.5)))] {
             let aView: UIView = {
                 let aView = UIView()
+                aView.backgroundColor = .facilityBlue
                 
                 let label = UILabel()
                 label.text = facility
@@ -208,7 +209,7 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
                 
                 label.centerXAnchor.constraint(equalTo: aView.centerXAnchor).isActive = true
                 label.centerYAnchor.constraint(equalTo: aView.centerYAnchor).isActive = true
-                label.widthAnchor.constraint(equalToConstant: 74).isActive = true
+                label.widthAnchor.constraint(equalToConstant: 80).isActive = true
                 label.heightAnchor.constraint(equalToConstant: 23).isActive = true
                 
                 aView.layer.masksToBounds = true
@@ -217,17 +218,20 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
             }()
             
             hScrollView.addSubview(aView)
+            
 
             aView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
                 aView.topAnchor.constraint(equalTo: hScrollView.topAnchor),
-                aView.leadingAnchor.constraint(equalTo: hScrollView.leadingAnchor, constant: CGFloat((74 + 8) * z)),
-                aView.widthAnchor.constraint(equalToConstant: 74),
+                aView.leadingAnchor.constraint(equalTo: hScrollView.leadingAnchor, constant: CGFloat((85 + 8) * z)),
+                aView.widthAnchor.constraint(equalToConstant: 85),
                 aView.heightAnchor.constraint(equalToConstant: 23),
             ])
             z += 1
         }
+        hScrollView.layer.masksToBounds = true
+        hScrollView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -244,7 +248,10 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
         
         nameLabel.frame = CGRect(x: leading, y: hScrollView.bottom + 10, width: contentView.width - 95, height: 19)
         
-        starImageView.frame = CGRect(x: nameLabel.right, y: hScrollView.bottom + 11, width: 16, height: 16)
+        //MARK: TEMPORARY
+//        starImageView.frame = CGRect(x: nameLabel.right, y: hScrollView.bottom + 11, width: 16, height: 16)
+        starImageView.frame = CGRect(x: nameLabel.right + 40, y: hScrollView.bottom + 11, width: 16, height: 16)
+        
         ratingLabel.frame = CGRect(x: starImageView.right + 5, y: hScrollView.bottom + 11, width: contentView.width, height: 16)
         
         locationImageView.frame = CGRect(x: leading, y: nameLabel.bottom + 5, width: 16, height: 16)
@@ -291,10 +298,13 @@ class SearchBoardingsResultCollectionViewCell: UICollectionViewCell {
             
         ]
         
-        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
-        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        // MARK: TEMPORARY
+//        let firstString = NSMutableAttributedString(string: "\(rating) ", attributes: firstAttributes)
+//        let secondString = NSAttributedString(string: "(\(numOfReviews))", attributes: secondAttributes)
+        let firstString = NSMutableAttributedString(string: "-", attributes: firstAttributes)
+        let secondString = NSAttributedString(string: "", attributes: secondAttributes)
         
-        firstString.append(secondString)
+//        firstString.append(secondString)
         
         return firstString
     }
@@ -320,73 +330,17 @@ extension SearchBoardingsResultCollectionViewCell: UICollectionViewDelegate, UIC
     
     
     // DISARANKAN UTK DIMATIKAN!!!!!!!
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let viewModel else { return }
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//        
-//        let group = DispatchGroup()
-//        group.enter()
-//        
-////        let vc = BoardingDetailsViewController(group: group)
-////        let vc = BoardingDetailsViewController(group: group)
-//        let vc = BoardingDetailsViewController(slug: viewModel.slug)
-//        vc.hidesBottomBarWhenPushed = true
-//        vc.navigationItem.largeTitleDisplayMode = .always
-//        vc.navigationController?.navigationBar.prefersLargeTitles = true
-//        
-//        APICaller.shared.getBoardingBySlug(slug: viewModel.slug) { result in
-//            defer {
-//                group.leave()
-//            }
-//
-//            switch result {
-//            case .success(let response):
-//                vc.viewModel = BoardingDetailsViewModel(
-//                    name: response.data.name,
-//                    distance: response.data.distance,
-//                    address: response.data.address,
-//                    slug: response.data.slug,
-//                    description: response.data.description,
-//                    boardingCategory: response.data.boardingCategory,
-//                    subdistrictName: response.data.subdistrict,
-//                    provinceName: response.data.province,
-////                    boardingCages: response.data.boardingCages,
-//                    price: response.data.cheapestLodgingPrice,
-//                    images: response.data.images,
-//                    facilities: response.data.boardingFacilities,
-//                    shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
-//                    shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-//                    minimumAge: response.data.minimumAge,
-//                    maximumAge: response.data.maximumAge
-//                )
-//                break
-//            case .failure(let error):
-//                let localResult = Utils.getOneBoardingDetails()!.data
-//                vc.viewModel = BoardingDetailsViewModel(
-//                    name: localResult.name,
-//                    distance: localResult.distance,
-//                    address: localResult.address,
-//                    slug: localResult.slug,
-//                    description: localResult.description,
-//                    boardingCategory: localResult.boardingCategory,
-//                    subdistrictName: localResult.subdistrict,
-//                    provinceName: localResult.province,
-////                    boardingCages: localResult.boardingCages,
-//                    price: localResult.cheapestLodgingPrice,
-//                    images: localResult.images,
-//                    facilities: localResult.boardingFacilities,
-//                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-//                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-//                    minimumAge: localResult.minimumAge,
-//                    maximumAge: localResult.maximumAge
-//                )
-//                print(error.localizedDescription)
-//                break
-//            }
-//        }
-//        
-//        self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel else { return }
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let vc = BoardingDetailsViewController(slug: viewModel.slug)
+        vc.hidesBottomBarWhenPushed = true
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.controllerDelegate?.navigationController?.pushViewController(vc, animated: true)
+    }
     
     
 }

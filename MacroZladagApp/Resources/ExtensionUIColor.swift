@@ -17,6 +17,7 @@ extension UIColor {
     static let orangeWithOpacity = UIColor(red: 239/255, green: 133/255, blue: 71/255, alpha: CGFloat(0.1 * (255/255)))
     static let orangeButtonWithOpacity = UIColor(red: 255/255, green: 242/255, blue: 233/255, alpha: 255/255)
     static let orangeDateRange = UIColor(red: 255/255, green: 231/255, blue: 217/255, alpha: 255/255)
+    static let orangeOpacityBackground = UIColor(red: 255/255, green: 242/255, blue: 233/255, alpha: 255/255)
     
     static let customGray = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 255/255)
     static let customGray2 = UIColor(red: 218/255, green: 220/255, blue: 226/255, alpha: 255/255)
@@ -25,6 +26,13 @@ extension UIColor {
     static let customLightGray = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
     static let customLightGray2 = UIColor(red: 197/255, green: 197/255, blue: 197/255, alpha: 255/255)
     static let customLightGray3 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+
+    static let customLightGray242 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+    static let grey1 = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
+    static let grey2 = UIColor(red: 197/255, green: 197/255, blue: 197/255, alpha: 255/255)
+    static let grey3 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+    static let grey6 = UIColor(red: 209/255, green: 209/255, blue: 214/255, alpha: 255/255)
+    static let anabulSudahDipilih = UIColor(red: 213/255, green: 255/255, blue: 203/255, alpha: 255/255)
     
     static let customGrayForLabels = UIColor(red: 171/255, green: 171/255, blue: 171/255, alpha: 255/255)
     static let customGrayForCheckboxBorder = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
@@ -49,7 +57,16 @@ extension UIColor {
     // Gender Tag color
     static let customLightPink = UIColor(red: 255/255, green: 207/255, blue: 207/255, alpha: 255/255)
     static let customLightBlue = UIColor(red: 222/255, green: 239/255, blue: 255/255, alpha: 255/255)
+      
+    // Order Labels
+    static let orderLabelBlue = UIColor(red: 88/255, green: 164/255, blue: 219/255, alpha: 255/255)
+    static let orderLabelBlueBG = UIColor(red: 235/255, green: 251/255, blue: 249/255, alpha: 255/255)
 
+    static let orderLabelGray = UIColor(red: 161/255, green: 161/255, blue: 161/255, alpha: 255/255)
+    static let orderLabelGrayBG = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 255/255)
+
+    static let orderLabelRed = UIColor(red: 202/255, green: 4/255, blue: 4/255, alpha: 255/255)
+    static let orderLabelRedBG = UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 255/255)
 
 }
 

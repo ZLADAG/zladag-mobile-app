@@ -14,8 +14,9 @@ struct PetProfileDetailsResponse: Codable {
 struct PetProfileDetails: Codable {
     var id: String = ""
     var name: String = ""
-    var petBreed: String = ""
+    var petBreed: PetBreed = PetBreed(id: "", name: "")
     var petGender: String = ""
+    var petCategory: String = ""
     
     var hasBeenSterilized: Bool = false
     var hasBeenVaccinatedRoutinely: Bool = false
@@ -25,8 +26,8 @@ struct PetProfileDetails: Codable {
     var bodyMass: Double = 0
     
     var boardingFacilities: [String] = []
-    var petHabits: [String] = []
+    var petHabits = [PetHabit]()
     var historyOfIllness: String? = nil
     
-    var image: String = ""
+    var image: String? = ""
 }

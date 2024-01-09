@@ -49,6 +49,7 @@ class NumberOfCatsAndDogsButton: UIButton {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.text = AppAccountManager.shared.kucingCount.description
+        label.textColor = .textBlack
         label.textAlignment = .center
         return label
     }()
@@ -57,6 +58,7 @@ class NumberOfCatsAndDogsButton: UIButton {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.text = AppAccountManager.shared.anjingCount.description
+        label.textColor = .textBlack
         label.textAlignment = .center
         return label
     }()

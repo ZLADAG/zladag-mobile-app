@@ -16,7 +16,7 @@ class PrimaryButtonFilled: UIView {
 
     weak var delegate: PrimaryButtonFilledDelegate?
 
-    var btn: UIButton!
+    public var btn: UIButton!
     
     // MARK: Initialize Methods
     init(btnTitle: String) {
@@ -67,16 +67,19 @@ class PrimaryButtonFilled: UIView {
         
         self.translatesAutoresizingMaskIntoConstraints = false
 
-        btn = UIButton(configuration: .filled())
+        btn = UIButton(type: .system)
+        btn.configuration = .filled()
         btn.translatesAutoresizingMaskIntoConstraints = false
+
         btn.setTitle(text, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = 4
         btn.tintColor = .customOrange
+        btn.isUserInteractionEnabled = true
         btn.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
-        
-        setUpConstraints()
 
+        setUpConstraints()
     }
     
     private func setUpConstraints() {
@@ -92,23 +95,32 @@ class PrimaryButtonFilled: UIView {
         ])
     }
     
-    private func createDefaultButton(_ text: String) -> UIButton{
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        var configuration = UIButton.Configuration.plain() // there are several options to choose from instead of .plain()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.configuration = configuration
-            
-        button.setTitle(text, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.tintColor = .customOrange
-        
-        return button
-    }
+//    private func createDefaultButton(_ text: String) -> UIButton{
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//
+//        var configuration = UIButton.Configuration.plain() // there are several options to choose from instead of .plain()
+//        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+//        button.configuration = configuration
+//
+//        button.setTitle(text, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+//        button.tintColor = .customOrange
+//
+//        return button
+//    }
     
     // MARK: Selectors
     @objc func btnTapped() {
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.btn.alpha = 0.7
+        }) { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.btn.alpha = 1.0
+            }
+        }
+        
         delegate?.btnTapped()
     }
 

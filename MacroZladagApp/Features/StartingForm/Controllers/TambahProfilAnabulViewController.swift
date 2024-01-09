@@ -36,7 +36,8 @@ class TambahProfilAnabulViewController: UIViewController {
     var contentViewBottomAnchor = NSLayoutConstraint()
     
     let profileImageViewButton = ProfileImageViewButton()
-    let locationIconView = IconView(iconName: "location-icon-white")
+    let locationIconView = IconView(iconName: "edit-icon")
+    var profileImageViewButtonTopAnchor = NSLayoutConstraint()
     
     let informasiPetSectionLabel = SectionLabel(for: "Informasi Pet")
     let preferensiPetSectionLabel = SectionLabel(for: "Preferensi Pet")
@@ -73,9 +74,6 @@ class TambahProfilAnabulViewController: UIViewController {
     let beratTextView = BeratUsiaTextView(for: "berat")
     let usiaTextView = BeratUsiaTextView(for: "usia")
     
-    // TODO: berat & usia TextView di set keyboard numpad, dan decimal formatting, dan keyboard frame?
-    
-    // TODO: TANYA KENAPA VIEW DI BUTTON GABISA DICLICK
     let sudahSterilCheckboxButton = RequirementCheckboxButton(name: "Sudah steril", apiParam: "hasBeenSterilized")
     let rutinMenggunakanObatKutuCheckboxButton = RequirementCheckboxButton(name: "Rutin menggunakan obat kutu", apiParam: "hasBeenFleaFreeRegularly")
     let rutinVaksinasiCheckboxButton = RequirementCheckboxButton(name: "Rutin vaksinasi", apiParam: "hasBeenVaccinatedRoutinely")
@@ -117,6 +115,10 @@ class TambahProfilAnabulViewController: UIViewController {
         
         title = "Tambah Profil Anabul"
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupScrollView()
         setupContentView()
@@ -219,8 +221,10 @@ class TambahProfilAnabulViewController: UIViewController {
         profileImageViewButton.layer.masksToBounds = true
         
         profileImageViewButton.translatesAutoresizingMaskIntoConstraints = false
+        self.profileImageViewButtonTopAnchor = profileImageViewButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24)
+        profileImageViewButtonTopAnchor.isActive = true
+        
         NSLayoutConstraint.activate([
-            profileImageViewButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
             profileImageViewButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             profileImageViewButton.widthAnchor.constraint(equalToConstant: 96),
             profileImageViewButton.heightAnchor.constraint(equalToConstant: 96),
@@ -476,8 +480,29 @@ class TambahProfilAnabulViewController: UIViewController {
         ])
     }
     
+    @objc func doneButtonActionUsia() {
+        self.usiaTextView.textField.resignFirstResponder()
+    }
+    
+    @objc func doneButtonActionBerat() {
+        self.beratTextView.textField.resignFirstResponder()
+    }
+    
     func setupBeratTextView() {
         scrollView.addSubview(beratTextView)
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionBerat))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        beratTextView.textField.inputAccessoryView = doneToolbar
         
         beratTextView.tambahProfilAnabulViewController = self
 
@@ -493,6 +518,19 @@ class TambahProfilAnabulViewController: UIViewController {
     
     func setupUsiaTextView() {
         scrollView.addSubview(usiaTextView)
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionUsia))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        usiaTextView.textField.inputAccessoryView = doneToolbar
         
         usiaTextView.tambahProfilAnabulViewController = self
 
@@ -675,7 +713,6 @@ class TambahProfilAnabulViewController: UIViewController {
     }
     
     func setupKebiasaanDropDownTableView() {
-        // TODO: KAK, TERNYATA INI BISA VIEW.ADDSUBVIEW ATAU SCROLLVIEW.ADDSUBVIEW SAMA AJA YAA???? :/
         scrollView.addSubview(kebiasaanDropDownTableView)
         
         kebiasaanDropDownTableView.separatorStyle = .none
@@ -712,6 +749,10 @@ class TambahProfilAnabulViewController: UIViewController {
         ])
     }
     
+    @objc func doneButtonActionRiwayatPenyakit() {
+        self.riwayatPenyakitTextView.resignFirstResponder()
+    }
+    
     func setupRiwayatPenyakitTextView() {
         scrollView.addSubview(riwayatPenyakitContainerView)
         scrollView.addSubview(riwayatPenyakitTextView)
@@ -719,6 +760,18 @@ class TambahProfilAnabulViewController: UIViewController {
         riwayatPenyakitTextView.delegate = self
         riwayatPenyakitContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onClickRiwayatPenyakitContainerView)))
         
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonActionRiwayatPenyakit))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        riwayatPenyakitTextView.inputAccessoryView = doneToolbar
         
         riwayatPenyakitContainerView.backgroundColor = .customGrayForInputFields
         riwayatPenyakitContainerView.layer.cornerRadius = 8
@@ -913,19 +966,23 @@ class TambahProfilAnabulViewController: UIViewController {
                 SpesiesButton.unclick(kucingSpesiesButton)
             }
             
+            rasDropDownButtonIsClicked = true
+            kebiasaanDropDownButtonIsClicked = true
+            
             // HIT!
             fetchBreedsAndHabits(with: "dog")
             self.requiredFieldsAlert.append(.speciesIsNotSelected)
             
-            rasDropDownButtonIsClicked = false
-            kebiasaanDropDownButtonIsClicked = false
-            
             rasChevronImageView.image = UIImage(systemName: "chevron.down")
             chevronImageView.image = UIImage(systemName: "chevron.down")
             
-            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         } else {
+            
+            rasDropDownButtonIsClicked = false
+            kebiasaanDropDownButtonIsClicked = false
+            
             SpesiesButton.unclick(anjingSpesiesButton)
             
             // CLEAR!
@@ -941,7 +998,6 @@ class TambahProfilAnabulViewController: UIViewController {
             self.kebiasaanTableViewHeightAnchor.constant = 0
         }
         
-        // TODO: KAK INI BEST PRACTICE NYA GIMANA YA 🙏
         shouldDisableSimpanButton()
     }
     
@@ -954,19 +1010,23 @@ class TambahProfilAnabulViewController: UIViewController {
                 SpesiesButton.unclick(anjingSpesiesButton)
             }
             
-            // HIT!
-            fetchBreedsAndHabits(with: "cat")
-            self.requiredFieldsAlert.append(.speciesIsNotSelected)
+            rasDropDownButtonIsClicked = true
+            kebiasaanDropDownButtonIsClicked = true
             
-            rasDropDownButtonIsClicked = false
-            kebiasaanDropDownButtonIsClicked = false
+            // HIT!
+            self.fetchBreedsAndHabits(with: "cat")
+            self.requiredFieldsAlert.append(.speciesIsNotSelected)
             
             rasChevronImageView.image = UIImage(systemName: "chevron.down")
             chevronImageView.image = UIImage(systemName: "chevron.down")
             
-            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         } else {
+            
+            rasDropDownButtonIsClicked = false
+            kebiasaanDropDownButtonIsClicked = false
+            
             SpesiesButton.unclick(kucingSpesiesButton)
             
             // CLEAR!
@@ -1084,7 +1144,11 @@ class TambahProfilAnabulViewController: UIViewController {
     }
     
     @objc func onClickSimpanButton() {
-        riwayatPenyakitTextView.resignFirstResponder()
+        if self.namaAnabulTextField.isFirstResponder {
+            namaAnabulTextField.resignFirstResponder()
+        } else if riwayatPenyakitTextView.isFirstResponder {
+            riwayatPenyakitTextView.resignFirstResponder()
+        }
         
         // NAMA
         // >extension
@@ -1178,11 +1242,43 @@ class TambahProfilAnabulViewController: UIViewController {
         
         viewModel.image = profileImageViewButton.profileImageView.image
         
+        self.usiaTextView.textField.resignFirstResponder()
+        self.beratTextView.textField.resignFirstResponder()
+        
         let vc = AnabulTersimpanViewController()
         vc.viewModel = self.viewModel
         
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+    
+    // MARK: Keyboard Notification Center
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y == 0 {
+            if self.riwayatPenyakitTextView.isFirstResponder {
+                self.view.frame.origin.y -= keyboardFrame.height
+            }
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y += keyboardFrame.height
+        }
     }
 
     
@@ -1237,6 +1333,8 @@ class TambahProfilAnabulViewController: UIViewController {
     
     // MARK: FETCH BREEDS AND HABITS DATA
     func fetchBreedsAndHabits(with species: String) {
+        var success = false
+        
         let group = DispatchGroup()
         group.enter()
         
@@ -1244,7 +1342,6 @@ class TambahProfilAnabulViewController: UIViewController {
             defer {
                 group.leave()
             }
-            
             switch result {
             case .success(let response):
                 self.petBreeds = response.data.petBreeds.compactMap({ petBreed in
@@ -1262,6 +1359,9 @@ class TambahProfilAnabulViewController: UIViewController {
                         name: petHabit.name
                     )
                 })
+                
+                success = true
+                
                 break
             case .failure(_):
                 print("ERROR IN TAMBAH ANABUL VC")
@@ -1275,6 +1375,52 @@ class TambahProfilAnabulViewController: UIViewController {
             
             self.rasTableViewHeightAnchor.constant = 0
             self.kebiasaanTableViewHeightAnchor.constant = 0
+            
+            if success {
+                print(">> YEAHHH")
+                print(self.rasDropDownButtonIsClicked)
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3) {
+                        if self.rasDropDownButtonIsClicked {
+                            self.rasDropDownTableView.isHidden = false
+                            
+                            //                self.kebiasaanTableViewHeightAnchor.constant = (11 * 34)
+                            self.rasTableViewHeightAnchor.constant = CGFloat(self.petBreeds.count * 34)
+                        } else {
+                            self.rasTableViewHeightAnchor.constant = 0
+                        }
+                        
+                        self.view.layoutIfNeeded()
+                    } completion: { isDone in
+                        if isDone {
+                            if !self.rasDropDownButtonIsClicked { // IF NOT CLICKED
+                                self.rasDropDownTableView.isHidden = true
+                                self.rasDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                            }
+                        }
+                    }
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        if self.kebiasaanDropDownButtonIsClicked {
+                            self.kebiasaanDropDownTableView.isHidden = false
+                            
+                            //                self.kebiasaanTableViewHeightAnchor.constant = (11 * 34)
+                            self.kebiasaanTableViewHeightAnchor.constant = CGFloat(self.petHabits.count * 34)
+                        } else {
+                            self.kebiasaanTableViewHeightAnchor.constant = 0
+                        }
+                        
+                        self.view.layoutIfNeeded()
+                    } completion: { isDone in
+                        if isDone {
+                            if !self.kebiasaanDropDownButtonIsClicked { // IF NOT CLICKED
+                                self.kebiasaanDropDownTableView.isHidden = true
+                                self.kebiasaanDropDownButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -1353,27 +1499,10 @@ extension TambahProfilAnabulViewController: UITableViewDelegate, UITableViewData
             tableView.reloadData()
             shouldDisableSimpanButton()
         }
-        
-        
-        
-
-        
-        // TODO: KAK, INI BEST PRACTICE NYA GIMANA YA, AKU JADINYA TOGGLE LEWAT MODELS, AWAL NGIRANYA BISA BIKIN ARRAY CELL CELL NYA PAKE DOWN CASTING
-//        let cells = kebiasaanDropDownTableView.subviews.compactMap { subview in
-//            if let subview = subview as? KebiasaanDropDownTableViewCell {
-//                return subview
-//            } else {
-//                return nil
-//            }
-//        }
-        
-        // TODO: KAK, INI SETELAH RELOAD DATA, CONSTRAINT NYA DIA KAYAKNYA NUMPUK
-        // JADINYA LAYOUTING KU GANTI PAKAI YANG frame = CGRect()
-        // tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 34 // HARD CODE 34
+        return 34
     }
 }
 

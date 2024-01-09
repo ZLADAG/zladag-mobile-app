@@ -16,39 +16,6 @@ class SearchResultsViewController: UIViewController {
     
     var isLoading: Bool = false
     
-    let navbarLocationLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Dekat Saya"
-        label.textColor = .textBlack
-        label.font = .systemFont(ofSize: 14, weight: .bold)
-        return label
-    }()
-    
-    let navbarDetailsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1 Okt 2023, 1 Malam, 1 Kucing"
-        label.textColor = .customGrayForIcons
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        return label
-    }()
-    
-    let navbarUbahButton: UIButton = {
-        let button = UIButton()
-        
-        let label = UILabel()
-        label.text = "Ubah"
-        label.textColor = .customOrange
-        label.font = .systemFont(ofSize: 12, weight: .bold)
-        
-        button.setTitle("Ubah", for: .normal)
-        button.setTitleColor(.customOrange, for: .normal)
-        button.backgroundColor = .orangeWithOpacity
-        button.layer.cornerRadius = 4
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
     public var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIdx, _ in
@@ -208,6 +175,15 @@ class SearchResultsViewController: UIViewController {
         return button
     }()
     
+    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .large
+        spinner.color = .customOrange
+        spinner.backgroundColor = .clear
+        return spinner
+    }()
+    
     func setupCustomNavbar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -243,9 +219,12 @@ class SearchResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .textBlack
         
         configureCollectionView()
         setupCustomNavbar()
+        setupLoadingScreen()
     }
     
     override func viewDidLayoutSubviews() {
@@ -264,6 +243,22 @@ class SearchResultsViewController: UIViewController {
         
         view.addSubview(collectionView)
     }
+    
+    func setupLoadingScreen() {
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.widthAnchor.constraint(equalToConstant: 50),
+            spinner.heightAnchor.constraint(equalToConstant: 50),
+        ])
+        
+        spinner.startAnimating()
+    }
+    
 }
 
 extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {

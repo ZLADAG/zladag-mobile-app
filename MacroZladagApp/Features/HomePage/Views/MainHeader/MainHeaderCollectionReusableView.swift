@@ -22,6 +22,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     let lowerView: UIView = {
         let uiView = UIView()
         uiView.backgroundColor = .customGray
+//        uiView.backgroundColor = .red
         return uiView
     }()
     
@@ -83,15 +84,16 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(numberOfCatsAndDogsButton)
         addSubview(searchButton)
         
-        addSubview(promoView)
+//        addSubview(promoView)
         
         setupFrames()
         
         searchButton.addTarget(self, action: #selector(goToSearchResultsViewController), for: .touchUpInside)
+            
+        locationFieldView.addTarget(self, action: #selector(onClickLocationButton), for: .touchUpInside)
+        dateFieldView.addTarget(self, action: #selector(onClickDatePickerButton), for: .touchUpInside)
+        numberOfCatsAndDogsButton.addTarget(self, action: #selector(onClickCatsAndDogsButton), for: .touchUpInside)
         
-        dateFieldView.addTarget(self, action: #selector(presentDatePickerSheet), for: .touchUpInside)
-        
-        numberOfCatsAndDogsButton.addTarget(self, action: #selector(presentCatsAndDogSheet), for: .touchUpInside)
     }
     
     func setupFrames() {
@@ -142,18 +144,17 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         promoView.frame = CGRect(x: 0, y: lowerView.frame.maxY, width: frame.width, height: 36)
         
     }
-    
 }
 
 extension MainHeaderCollectionReusableView {
-    @objc func goToSearchResultsViewController() {
+    @objc public func goToSearchResultsViewController() {
         let vc = SearchResultsViewController()
 
         self.anjingCount = AppAccountManager.shared.anjingCount
         self.kucingCount = AppAccountManager.shared.kucingCount
         
         guard (self.anjingCount > 0 || self.kucingCount > 0) else {
-            self.presentCatsAndDogSheet()
+            self.onClickCatsAndDogsButton()
             return
         }
         
@@ -192,10 +193,19 @@ extension MainHeaderCollectionReusableView {
             navbarDetails += "\(anjingCount) Anjing, \(kucingCount) Kucing"
         }
         
+        if
+            let latitude = AppAccountManager.shared.chosenLocationCoordinate?.latitude,
+            let longitude = AppAccountManager.shared.chosenLocationCoordinate?.longitude
+        {
+            params += "&latitude=\(latitude)&longitude=\(longitude)"
+        }
+        
         navbarDetails = "\(dateFieldView.thisLabel.text!)\(navbarDetails.isEmpty ? "" : ", \(navbarDetails)")"
         
         vc.detailsLabel.text = navbarDetails
         vc.detailsValue = navbarDetails
+        
+        vc.locationLabel.text = AppAccountManager.shared.chosenLocationName
         
         let group = DispatchGroup()
         group.enter()
@@ -221,18 +231,6 @@ extension MainHeaderCollectionReusableView {
 
                 break
             case .failure(let error):
-                vc.viewModels = Utils.getSearch()!.data.compactMap({ boarding in
-                    return SearchBoardingViewModel(
-                        slug: boarding.slug,
-                        name: boarding.name,
-                        distance: boarding.distance,
-                        subdistrictName: boarding.subdistrict,
-                        provinceName: boarding.province,
-                        price: boarding.cheapestLodgingPrice,
-                        imageURLStrings: boarding.images,
-                        facilities: boarding.boardingFacilities
-                    )
-                })
                 print(error.localizedDescription)
                 break
             }
@@ -243,10 +241,34 @@ extension MainHeaderCollectionReusableView {
             
             vc.collectionView.reloadData()
             
+            vc.spinner.hidesWhenStopped = true
+            vc.spinner.stopAnimating()
         }
     }
     
-    @objc func presentCatsAndDogSheet() {
+    @objc func onClickLocationButton() {
+        let vc = SearchLocationViewController()
+        vc.mainView = self
+        
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 16
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.99 * context.maximumDetentValue
+                })
+            ]
+            
+            sheet.prefersGrabberVisible = true
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        self.delegate?.navigationController?.present(navVc, animated: true)
+    }
+    
+    @objc func onClickCatsAndDogsButton() {
         let vc  = CatsAndDogsCounterViewController()
         vc.mainHeaderDelegate = self
         vc.kucingCount = self.kucingCount
@@ -260,7 +282,7 @@ extension MainHeaderCollectionReusableView {
             sheet.preferredCornerRadius = 10
             sheet.detents = [
                 .custom(resolver: { context in
-                    0.4 * context.maximumDetentValue
+                    0.33 * context.maximumDetentValue
                 })
 //                .medium()
             ]
@@ -271,7 +293,8 @@ extension MainHeaderCollectionReusableView {
         delegate?.navigationController?.present(navVc, animated: true, completion: nil)
     }
     
-    @objc func presentDatePickerSheet() {
+    
+    @objc func onClickDatePickerButton() {
         let vc = CustomDatePickerViewController()
         vc.mainView = self
         

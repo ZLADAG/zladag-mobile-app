@@ -15,6 +15,8 @@ class SegmentedReviewViewController: UIViewController {
     
     var reviewCollection: UICollectionView!
     
+    var numOfReviews = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +81,21 @@ class SegmentedReviewViewController: UIViewController {
         reviewCollection.dataSource = self
         reviewCollection.delegate = self
         reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
+        reviewCollection.register(EmptyBoardingCollectionViewCell.self, forCellWithReuseIdentifier: EmptyBoardingCollectionViewCell.identifier)
+        
+        reviewCollection.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reviewCollection.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
+            reviewCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            reviewCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            reviewCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    func configureReviewCollectionViewOld(){
+//        reviewCollection.dataSource = self
+//        reviewCollection.delegate = self
+//        reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
         reviewCollection.alwaysBounceVertical = true
         reviewCollection.sizeToFit()
 //        reviewCollection.backgroundColor = .customGray
@@ -88,7 +105,7 @@ class SegmentedReviewViewController: UIViewController {
 //        }
         
         
-        calculateCellHeights()
+//        calculateCellHeights()
         
         // Register your custom cell
         reviewCollection.register(BoardingReviewCollectionViewCell.self, forCellWithReuseIdentifier: "boardingReviewCollectionViewCell")
@@ -97,8 +114,8 @@ class SegmentedReviewViewController: UIViewController {
         reviewCollection.dataSource = self
         reviewCollection.delegate = self
         reviewCollection.reloadData()
-        
     }
+    
     private func calculateCellHeights() {
         var items: [String] = ["1", "2", "3", "4", "5", "6"]
         for (index, item) in items.enumerated() {
@@ -166,34 +183,61 @@ extension SegmentedReviewViewController: UICollectionViewDelegate {
 }
 extension SegmentedReviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("helaurr")
-        return 8
+        if !(self.numOfReviews == 0) {
+            return self.numOfReviews
+        } else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "boardingReviewCollectionViewCell", for: indexPath) as? BoardingReviewCollectionViewCell {
+        
+        if !(numOfReviews == 0) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "boardingReviewCollectionViewCell", for: indexPath) as! BoardingReviewCollectionViewCell
+//            let string = photoPaths[indexPath.row]
+//            cell.configure(with: string)
+//            cell.setUpConstraints()
+            
+//            print("\(String(describing: cell.reviewerName.text))")
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyBoardingCollectionViewCell.identifier, for: indexPath) as! EmptyBoardingCollectionViewCell
+            return cell
+        }
+        
+
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "boardingReviewCollectionViewCell", for: indexPath) as? BoardingReviewCollectionViewCell {
             
 //            let string = photoPaths[indexPath.row]
 //            cell.configure(with: string)
 //            cell.setUpConstraints()
             
-//            print("nanonano") // NANO NANO MANIS ASAM ASIN RAMAI RASANYA!
 //            print("\(String(describing: cell.reviewerName.text))")
-            return cell
-        }
-        fatalError("Unable to dequeue subclassed cell")
+//            return cell
+//        } else {
+//            return UICollectionViewCell()
+//        }
+//        fatalError("Unable to dequeue subclassed cell")
     }
 }
 
 extension SegmentedReviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Calculate the size based on your cell content
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "boardingReviewCollectionViewCell", for: indexPath) as! BoardingReviewCollectionViewCell
-        // Configure yourCell with the data at indexPath
-//        cell.configure(with: yourData[indexPath.row])
-//        cell.configure()
-        cell.layoutIfNeeded()
-        let size = cell.contentView.systemLayoutSizeFitting(CGSize(width: screenSize.width, height: UIView.layoutFittingCompressedSize.height))
-        return size
+        if !(self.numOfReviews == 0) {
+            
+            // Calculate the size based on your cell content
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "boardingReviewCollectionViewCell", for: indexPath) as! BoardingReviewCollectionViewCell
+            // Configure yourCell with the data at indexPath
+    //        cell.configure(with: yourData[indexPath.row])
+    //        cell.configure()
+            cell.layoutIfNeeded()
+            let size = cell.contentView.systemLayoutSizeFitting(CGSize(width: screenSize.width, height: UIView.layoutFittingCompressedSize.height))
+            return size
+            
+        } else {
+            return CGSize(width: 350, height: 500)
+        }
+        
+      
     }
 }

@@ -14,6 +14,8 @@ class AnabulTersimpanViewController: UIViewController {
     public var viewModel: PetCreationViewModel?
     
     let mainTitle = UILabel()
+    let subLabel = UILabel()
+    let successImageView = UIImageView(image: UIImage(named: "success-state-image"))
     let cariPetHoteButton = UIButton()
 
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class AnabulTersimpanViewController: UIViewController {
         
         postRequest()
         setupTitle()
+        setupSubLabel()
+        setupSuccessImageView()
         setupCariPetHoteButton()
     }
     
@@ -42,6 +46,40 @@ class AnabulTersimpanViewController: UIViewController {
             mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 54),
             mainTitle.widthAnchor.constraint(equalToConstant: mainTitle.width),
             mainTitle.heightAnchor.constraint(equalToConstant: mainTitle.height),
+        ])
+    }
+    
+    func setupSubLabel() {
+        view.addSubview(subLabel)
+        
+        subLabel.text = "Untuk pengalaman lebih sesuai"
+        subLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        subLabel.textColor = .grey1
+        subLabel.adjustsFontSizeToFitWidth = true
+        subLabel.sizeToFit()
+        
+        subLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            subLabel.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 8),
+            subLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            subLabel.widthAnchor.constraint(equalToConstant: subLabel.width),
+            subLabel.heightAnchor.constraint(equalToConstant: subLabel.height),
+        ])
+        
+    }
+    
+    func setupSuccessImageView() {
+        view.addSubview(successImageView)
+        
+        successImageView.contentMode = .scaleAspectFill
+        successImageView.frame.size = CGSize(width: 173, height: 173)
+        
+        successImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            successImageView.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 64),
+            successImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            successImageView.widthAnchor.constraint(equalToConstant: successImageView.width),
+            successImageView.heightAnchor.constraint(equalToConstant: successImageView.height),
         ])
     }
     
@@ -144,8 +182,6 @@ class AnabulTersimpanViewController: UIViewController {
             "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
             forHTTPHeaderField: "Authorization"
         )
-        
-        
         
         request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")

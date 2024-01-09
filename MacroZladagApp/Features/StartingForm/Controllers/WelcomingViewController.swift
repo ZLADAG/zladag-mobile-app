@@ -34,8 +34,8 @@ class WelcomingViewController: UIViewController {
         
         lanjutButton.addTarget(self, action: #selector(clickLanjutButton), for: .touchUpInside)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomingViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomingViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

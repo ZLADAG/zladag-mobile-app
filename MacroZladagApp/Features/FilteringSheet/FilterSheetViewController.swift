@@ -168,10 +168,19 @@ class FilterSheetViewController: UIViewController {
     
     func setupNavBar() {
         let navView = UIView()
+        navView.backgroundColor = .white
         navView.frame = CGRect(x: 0, y: 0, width: 365 - 24 + 13, height: 23)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         let navLabel = UILabel()
         navLabel.text = "Filter"
+        navLabel.textColor = .textBlack
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 23)
         navView.addSubview(navLabel)
@@ -657,6 +666,7 @@ class FilterSheetViewController: UIViewController {
             khususKucingSwitch.topAnchor.constraint(equalTo: divider4.bottomAnchor, constant: 24),
             khususKucingSwitch.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             khususKucingSwitch.widthAnchor.constraint(equalToConstant: 342),
+            khususKucingSwitch.widthAnchor.constraint(equalToConstant: 342),
             khususKucingSwitch.heightAnchor.constraint(equalToConstant: 31),
             
             khususAnjingSwitch.topAnchor.constraint(equalTo: khususKucingSwitch.bottomAnchor, constant: 24),
@@ -702,6 +712,7 @@ class MinimumPriceTextField: UITextField {
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
@@ -751,6 +762,7 @@ class MaximumPriceTextField: UITextField {
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
+        doneToolbar.backgroundColor = .white
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))

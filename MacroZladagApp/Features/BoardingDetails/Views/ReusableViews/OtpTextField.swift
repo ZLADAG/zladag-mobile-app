@@ -189,32 +189,19 @@ extension OtpTextField: UITextFieldDelegate {
         if string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
             // Allow only one character
             status = textField.text!.count + string.count <= 1
-            
-            /// Auto update value with recent input
-//            if textField.text?.count == 1 && string.count != 0 {
-//                textField.text = string
-//            }
         }
-
-//        if status {
-//            /// Update filled text field
-//            if textField.text?.count == 1 && string.count == 0{
-//                filledTextField -= 1
-//            } else {
-//                filledTextField += 1
-//            }
-//        }
-        
-        
-
+       
         return status
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case otpTF4:
-            print("ready to validateOtp()")
-            delegate?.validateOtp()
+            if textField.text?.count != 0 {
+                print("ready to validateOtp()")
+                delegate?.validateOtp()
+            }
+            
             break
         default:
             print("textFieldDidEndEditing?")
@@ -249,28 +236,6 @@ extension OtpTextField: UITextFieldDelegate {
             }
         }
         
-        /// Auto move cursor backward (backspace)
-        if text?.count == 0 {
-            switch textField {
-            case otpTF1:
-                otpTF1.becomeFirstResponder()
-            case otpTF2:
-                otpTF2.isEnabled = true
-                otpTF1.isEnabled = true
-                otpTF1.becomeFirstResponder()
-            case otpTF3:
-                otpTF3.isEnabled = true
-                otpTF2.isEnabled = true
-                otpTF2.becomeFirstResponder()
-            case otpTF4:
-                otpTF4.isEnabled = true
-                otpTF3.isEnabled = true
-                otpTF3.becomeFirstResponder()
-            default:
-                break
-            }
-        }
-        
         /// Change border style
         if textField.hasText {
             addBorder(textField)
@@ -279,8 +244,33 @@ extension OtpTextField: UITextFieldDelegate {
             removeBorder(textField)
         }
 
-        
     }
     
+    /// Auto move cursor backward (backspace) -> implement UIKeyInput Protocol
+    @objc func keyboardInputShouldDelete(_ textField: UITextField) -> Bool {
+        // DEBUG
+        //print("User Pressed backspace in empty textfield ")
+
+        switch textField {
+        case otpTF1:
+            otpTF1.becomeFirstResponder()
+        case otpTF2:
+            otpTF1.isEnabled = true
+            otpTF1.becomeFirstResponder()
+            otpTF2.isEnabled = false
+        case otpTF3:
+            otpTF2.isEnabled = true
+            otpTF2.becomeFirstResponder()
+            otpTF3.isEnabled = false
+        case otpTF4:
+            otpTF3.isEnabled = true
+            otpTF3.becomeFirstResponder()
+            otpTF4.isEnabled = false
+
+        default:
+            break
+        }
+        return true
+    }
     
 }

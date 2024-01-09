@@ -38,7 +38,7 @@ class SegmentedInfoViewController: UIViewController {
     var aboutContentStack: UIStackView!
     
     // Location content
-    var locationMapView = BoardingMapViewController()
+    var locationMapView: BoardingMapViewController?
     var locationContentStack: UIStackView!
     
     var facilityInfoStack: UIStackView!
@@ -49,7 +49,6 @@ class SegmentedInfoViewController: UIViewController {
 
     var infoDetailsStack: UIStackView!
     
-    // CERITANYA LOADING ANJAAYYYZZ
     let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.style = .large
@@ -61,18 +60,15 @@ class SegmentedInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.mainVc?.group.notify(queue: .main) {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//                self.spinner.hidesWhenStopped = true
-//                self.spinner.stopAnimating()
-//                self.spinner.removeFromSuperview()
-//                
-//                self.setUpComponents()
-//                self.setUpConstraint()
-//            })
-//        }
-//        
-//        setupLoadingScreen()
+        if
+            let name = self.mainVc?.viewModel?.name,
+            let lat = self.mainVc?.viewModel?.latitude,
+            let long = self.mainVc?.viewModel?.longitude
+        {
+            self.locationMapView = BoardingMapViewController(name: name, lat: lat, long: long)
+        } else {
+            self.locationMapView = BoardingMapViewController(name: "Pet Hotel", lat: -6.301966049661171, long: 106.65301280644293)
+        }
         
         self.setUpComponents()
         self.setUpConstraint()
@@ -110,6 +106,11 @@ class SegmentedInfoViewController: UIViewController {
     //MARK: Setup Content
     private func setUpFacilityInfo() {
         guard let mainVcViewModel = mainVc?.viewModel else { return }
+        
+        print("\n>> SLUG: \(mainVcViewModel.slug)")
+        print("\n>> FACILITIES: \(mainVcViewModel.facilities)")
+        print()
+        
         // Set Title
         facilityTitleLabel = createTitleLabel("Fasilitas & Layanan")
           
@@ -119,11 +120,11 @@ class SegmentedInfoViewController: UIViewController {
         
         
         // Validate provided facilities
-        if (mainVcViewModel.facilities.contains("Playground")) {
+        if (mainVcViewModel.facilities.contains("Playground") || mainVcViewModel.facilities.contains("Tempat Bermain")) {
             let playground = createIconLabel("facility-playground-icon", "Tempat Bermain")
             allViewItems.append(playground)
         }
-        if (mainVcViewModel.facilities.contains("AC")) {
+        if (mainVcViewModel.facilities.contains("AC") || mainVcViewModel.facilities.contains("Ruangan Ber-AC")) {
             let ac = createIconLabel("facility-ac-icon", "Ruangan ber-AC")
             allViewItems.append(ac)
         }
@@ -133,11 +134,11 @@ class SegmentedInfoViewController: UIViewController {
         }
         
         // GANTI FACILITIES KE SERVICES
-        if (mainVcViewModel.facilities.contains("Food")) {
+        if (mainVcViewModel.facilities.contains("Food") || mainVcViewModel.facilities.contains("Termasuk Makanan")) {
             let petFood = createIconLabel("facility-petFood-icon", "Termasuk Makanan")
             allViewItems.append(petFood)
         }
-        if (mainVcViewModel.facilities.contains("Delivery")) {
+        if (mainVcViewModel.facilities.contains("Delivery") || mainVcViewModel.facilities.contains("Antar Jemput")) {
             let pickUp = createIconLabel("facility-pickUp-icon", "Jasa Antar Jemput")
             allViewItems.append(pickUp)
         }
@@ -145,11 +146,15 @@ class SegmentedInfoViewController: UIViewController {
             let grooming = createIconLabel("facility-grooming-icon", "Termasuk Grooming")
             allViewItems.append(grooming)
         }
-        if (mainVcViewModel.facilities.contains("Veterinary")) {
+        if (mainVcViewModel.facilities.contains("Veterinary") || mainVcViewModel.facilities.contains("Tersedia Dokter Hewan")) {
             let vet = createIconLabel("facility-vet-icon", "Tersedia Dokter Hewan")
             allViewItems.append(vet)
         }
     
+        print(">>>>>>")
+        for item in allViewItems {
+            print("facility item name:", item.layer.name)
+        }
         
         // DIVIDE ITEMS TO LEFT & RIGHT VIEW
         if allViewItems.count > 0 {
@@ -170,8 +175,14 @@ class SegmentedInfoViewController: UIViewController {
             }
             
             // Add right items
-            for i in (centerIdx + 1)...(totFacility - 1) {
-                rightViewItems.append(allViewItems[i])
+            print(">> totFacility", totFacility)
+            print(">> leftViewItems", leftViewItems.count)
+            if allViewItems.count == 1 {
+                leftViewItems.append(allViewItems[0])
+            } else if allViewItems.count > 1 {
+                for i in (centerIdx + 1)...(totFacility - 1) {
+                    rightViewItems.append(allViewItems[i])
+                }
             }
             
             // pop all items in allViewItems[]
@@ -213,9 +224,17 @@ class SegmentedInfoViewController: UIViewController {
         // Set Content
 //        cageSmallLabel = createCageLabel("S", 35, 60, "cm")
         
+        // MARK: "Z" cage name, optionals
         var labels = [UILabel]()
         for cage in mainVcViewModel.boardingCages {
-            labels.append(createCageLabel(cage.name, cage.width, cage.length, "cm"))
+            labels.append(
+                createCageLabel(
+                    String(cage.name.split(separator: " ").first ?? "Z"),
+                    cage.width,
+                    cage.length,
+                    "cm"
+                )
+            )
         }
         
         cageSizeContentStack = UIStackView(arrangedSubviews: labels)
@@ -316,7 +335,7 @@ class SegmentedInfoViewController: UIViewController {
         // Set Content - location address
         let label = createLocationLabel("\(mainVcViewModel.address), \(mainVcViewModel.provinceName)")
         
-        locationInfoStack = UIStackView(arrangedSubviews: [locationMapView.view, label])
+        locationInfoStack = UIStackView(arrangedSubviews: [locationMapView!.view, label])
         locationInfoStack.translatesAutoresizingMaskIntoConstraints = false
         locationInfoStack.axis  = NSLayoutConstraint.Axis.vertical
         locationInfoStack.distribution  = UIStackView.Distribution.fill
@@ -339,6 +358,8 @@ class SegmentedInfoViewController: UIViewController {
         stackView.distribution  = UIStackView.Distribution.fill
         stackView.alignment = UIStackView.Alignment.firstBaseline
         stackView.spacing   = 8.0
+                
+        stackView.layer.name = text
         
         return stackView
     }
@@ -471,6 +492,7 @@ class SegmentedInfoViewController: UIViewController {
         let icon =  UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.image = UIImage(named: img)
+        icon.tintColor = .customOrange
         icon.contentMode = .scaleAspectFit
         icon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 16).isActive = true

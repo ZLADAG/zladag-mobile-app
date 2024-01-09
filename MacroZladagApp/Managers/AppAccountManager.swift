@@ -11,7 +11,10 @@ import HorizonCalendar
 final class AppAccountManager {
     static let shared = AppAccountManager()
     
-    private init() {}
+    private init() {
+        let todayComps = Calendar.current.dateComponents(in: .current, from: Date())
+        let tomorrowComps = Calendar.current.dateComponents(in: .current, from: Date().addingTimeInterval(24 * 3600))
+    }
     
     /// Managers
     var apiCaller = APICaller.shared
@@ -26,60 +29,23 @@ final class AppAccountManager {
     var anjingCount = 0
     var kucingCount = 0
     
+    var calendarDidLaunchOnce: Bool = false
     var calendarTextDetails: String = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "in")
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: Date()).trimmingCharacters(in: CharacterSet(charactersIn: "2023"))
+        dateFormatter.dateStyle = .short
+        
+        return "\(Utils.getFormattedDateShorted(date: Date())) - \(Utils.getFormattedDateShortedWithYear(date: Date().addingTimeInterval(24 * 3600)))"
     }()
+    
+    var dateString1: String = Utils.getFormattedDateInNumbers(date: Date())
+    var dateString2: String = Utils.getFormattedDateInNumbers(date: Date().addingTimeInterval(24 * 3600))
+    
     var selectedDay1: Day?
     var selectedDay2: Day?
     
-    
-    // MARK: Onboarding Functions
-//    private func askPostRequest<T: Codable>(parameters: T, path: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
-//        apiCaller.postRequest(parameters: parameters, path: path) { (result, error) in
-//            if let result = result {
-//                completion(result, nil)
-//            } else if let error = error {
-//                completion(nil, error)
-//            }
-//        }
-//    }
-    
-    
-    
-    
-    
-    // MARK: HALF DONEEEE!
-    /// Verification Code (OTP): validate the inputed code
-    
-    
-    
-    // MARK: HALF DONEEEE!         mantappp celllll
-    /// Sign-up: by WA, google, apple
-    func signUp(signMethod: SignMethod, name: String, no: String, email: String?, completion: @escaping (Bool) -> Void) {
-        let signUp = SignUpBody(signMethod: signMethod.rawValue, name: name, phoneNumber: no, email: email)
-        
-//        askPostRequest(parameters: signUp, path: MyConstants.Urls.signUpURLPath) { (result, error) in
-//            print("\nsignUp: \(SignMethod.phoneNumber.rawValue)")
-//            if let result = result {
-//                print("success: \(result)")
-//            } else if let error = error {
-//                print("error: \(error.localizedDescription)")
-//            }
-//        }
-    }
-    
-    
-    // MARK: DONEEEE!
-    /// Sign-in: Get access token as sign-in identifier
-    
-    
-    // MARK: Undone!
-    /// Sign Out
-    func signOut(token: String) {
-    }
+    var chosenLocationCoordinate: LocationCoordinate? = nil
+    var chosenLocationName: String? = "Dekat Saya"
     
 }
 

@@ -7,6 +7,17 @@
 
 import UIKit
 
+/*
+ balikin token AuthManager
+ balikin scenedelegate
+ */
+
+/*
+ // TODO: (LAGI)
+    update UI tambahanabulviewcontroller
+    keyboard layout!
+ */
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -19,12 +30,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-//        if AuthManager.shared.isSignedIn {
-            window.rootViewController = TabBarViewController()
-//        } else {
-//            let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//            window.rootViewController = navVc
-//        }
+        window.rootViewController = TabBarViewController()
+        
+//        let navVc = UINavigationController(rootViewController: PesananTersimpanViewController())
+//        window.rootViewController = navVc
+        
         // TODO:
             /*
              - sudah simpan token lewat create account (otp -> getname -> signup -> success -> sign in & save token)
@@ -38,13 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              
              -  UI VIEW UNTUK NOT LOGGED IN STATE
              */
-        
-        
-//        let navVc = UINavigationController(rootViewController: SignInViewController())
-//        let navVc = UINavigationController(rootViewController: OnboardingFormViewController())
-//        window.rootViewController = navVc
-        
-        window.rootViewController = TabBarViewController()
+
         self.window = window
         self.window?.makeKeyAndVisible()
     }

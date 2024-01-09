@@ -23,12 +23,36 @@ class BoardingDetailsViewController: UIViewController {
         self.slug = slug
         super.init(nibName: nil, bundle: nil)
         print(slug)
+        
         self.infoSegment.mainVc = self
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    // LEFT BAR BUTTON ACTS AS BACK BUTTON
+    let leftBarButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        
+        let backImageView = UIImageView(image: UIImage(named: "rounded-barbackbutton"))
+        backImageView.contentMode = .scaleAspectFit
+        backImageView.frame.size = CGSize(width: 32, height: 32)
+        
+        button.addSubview(backImageView)
+        
+        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        
+        backImageView.frame = CGRect(
+            x: (button.frame.width - backImageView.width) / 2,
+            y: (button.frame.height - backImageView.height) / 2,
+            width: backImageView.width,
+            height: backImageView.height
+        )
+        
+        return button
+    }()
     
     // Content Scroll View
     var scrollview: UIScrollView = {
@@ -226,13 +250,30 @@ class BoardingDetailsViewController: UIViewController {
         return spinner
     }()
     
+    let statusBarView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .textBlack
         view.backgroundColor = .white
+        
+        // Custom back button
+        self.leftBarButton.addTarget(self, action: #selector(self.onClickBackBarButton), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.leftBarButton)
+        
         setupLoadingScreen()
+        
+        var locationCoordinate = LocationCoordinate()
+        
+        if let chosenLocationCoordinate = AppAccountManager.shared.chosenLocationCoordinate {
+            locationCoordinate = LocationCoordinate(
+                latitude: chosenLocationCoordinate.latitude,
+                longitude: chosenLocationCoordinate.longitude
+            )
+        }
 
-        APICaller.shared.getBoardingBySlug(slug: self.slug) { result in
+        APICaller.shared.getBoardingBySlug(slug: self.slug, coordinate: locationCoordinate) { result in
             var success = false
             switch result {
             case .success(let response):
@@ -245,38 +286,26 @@ class BoardingDetailsViewController: UIViewController {
                     boardingCategory: response.data.boardingCategory,
                     subdistrictName: response.data.subdistrict,
                     provinceName: response.data.province,
-//                    boardingCages: response.data.boardingCages,
-                    price: response.data.cheapestLodgingPrice,
+                    boardingCages: response.data.boardingCages,
+                    price: response.data.cheapestLodgingPrice ?? 0,
                     images: response.data.images,
                     facilities: response.data.boardingFacilities,
                     shouldHaveBeenVaccinated: response.data.shouldHaveBeenVaccinated,
                     shouldHaveToBeFleaFree: response.data.shouldHaveToBeFleaFree,
-                    minimumAge: response.data.minimumAge,
-                    maximumAge: response.data.maximumAge
+                    minimumAge: response.data.minimumAge ?? 0,
+                    maximumAge: response.data.maximumAge ?? 0,
+                    startCheckInTime: response.data.startCheckInTime,
+                    endCheckInTime: response.data.endCheckInTime,
+                    startCheckOutTime: response.data.startCheckOutTime,
+                    endCheckOutTime: response.data.endCheckOutTime,
+                    latitude: response.data.latitude,
+                    longitude: response.data.longitude
                 )
+                
                 success = true
                 break
             case .failure(let error):
                 print("ERROR IN GET BOARDING BY SLUG:\n\(error)")
-                let localResult = Utils.getOneBoardingDetails()!.data
-                self.viewModel = BoardingDetailsViewModel(
-                    name: localResult.name,
-                    distance: localResult.distance,
-                    address: localResult.address,
-                    slug: localResult.slug,
-                    description: localResult.description,
-                    boardingCategory: localResult.boardingCategory,
-                    subdistrictName: localResult.subdistrict,
-                    provinceName: localResult.province,
-//                    boardingCages: localResult.boardingCages,
-                    price: localResult.cheapestLodgingPrice,
-                    images: localResult.images,
-                    facilities: localResult.boardingFacilities,
-                    shouldHaveBeenVaccinated: localResult.shouldHaveBeenVaccinated,
-                    shouldHaveToBeFleaFree: localResult.shouldHaveToBeFleaFree,
-                    minimumAge: localResult.minimumAge,
-                    maximumAge: localResult.maximumAge
-                )
             }
             
             if success {
@@ -287,13 +316,17 @@ class BoardingDetailsViewController: UIViewController {
                     self.navigationController?.navigationBar.tintColor = .customOrange
                     self.navigationController?.navigationBar.barStyle = .default
                     
+                    self.navigationController?.navigationBar.backgroundColor = .clear
                     self.navigationController?.navigationBar.isTranslucent = true
-                    
+                    self.setupStatusBarView()
+
                     // Create the button
                     let shareButton = UIBarButtonItem(image: UIImage(named: "share-icon"), style: .plain, target: self, action: #selector(self.shareButtonTapped))
                     
+                   
+                    //MARK: TEMPORARY
                     // Add the button to the right side of the navigation bar
-                    self.navigationItem.rightBarButtonItem = shareButton
+//                    self.navigationItem.rightBarButtonItem = shareButton
                     
                     
                     // View Settings
@@ -329,6 +362,9 @@ class BoardingDetailsViewController: UIViewController {
         super.viewDidLayoutSubviews()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.backgroundColor = .clear
+    }
     //MARK: Functions
     
     func addInfoSegmentView() {
@@ -361,6 +397,19 @@ class BoardingDetailsViewController: UIViewController {
 //
 //        print("contentAboveHeight - REVIEW: \(contentAboveHeight)")
         
+    }
+    
+    func setupStatusBarView() {
+        view.addSubview(statusBarView)
+        statusBarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statusBarView.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            statusBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            statusBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+        statusBarView.backgroundColor = .white
+//        statusBarView.isHidden = true
     }
     
     func setupConstraints() {
@@ -458,7 +507,6 @@ class BoardingDetailsViewController: UIViewController {
             reviewSegment.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 0),
             reviewSegment.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: 0),
             reviewSegment.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            reviewSegment.view.heightAnchor.constraint(equalToConstant: 1100)
         ])
     }
     
@@ -539,19 +587,41 @@ class BoardingDetailsViewController: UIViewController {
            let threshold: CGFloat = contentAboveHeight - 40
     
 //           print("height:\(contentAboveHeight)")
-   
-           if yOffset > threshold {
-               // Stick the segmented view under the navigation bar
-               //            segmentedBarTopConstraint.constant = yOffset - threshold
-               scrollview.topAnchor.constraint(equalTo: view.bottomAnchor, constant: yOffset - threshold).isActive = true
-               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
-           } else {
-               // Keep the segmented view at its original position
-               //            segmentedBarTopConstraint.constant = 0
-               scrollview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-               //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
-           }
-       }
+        
+        if yOffset > threshold {
+            // Stick the segmented view under the navigation bar
+            //            segmentedBarTopConstraint.constant = yOffset - threshold
+            scrollview.topAnchor.constraint(equalTo: view.bottomAnchor, constant: yOffset - threshold).isActive = true
+            //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: yOffset - threshold).isActive = true
+        } else {
+            // Keep the segmented view at its original position
+            //            segmentedBarTopConstraint.constant = 0
+            scrollview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            //            infoSegmentedControlContainerView.topAnchor.constraint(equalTo: rateReviewStackView.bottomAnchor, constant: 16).isActive = true
+        }
+        
+        // MARK: Customize Navigation Bar
+        if yOffset > 0 {
+            UIView.animate(withDuration: 0.5) {
+                
+                // Scrolled down
+                self.navigationController?.navigationBar.backgroundColor = .white
+                
+                self.navigationItem.title = "\(self.viewModel?.name ?? "NO TITLE")"
+                self.view.addSubview(self.statusBarView)
+                self.statusBarView.backgroundColor = .white
+            }
+        } else {
+            UIView.animate(withDuration: 0.1) {
+                
+                self.navigationController?.navigationBar.backgroundColor = .clear
+                
+                self.navigationItem.title = ""
+                self.view.addSubview(self.statusBarView)
+                self.statusBarView.backgroundColor = .clear
+            }
+        }
+    }
     
     
     /// Change position of the underline
@@ -617,7 +687,7 @@ class BoardingDetailsViewController: UIViewController {
         let tag = viewModel?.boardingCategory ?? "NO TAG"
         let title = viewModel?.name ?? "NO TITLE"
         
-        let locDistance = 1.5
+        let locDistance = viewModel?.distance ?? "0"
         let locSubdistict = viewModel?.subdistrictName ?? "NO SUB-DISTR"
         let locProvince = viewModel?.provinceName ?? "NO SUB-PROV"
         
@@ -675,16 +745,21 @@ class BoardingDetailsViewController: UIViewController {
         control.currentPageIndicatorTintColor = .white
         control.backgroundColor = .clear
         control.contentVerticalAlignment = .bottom
+        control.isUserInteractionEnabled = false
         
-        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
+//        control.addTarget(BoardingDetailsViewController.self, action: #selector(photosPageControlValueChanged(_:)), for: .valueChanged)
         
         return control
     }
     private func createRateReviewStack(_ iconName: String, _ ratingNum: Double, _ reviewerNum: Int) -> UIStackView {
         
         ratingIcon = createRatingIcon(iconName)
-        ratingNumLabel = createRateNumLabel("\(ratingNum)")
-        reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
+        
+        // MARK: TEMPORARY
+//        ratingNumLabel = createRateNumLabel("\(ratingNum)")
+//        reviewerNumLabel = createGrayLabel("(\(reviewerNum) review)")
+        ratingNumLabel = createRateNumLabel("-")
+        reviewerNumLabel = createGrayLabel("")
         
 //        ratingIcon.frame.size = CGSize(width: 16, height: 16)
 //        ratingIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -776,7 +851,16 @@ class BoardingDetailsViewController: UIViewController {
             }
             
             navigationController?.present(navVc, animated: true, completion: nil)
+        } else {
+            let vc = ReservationViewController(slug: self.slug, petBoardingName: self.viewModel?.name ?? "Unidentified")
+            navigationController?.pushViewController(vc, animated: true)
+
         }
+    }
+    
+    @objc func onClickBackBarButton() {
+        self.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func photosPageControlValueChanged(_ sender: UIPageControl) {
@@ -792,7 +876,7 @@ class BoardingDetailsViewController: UIViewController {
         let selectedIndex = sender.selectedSegmentIndex
         
         showSegmentedView(index: selectedIndex)
-        print("Selected index: \(selectedIndex)")
+//        print("Selected index: \(selectedIndex)")
         changeSegmentedControlLinePosition()
     }
     

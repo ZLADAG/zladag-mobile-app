@@ -31,6 +31,8 @@ class SignInByWhatsappViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
         
         setUpComponents()
         
@@ -87,7 +89,7 @@ extension SignInByWhatsappViewController: PhoneNumTextFieldDelegate {
         let phoneNum = phoneInputField.txtField.text?.replacingOccurrences(of: " ", with: "", options: .regularExpression)
         
         /// Validate char between 10 - 13 without "62"
-        if phoneNum!.count > 10 {
+        if phoneNum!.count > 9 {
             nextButton.btn.isEnabled = true
         } else {
             nextButton.btn.isEnabled = false

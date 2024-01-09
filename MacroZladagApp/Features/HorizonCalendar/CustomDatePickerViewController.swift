@@ -9,8 +9,9 @@ import UIKit
 import HorizonCalendar
 
 class CustomDatePickerViewController: UIViewController {
-
+    
     var mainView: MainHeaderCollectionReusableView?
+    var reservationController: ReservationViewController?
     var controllerDelegate: SearchResultsViewController?
     var ubahControllerDelegate: UbahPencarianViewController?
     
@@ -101,10 +102,23 @@ class CustomDatePickerViewController: UIViewController {
         } else {
             maxDateLabel.text = Utils.getFormattedDate(date: Calendar.current.date(from: day2!.components)!)
         }
+        
+        if (day1 != nil) && (day2 != nil) {
+            simpanButton.isEnabled = true
+            simpanButton.layer.opacity = 1.0
+        } else {
+            simpanButton.isEnabled = false
+            simpanButton.layer.opacity = 0.4
+        }
     }
     
     func setupCalendar() {
-        calendarView = CalendarView(initialContent: makeContent()) // HORIZON CALENDAR'S
+        if !AppAccountManager.shared.calendarDidLaunchOnce {
+            calendarView = CalendarView(initialContent: makeContent()) // HORIZON CALENDAR'S
+        } else {
+            calendarView = CalendarView(initialContent: updateContent())
+        }
+        
         guard let calendarView else { return }
         
         calendarView.backgroundColor = .white
@@ -116,11 +130,11 @@ class CustomDatePickerViewController: UIViewController {
             
             self.doTheLogic(day)
 
-            let newContent = self.makeContent()
+            let newContent = self.updateContent()
             self.calendarView?.setContent(newContent)
-            print("1", self.selectedDay1)
-            print("2", self.selectedDay2)
-            print("")
+//            print("1", self.selectedDay1)
+//            print("2", self.selectedDay2)
+//            print("")
         }
 
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -136,11 +150,97 @@ class CustomDatePickerViewController: UIViewController {
     private func makeContent() -> CalendarViewContent {
         let calendar = Calendar.current
 
-        let startDate = calendar.date(from: DateComponents(year: 2023, month: 11, day: 01))!
+        let startDate = calendar.date(from: DateComponents(year: 2024, month: 1, day: 01))!
         let endDate = calendar.date(from: DateComponents(year: 2024, month: 12, day: 31))!
 
         var dateRangeToHighlight = Date.now...Date.now
+        let todayComps = Calendar.current.dateComponents(in: .current, from: Date())
+        let tomorrowComps = Calendar.current.dateComponents(in: .current, from: Date().addingTimeInterval(24 * 3600))
         
+        let lowerDate = calendar.date(from: todayComps)!
+        let upperDate = calendar.date(from: tomorrowComps)!
+        dateRangeToHighlight = lowerDate...upperDate
+        
+        return CalendarViewContent(
+            calendar: calendar,
+            visibleDateRange: startDate...endDate,
+            monthsLayout: .horizontal(options: HorizontalMonthsLayoutOptions())
+        )
+            .interMonthSpacing(24)
+            .verticalDayMargin(10)
+            .horizontalDayMargin(10)
+            .dayItemProvider { day in
+                
+                var invariantViewProperties = DayLabel.InvariantViewProperties.init(
+                    font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+                    textColor: .textBlack,
+                    backgroundColor: .clear
+                )
+                
+                if let todayComps = self.todayComps {
+                    if
+                        let dayTemp = day.components.day,
+                        let monthTemp = day.components.month,
+                        let yearTemp = day.components.year
+                    {
+                        if dayTemp == todayComps.day && monthTemp == todayComps.month && yearTemp == todayComps.year {
+                            invariantViewProperties.textColor = .textBlack
+                            invariantViewProperties.backgroundColor = .customLightGray.withAlphaComponent(0.2)
+                            self.selectedDay1 = day
+                            AppAccountManager.shared.selectedDay1 = day
+                        } else if dayTemp == (todayComps.day! + 1) && monthTemp == todayComps.month && yearTemp == todayComps.year {
+                            self.selectedDay2 = day
+                            AppAccountManager.shared.selectedDay2 = day
+                        }
+                        
+                    }
+                }
+                
+                
+                if self.selectedDay1 != nil && self.selectedDay2 != nil {
+                    let lowerDate = calendar.date(from: self.selectedDay1!.components)!
+                    let upperDate = calendar.date(from: self.selectedDay2!.components)!
+                    dateRangeToHighlight = lowerDate...upperDate
+                } else {
+                    let todayComps = Calendar.current.dateComponents(in: .current, from: Date())
+                    let tomorrowComps = Calendar.current.dateComponents(in: .current, from: Date().addingTimeInterval(24 * 3600))
+                    
+                    let lowerDate = calendar.date(from: todayComps)!
+                    let upperDate = calendar.date(from: tomorrowComps)!
+                    dateRangeToHighlight = lowerDate...upperDate
+                }
+                
+                if day == self.selectedDay1 {
+                    invariantViewProperties.textColor = .white
+                    invariantViewProperties.backgroundColor = .customOrange
+                }
+                
+                if day == self.selectedDay2 {
+                    invariantViewProperties.textColor = .white
+                    invariantViewProperties.backgroundColor = .customOrange
+                }
+                
+                
+                return DayLabel.calendarItemModel(
+                    invariantViewProperties: invariantViewProperties,
+                    viewModel: DayLabel.ViewModel.init(day: day)
+                )
+            }
+            .dayRangeItemProvider(for: [dateRangeToHighlight]) { dayRangeLayoutContext in
+                return DayRangeIndicatorView.calendarItemModel(
+                    invariantViewProperties: DayRangeIndicatorView.InvariantViewProperties.init(indicatorColor: .orangeDateRange),
+                    viewModel: DayRangeIndicatorView.ViewModel.init(framesOfDaysToHighlight: dayRangeLayoutContext.daysAndFrames.map { $0.frame })
+                )
+            }
+    }
+    
+    private func updateContent() -> CalendarViewContent {
+        let calendar = Calendar.current
+
+        let startDate = calendar.date(from: DateComponents(year: 2024, month: 1, day: 01))!
+        let endDate = calendar.date(from: DateComponents(year: 2024, month: 12, day: 31))!
+
+        var dateRangeToHighlight = Date.now...Date.now
         
         if self.selectedDay1 != nil && self.selectedDay2 != nil {
             let lowerDate = calendar.date(from: self.selectedDay1!.components)!
@@ -179,6 +279,7 @@ class CustomDatePickerViewController: UIViewController {
                             invariantViewProperties.textColor = .textBlack
                             invariantViewProperties.backgroundColor = .customLightGray.withAlphaComponent(0.2)
                         }
+                        
                     }
                 }
                 
@@ -294,6 +395,9 @@ class CustomDatePickerViewController: UIViewController {
         simpanButton.layer.cornerRadius = 4
         simpanButton.layer.masksToBounds = true
         
+        simpanButton.isEnabled = false
+        simpanButton.layer.opacity = 0.4
+        
         simpanButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             simpanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -307,7 +411,9 @@ class CustomDatePickerViewController: UIViewController {
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .white
         label.sizeToFit()
+        
         simpanButton.addSubview(label)
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: simpanButton.centerXAnchor),
@@ -352,7 +458,9 @@ class CustomDatePickerViewController: UIViewController {
     
     @objc func onClickSimpanButton() {
         print("simpan")
-        guard self.selectedDay1 != nil && self.selectedDay2 != nil else { return }
+        guard self.selectedDay1 != nil && self.selectedDay2 != nil else {
+            return
+        }
         
         let date1 = Calendar.current.date(from: self.selectedDay1!.components)!
         let date1String = Utils.getFormattedDateShorted(date: date1)
@@ -370,10 +478,16 @@ class CustomDatePickerViewController: UIViewController {
         AppAccountManager.shared.selectedDay1 = self.selectedDay1
         AppAccountManager.shared.selectedDay2 = self.selectedDay2
         
-//        print(self.mainView?.minDate) // MARK: CATATAN
-//        print(self.mainView?.maxDate)
+        AppAccountManager.shared.calendarDidLaunchOnce = true
         
+        if let reservationController {
+            let tanggalCell = reservationController.view.viewWithTag(461) as! TanggalReservationCollectionViewCell
+            tanggalCell.mainLabel.text = AppAccountManager.shared.calendarTextDetails
+            
+//            reservationController.navigationController?.dismiss(animated: true)
+        }
         dismiss(animated: true)
+
     }
     
     @objc func onClickCloseButton() {

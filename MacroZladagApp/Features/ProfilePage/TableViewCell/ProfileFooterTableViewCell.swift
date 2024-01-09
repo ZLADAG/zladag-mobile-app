@@ -61,14 +61,15 @@ class ProfileFooterTableViewCell: UITableViewCell {
         bgView.frame = CGRect(x: 0, y: 0, width: frame.width, height: UIScreen.main.bounds.height)
         addSubview(bgView)
         
+        // MARK: Profile Settings Button -> Temporary disabled
         addSubview(button)
         button.frame = CGRect(x: 0, y: 8, width: frame.width, height: 56)
-        
+
         let settingsIcon = UIImageView(image: UIImage(named: "settings-icon"))
         settingsIcon.tintColor = .black
         settingsIcon.frame = CGRect(x: 24, y: button.frame.height / 2 - 12, width: 24, height: 24)
         button.addSubview(settingsIcon)
-        
+
         let label = UILabel()
         label.text = "Profile Settings"
         label.font = .systemFont(ofSize: 16, weight: .bold)
@@ -76,7 +77,7 @@ class ProfileFooterTableViewCell: UITableViewCell {
         label.sizeToFit()
         button.addSubview(label)
         label.frame = CGRect(x: settingsIcon.right + 8, y: settingsIcon.frame.midY - (label.height / 2), width: label.width, height: label.height)
-        
+
         let rightChevron = UIImageView(image: UIImage(named: "right-chevron"))
         rightChevron.tintColor = .customLightGray
         rightChevron.contentMode = .scaleAspectFill
@@ -85,6 +86,7 @@ class ProfileFooterTableViewCell: UITableViewCell {
         rightChevron.frame.origin = CGPoint(x: button.width - 24 - rightChevron.width, y: settingsIcon.frame.midY - (rightChevron.height / 2))
         button.addTarget(self, action: #selector(onClickProfileSettingsButton), for: .touchUpInside)
         
+        // MARK: Log Out Button
         addSubview(logOutButton)
         logOutButton.frame = CGRect(x: (frame.width / 2) - (logOutButton.width / 2), y: button.bottom + 32, width: logOutButton.width, height: logOutButton.height)
         logOutButton.addTarget(self, action: #selector(onClickLogOutButton), for: .touchUpInside)
@@ -92,7 +94,10 @@ class ProfileFooterTableViewCell: UITableViewCell {
     }
     
     @objc func onClickProfileSettingsButton() {
-        print("onClickProfileSettingsButton")
+        guard let viewController else { return }
+        
+        let vc = ProfileSettingsViewController(viewModel: viewController.viewModel)
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func onClickLogOutButton() {
@@ -100,7 +105,7 @@ class ProfileFooterTableViewCell: UITableViewCell {
         alert.addAction(UIAlertAction(title: "Keluar", style: .destructive, handler: { [weak self] _ in
             UserDefaults.standard.removeObject(forKey: "token")
             print(AuthManager.shared.isSignedIn)
-            print(AuthManager.shared.token)
+            print(AuthManager.shared.token ?? "")
             
             let mainAppTabBarVC = TabBarViewController()
             mainAppTabBarVC.modalPresentationStyle = .fullScreen

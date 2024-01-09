@@ -41,20 +41,27 @@ class SignInViewController: UIViewController {
         overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .white
+        
         setUpComponents()
         
         switchOnboardPromptLB.delegate = self
-        appleSignInBtn.delegate = self
-        googleSignInBtn.delegate = self
         whatsappSignInBtn.delegate = self
+        
+        // MARK: Temporary disabled
+//        appleSignInBtn.delegate = self
+//        googleSignInBtn.delegate = self
     }
     
     private func setUpComponents(){
         
-        let divider = OptionDivider()
+//        let divider = OptionDivider()
+        
+        // MARK: Google & Apple sign in is temporary disabled
         /// set up sign in options stack
 //        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, googleSignInBtn, divider, whatsappSignInBtn])
-        signInOptionStack = UIStackView(arrangedSubviews: [appleSignInBtn, whatsappSignInBtn])
+        signInOptionStack = UIStackView(arrangedSubviews: [whatsappSignInBtn])
         signInOptionStack.translatesAutoresizingMaskIntoConstraints = false
         signInOptionStack.axis  = NSLayoutConstraint.Axis.vertical
         signInOptionStack.distribution  = UIStackView.Distribution.fill
@@ -107,7 +114,9 @@ extension SignInViewController: OnboardButtonOutlineDelegate {
         
         if optionType!.contains("apple") {
             print("go to SignInBy APPLE ViewController")
-            self.handleSignInWithApple()
+            print(">> SignInBy APPLE IS CURRENTLY DISABLED!")
+            
+//            self.handleSignInWithApple()
         }
         else if optionType!.contains("google") {
             print("go to SignInBy GOOGLE ViewController")

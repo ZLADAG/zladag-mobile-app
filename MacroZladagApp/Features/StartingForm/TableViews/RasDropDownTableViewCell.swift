@@ -11,7 +11,7 @@ class RasDropDownTableViewCell: UITableViewCell {
     static let identifier = "RasDropDownTableViewCell"
     
     let label = UILabel()
-    let checkBoxView = UIView()
+    let checkBoxView = UIImageView()
     
     public var isCheckBoxSelected: Bool = false
     public var petBreed: PetBreedRadioButton? = nil
@@ -26,10 +26,11 @@ class RasDropDownTableViewCell: UITableViewCell {
         self.petBreed = petBreed
         label.text = "\(petBreed.name)"
         
+        checkBoxView.contentMode = .scaleAspectFit
         if let petBreed = self.petBreed {
-            checkBoxView.backgroundColor = petBreed.isSelected ? .customBlueForLabels : .clear
+            checkBoxView.image = petBreed.isSelected ? UIImage(named: "reservation-checkbox-icon") : UIImage(named: "checkbox-icon-unselected")
         } else {
-            checkBoxView.backgroundColor = .clear
+            checkBoxView.image = UIImage(named: "checkbox-icon-unselected")
         }
     }
 
@@ -42,16 +43,12 @@ class RasDropDownTableViewCell: UITableViewCell {
         contentView.addSubview(checkBoxView)
         
         if let petBreed = self.petBreed {
-            if petBreed.isSelected {
-                checkBoxView.backgroundColor = petBreed.isSelected ? .customBlueForLabels : .clear
-            }
+            checkBoxView.image = petBreed.isSelected ? UIImage(named: "reservation-checkbox-icon") : UIImage(named: "checkbox-icon-unselected")
         } else {
-            checkBoxView.backgroundColor = .clear
+            checkBoxView.image = UIImage(named: "checkbox-icon-unselected")
         }
         
         checkBoxView.layer.cornerRadius = 2
-        checkBoxView.layer.borderColor = UIColor.customGrayForCheckboxBorder.cgColor
-        checkBoxView.layer.borderWidth = 1
         checkBoxView.frame.size = CGSize(width: 24, height: 24)
 
         // LABEL
@@ -78,6 +75,7 @@ class RasDropDownTableViewCell: UITableViewCell {
 //            label.heightAnchor.constraint(equalToConstant: label.height)
 //        ])
         
+        checkBoxView.translatesAutoresizingMaskIntoConstraints = false
         checkBoxView.frame = CGRect(x: frame.minX + 16, y: 0, width: checkBoxView.width, height: checkBoxView.height)
 
         label.center = checkBoxView.center

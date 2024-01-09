@@ -26,7 +26,6 @@ class AuthManager {
     }
     
     public var token: String? {
-//        return "Bearer 35|fn63bsyc8eSn7RF7FK5jRlgWn6lHtDKm5tI6xhQA0fcf0100"
         return UserDefaults.standard.value(forKey: "token") as? String
     }
     
@@ -80,8 +79,7 @@ class AuthManager {
        
         let sendPhoneCode = SendPhoneCodeBody(phoneNumber: phoneNumber)
         
-        APICaller.shared.postAskWhatsAppVerificationCode(
-            sendPhoneCodeBody: sendPhoneCode) { result in
+        APICaller.shared.postAskWhatsAppVerificationCode(sendPhoneCodeBody: sendPhoneCode) { result in
                 switch result {
                 case .success(let response):
                     completion(true, response.verificationCode.description)

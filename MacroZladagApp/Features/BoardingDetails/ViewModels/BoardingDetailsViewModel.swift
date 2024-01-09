@@ -9,18 +9,14 @@ import Foundation
 
 struct BoardingDetailsViewModel {
     let name: String
-    let distance: Double
+    let distance: String
     let address: String
     let slug: String
     let description: String
     let boardingCategory: String
     let subdistrictName: String
     let provinceName: String
-    let boardingCages: [BoardingCage] = [
-        BoardingCage(name: "S", length: 35, width: 60),
-        BoardingCage(name: "M", length: 60, width: 85),
-        BoardingCage(name: "L", length: 85, width: 110),
-    ]
+    let boardingCages: [BoardingCage]
     var rating: Double
     var numOfReviews: Int
     let price: Int
@@ -30,23 +26,47 @@ struct BoardingDetailsViewModel {
     let shouldHaveToBeFleaFree: Bool
     let minimumAge: Int
     let maximumAge: Int
+    let latitude: Double
+    let longitude: Double
     
-    let startCheckInTime: String = "99"
-    let endCheckInTime: String = "99"
-    let startCheckOutTime: String = "99"
-    let endCheckOutTime: String = "99"
+    let startCheckInTime: String
+    let endCheckInTime: String
+    let startCheckOutTime: String
+    let endCheckOutTime: String
     
-//    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, boardingCages: [BoardingCage], price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Int, shouldHaveToBeFleaFree: Int, minimumAge: Int, maximumAge: Int) {
-    init(name: String, distance: Double, address: String, slug: String, description: String, boardingCategory: String, subdistrictName: String, provinceName: String, price: Int, images: [String], facilities: [String], shouldHaveBeenVaccinated: Bool?, shouldHaveToBeFleaFree: Bool?, minimumAge: Int, maximumAge: Int) {
+    init(
+        name: String,
+        distance: Double,
+        address: String,
+        slug: String,
+        description: String,
+        boardingCategory: String,
+        subdistrictName: String,
+        provinceName: String,
+        boardingCages: [BoardingCage],
+        price: Int,
+        images: [String],
+        facilities: [String],
+        shouldHaveBeenVaccinated: Bool?,
+        shouldHaveToBeFleaFree: Bool?,
+        minimumAge: Int,
+        maximumAge: Int,
+        startCheckInTime: String,
+        endCheckInTime: String,
+        startCheckOutTime: String,
+        endCheckOutTime: String,
+        latitude: String,
+        longitude: String
+    ) {
         self.name = name
-        self.distance = distance
+        self.distance = Utils.getStringDistanceFormatted(distance)
         self.address = address
         self.slug = slug
         self.description = description
         self.boardingCategory = boardingCategory
         self.subdistrictName = subdistrictName
         self.provinceName = provinceName
-//        self.boardingCages = boardingCages
+        self.boardingCages = boardingCages
         self.price = price
         self.images = images
         self.facilities = facilities
@@ -54,20 +74,27 @@ struct BoardingDetailsViewModel {
         self.shouldHaveToBeFleaFree = shouldHaveToBeFleaFree ?? false
         self.minimumAge = minimumAge
         self.maximumAge = maximumAge
+        self.latitude = Double(latitude) ?? 0
+        self.longitude = Double(longitude) ?? 0
         
         self.rating = (Double.random(in: 3...5) * 10).rounded() / 10
         self.numOfReviews = Int.random(in: 20...100)
+        
+        // CHECKIN & CHECKOUT DATE
+        self.startCheckInTime = Self.getCusomizedString(dateString: startCheckInTime)
+        self.endCheckInTime = Self.getCusomizedString(dateString: endCheckInTime)
+        self.startCheckOutTime = Self.getCusomizedString(dateString: startCheckOutTime)
+        self.endCheckOutTime = Self.getCusomizedString(dateString: endCheckOutTime)
     }
     
-//    mutating func setupDates() {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//        
-//        self.startCheckInTime = dateFormatter.string(from: self.created_at)
-//        self.endCheckInTime = dateFormatter.string(from: self.updated_at)
-//        
-//        self.startCheckOutTime = dateFormatter.string(from: self.created_at)
-//        self.endCheckOutTime = dateFormatter.string(from: self.updated_at)
-//    }
+    private static func getCusomizedString(dateString: String) -> String {
+        let replacedDate: String = dateString.replacing(":", with: ".")
+        
+        let start = replacedDate.startIndex
+        let end = replacedDate.endIndex
+        let offsetEndBy3 = replacedDate.index(end, offsetBy: -3)
+        
+        return String(replacedDate[start...offsetEndBy3])
+    }
     
 }

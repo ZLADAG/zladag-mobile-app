@@ -9,60 +9,28 @@ import UIKit
 
 class CatsAndDogsCounterViewController: UIViewController {
 
-    var mainHeaderDelegate: MainHeaderCollectionReusableView?
-    var controllerDelegate: SearchResultsViewController?
-    var ubahControllerDelegate: UbahPencarianViewController?
+    weak var homeViewController: HomeViewController?
+    weak var reservationController: ReservationViewController?
+    weak var mainHeaderDelegate: MainHeaderCollectionReusableView?
+    weak var controllerDelegate: SearchResultsViewController?
+    weak var ubahControllerDelegate: UbahPencarianViewController?
     
     let kucingLabel: UILabel = {
         let label = UILabel()
         label.text = "Kucing"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .textBlack
+        label.sizeToFit()
         return label
     }()
     
     let anjingLabel: UILabel = {
         let label = UILabel()
         label.text = "Anjing"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .textBlack
+        label.sizeToFit()
         return label
-    }()
-    
-    let dogIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "dog-icon")
-        imageView.tintColor = .customLightGray
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    let catIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "cat-icon")
-        imageView.tintColor = .customLightGray
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    let kucingContainer: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .clear
-        uiView.layer.cornerRadius = 8
-        uiView.layer.masksToBounds = true
-        uiView.layer.borderColor = UIColor.customOrange.cgColor
-        uiView.layer.borderWidth = 2
-        return uiView
-    }()
-    
-    let anjingContainer: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .clear
-        uiView.layer.cornerRadius = 8
-        uiView.layer.masksToBounds = true
-        uiView.layer.borderColor = UIColor.customOrange.cgColor
-        uiView.layer.borderWidth = 2
-        return uiView
     }()
     
     public var kucingCount: Int = AppAccountManager.shared.kucingCount
@@ -70,7 +38,6 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     lazy var kucingCountLabel: UILabel = {
         let label = UILabel()
-//        label.text = self.kucingCount.description
         label.text = AppAccountManager.shared.kucingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .textBlack
@@ -80,7 +47,6 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     lazy var anjingCountLabel: UILabel = {
         let label = UILabel()
-//        label.text = self.anjingCount.description
         label.text = AppAccountManager.shared.anjingCount.description
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
@@ -136,53 +102,36 @@ class CatsAndDogsCounterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(AppAccountManager.shared.calendarTextDetails)
+        view.backgroundColor = .white
         
         self.anjingCount = AppAccountManager.shared.anjingCount
         self.kucingCount = AppAccountManager.shared.kucingCount
         
-        view.backgroundColor = .white
-        
-        view.addSubview(kucingContainer)
-        view.addSubview(catIcon)
-        view.addSubview(kucingLabel)
-        view.addSubview(incrementKucingButton)
-        view.addSubview(decrementKucingButton)
-        view.addSubview(kucingCountLabel)
-
-        view.addSubview(anjingContainer)
-        view.addSubview(dogIcon)
         view.addSubview(anjingLabel)
         view.addSubview(incrementAnjingButton)
         view.addSubview(decrementAnjingButton)
         view.addSubview(anjingCountLabel)
-
-        view.addSubview(simpanButton)
         
-//        if let controllerDelegate {
-//            kucingCountLabel.text = controllerDelegate.kucingCount.description
-//            anjingCountLabel.text = controllerDelegate.anjingCount.description
-//        }
-//        
-//        if let mainHeaderDelegate {
-//            kucingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.catLabel.text
-//            anjingCountLabel.text = mainHeaderDelegate.numberOfCatsAndDogsButton.dogLabel.text
-//        }
+        view.addSubview(kucingLabel)
+        view.addSubview(incrementKucingButton)
+        view.addSubview(decrementKucingButton)
+        view.addSubview(kucingCountLabel)
+        
+        view.addSubview(simpanButton)
         
         setupNavBar()
         setupButtons()
         simpanButton.addTarget(self, action: #selector(saveData), for: .touchUpInside)
-
     }
     
     func setupNavBar() {
         let navView = UIView()
         navView.frame = CGRect(x: 0, y: 0, width: 354, height: 32)
-        
+        navView.backgroundColor = .white
         
         let navLabel = UILabel()
         navLabel.text = "Jumlah anabul"
+        navLabel.textColor = .textBlack
         navLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         navLabel.frame = CGRect(x: 0, y: (32 - 23) / 2, width: 290, height: 23)
         
@@ -208,10 +157,6 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     func setupConstraints() {
-        kucingContainer.translatesAutoresizingMaskIntoConstraints = false
-        anjingContainer.translatesAutoresizingMaskIntoConstraints = false
-        dogIcon.translatesAutoresizingMaskIntoConstraints = false
-        catIcon.translatesAutoresizingMaskIntoConstraints = false
         anjingLabel.translatesAutoresizingMaskIntoConstraints = false
         kucingLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -226,70 +171,50 @@ class CatsAndDogsCounterViewController: UIViewController {
         simpanButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            anjingContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            anjingContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 48 + 16),
-            anjingContainer.widthAnchor.constraint(equalToConstant: 342),
-            anjingContainer.heightAnchor.constraint(equalToConstant: 68),
+            kucingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            kucingLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            kucingLabel.widthAnchor.constraint(equalToConstant: kucingLabel.width),
+            kucingLabel.heightAnchor.constraint(equalToConstant: kucingLabel.height),
             
-            kucingContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            kucingContainer.topAnchor.constraint(equalTo: anjingContainer.bottomAnchor, constant: 16),
-            kucingContainer.widthAnchor.constraint(equalToConstant: 342),
-            kucingContainer.heightAnchor.constraint(equalToConstant: 68),
-            
-            catIcon.leadingAnchor.constraint(equalTo: kucingContainer.leadingAnchor, constant: 16),
-            catIcon.topAnchor.constraint(equalTo: kucingContainer.topAnchor, constant: 16),
-            catIcon.widthAnchor.constraint(equalToConstant: 36),
-            catIcon.heightAnchor.constraint(equalToConstant: 36),
-            
-            dogIcon.leadingAnchor.constraint(equalTo: anjingContainer.leadingAnchor, constant: 16),
-            dogIcon.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 16),
-            dogIcon.widthAnchor.constraint(equalToConstant: 36),
-            dogIcon.heightAnchor.constraint(equalToConstant: 36),
-            
-            kucingLabel.leadingAnchor.constraint(equalTo: catIcon.trailingAnchor, constant: 8),
-            kucingLabel.topAnchor.constraint(equalTo: catIcon.topAnchor, constant: 9),
-            kucingLabel.widthAnchor.constraint(equalToConstant: 80),
-            kucingLabel.heightAnchor.constraint(equalToConstant: 18),
-            
-            anjingLabel.leadingAnchor.constraint(equalTo: dogIcon.trailingAnchor, constant: 8),
-            anjingLabel.topAnchor.constraint(equalTo: dogIcon.topAnchor, constant: 9),
-            anjingLabel.widthAnchor.constraint(equalToConstant: 80),
-            anjingLabel.heightAnchor.constraint(equalToConstant: 18),
+            anjingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            anjingLabel.topAnchor.constraint(equalTo: kucingLabel.bottomAnchor, constant: 29),
+            anjingLabel.widthAnchor.constraint(equalToConstant: anjingLabel.width),
+            anjingLabel.heightAnchor.constraint(equalToConstant: anjingLabel.height),
             
             // kucing counter
-            decrementKucingButton.leadingAnchor.constraint(equalTo: kucingContainer.leadingAnchor, constant: 220 - 15),
-            decrementKucingButton.topAnchor.constraint(equalTo: kucingContainer.topAnchor, constant: 18),
-            decrementKucingButton.widthAnchor.constraint(equalToConstant: 32),
-            decrementKucingButton.heightAnchor.constraint(equalToConstant: 32),
-            
-            kucingCountLabel.leadingAnchor.constraint(equalTo: decrementKucingButton.trailingAnchor, constant: 16),
-            kucingCountLabel.topAnchor.constraint(equalTo: kucingContainer.topAnchor, constant: 25.5),
-            kucingCountLabel.widthAnchor.constraint(equalToConstant: 25),
-            kucingCountLabel.heightAnchor.constraint(equalToConstant: 17),
-            
-            incrementKucingButton.leadingAnchor.constraint(equalTo: kucingCountLabel.trailingAnchor, constant: 16),
-            incrementKucingButton.topAnchor.constraint(equalTo: kucingContainer.topAnchor, constant: 18),
+            incrementKucingButton.centerYAnchor.constraint(equalTo: kucingLabel.centerYAnchor),
+            incrementKucingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             incrementKucingButton.widthAnchor.constraint(equalToConstant: 32),
             incrementKucingButton.heightAnchor.constraint(equalToConstant: 32),
             
+            kucingCountLabel.trailingAnchor.constraint(equalTo: incrementKucingButton.leadingAnchor, constant: -16),
+            kucingCountLabel.centerYAnchor.constraint(equalTo: kucingLabel.centerYAnchor),
+            kucingCountLabel.widthAnchor.constraint(equalToConstant: 25),
+            kucingCountLabel.heightAnchor.constraint(equalToConstant: 17),
+            
+            decrementKucingButton.centerYAnchor.constraint(equalTo: kucingLabel.centerYAnchor),
+            decrementKucingButton.trailingAnchor.constraint(equalTo: kucingCountLabel.leadingAnchor, constant: -16),
+            decrementKucingButton.widthAnchor.constraint(equalToConstant: 32),
+            decrementKucingButton.heightAnchor.constraint(equalToConstant: 32),
+            
             // anjing counter
-            decrementAnjingButton.leadingAnchor.constraint(equalTo: anjingContainer.leadingAnchor, constant: 220 - 15),
-            decrementAnjingButton.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 18),
-            decrementAnjingButton.widthAnchor.constraint(equalToConstant: 32),
-            decrementAnjingButton.heightAnchor.constraint(equalToConstant: 32),
-            
-            anjingCountLabel.leadingAnchor.constraint(equalTo: decrementAnjingButton.trailingAnchor, constant: 16),
-            anjingCountLabel.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 25.5),
-            anjingCountLabel.widthAnchor.constraint(equalToConstant: 25),
-            anjingCountLabel.heightAnchor.constraint(equalToConstant: 17),
-            
-            incrementAnjingButton.leadingAnchor.constraint(equalTo: anjingCountLabel.trailingAnchor, constant: 16),
-            incrementAnjingButton.topAnchor.constraint(equalTo: anjingContainer.topAnchor, constant: 18),
+            incrementAnjingButton.centerYAnchor.constraint(equalTo: anjingLabel.centerYAnchor),
+            incrementAnjingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             incrementAnjingButton.widthAnchor.constraint(equalToConstant: 32),
             incrementAnjingButton.heightAnchor.constraint(equalToConstant: 32),
             
+            anjingCountLabel.trailingAnchor.constraint(equalTo: incrementAnjingButton.leadingAnchor, constant: -16),
+            anjingCountLabel.centerYAnchor.constraint(equalTo: anjingLabel.centerYAnchor),
+            anjingCountLabel.widthAnchor.constraint(equalToConstant: 25),
+            anjingCountLabel.heightAnchor.constraint(equalToConstant: 17),
+            
+            decrementAnjingButton.centerYAnchor.constraint(equalTo: anjingLabel.centerYAnchor),
+            decrementAnjingButton.trailingAnchor.constraint(equalTo: anjingCountLabel.leadingAnchor, constant: -16),
+            decrementAnjingButton.widthAnchor.constraint(equalToConstant: 32),
+            decrementAnjingButton.heightAnchor.constraint(equalToConstant: 32),
+            
             simpanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            simpanButton.topAnchor.constraint(equalTo: kucingContainer.bottomAnchor, constant: 32),
+            simpanButton.topAnchor.constraint(equalTo: anjingLabel.bottomAnchor, constant: 30.5),
             simpanButton.widthAnchor.constraint(equalToConstant: 342),
             simpanButton.heightAnchor.constraint(equalToConstant: 44),
 
@@ -297,7 +222,6 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     func setupButtons() {
-        print("OKE")
         let anjingCount = Int(anjingCountLabel.text ?? "0")!
         let kucingCount = Int(kucingCountLabel.text ?? "0")!
         
@@ -331,11 +255,11 @@ class CatsAndDogsCounterViewController: UIViewController {
     }
     
     @objc func closeSheet() {
-        mainHeaderDelegate?.delegate?.dismiss(animated: true)
-        
-        if let controllerDelegate {
+        if controllerDelegate != nil {
             dismiss(animated: true)
         }
+        
+        dismiss(animated: true)
     }
     
     @objc func catDecrementButton() {
@@ -347,17 +271,14 @@ class CatsAndDogsCounterViewController: UIViewController {
         if kucingCount == 0 {
             decrementKucingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
-        
-//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func catIncrementButton() {
         self.kucingCount += 1
+        
         kucingCountLabel.text = self.kucingCount.description
         decrementKucingButton.imageView?.tintColor = .customOrange
         decrementKucingButton.imageView?.layer.opacity = 1.0
-        
-//        AppAccountManager.shared.kucingCount = self.kucingCount
     }
     
     @objc func dogDecrementButton() {
@@ -369,17 +290,14 @@ class CatsAndDogsCounterViewController: UIViewController {
         if anjingCount == 0 {
             decrementAnjingButton.imageView?.tintColor = .lightGray.withAlphaComponent(0.6)
         }
-        
-//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func dogIncrementButton() {
         self.anjingCount += 1
+        
         anjingCountLabel.text = self.anjingCount.description
         decrementAnjingButton.imageView?.tintColor = .customOrange
         decrementAnjingButton.imageView?.layer.opacity = 1.0
-        
-//        AppAccountManager.shared.anjingCount = self.anjingCount
     }
     
     @objc func saveData() {
@@ -406,5 +324,36 @@ class CatsAndDogsCounterViewController: UIViewController {
             
             dismiss(animated: true)
         }
+        
+        if let homeViewController {
+            let homeHeaderView = homeViewController.view.viewWithTag(451) as! MainHeaderCollectionReusableView
+            
+            homeHeaderView.numberOfCatsAndDogsButton.catLabel.text =  AppAccountManager.shared.kucingCount.description
+            homeHeaderView.numberOfCatsAndDogsButton.dogLabel.text =  AppAccountManager.shared.anjingCount.description
+            
+            homeViewController.navigationController?.dismiss(animated: true)
+        }
+        
+        if let reservationController {
+            if (self.kucingCount == 0) && (self.anjingCount == 0) {
+                let alert = UIAlertController(title: "Please set the amount of your dogs and cats!", message: "", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK!", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let anabulCell = reservationController.view.viewWithTag(462) as! AnabulReservationCollectionViewCell
+                anabulCell.mainLabel.text = "\(AppAccountManager.shared.kucingCount.description) Kucing \(AppAccountManager.shared.anjingCount.description) Anjing"
+                
+                // REFILL ANABUL ARRAY
+                reservationController.anabulArray.removeAll()
+                reservationController.setupAnabulArray() // step 1
+                reservationController.setupAnabulData() // step 2
+                
+                // RELOAD CELL
+                reservationController.collectionView.reloadData()
+                
+                reservationController.navigationController?.dismiss(animated: true)
+            }
+        }
+        
     }
 }
