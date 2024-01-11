@@ -526,9 +526,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
-            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
-                self.presentCatsAndDogsSheet()
-            } else {
+//            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+//                self.presentCatsAndDogsSheet()
+//            } else {
                 if indexPath.row != viewModels.count {
                     let viewModel = viewModels[indexPath.row]
                     let vc = BoardingDetailsViewController(slug: viewModel.slug)
@@ -540,13 +540,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 } else {
                     self.goToSearchViewController()
                 }
-            }
+//            }
             
             break
         case .sectionTempatBermain(viewModels: let viewModels):
-            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
-                self.presentCatsAndDogsSheet()
-            } else {
+//            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+//                self.presentCatsAndDogsSheet()
+//            } else {
                 if indexPath.row != viewModels.count {
                     let viewModel = viewModels[indexPath.row]
                     let vc = BoardingDetailsViewController(slug: viewModel.slug)
@@ -558,7 +558,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 } else {
                     self.goToSearchViewController()
                 }
-            }
+//            }
             
             break
         }
