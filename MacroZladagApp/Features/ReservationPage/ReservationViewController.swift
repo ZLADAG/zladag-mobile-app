@@ -149,6 +149,10 @@ class ReservationViewController: UIViewController {
     }
     
     public func setupAnabulArray() { // step 1
+        if AppAccountManager.shared.kucingCount == 0 && AppAccountManager.shared.anjingCount == 0 {
+            AppAccountManager.shared.kucingCount = 1
+        }
+            
         if AppAccountManager.shared.kucingCount > 0 {
             for i in 1...AppAccountManager.shared.kucingCount {
                 self.anabulArray.append("Kucing \(i)")
