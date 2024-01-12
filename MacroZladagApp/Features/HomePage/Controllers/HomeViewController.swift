@@ -526,9 +526,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .sectionPromo(stringOfAssets: _ /*let strings*/):
             break
         case .sectionMakan(viewModels: let viewModels):
-//            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
 //                self.presentCatsAndDogsSheet()
-//            } else {
+                AppAccountManager.shared.kucingCount = 1
+            }
+//            else {
                 if indexPath.row != viewModels.count {
                     let viewModel = viewModels[indexPath.row]
                     let vc = BoardingDetailsViewController(slug: viewModel.slug)
@@ -544,9 +546,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             break
         case .sectionTempatBermain(viewModels: let viewModels):
-//            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
+            if (AppAccountManager.shared.anjingCount == 0) && (AppAccountManager.shared.kucingCount == 0)  {
 //                self.presentCatsAndDogsSheet()
-//            } else {
+                AppAccountManager.shared.kucingCount = 1
+            }
+//            else {
                 if indexPath.row != viewModels.count {
                     let viewModel = viewModels[indexPath.row]
                     let vc = BoardingDetailsViewController(slug: viewModel.slug)
