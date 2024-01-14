@@ -151,6 +151,14 @@ final class APICaller {
             }
     }
     
+    public func postDeleteAccount(completion: @escaping (Result<SuccessResponse, Error>) -> Void) {
+        postRequestWithoutBody(
+            path: "/profile/delete",
+            usingToken: true) { result in
+                completion(result)
+            }
+    }
+    
     public func getImage(path: String) -> String  {
         return Constants.baseAPIURL + "/images?path=\(path)"
     }
@@ -246,6 +254,47 @@ final class APICaller {
             print("\nUSING HTTP BODY")
             req.httpBody = try? JSONEncoder().encode(body)
         }
+        
+        if usingToken {
+            req.addValue(
+                "Bearer " + (AuthManager.shared.token ?? "NO-TOKEN"),
+                forHTTPHeaderField: "Authorization"
+            )
+        }
+        
+        URLSession.shared.dataTask(with: req) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(A.self, from: data)
+                completion(Result.success(result))
+            } catch {
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(json)
+                
+                print("error when decoding in \(path):\n", error.localizedDescription)
+                completion(Result.failure(error))
+            }
+        }.resume()
+    }
+    
+    public func postRequestWithoutBody<A: Codable>(
+        path: String,
+        usingToken: Bool = false,
+        completion: @escaping (Result<A, Error>) -> Void
+    ) {
+        var req = URLRequest(url: URL(string: Constants.baseAPIURL + path)!)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+//        if let body {
+//            print("\nUSING HTTP BODY")
+//            req.httpBody = try? JSONEncoder().encode(body)
+//        }
         
         if usingToken {
             req.addValue(
