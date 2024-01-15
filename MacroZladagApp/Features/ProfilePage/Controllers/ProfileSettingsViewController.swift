@@ -82,6 +82,25 @@ class ProfileSettingsViewController: UIViewController {
     
     let appleSwitch = UISwitch()
     
+    let divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customLightGray3
+        return view
+    }()
+    
+    let bottomDivider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customLightGray3
+        return view
+    }()
+    
+    let deleteAccountMenu: UIView = {
+        let view = UIView()
+        return view
+    }()
+   
+    
+    
     // MARK: UI SETUPS
     
     override func viewDidLoad() {
@@ -92,8 +111,12 @@ class ProfileSettingsViewController: UIViewController {
         setupNavbar()
         setupProfileImageView()
         setupNameTextField()
-        setupSectionLabel()
-        setupSignInWithApple()
+        
+        //MARK: Temporary
+//        setupSectionLabel()
+//        setupSignInWithApple()
+        
+        setupDeleteAccount()
     }
     
     private func setupNavbar() {
@@ -258,8 +281,88 @@ class ProfileSettingsViewController: UIViewController {
         
     }
     
-    // MARK: MISC
+    private func setupDeleteAccount() {
+        view.addSubview(divider)
+        view.addSubview(deleteAccountMenu)
+        view.addSubview(bottomDivider)
+
+        let title = UILabel()
+        title.textColor = .customRed
+        title.text = "Hapus Akun"
+        
+        deleteAccountMenu.addSubview(title)
+
+        /// tap gesture
+        let deleteAccountTapGesture = UITapGestureRecognizer()
+        deleteAccountTapGesture.addTarget(self, action: #selector(deleteAccountMenuTapped(gesture:)))
+        
+        deleteAccountMenu.backgroundColor = .white
+        deleteAccountMenu.addGestureRecognizer(deleteAccountTapGesture)
+        
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        bottomDivider.translatesAutoresizingMaskIntoConstraints = false
+        deleteAccountMenu.translatesAutoresizingMaskIntoConstraints = false
+        title.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            divider.heightAnchor.constraint(equalToConstant: 8),
+            divider.topAnchor.constraint(equalTo: textField.safeAreaLayoutGuide.bottomAnchor, constant: 40),
+            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            
+            deleteAccountMenu.topAnchor.constraint(equalTo: divider.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            deleteAccountMenu.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            deleteAccountMenu.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+           
+            title.topAnchor.constraint(equalTo: deleteAccountMenu.topAnchor, constant: 16),
+            title.bottomAnchor.constraint(equalTo: deleteAccountMenu.bottomAnchor, constant: -16),
+            title.leadingAnchor.constraint(equalTo: deleteAccountMenu.leadingAnchor, constant: 24),
+            title.trailingAnchor.constraint(equalTo: deleteAccountMenu.trailingAnchor, constant: -24),
+            
+            bottomDivider.topAnchor.constraint(equalTo: deleteAccountMenu.bottomAnchor, constant: 0),
+            bottomDivider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            bottomDivider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            bottomDivider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+        ])
+    }
+    @objc func deleteAccountMenuTapped(gesture:UITapGestureRecognizer){
+        // Define the clicked effect
+        UIView.animate(withDuration: 0.1, animations: {
+            self.deleteAccountMenu.backgroundColor = UIColor.customLightGray3
+        }) { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.deleteAccountMenu.backgroundColor = UIColor.white
+            }
+        }
+        
+        let alert = UIAlertController(title: "Hapus Akun?", message: "", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive) {_ in
+            print("deleete")
+            DispatchQueue.main.async {
+                AuthManager.shared.postRequestDeleteAccount { isSuccess in
+                    print(isSuccess)
+                    DispatchQueue.main.async {
+                        if isSuccess {
+//                            self.dismiss(animated: true) 
+                            let mainAppTabBarVC = TabBarViewController()
+                            mainAppTabBarVC.modalPresentationStyle = .fullScreen
+
+                            self.present(mainAppTabBarVC, animated: true)
+                        }
+                    }
+                }
+            }
+            
+        })
+        alert.addAction(UIAlertAction(title: "Batal", style: .default, handler: nil))
+        present(alert, animated: true)
+        
+        
+        
+        print("arrowMenuBtnTapped")
+    }
     
+    // MARK: MISC
     private func fetchData() {
         var multipart = MultipartRequest()
         

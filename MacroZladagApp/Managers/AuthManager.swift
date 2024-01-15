@@ -38,6 +38,27 @@ class AuthManager {
         }
     }
     
+    public func postRequestDeleteAccount(completion: @escaping (Bool) -> Void) {
+
+        APICaller.shared.postDeleteAccount { result in
+            switch result {
+            case .success(let response):
+                print("SUCCESSFULLY REMOVED")
+                print(response)
+                UserDefaults.standard.removeObject(forKey: "token")
+                UserDefaults.standard.removeObject(forKey: "userId")
+                completion(true)
+                break
+            case .failure(let error):
+                print("FAILED to REMOVED")
+                print(error)
+                completion(false)
+                break
+            }
+        }
+      
+    }
+    
     public func postRequestSignInByPhoneNumber(phoneNumber: String, completion: @escaping (Bool) -> Void) {
         let signInPhoneBody = SignInPhoneBody(signMethod: "phoneNumber", phoneNumber: phoneNumber)
         
